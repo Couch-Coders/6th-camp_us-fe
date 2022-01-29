@@ -1,17 +1,24 @@
-import React, { useContext } from 'react';
-import styled from 'styled-components';
+import React, { useContext, useEffect, useState } from 'react';
 import { CampContext } from '../../context/CampContext';
 import Slider from 'react-slick';
 import CampInfoTag from '../CampInfoTag/CampInfoTag';
+import { style } from './CampInformation.style';
 
 const CampInformation = ({ reviewImg, campInfo }) => {
+  const [slideShowCount, setSlideShowCount] = useState();
   const data = useContext(CampContext);
+
+  useEffect(() => {
+    reviewImg.length === 1 && setSlideShowCount(1);
+    reviewImg.length === 2 && setSlideShowCount(2);
+    reviewImg.length >= 3 && setSlideShowCount(3);
+  }, []);
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: 3,
+    slidesToShow: slideShowCount ? slideShowCount : 3,
     slidesToScroll: 1,
   };
 
@@ -34,12 +41,6 @@ const CampInformation = ({ reviewImg, campInfo }) => {
                 <SlideImage />
               </slide>
             ))}
-            <slide>
-              <SlideImage />
-            </slide>
-            <slide>
-              <SlideImage />
-            </slide>
           </Slider>
         </SliderWrap>
       )}
@@ -92,128 +93,17 @@ const CampInformation = ({ reviewImg, campInfo }) => {
 
 export default CampInformation;
 
-const Title = styled.title`
-  width: 100%;
-  display: flex;
-  justify-content: flex-start;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000000;
-  margin-bottom: 21px;
-`;
-
-const Intro = styled.p`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 22px;
-  color: #000000;
-  padding-bottom: 16px;
-`;
-
-const ImageNoticeWrap = styled.div`
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
-
-const ImageNotice = styled.div`
-  width: 70%;
-  height: 150px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #f0f0f0;
-  margin: 20px 0 50px 0;
-`;
-
-const SliderWrap = styled.div`
-  width: 480px;
-  margin-bottom: 50px;
-
-  .slick-prev {
-    left: -57px;
-  }
-
-  .slick-next {
-    right: -37px;
-  }
-
-  .slick-next:before {
-    content: '→';
-  }
-
-  .slick-prev:before,
-  .slick-next:before {
-    color: #c2c2c2;
-    font-size: 30px;
-    opacity: 1;
-  }
-`;
-
-const SlideImage = styled.div`
-  width: 150px;
-  height: 150px;
-  /* background: url(1:1.png); */
-  margin-right: 14px;
-  border: 0.1px solid black;
-`;
-
-const NoticeWrap = styled.div`
-  width: 482px;
-  height: 93px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  background: #f0f0f0;
-  margin-bottom: 37px;
-`;
-
-const Notice = styled.p`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
-`;
-
-const CampInfoWrap = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 30px;
-`;
-
-const Table = styled.table`
-  width: 100%;
-  padding-bottom: 60px;
-`;
-
-const Th = styled.th`
-  display: flex;
-  justify-content: flex-start;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: bold;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000000;
-`;
-
-const Td = styled.td`
-  width: 70%;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000000;
-  padding-bottom: 18px;
-`;
+const {
+  Title,
+  Intro,
+  ImageNoticeWrap,
+  ImageNotice,
+  SliderWrap,
+  SlideImage,
+  NoticeWrap,
+  Notice,
+  CampInfoWrap,
+  Table,
+  Th,
+  Td,
+} = style;
