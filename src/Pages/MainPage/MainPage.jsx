@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import styled, { css } from 'styled-components';
+import CampInformation from '../../Components/CampInformation/CampInformation';
 import CampInfoTag from '../../Components/CampInfoTag/CampInfoTag';
+import CampLocation from '../../Components/CampLocation/CampLocation';
+import CampReview from '../../Components/CampReview/CampReview';
 import * as campService from '../../Service/camps';
 
 const MainPage = () => {
@@ -12,7 +15,6 @@ const MainPage = () => {
 
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
-    console.log(role);
     setSelectedTabs(role);
   }
 
@@ -136,6 +138,9 @@ const MainPage = () => {
               </ReviewTabs>
             </TabsWrap>
           </TabsContainer>
+          {selectedTabs === 'information' && <CampInformation />}
+          {selectedTabs === 'location' && <CampLocation />}
+          {selectedTabs === 'review' && <CampReview />}
         </Container>
       )}
     </Main>
@@ -243,6 +248,7 @@ const TabsContainer = styled.div`
   display: flex;
   justify-content: center;
   width: 100%;
+  padding-bottom: 25px;
 `;
 
 const TabsWrap = styled.div`
