@@ -1,21 +1,11 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 import { CampContext } from '../../context/CampContext';
 import Slider from 'react-slick';
+import CampInfoTag from '../CampInfoTag/CampInfoTag';
 
-const CampInformation = ({ reviewImg }) => {
+const CampInformation = ({ reviewImg, campInfo }) => {
   const data = useContext(CampContext);
-
-  // function SamplePrevArrow(props) {
-  //   const { className, style, onClick } = props;
-  //   return (
-  //     <div
-  //       className={className}
-  //       style={{ ...style, display: 'block', color: 'black' }}
-  //       onClick={onClick}
-  //     />
-  //   );
-  // }
 
   const settings = {
     dots: false,
@@ -23,7 +13,6 @@ const CampInformation = ({ reviewImg }) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
-    // prevArrow: <SamplePrevArrow />,
   };
 
   return (
@@ -51,6 +40,42 @@ const CampInformation = ({ reviewImg }) => {
           자세한 문의사항이 있으시면 홈페이지 또는 연락처로 문의주세요.
         </Notice>
       </NoticeWrap>
+      <Title>캠핑장 시설정보</Title>
+      <CampInfoWrap>
+        {campInfo.map((item, index) => (
+          <CampInfoTag tag={item} key={index} />
+        ))}
+      </CampInfoWrap>
+      <Table>
+        <tr>
+          <Th>주요시설</Th>
+          <Td>{data.induty}</Td>
+        </tr>
+        <tr>
+          <Th>사이트간 거리</Th>
+          <Td>{data.sitedStnc}</Td>
+        </tr>
+        <tr>
+          <Th>카라반 내부시설</Th>
+          <Td>{data.caravInnerFclty}</Td>
+        </tr>
+        <tr>
+          <Th>글램핑 내부시설</Th>
+          <Td>{data.glampInnerFclty}</Td>
+        </tr>
+        <tr>
+          <Th>캠핑 장비대여</Th>
+          <Td>{data.eqpmnLendCl}</Td>
+        </tr>
+        <tr>
+          <Th>반료동물 출입</Th>
+          <Td>{data.animalCmgCl}</Td>
+        </tr>
+        <tr>
+          <Th>화로대</Th>
+          <Td>{data.brazierCl}</Td>
+        </tr>
+      </Table>
     </>
   );
 };
@@ -120,6 +145,7 @@ const NoticeWrap = styled.div`
   align-items: center;
   justify-content: center;
   background: #f0f0f0;
+  margin-bottom: 37px;
 `;
 
 const Notice = styled.p`
@@ -128,4 +154,38 @@ const Notice = styled.p`
   font-weight: normal;
   font-size: 14px;
   line-height: 16px;
+`;
+
+const CampInfoWrap = styled.div`
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+`;
+
+const Table = styled.table`
+  width: 100%;
+  padding-bottom: 60px;
+`;
+
+const Th = styled.th`
+  display: flex;
+  justify-content: flex-start;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+`;
+
+const Td = styled.td`
+  width: 70%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  padding-bottom: 18px;
 `;

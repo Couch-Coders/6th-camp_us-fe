@@ -16,7 +16,7 @@ const InfoTag = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 1px 20px;
-  margin: 16px 7px 0px 0px;
+  margin: 0 7px 7px 0;
   height: 22px;
   background: #fafafa;
   border: 1px solid #d9d9d9;

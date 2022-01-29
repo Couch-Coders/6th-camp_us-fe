@@ -144,7 +144,7 @@ const DetailPage = () => {
           </TabsContainer>
           <CampContext.Provider value={campData}>
             {selectedTabs === 'information' && (
-              <CampInformation reviewImg={reviewImg} />
+              <CampInformation reviewImg={reviewImg} campInfo={campInfo} />
             )}
             {selectedTabs === 'location' && <CampLocation />}
             {selectedTabs === 'review' && <CampReview />}
@@ -177,6 +177,7 @@ const Header = styled.header`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  padding-bottom: 16px;
 `;
 
 const Title = styled.span`
