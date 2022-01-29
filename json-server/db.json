@@ -73,8 +73,10 @@
     "caravInnerFclty": "침대, TV, 에어컨, 냉장고",
     "like_cnt": 13,
     "sitedStnc": 0,
-    "swrmCo": 1
+    "swrmCo": 1,
+    "rate": 4.0
   },
+
   "campReview": [
     {
       "currentPage": 1,

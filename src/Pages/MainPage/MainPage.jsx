@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import CampInfoTag from '../../Components/CampInfoTag/CampInfoTag';
 import * as campService from '../../Service/camps';
 
@@ -8,6 +8,13 @@ const MainPage = () => {
   const [campInfo, setCampInfo] = useState([]);
   const [campReview, setCampReview] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedTabs, setSelectedTabs] = useState('information');
+
+  function setClickedTabs(e) {
+    const role = e.target.dataset.role;
+    console.log(role);
+    setSelectedTabs(role);
+  }
 
   async function getCampData() {
     setIsLoading(true);
@@ -86,10 +93,49 @@ const MainPage = () => {
               <Td>{campData.induty}</Td>
             </tr>
             <tr>
-              {campReview && <Th>별점 {campReview[0].contents[0].rate}</Th>}
-              <Td></Td>
+              {campData && <Th>별점 {campData.rate}</Th>}
+              <Td>
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 14 14"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M6.04426 1.10489C6.33393 0.163822 7.66607 0.163825 7.95574 1.1049L8.80337 3.85854C8.93251 4.27807 9.32015 4.56434 9.75911 4.56434H12.6123C13.5679 4.56434 13.9791 5.77633 13.2209 6.35785L10.8212 8.19818C10.4895 8.45255 10.351 8.88639 10.474 9.28589L11.3684 12.1914C11.6549 13.1224 10.577 13.8719 9.8041 13.2792L7.60855 11.5954C7.24956 11.3201 6.75044 11.3201 6.39145 11.5954L4.19591 13.2792C3.42301 13.8719 2.34506 13.1224 2.63161 12.1914L3.52599 9.28588C3.64897 8.88639 3.51049 8.45255 3.1788 8.19818L0.779129 6.35785C0.0208566 5.77633 0.432093 4.56434 1.38768 4.56434H4.24089C4.67985 4.56434 5.06749 4.27807 5.19663 3.85853L6.04426 1.10489Z"
+                    fill="#FAAD14"
+                  />
+                </svg>
+              </Td>
             </tr>
           </Table>
+          <Devider />
+          <TabsContainer>
+            <TabsWrap>
+              <InfoTabs
+                onClick={setClickedTabs}
+                data-role="information"
+                selectedTabs={selectedTabs}
+              >
+                캠핑장 소개
+              </InfoTabs>
+              <LocationTabs
+                onClick={setClickedTabs}
+                data-role="location"
+                selectedTabs={selectedTabs}
+              >
+                위치/주변 정보
+              </LocationTabs>
+              <ReviewTabs
+                onClick={setClickedTabs}
+                data-role="review"
+                selectedTabs={selectedTabs}
+              >
+                후기
+              </ReviewTabs>
+            </TabsWrap>
+          </TabsContainer>
         </Container>
       )}
     </Main>
@@ -163,6 +209,7 @@ const Thumbnail = styled.img`
 
 const Table = styled.table`
   width: 100%;
+  margin-bottom: 20px;
 `;
 
 const Th = styled.th`
@@ -185,4 +232,105 @@ const Td = styled.td`
   line-height: 16px;
   color: #000000;
   padding-bottom: 18px;
+`;
+
+const Devider = styled.div`
+  width: 100%;
+  border: 1px solid #d9d9d9;
+`;
+
+const TabsContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+`;
+
+const TabsWrap = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0px;
+  width: 267px;
+  height: 57px;
+  background: rgba(255, 255, 255, 1e-5);
+  flex: none;
+  order: 1;
+  flex-grow: 0;
+  z-index: 1;
+`;
+
+const InfoTabs = styled.span`
+  height: 100%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  cursor: pointer;
+
+  ${(props) =>
+    props.selectedTabs === 'information'
+      ? css`
+          color: #389e0d;
+          border-bottom: 2px solid #389e0d;
+        `
+      : css`
+          color: #000000;
+        `}
+`;
+
+const LocationTabs = styled.span`
+  height: 100%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  cursor: pointer;
+
+  ${(props) =>
+    props.selectedTabs === 'location'
+      ? css`
+          color: #389e0d;
+          border-bottom: 2px solid #389e0d;
+        `
+      : css`
+          color: #000000;
+        `}
+`;
+
+const ReviewTabs = styled.span`
+  height: 100%;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 24px;
+  display: flex;
+  align-items: center;
+  flex: none;
+  order: 0;
+  flex-grow: 0;
+  cursor: pointer;
+
+  ${(props) =>
+    props.selectedTabs === 'review'
+      ? css`
+          color: #389e0d;
+          border-bottom: 2px solid #389e0d;
+        `
+      : css`
+          color: #000000;
+        `}
 `;
