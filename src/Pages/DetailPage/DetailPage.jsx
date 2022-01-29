@@ -4,6 +4,7 @@ import CampInformation from '../../Components/CampInformation/CampInformation';
 import CampInfoTag from '../../Components/CampInfoTag/CampInfoTag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
 import CampReview from '../../Components/CampReview/CampReview';
+import { CampContext } from '../../context/CampContext';
 import * as campService from '../../Service/camps';
 
 const DetailPage = () => {
@@ -138,9 +139,11 @@ const DetailPage = () => {
               </ReviewTabs>
             </TabsWrap>
           </TabsContainer>
-          {selectedTabs === 'information' && <CampInformation />}
-          {selectedTabs === 'location' && <CampLocation />}
-          {selectedTabs === 'review' && <CampReview />}
+          <CampContext.Provider value={campData}>
+            {selectedTabs === 'information' && <CampInformation />}
+            {selectedTabs === 'location' && <CampLocation />}
+            {selectedTabs === 'review' && <CampReview />}
+          </CampContext.Provider>
         </Container>
       )}
     </Main>

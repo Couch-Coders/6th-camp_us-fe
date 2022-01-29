@@ -1,5 +1,11 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { CampContext } from '../../context/CampContext';
 
-const CampInformation = (props) => <div>info</div>;
+const CampInformation = (props) => {
+  const data = useContext(CampContext);
+  console.log(data);
+
+  return <div>info</div>;
+};
 
 export default CampInformation;
