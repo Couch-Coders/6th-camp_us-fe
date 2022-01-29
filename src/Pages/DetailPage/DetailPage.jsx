@@ -41,6 +41,7 @@ const DetailPage = () => {
     getCampData();
     getCampReview();
   }, []);
+
   return (
     <Main>
       {!isLoading && (

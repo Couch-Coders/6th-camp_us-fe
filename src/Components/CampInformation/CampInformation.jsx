@@ -19,21 +19,31 @@ const CampInformation = ({ reviewImg, campInfo }) => {
     <>
       <Title>소개글</Title>
       <Intro>{data.intro}</Intro>
-      <SliderWrap sliderLength={3}>
-        <Slider {...settings}>
-          {reviewImg.map(() => (
+      {reviewImg.length < 1 ? (
+        <ImageNoticeWrap>
+          <ImageNotice>
+            <Notice>등록된 이미지 리뷰가 없습니다.</Notice>
+            <Notice>이 캠핑장의 첫 리뷰어가 되어주세요!</Notice>
+          </ImageNotice>
+        </ImageNoticeWrap>
+      ) : (
+        <SliderWrap sliderLength={3}>
+          <Slider {...settings}>
+            {reviewImg.map(() => (
+              <slide>
+                <SlideImage />
+              </slide>
+            ))}
             <slide>
               <SlideImage />
             </slide>
-          ))}
-          <slide>
-            <SlideImage />
-          </slide>
-          <slide>
-            <SlideImage />
-          </slide>
-        </Slider>
-      </SliderWrap>
+            <slide>
+              <SlideImage />
+            </slide>
+          </Slider>
+        </SliderWrap>
+      )}
+
       <NoticeWrap>
         <Notice>기재된 사항과 다를 수 있습니다.</Notice>
         <Notice>
@@ -103,6 +113,24 @@ const Intro = styled.p`
   line-height: 22px;
   color: #000000;
   padding-bottom: 16px;
+`;
+
+const ImageNoticeWrap = styled.div`
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
+
+const ImageNotice = styled.div`
+  width: 70%;
+  height: 150px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: #f0f0f0;
+  margin: 20px 0 50px 0;
 `;
 
 const SliderWrap = styled.div`
