@@ -11,6 +11,7 @@ const DetailPage = () => {
   const [campData, setCampData] = useState();
   const [campInfo, setCampInfo] = useState([]);
   const [campReview, setCampReview] = useState();
+  const [reviewImg, setReviewImg] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTabs, setSelectedTabs] = useState('information');
 
@@ -31,13 +32,15 @@ const DetailPage = () => {
   async function getCampReview() {
     const response = await campService.getReview();
     setCampReview(response);
+    response[0].contents.forEach((item) => {
+      setReviewImg((prev) => [...prev, item.imgUrl]);
+    });
   }
 
   useEffect(() => {
     getCampData();
     getCampReview();
   }, []);
-
   return (
     <Main>
       {!isLoading && (
@@ -140,7 +143,9 @@ const DetailPage = () => {
             </TabsWrap>
           </TabsContainer>
           <CampContext.Provider value={campData}>
-            {selectedTabs === 'information' && <CampInformation />}
+            {selectedTabs === 'information' && (
+              <CampInformation reviewImg={reviewImg} />
+            )}
             {selectedTabs === 'location' && <CampLocation />}
             {selectedTabs === 'review' && <CampReview />}
           </CampContext.Provider>
