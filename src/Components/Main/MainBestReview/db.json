@@ -1,0 +1,69 @@
+{
+    "bestReview": [
+        {
+          "review_id": 1,
+          "camp_id": 1,
+          "address": "인천시 강화군",
+          "detailAddress": "달천공원오토캠핑장",
+          "content": "여기너무좋아요",
+          "rate": 1.5,
+          "imgUrl": "www.gocamping.co.kr",
+          "createdDate": "2022-01-24:20:03:23:0023",
+          "lastModifiedDate": "2022-01-25:20:03:23:0023",
+          "createdBy": "장대영",
+          "lastModifedBy": "김상운"
+        },
+        {
+            "review_id": 2,
+            "camp_id": 1,
+            "address": "인천시 강화군",
+            "detailAddress": "펫앤트리",
+            "content": "여기너무좋아요",
+            "rate": 1.3,
+            "imgUrl": "www.gocamping.co.kr",
+            "createdDate": "2022-01-24:20:03:23:0023",
+            "lastModifiedDate": "2022-01-25:20:03:23:0023",
+            "createdBy": "장대영",
+            "lastModifedBy": "김상운"
+          },
+          {
+            "review_id": 3,
+            "camp_id": 1,
+            "address": "인천시 강화군",
+            "detailAddress": "제천모드니애캠핑장",
+            "content": "여기너무좋아요",
+            "rate": 2.3,
+            "imgUrl": "www.gocamping.co.kr",
+            "createdDate": "2022-01-24:20:03:23:0023",
+            "lastModifiedDate": "2022-01-25:20:03:23:0023",
+            "createdBy": "장대영",
+            "lastModifedBy": "김상운"
+          },
+          {
+            "review_id": 4,
+            "camp_id": 1,
+            "address": "인천시 강화군",
+            "detailAddress": "석문 오토캠핑장",
+            "content": "여기너무좋아요",
+            "rate": 4.1,
+            "imgUrl": "www.gocamping.co.kr",
+            "createdDate": "2022-01-24:20:03:23:0023",
+            "lastModifiedDate": "2022-01-25:20:03:23:0023",
+            "createdBy": "장대영",
+            "lastModifedBy": "김상운"
+          },
+          {
+            "review_id": 5,
+            "camp_id": 1,
+            "address": "인천시 강화군",
+            "detailAddress": "화명 오토캠핑장",
+            "content": "여기너무좋아요",
+            "rate": 4.9,
+            "imgUrl": "www.gocamping.co.kr",
+            "createdDate": "2022-01-24:20:03:23:0023",
+            "lastModifiedDate": "2022-01-25:20:03:23:0023",
+            "createdBy": "장대영",
+            "lastModifedBy": "김상운"
+          }
+      ]
+}

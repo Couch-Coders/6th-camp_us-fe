@@ -1,18 +1,28 @@
-import React from 'react';
-import data from './db.json';
+import React, {useState, useEffect} from 'react';
+import * as campService from '../../../Service/camps';
+
 import { Section, InnerWrapper, SectionTitle } from '../MainPage.styles';
 import { NearCampList, NearCamp, CampThumb, CampInfo, CampLike, CampName, CampAddr } from './MainCampRecommend.styles';
 
 function MainCampRecommend () {
-  const campList = data.camp;
+  const [campData, setCampData] = useState([]);
+
+  async function getCampData() {
+    const response = await campService.getCamp();
+    setCampData(response);
+  }
+
+  useEffect(() => {
+    getCampData();
+  }, []);
 
     return (
     <Section>
       <InnerWrapper>
         <SectionTitle>내 근처 캠핑장 추천</SectionTitle>
         <NearCampList>
-          {campList.map((camp) => (
-            <NearCamp to='/' key={camp.id}> {/* 나중에 해당 캠핑장 detailPage로 이동 */}
+          {campData.map((camp) => (
+            <NearCamp to='/' key={camp.id}> 
               <CampThumb src={camp.firstImageUrl}></CampThumb>
               <CampInfo>
                 <CampLike>
@@ -20,7 +30,6 @@ function MainCampRecommend () {
                     width="22"
                     height="20"
                     viewBox="0 0 22 20"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path
