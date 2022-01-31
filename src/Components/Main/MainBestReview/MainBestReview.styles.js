@@ -15,6 +15,7 @@ export const BestReview = styled(Link)`
   justify-content: start;
   align-items: center;
   margin-bottom: 20px;
+  position: relative;
 
   &:hover {
     box-shadow: 0px 2px 8px #f0f1f2;
@@ -24,6 +25,10 @@ export const BestReview = styled(Link)`
   &:last-child {
     margin-bottom: 0;
   }
+
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
 `;
 
 export const ReviewImg = styled.img`
@@ -32,12 +37,23 @@ export const ReviewImg = styled.img`
   overflow: hidden;
 
   background-color: darkgray;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    height: auto;
+  }
 `;
 
 export const ReviewContent = styled.div`
   margin: 0 25px;
   width: calc(100% - 270px);
   height: 127.5px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    margin: 0;
+    padding-top: 25px;
+  }
 `;
 
 export const CampName = styled.div`
