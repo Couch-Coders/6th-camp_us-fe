@@ -1,10 +1,18 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import * as campService from '../../../Service/camps';
 
-import { Section, InnerWrapper, SectionTitle } from '../MainPage.styles';
-import { NearCampList, NearCamp, CampThumb, CampInfo, CampLike, CampName, CampAddr } from './MainCampRecommend.styles';
+import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
+import {
+  NearCampList,
+  NearCamp,
+  CampThumb,
+  CampInfo,
+  CampLike,
+  CampName,
+  CampAddr,
+} from './MainCampRecommend.styles';
 
-function MainCampRecommend () {
+function MainCampRecommend() {
   const [campData, setCampData] = useState([]);
 
   async function getCampData() {
@@ -16,13 +24,13 @@ function MainCampRecommend () {
     getCampData();
   }, []);
 
-    return (
+  return (
     <Section>
       <InnerWrapper>
         <SectionTitle>내 근처 캠핑장 추천</SectionTitle>
         <NearCampList>
-          {campData.map((camp) => (
-            <NearCamp to='/' key={camp.id}> 
+          {campData.slice(0, 3).map((camp) => (
+            <NearCamp to={`/detail/${camp.id}`} key={camp.id}>
               <CampThumb src={camp.firstImageUrl}></CampThumb>
               <CampInfo>
                 <CampLike>
@@ -37,17 +45,20 @@ function MainCampRecommend () {
                       fill="#FF7875"
                     />
                   </svg>
-                    {camp.like_cnt}
+                  {camp.like_cnt}
                 </CampLike>
                 <CampName>{camp.facltNm}</CampName>
-                <CampAddr>{camp.addr1}{camp.addr2}</CampAddr>
+                <CampAddr>
+                  {camp.addr1}
+                  {camp.addr2}
+                </CampAddr>
               </CampInfo>
             </NearCamp>
           ))}
         </NearCampList>
       </InnerWrapper>
     </Section>
-    );
+  );
 }
 
 export default MainCampRecommend;
