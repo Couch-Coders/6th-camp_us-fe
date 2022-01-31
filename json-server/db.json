@@ -36,6 +36,7 @@
 
   "camp": [
     {
+      "id": 1,
       "addr1": "경상남도 창원시 의창구 북면 달천길 150 ",
       "animalCmgCl": "가능(소형견)",
       "autoSiteCo": 31,
@@ -77,6 +78,7 @@
       "swrmCo": 1
     },
     {
+      "id": 2,
       "addr1": "경상남도 창원시 의창구 북면 달천길 150 ",
       "animalCmgCl": "가능(소형견)",
       "autoSiteCo": 31,
@@ -118,6 +120,7 @@
       "swrmCo": 1
     },
     {
+      "id": 3,
       "addr1": "경상남도 창원시 의창구 북면 달천길 150 ",
       "animalCmgCl": "가능(소형견)",
       "autoSiteCo": 31,
@@ -240,14 +243,71 @@
       "review_id": 2,
       "camp_id": 1,
       "address": "인천시 강화군",
-      "detailAddress": "달천공원오토캠핑장",
+      "detailAddress": "4.3짜리오토캠핑장",
       "content": "여기너무좋아요",
       "rate": 4.3,
-      "imgUrl": "www.gocamping.co.kr",
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
       "createdDate": "2022-01-24:20:03:23:0023",
       "lastModifiedDate": "2022-01-25:20:03:23:0023",
       "createdBy": "장대영",
-      "lastModifedBy": "김상운"
+      "lastModifedBy": "김상운",
+      "likes": 3
+    },
+    {
+      "review_id": 3,
+      "camp_id": 2,
+      "address": "인천시 강화군",
+      "detailAddress": "1.3짜리 오토캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 1.3,
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 243
+    },
+    {
+      "review_id": 4,
+      "camp_id": 3,
+      "address": "인천시 강화군",
+      "detailAddress": "2.7짜리오토캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 2.7,
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 223
+    },
+    {
+      "review_id": 5,
+      "camp_id": 4,
+      "address": "인천시 강화군",
+      "detailAddress": "3.8짜리 오토캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 3.8,
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 123
+    },
+    {
+      "review_id": 6,
+      "camp_id": 5,
+      "address": "인천시 강화군",
+      "detailAddress": "4.7점짜리캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 4.7,
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 23
     }
   ]
 }
