@@ -13,6 +13,10 @@ export const Section = styled.section`
 export const InnerWrapper = styled.div`
   width: 770px;
   margin: 0 auto;
+
+  @media screen and (max-width: 960px) {
+    width: calc(100% - 20px);
+  }
 `;
 
 export const SectionTitle = styled.h2`
