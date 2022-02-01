@@ -29,7 +29,7 @@ function MainBestReview() {
 
   /* 리뷰 추천수 내림차순 정렬 */
   let sortReview = campData
-    .sort((a, b) => parseFloat(b.rate) - parseFloat(a.rate))
+    .sort((a, b) => parseFloat(b.likes) - parseFloat(a.likes))
     .slice(0, 3);
 
   return (
