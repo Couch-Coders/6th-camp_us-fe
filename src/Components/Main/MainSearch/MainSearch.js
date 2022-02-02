@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import * as district from './AddressData';
 import { Form, Input, Space, Select } from 'antd';
@@ -39,26 +39,20 @@ function MainSearch(props) {
   };
 
   /* 캠핑장 이름 검색 */
+  const [isSearch, setIsSearch] = useState(false);
   const onSearch = (value) => {
-    //console.log(value);
-    // setAddress((address) => {
-    //   return { ...address, keyword: value };
-    // });
-    test(value);
-    goSearchPage();
-  };
-
-  const test = (value) => {
     setAddress((address) => {
       return { ...address, keyword: value };
     });
+    setIsSearch(true);
   };
 
-  const goSearchPage = () => {
-    console.log(address);
-    navigate('/search', { state: address });
-  };
-  // console.log(address);
+  useEffect(() => {
+    if (isSearch === true) {
+      navigate('/search', { state: address });
+    }
+  }, [isSearch]);
+
   const { Search } = Input;
 
   return (
