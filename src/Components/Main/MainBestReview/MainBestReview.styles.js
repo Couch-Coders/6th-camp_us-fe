@@ -22,37 +22,21 @@ export const BestReview = styled(Link)`
     box-sizing: border-box;
     transition: all 0.5s ease;
   }
-  &:hover img {
-    width: 105%;
-    transition: all 0.5s ease;
-  }
   &:last-child {
     margin-bottom: 0;
   }
 
   @media screen and (max-width: 600px) {
     display: block;
-    padding: 0;
-  }
-`;
-
-export const ReviewThumbnail = styled.div`
-  width: 170px;
-  height: 127.5px;
-  overflow: hidden;
-  position: relative;
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    height: 200px;
   }
 `;
 
 export const ReviewImg = styled.img`
-  width: 100%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  width: 170px;
+  height: 127.5px;
+  overflow: hidden;
+
+  background-color: darkgray;
 
   @media screen and (max-width: 600px) {
     width: 100%;
@@ -68,7 +52,7 @@ export const ReviewContent = styled.div`
   @media screen and (max-width: 600px) {
     width: 100%;
     margin: 0;
-    padding: 18px;
+    padding-top: 25px;
   }
 `;
 
@@ -113,10 +97,5 @@ export const ReviewLike = styled.div`
   & svg {
     display: inline-block;
     margin-right: 4px;
-  }
-  @media screen and (max-width: 600px) {
-    width: 100%;
-    padding: 18px;
-    padding-top: 0;
   }
 `;

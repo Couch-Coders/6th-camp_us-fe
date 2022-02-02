@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import * as campService from '../../../Service/camps';
-import Image from '../../../Assets/Images/default_image.png';
+
 import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
 import {
   NearCampList,
   NearCamp,
-  CampThumbnail,
   CampThumb,
   CampInfo,
   CampLike,
@@ -32,11 +31,7 @@ function MainCampRecommend() {
         <NearCampList>
           {campData.slice(0, 3).map((camp) => (
             <NearCamp to={`/detail/${camp.id}`} key={camp.id}>
-              <CampThumbnail>
-                <CampThumb
-                  src={camp.firstImageUrl === '' ? Image : camp.firstImageUrl}
-                ></CampThumb>
-              </CampThumbnail>
+              <CampThumb src={camp.firstImageUrl}></CampThumb>
               <CampInfo>
                 <CampLike>
                   <svg

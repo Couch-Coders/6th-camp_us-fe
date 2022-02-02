@@ -2,12 +2,10 @@ import React, { useState, useEffect } from 'react';
 import * as campService from '../../../Service/camps';
 import { Rate } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
-import Image from '../../../Assets/Images/default_image.png';
 import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
 import {
   BestReviewList,
   BestReview,
-  ReviewThumbnail,
   ReviewImg,
   ReviewContent,
   CampName,
@@ -44,11 +42,7 @@ function MainBestReview() {
               to={`/detail/${camp.camp_id}`} /* 캠핑장 상세페이지로 */
               key={camp.review_id}
             >
-              <ReviewThumbnail>
-                <ReviewImg
-                  src={camp.imgUrl === '' ? Image : camp.imgUrl}
-                ></ReviewImg>
-              </ReviewThumbnail>
+              <ReviewImg src={camp.imgUrl}></ReviewImg>
               <ReviewContent>
                 <CampName>{camp.detailAddress}</CampName>
                 <ReviewInfo>
