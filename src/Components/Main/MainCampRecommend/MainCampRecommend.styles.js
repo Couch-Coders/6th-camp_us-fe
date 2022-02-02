@@ -27,6 +27,11 @@ export const NearCamp = styled(Link)`
     transition: all 0.5s ease;
   }
 
+  &:hover img {
+    width: 105%;
+    transition: all 0.5s ease;
+  }
+
   @media screen and (max-width: 760px) {
     width: 100%;
     height: auto;
@@ -34,15 +39,23 @@ export const NearCamp = styled(Link)`
   }
 `;
 
-export const CampThumb = styled.img`
+export const CampThumbnail = styled.div`
   width: 100%;
   height: 150px;
-
-  background-color: darkgray;
+  overflow: hidden;
+  position: relative;
 
   @media screen and (max-width: 760px) {
-    height: auto;
+    min-height: 200px;
   }
+`;
+
+export const CampThumb = styled.img`
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 export const CampInfo = styled.div`
