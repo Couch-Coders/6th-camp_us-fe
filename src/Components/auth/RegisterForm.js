@@ -12,7 +12,7 @@ const RegisterForm = ({ setRegisterFormOpen }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     console.log(`nickname :${event.target.nickname.value}`);
-    const res = await fetch('/users', {
+    const res = await fetch('/members', {
       method: 'POST',
       headers: defaultHeaders,
       body: JSON.stringify({
@@ -20,7 +20,7 @@ const RegisterForm = ({ setRegisterFormOpen }) => {
       }),
     });
     const user = await res.json();
-    console.log(`post /users ${JSON.stringify(user)}`);
+    console.log(`post /members ${JSON.stringify(user)}`);
     setRegisterFormOpen(false);
     setUser(user);
   };

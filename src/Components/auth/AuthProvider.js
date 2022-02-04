@@ -17,14 +17,14 @@ export const AuthProvider = ({ children }) => {
       if (firebaseUser) {
         const token = await firebaseUser.getIdToken();
         defaultHeaders.Authorization = `Bearer ${token}`;
-        const res = await fetch('/users/me', {
+        const res = await fetch('/members/me', {
           method: 'GET',
           headers: defaultHeaders,
         });
-        if (res.status === 200) {
+        if (res.status === 204) {
           const user = await res.json();
           setUser(user);
-        } else if (res.status === 401) {
+        } else if (res.status === 404) {
           const data = await res.json();
           if (data.code === 'USER_NOT_FOUND') {
             setRegisterFormOpen(true);
@@ -36,6 +36,8 @@ export const AuthProvider = ({ children }) => {
       }
     });
   }, []);
+
+  console.log(registerFormOpen);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
