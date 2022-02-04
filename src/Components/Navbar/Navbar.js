@@ -22,12 +22,14 @@ import {
 import { signInGoogle, signOut } from '../../Service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
 
+
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const { pathname } = useLocation();
   const { user } = useContext(UserContext);
+
 
   /* 반응형 */
 
@@ -72,6 +74,7 @@ const Navbar = () => {
             <>
               <NavItemBtn>
                 <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
+
               </NavItemBtn>
               <NavItemBtn>
                 <MyProfile to="/member">
@@ -82,6 +85,7 @@ const Navbar = () => {
           ) : (
             <NavItemBtn>
               {button ? (
+
                 <Button primary onClick={signInGoogle}>
                   Log In
                 </Button>
@@ -89,6 +93,7 @@ const Navbar = () => {
                 <Button fontBig primary onClick={signInGoogle}>
                   Log In
                 </Button>
+
               )}
             </NavItemBtn>
           )}
