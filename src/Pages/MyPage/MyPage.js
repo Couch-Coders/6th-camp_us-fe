@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
-import LikesList from '../../Components/MyPage/LikesList';
-import MyReviews from '../../Components/MyPage/MyReviews';
-import AlrimList from '../../Components/MyPage/AlrimList';
+import LikesList from '../../Components/MyPage/LikesList/LikesList';
+import MyReviews from '../../Components/MyPage/MyReviews/MyReviews';
+import AlrimList from '../../Components/MyPage/AlrimList/AlrimList';
 import { Avatar } from 'antd';
 import 'antd/dist/antd.css';
 import { UserOutlined } from '@ant-design/icons';
