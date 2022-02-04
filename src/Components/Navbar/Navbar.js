@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Avatar } from 'antd';
@@ -19,21 +19,17 @@ import {
   NavItemBtn,
   NavBtnLink,
 } from './Navbar.styles';
+import { signInGoogle, signOut } from '../../Service/firebaseAuth';
+import { UserContext } from '../auth/AuthProvider';
+
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const { pathname } = useLocation();
+  const { user } = useContext(UserContext);
 
-  /* 구글 로그인 */
-  const clientId =
-    '528238867911-skdsf46rc72s3u92k6c4meciqrk3pmqh.apps.googleusercontent.com';
-
-  const responseGoogle = (response) => {
-    console.log(response);
-    setLoggedIn(true); // 일단 로그인 처리
-  };
 
   /* 반응형 */
 
@@ -74,16 +70,11 @@ const Navbar = () => {
               커뮤니티
             </NavLinks>
           </NavItem>
-          {isLoggedIn ? (
+          {user ? (
             <>
               <NavItemBtn>
-                <LogOutBtn>
-                  <GoogleLogout
-                    clientId={clientId}
-                    buttonText="Logout"
-                    // onLogoutSuccess={logout}
-                  ></GoogleLogout>
-                </LogOutBtn>
+                <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
+
               </NavItemBtn>
               <NavItemBtn>
                 <MyProfile to="/member">
@@ -94,39 +85,15 @@ const Navbar = () => {
           ) : (
             <NavItemBtn>
               {button ? (
-                <GoogleLogin
-                  clientId={clientId}
-                  render={(renderProps) => (
-                    <NavBtnLink
-                      to="/"
-                      onClick={renderProps.onClick}
-                      disabled={renderProps.disabled}
-                    >
-                      <Button primary>Log In</Button>
-                    </NavBtnLink>
-                  )}
-                  buttonText="구글 계정으로 로그인"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  cookiePolicy={'single_host_origin'}
-                  isSignedIn={true}
-                />
+
+                <Button primary onClick={signInGoogle}>
+                  Log In
+                </Button>
               ) : (
-                <GoogleLogin
-                  clientId="528238867911-skdsf46rc72s3u92k6c4meciqrk3pmqh.apps.googleusercontent.com"
-                  render={(renderProps) => (
-                    <NavBtnLink to="/sign-in">
-                      <Button fontBig primary>
-                        Log In
-                      </Button>
-                    </NavBtnLink>
-                  )}
-                  buttonText="구글 계정으로 로그인"
-                  onSuccess={responseGoogle}
-                  onFailure={responseGoogle}
-                  cookiePolicy={'single_host_origin'}
-                  isSignedIn={true}
-                />
+                <Button fontBig primary onClick={signInGoogle}>
+                  Log In
+                </Button>
+
               )}
             </NavItemBtn>
           )}
