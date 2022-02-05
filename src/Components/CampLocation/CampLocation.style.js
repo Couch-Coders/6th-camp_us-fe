@@ -1,5 +1,9 @@
 import styled from 'styled-components';
 
+const Section = styled.div`
+  padding-bottom: 50px;
+`;
+
 const Title = styled.title`
   width: 100%;
   display: flex;
@@ -10,16 +14,16 @@ const Title = styled.title`
   font-size: 14px;
   line-height: 16px;
   color: #000000;
-  margin-bottom: 6px;
+  margin-bottom: 21px;
 `;
 
 const Map = styled.div`
   width: 509.76px;
   height: 355.65px;
-  border: 1px solid #000000;
 `;
 
 export const style = {
   Title,
   Map,
+  Section,
 };

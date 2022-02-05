@@ -37,9 +37,9 @@ const CampInformation = ({ reviewImg, campInfo }) => {
         <SliderWrap sliderLength={3}>
           <Slider {...settings}>
             {reviewImg.map(() => (
-              <slide>
+              <div>
                 <SlideImage />
-              </slide>
+              </div>
             ))}
           </Slider>
         </SliderWrap>
@@ -58,34 +58,36 @@ const CampInformation = ({ reviewImg, campInfo }) => {
         ))}
       </CampInfoWrap>
       <Table>
-        <tr>
-          <Th>주요시설</Th>
-          <Td>{data.induty}</Td>
-        </tr>
-        <tr>
-          <Th>사이트간 거리</Th>
-          <Td>{data.sitedStnc}</Td>
-        </tr>
-        <tr>
-          <Th>카라반 내부시설</Th>
-          <Td>{data.caravInnerFclty}</Td>
-        </tr>
-        <tr>
-          <Th>글램핑 내부시설</Th>
-          <Td>{data.glampInnerFclty}</Td>
-        </tr>
-        <tr>
-          <Th>캠핑 장비대여</Th>
-          <Td>{data.eqpmnLendCl}</Td>
-        </tr>
-        <tr>
-          <Th>반료동물 출입</Th>
-          <Td>{data.animalCmgCl}</Td>
-        </tr>
-        <tr>
-          <Th>화로대</Th>
-          <Td>{data.brazierCl}</Td>
-        </tr>
+        <tbody>
+          <tr>
+            <Th>주요시설</Th>
+            <Td>{data.induty}</Td>
+          </tr>
+          <tr>
+            <Th>사이트간 거리</Th>
+            <Td>{data.sitedStnc}</Td>
+          </tr>
+          <tr>
+            <Th>카라반 내부시설</Th>
+            <Td>{data.caravInnerFclty}</Td>
+          </tr>
+          <tr>
+            <Th>글램핑 내부시설</Th>
+            <Td>{data.glampInnerFclty}</Td>
+          </tr>
+          <tr>
+            <Th>캠핑 장비대여</Th>
+            <Td>{data.eqpmnLendCl}</Td>
+          </tr>
+          <tr>
+            <Th>반료동물 출입</Th>
+            <Td>{data.animalCmgCl}</Td>
+          </tr>
+          <tr>
+            <Th>화로대</Th>
+            <Td>{data.brazierCl}</Td>
+          </tr>
+        </tbody>
       </Table>
     </>
   );
