@@ -1,5 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from './AuthProvider';
+import { auth } from '../../Service/firebaseAuth';
+import axios from 'axios';
 
 const RegisterForm = ({ setRegisterFormOpen }) => {
   const { setUser } = useContext(UserContext);
@@ -7,22 +9,32 @@ const RegisterForm = ({ setRegisterFormOpen }) => {
   const defaultHeaders = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    Authorization: '',
   };
 
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-    console.log(`nickname :${event.target.nickname.value}`);
-    const res = await fetch('/members', {
-      method: 'POST',
-      headers: defaultHeaders,
-      body: JSON.stringify({
-        nickname: event.target.nickname.value,
-      }),
+  const handleSubmit = (event) => {
+    auth.onAuthStateChanged(async (firebaseUser) => {
+      event.preventDefault();
+      const token = await firebaseUser.getIdToken();
+      defaultHeaders.Authorization = `Bearer ${token}`;
+      console.log(`nickname :${event.target.nickname.value}`);
+
+      const res = await axios({
+        method: 'POST',
+        url: '/members',
+        withCredentials: true,
+        headers: defaultHeaders,
+        data: JSON.stringify({
+          nickname: event.target.nickname.value,
+        }),
+      });
+
+      console.log(res);
+      const user = await res.json();
+      console.log(`post /members ${JSON.stringify(user)}`);
+      setRegisterFormOpen(false);
+      setUser(user);
     });
-    const user = await res.json();
-    console.log(`post /members ${JSON.stringify(user)}`);
-    setRegisterFormOpen(false);
-    setUser(user);
   };
 
   return (

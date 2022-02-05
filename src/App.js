@@ -1,7 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import DetailPage from './Pages/DetailPage/DetailPage';
 import MainPage from './Pages/MainPage/MainPage';
-
 import Navbar from './Components/Navbar/Navbar';
 import { AuthProvider } from './Components/auth/AuthProvider';
 
