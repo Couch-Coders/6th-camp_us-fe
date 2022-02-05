@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import { useLocation } from 'react-router-dom';
-import { GoogleLogin, GoogleLogout } from 'react-google-login';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FaTimes, FaBars } from 'react-icons/fa';
 import { Button } from '../../globalStyles';
+import Modal from '../Modal/Modal';
 import {
   Nav,
   NavbarContainer,
@@ -19,21 +19,24 @@ import {
   NavItemBtn,
   NavBtnLink,
 } from './Navbar.styles';
-import { signInGoogle, signOut } from '../../Service/firebaseAuth';
+import { signOut } from '../../Service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
-
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
   const [isLoggedIn, setLoggedIn] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const { pathname } = useLocation();
   const { user } = useContext(UserContext);
-
 
   /* 반응형 */
 
   const handleClick = () => setClick(!click);
+
+  const onToggleModal = useCallback(() => {
+    setIsModalOpen((prev) => !prev);
+  }, []);
 
   const showButton = () => {
     if (window.innerWidth <= 960) {
@@ -74,7 +77,6 @@ const Navbar = () => {
             <>
               <NavItemBtn>
                 <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
-
               </NavItemBtn>
               <NavItemBtn>
                 <MyProfile to="/member">
@@ -85,20 +87,19 @@ const Navbar = () => {
           ) : (
             <NavItemBtn>
               {button ? (
-
-                <Button primary onClick={signInGoogle}>
+                <Button primary onClick={onToggleModal}>
                   Log In
                 </Button>
               ) : (
-                <Button fontBig primary onClick={signInGoogle}>
+                <Button fontBig primary onClick={onToggleModal}>
                   Log In
                 </Button>
-
               )}
             </NavItemBtn>
           )}
         </NavMenu>
       </NavbarContainer>
+      {isModalOpen && <Modal role="login" closeLoginModal={onToggleModal} />}
     </Nav>
   );
 };

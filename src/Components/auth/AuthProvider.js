@@ -21,7 +21,6 @@ export const AuthProvider = ({ children }) => {
         console.log('로그인 후');
         try {
           const token = await firebaseUser.getIdToken();
-          // console.log(token);
           defaultHeaders.Authorization = `Bearer ${token}`;
 
           const res = await axios({
