@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../Service/firebaseAuth';
-import RegisterForm from './RegisterForm';
+import Modal from '../Modal/Modal';
 
 export const UserContext = React.createContext(null);
 export const AuthProvider = ({ children }) => {
@@ -16,9 +16,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     auth.onAuthStateChanged(async (firebaseUser) => {
-      console.log('로그인 전');
       if (firebaseUser) {
-        console.log('로그인 후');
         try {
           const token = await firebaseUser.getIdToken();
           defaultHeaders.Authorization = `Bearer ${token}`;
@@ -50,7 +48,7 @@ export const AuthProvider = ({ children }) => {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {registerFormOpen ? (
-        <RegisterForm setRegisterFormOpen={setRegisterFormOpen} />
+        <Modal setRegisterFormOpen={setRegisterFormOpen} role="register" />
       ) : (
         children
       )}
