@@ -1,6 +1,7 @@
+import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../Service/firebaseAuth';
-import RegisterForm from './RegisterForm';
+import Modal from '../Modal/Modal';
 
 export const UserContext = React.createContext(null);
 const AuthProvider = ({ children }) => {
@@ -10,28 +11,35 @@ const AuthProvider = ({ children }) => {
   const defaultHeaders = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
+    Authorization: '',
   };
 
   useEffect(() => {
     auth.onAuthStateChanged(async (firebaseUser) => {
       if (firebaseUser) {
-        const token = await firebaseUser.getIdToken();
-        defaultHeaders.Authorization = `Bearer ${token}`;
-        const res = await fetch('/users/me', {
-          method: 'GET',
-          headers: defaultHeaders,
-        });
-        if (res.status === 200) {
-          const user = await res.json();
-          setUser(user);
-        } else if (res.status === 401) {
-          const data = await res.json();
-          if (data.code === 'USER_NOT_FOUND') {
-            setRegisterFormOpen(true);
+        try {
+          const token = await firebaseUser.getIdToken();
+          defaultHeaders.Authorization = `Bearer ${token}`;
+
+          const res = await axios({
+            method: 'GET',
+            url: '/members/me',
+            withCredentials: true,
+            headers: defaultHeaders,
+          });
+
+          console.log(res);
+
+          if (res.status === 200) {
+            const user = await res;
+            setUser(user);
           }
+        } catch (e) {
+          //에러발생 시
+          console.log('로그인 된 회원 없음 ');
+          setRegisterFormOpen(true);
         }
       } else {
-        delete defaultHeaders.Authorizations;
         setUser(null);
       }
     });
@@ -40,7 +48,7 @@ const AuthProvider = ({ children }) => {
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {registerFormOpen ? (
-        <RegisterForm setRegisterFormOpen={setRegisterFormOpen} />
+        <Modal setRegisterFormOpen={setRegisterFormOpen} role="register" />
       ) : (
         children
       )}
