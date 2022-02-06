@@ -19,3 +19,13 @@ export async function getReview() {
     throw new Error('Failed to load data');
   }
 }
+
+export async function getBestReview() {
+  try {
+    const response = await axios('http://localhost:3001/bestReview');
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}

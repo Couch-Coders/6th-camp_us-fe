@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from 'react';
-import * as campService from '../../Service/camps';
-import { Section, InnerWrapper, SectionTitle } from '../MainPage.styles';
+import React, { useState, useEffect } from 'react';
+import * as campService from '../../../Service/camps';
+import Image from '../../../Assets/Images/default_image.png';
+import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
 import {
   NearCampList,
   NearCamp,
+  CampThumbnail,
   CampThumb,
   CampInfo,
   CampLike,
@@ -28,18 +30,19 @@ function MainCampRecommend() {
       <InnerWrapper>
         <SectionTitle>내 근처 캠핑장 추천</SectionTitle>
         <NearCampList>
-          {campData.map((camp) => (
-            <NearCamp to="/" key={camp.id}>
-              {' '}
-              {/* 나중에 해당 캠핑장 detailPage로 이동 */}
-              <CampThumb src={camp.firstImageUrl}></CampThumb>
+          {campData.slice(0, 3).map((camp) => (
+            <NearCamp to={`/detail/${camp.id}`} key={camp.id}>
+              <CampThumbnail>
+                <CampThumb
+                  src={camp.firstImageUrl === '' ? Image : camp.firstImageUrl}
+                ></CampThumb>
+              </CampThumbnail>
               <CampInfo>
                 <CampLike>
                   <svg
                     width="22"
                     height="20"
                     viewBox="0 0 22 20"
-                    fill="none"
                     xmlns="http://www.w3.org/2000/svg"
                   >
                     <path

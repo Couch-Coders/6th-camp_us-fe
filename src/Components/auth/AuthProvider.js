@@ -4,7 +4,7 @@ import { auth } from '../../Service/firebaseAuth';
 import Modal from '../Modal/Modal';
 
 export const UserContext = React.createContext(null);
-export const AuthProvider = ({ children }) => {
+const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [registerFormOpen, setRegisterFormOpen] = useState(false);
 
@@ -55,3 +55,5 @@ export const AuthProvider = ({ children }) => {
     </UserContext.Provider>
   );
 };
+
+export default AuthProvider;

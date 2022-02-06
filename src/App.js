@@ -1,9 +1,10 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthProvider from './Components/auth/AuthProvider';
 import DetailPage from './Pages/DetailPage/DetailPage';
 import MainPage from './Pages/MainPage/MainPage';
-import Navbar from './Components/Navbar/Navbar';
-import { AuthProvider } from './Components/auth/AuthProvider';
+import SearchPage from './Pages/SearchPage/SearchPage';
 
+import Navbar from './Components/Navbar/Navbar';
 function App() {
   return (
     <AuthProvider>
@@ -12,6 +13,7 @@ function App() {
         <Routes>
           <Route path="/" element={<MainPage />} />
           <Route path="/detail" element={<DetailPage />} />
+          <Route path="/search" element={<SearchPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

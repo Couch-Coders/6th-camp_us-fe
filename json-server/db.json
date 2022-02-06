@@ -36,6 +36,7 @@
 
   "camp": [
     {
+      "id": 1,
       "addr1": "경상남도 창원시 의창구 북면 달천길 150 ",
       "animalCmgCl": "가능(소형견)",
       "autoSiteCo": 31,
@@ -47,7 +48,7 @@
       "facltNm": "달천공원오토캠핑장 ",
       "featureNm": "천주산의 계곡이 좋고 도심과 가까움",
       "fireSensorCo": 0,
-      "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "firstImageUrl": "",
       "homepage": "http://camp.changwon.go.kr/",
       "induty": "일반야영장,자동차야영장,카라반",
       "indvdlCaravSiteCo": 0,
@@ -74,11 +75,10 @@
       "caravInnerFclty": "침대, TV, 에어컨, 냉장고",
       "like_cnt": 13,
       "sitedStnc": 0,
-      "swrmCo": 1,
-      "rate": 4.0,
-      "id": "12"
+      "swrmCo": 1
     },
     {
+      "id": 2,
       "addr1": "경상남도 창원시 의창구 북면 달천길 150 ",
       "animalCmgCl": "가능(소형견)",
       "autoSiteCo": 31,
@@ -117,11 +117,10 @@
       "caravInnerFclty": "침대, TV, 에어컨, 냉장고",
       "like_cnt": 13,
       "sitedStnc": 0,
-      "swrmCo": 1,
-      "rate": 4.0,
-      "id": "12"
+      "swrmCo": 1
     },
     {
+      "id": 3,
       "addr1": "경상남도 창원시 의창구 북면 달천길 150 ",
       "animalCmgCl": "가능(소형견)",
       "autoSiteCo": 31,
@@ -130,7 +129,7 @@
       "doNm": "경상남도",
       "eqpmnLendCl": "텐트,화로대,난방기구,식기,침낭",
       "extshrCo": 50,
-      "facltNm": "달천공원오토캠핑장 ",
+      "facltNm": "보연산공원오토캠핑장 ",
       "featureNm": "천주산의 계곡이 좋고 도심과 가까움",
       "fireSensorCo": 0,
       "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
@@ -158,11 +157,9 @@
       "wtrplCo": 1,
       "glampInnerFclty": "침대, TV, 에어컨, 냉장고",
       "caravInnerFclty": "침대, TV, 에어컨, 냉장고",
-      "like_cnt": 13,
+      "like_cnt": 15,
       "sitedStnc": 0,
-      "swrmCo": 1,
-      "rate": 4.0,
-      "id": "12"
+      "swrmCo": 1
     }
   ],
 
@@ -246,14 +243,71 @@
       "review_id": 2,
       "camp_id": 1,
       "address": "인천시 강화군",
-      "detailAddress": "달천공원오토캠핑장",
+      "detailAddress": "4.3짜리오토캠핑장",
       "content": "여기너무좋아요",
       "rate": 4.3,
-      "imgUrl": "www.gocamping.co.kr",
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
       "createdDate": "2022-01-24:20:03:23:0023",
       "lastModifiedDate": "2022-01-25:20:03:23:0023",
       "createdBy": "장대영",
-      "lastModifedBy": "김상운"
+      "lastModifedBy": "김상운",
+      "likes": 3
+    },
+    {
+      "review_id": 3,
+      "camp_id": 2,
+      "address": "인천시 강화군",
+      "detailAddress": "1.3짜리 오토캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 1.3,
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 243
+    },
+    {
+      "review_id": 4,
+      "camp_id": 3,
+      "address": "인천시 강화군",
+      "detailAddress": "2.7짜리오토캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 2.7,
+      "imgUrl": "",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 223
+    },
+    {
+      "review_id": 5,
+      "camp_id": 4,
+      "address": "인천시 강화군",
+      "detailAddress": "3.8짜리 오토캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 3.8,
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 123
+    },
+    {
+      "review_id": 6,
+      "camp_id": 5,
+      "address": "인천시 강화군",
+      "detailAddress": "4.7점짜리캠핑장",
+      "content": "여기너무좋아요",
+      "rate": 4.7,
+      "imgUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+      "createdDate": "2022-01-24:20:03:23:0023",
+      "lastModifiedDate": "2022-01-25:20:03:23:0023",
+      "createdBy": "장대영",
+      "lastModifedBy": "김상운",
+      "likes": 23
     }
   ]
 }

@@ -1,22 +1,17 @@
-import axios from 'axios';
-import React, { useEffect } from 'react';
+import React from 'react';
+import MainSearch from '../../Components/Main/MainSearch/MainSearch';
+import MainCampRecommend from '../../Components/Main/MainCampRecommend/MainCampRecommend';
+import MainBestReview from '../../Components/Main/MainBestReview/MainBestReview';
 
 const MainPage = (props) => {
-  // async function test() {
-  //   const res = await axios({
-  //     method: 'GET',
-  //     url: 'http://3.38.17.21:8080/test',
-  //     withCredentials: true,
-  //   });
-
-  //   console.log(res);
-  // }
-
-  // useEffect(() => {
-  //   test();
-  // }, []);
-
-  return <div>main</div>;
+  
+  return (
+    <>
+      <MainSearch />
+      <MainCampRecommend />
+      <MainBestReview />
+    </>
+  );
 };
 
 export default MainPage;
