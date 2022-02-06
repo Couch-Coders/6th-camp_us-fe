@@ -9,7 +9,7 @@ export const LikeList = styled.div`
   }
 `;
 
-export const LikeCamp = styled(Link)`
+export const LikeCamp = styled.div`
   width: 100%;
   height: 156px;
   display: flex;
@@ -27,7 +27,7 @@ export const LikeCamp = styled(Link)`
   }
 
   &:hover img {
-    width: 105%;
+    height: 105%;
     transition: all 0.5s ease;
   }
 
@@ -38,18 +38,18 @@ export const LikeCamp = styled(Link)`
 `;
 
 export const CampThumbnail = styled.div`
-  width: 132px;
+  width: 155px;
   height: 155px;
   overflow: hidden;
   position: relative;
 
   @media screen and (max-width: 760px) {
-    min-height: 200px;
+    display: none;
   }
 `;
 
 export const CampThumb = styled.img`
-  width: 100%;
+  height: 100%;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -57,43 +57,70 @@ export const CampThumb = styled.img`
 `;
 
 export const CampInfo = styled.div`
-  padding: 18px;
+  width: calc(100% - 132px);
 `;
 
 export const TopArea = styled.div`
   display: flex;
   justify-content: space-between;
+  background: #ffffff;
+  height: 56px;
+  align-items: center;
+  padding: 18px;
+  border-bottom: 1px solid #f0f0f0;
+  box-sizing: border-box;
 `;
 
 export const CampLike = styled.div`
-  display: flex;
-  align-items: center;
-  color: #000;
-  font-size: 14px;
-
-  * {
-    margin-right: 5px;
+  &:hover {
+    cursor: pointer;
   }
 `;
 
-export const CampName = styled.div`
+export const CampName = styled(Link)`
+  display: block;
   line-height: 24px;
   color: rgba(0, 0, 0, 0.85);
   margin: 6px 0 8px 0;
-  font-weight: 600;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
   font-size: 16px;
+  line-height: 24px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  &:hover {
+    color: #8d8d8d;
+  }
 `;
 
-export const BottomArea = styled.div`
-  display: flex;
+export const BottomArea = styled(Link)`
+  display: block;
   align-items: center;
+  padding: 18px;
+`;
+
+export const CampDesc = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #595959;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 8px;
 `;
 
 export const CampAddr = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
   font-size: 14px;
+  line-height: 22px;
   color: rgba(0, 0, 0, 0.45);
   white-space: nowrap;
   overflow: hidden;
