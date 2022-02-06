@@ -3,6 +3,7 @@ import AuthProvider from './Components/auth/AuthProvider';
 import DetailPage from './Pages/DetailPage/DetailPage';
 import MainPage from './Pages/MainPage/MainPage';
 import SearchPage from './Pages/SearchPage/SearchPage';
+
 import Navbar from './Components/Navbar/Navbar';
 function App() {
   return (
