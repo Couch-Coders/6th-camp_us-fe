@@ -57,6 +57,7 @@ function MyPage(props) {
     console.log(`patch /members/me ${JSON.stringify(user)}`); */
     setEditing(false);
   };
+
   const editingTemplate = (
     <>
       <EditUserName
@@ -98,6 +99,8 @@ function MyPage(props) {
       </svg>
     </>
   );
+
+  /* 작성 리뷰 수 조회 */
 
   /* 탭메뉴 변경 */
   const [selectedTabs, setSelectedTabs] = useState('likesList');
