@@ -15,6 +15,16 @@
     }
   ],
 
+  "myInfo": [
+    {
+      "id": 1,
+      "visit_cnt": 10,
+      "write_cnt": 12,
+      "reveiw_cnt": 2,
+      "nickname": "test닉네임"
+    }
+  ],
+
   "campSearch": [
     {
       "currentPage": 1,

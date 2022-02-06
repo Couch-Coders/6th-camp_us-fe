@@ -1,4 +1,5 @@
 import styled, { css } from 'styled-components';
+import { Input } from 'antd';
 
 export const SectionTitle = styled.h2`
   font-family: Work Sans;
@@ -24,9 +25,20 @@ export const MyProfile = styled.div`
   justify-content: start;
   align-items: center;
 
+  & button {
+    background: none;
+    outline: none;
+    border: none;
+  }
+
   & svg {
     cursor: pointer;
   }
+`;
+
+export const EditUserName = styled(Input)`
+  width: 200px;
+  margin: 0 5px;
 `;
 
 export const UserName = styled.div`
