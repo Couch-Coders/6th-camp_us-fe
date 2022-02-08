@@ -1,10 +1,15 @@
 import React, { useState } from 'react';
 import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { style } from './EventMarker.style';
+// import defaultImg from '../../../Assets/Images/default)image';
 
-const EventMarkerContainer = ({ position, content }) => {
+const EventMarkerContainer = ({ camp }) => {
   const [isVisible, setIsVisible] = useState(false);
-  console.log(content);
+  console.log(camp);
+  const [position] = useState({
+    lat: camp.mapY,
+    lng: camp.mapX,
+  });
 
   return (
     <>
@@ -27,7 +32,7 @@ const EventMarkerContainer = ({ position, content }) => {
           <div className="wrap">
             <div className="info">
               <Title>
-                카카오 스페이스닷원
+                {camp.facltNm}
                 <CloseBtn onClick={() => setIsVisible(false)} title="닫기">
                   <svg
                     width="12"
@@ -47,16 +52,14 @@ const EventMarkerContainer = ({ position, content }) => {
               <Content>
                 <div className="img">
                   <Thumbnail
-                    src="//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005"
+                    src={camp.firstImageUrl}
                     alt="카카오 스페이스닷원"
                   />
                 </div>
                 <div className="desc">
-                  <Address1 className="ellipsis">
-                    제주특별자치도 제주시 첨단로 242
-                  </Address1>
+                  <Address1 className="ellipsis">{camp.addr1}</Address1>
                   <Address2 className="jibun ellipsis">
-                    (우) 63309 (지번) 영평동 2181
+                    {camp.lineIntro}
                   </Address2>
                   <div>
                     <ToDetail to="/detail" rel="noreferrer">
