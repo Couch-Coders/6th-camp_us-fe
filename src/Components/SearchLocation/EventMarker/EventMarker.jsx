@@ -1,15 +1,19 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { style } from './EventMarker.style';
 // import defaultImg from '../../../Assets/Images/default)image';
 
-const EventMarkerContainer = ({ camp }) => {
+const EventMarkerContainer = ({ camp, bounds, map }) => {
   const [isVisible, setIsVisible] = useState(false);
   console.log(camp);
   const [position] = useState({
     lat: camp.mapY,
     lng: camp.mapX,
   });
+
+  useEffect(() => {
+    if (map) map.setBounds(bounds);
+  }, []);
 
   return (
     <>

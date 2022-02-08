@@ -1,9 +1,19 @@
-import React from 'react';
-import { Map } from 'react-kakao-maps-sdk';
+import React, { useMemo, useState } from 'react';
+import { Map, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import EventMarker from '../SearchLocation/EventMarker/EventMarker';
 
 const CampLocation = ({ campList }) => {
   console.log(campList);
+  const [map, setMap] = useState();
+
+  const bounds = useMemo(() => {
+    const bounds = new window.kakao.maps.LatLngBounds();
+
+    campList.forEach((camp) => {
+      bounds.extend(new window.kakao.maps.LatLng(camp.mapY, camp.X));
+    });
+    return bounds;
+  }, [campList]);
 
   return (
     <Map // 지도를 표시할 Container
@@ -17,10 +27,13 @@ const CampLocation = ({ campList }) => {
         width: '100%',
         height: '450px',
       }}
+      onCreate={setMap}
       level={3} // 지도의 확대 레벨
     >
+      <ZoomControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
+      <MapTypeControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
       {campList.map((camp, index) => (
-        <EventMarker key={camp.id} camp={camp} />
+        <EventMarker key={camp.id} camp={camp} bounds={bounds} map={map} />
       ))}
     </Map>
   );
