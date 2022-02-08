@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import * as campService from '../../Service/camps';
 import { useLocation } from 'react-router';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
+import styled from 'styled-components';
 
 const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -20,6 +21,17 @@ const SearchPage = () => {
     getCampList();
   }, []);
 
-  return <div>{!isLoading && <SearchLocation campList={campList} />}</div>;
+  return (
+    <Container>
+      {!isLoading && <SearchLocation campList={campList} />}
+    </Container>
+  );
 };
 export default SearchPage;
+
+const Container = styled.div`
+  display: flex;
+  padding: 22px 58px;
+  width: 100%;
+  height: calc(100vh - 65px);
+`;
