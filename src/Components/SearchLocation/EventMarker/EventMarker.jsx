@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { style } from './EventMarker.style';
-// import defaultImg from '../../../Assets/Images/default)image';
+import defaultImg from '../../../Assets/Images/default_image.png';
 
 const EventMarkerContainer = ({ camp, bounds, map }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -13,7 +13,7 @@ const EventMarkerContainer = ({ camp, bounds, map }) => {
 
   useEffect(() => {
     if (map) map.setBounds(bounds);
-  }, []);
+  }, [bounds]);
 
   return (
     <>
@@ -55,10 +55,11 @@ const EventMarkerContainer = ({ camp, bounds, map }) => {
               </Title>
               <Content>
                 <div className="img">
-                  <Thumbnail
-                    src={camp.firstImageUrl}
-                    alt="카카오 스페이스닷원"
-                  />
+                  {camp.firstImageUrl ? (
+                    <Thumbnail src={camp.firstImageUrl} alt={camp.facltNm} />
+                  ) : (
+                    <Thumbnail src={defaultImg} alt={camp.facltNm} />
+                  )}
                 </div>
                 <div className="desc">
                   <Address1 className="ellipsis">{camp.addr1}</Address1>
