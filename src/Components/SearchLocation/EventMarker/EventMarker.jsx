@@ -3,17 +3,13 @@ import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
 import { style } from './EventMarker.style';
 import defaultImg from '../../../Assets/Images/default_image.png';
 
-const EventMarkerContainer = ({ camp, bounds, map }) => {
+const EventMarkerContainer = ({ camp }) => {
   const [isVisible, setIsVisible] = useState(false);
   console.log(camp);
   const [position] = useState({
     lat: camp.mapY,
     lng: camp.mapX,
   });
-
-  useEffect(() => {
-    if (map) map.setBounds(bounds);
-  }, [bounds]);
 
   return (
     <>
