@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { CustomOverlayMap, MapMarker, useMap } from 'react-kakao-maps-sdk';
+import { CustomOverlayMap, MapMarker } from 'react-kakao-maps-sdk';
+import { style } from './EventMarker.style';
 
 const EventMarkerContainer = ({ position, content }) => {
   const [isVisible, setIsVisible] = useState(false);
@@ -25,27 +26,9 @@ const EventMarkerContainer = ({ position, content }) => {
         >
           <div className="wrap">
             <div className="info">
-              <div
-                className="title"
-                style={{
-                  backgroundColor: '#73D13D',
-                  color: 'white',
-                  display: 'flex',
-                  justifyContent: 'space-between',
-                  padding: '0 5px',
-                  borderTopRightRadius: '5px',
-                  borderTopLeftRadius: '5px',
-                }}
-              >
+              <Title>
                 카카오 스페이스닷원
-                <div
-                  className="close"
-                  onClick={() => setIsVisible(false)}
-                  title="닫기"
-                  style={{
-                    cursor: 'pointer',
-                  }}
-                >
+                <CloseBtn onClick={() => setIsVisible(false)} title="닫기">
                   <svg
                     width="12"
                     height="12"
@@ -59,58 +42,29 @@ const EventMarkerContainer = ({ position, content }) => {
                       fill-opacity="0.45"
                     />
                   </svg>
-                </div>
-              </div>
-              <div
-                className="body"
-                style={{
-                  display: 'flex',
-                  padding: '5px',
-                }}
-              >
+                </CloseBtn>
+              </Title>
+              <Content>
                 <div className="img">
-                  <img
+                  <Thumbnail
                     src="//t1.daumcdn.net/thumb/C84x76/?fname=http://t1.daumcdn.net/cfile/2170353A51B82DE005"
                     alt="카카오 스페이스닷원"
-                    style={{
-                      width: '73px',
-                      height: '70px',
-                      paddingRight: '5px',
-                    }}
                   />
                 </div>
                 <div className="desc">
-                  <div
-                    className="ellipsis"
-                    style={{
-                      fontSize: '12px',
-                    }}
-                  >
+                  <Address1 className="ellipsis">
                     제주특별자치도 제주시 첨단로 242
-                  </div>
-                  <div
-                    className="jibun ellipsis"
-                    style={{
-                      fontSize: '10px',
-                    }}
-                  >
+                  </Address1>
+                  <Address2 className="jibun ellipsis">
                     (우) 63309 (지번) 영평동 2181
-                  </div>
+                  </Address2>
                   <div>
-                    <a
-                      href="https://www.kakaocorp.com/main"
-                      target="_blank"
-                      className="link"
-                      rel="noreferrer"
-                      style={{
-                        fontSize: '12px',
-                      }}
-                    >
+                    <ToDetail to="/detail" rel="noreferrer">
                       자세히보기
-                    </a>
+                    </ToDetail>
                   </div>
                 </div>
-              </div>
+              </Content>
             </div>
           </div>
         </CustomOverlayMap>
@@ -120,3 +74,6 @@ const EventMarkerContainer = ({ position, content }) => {
 };
 
 export default EventMarkerContainer;
+
+const { Title, CloseBtn, Content, Thumbnail, Address1, Address2, ToDetail } =
+  style;

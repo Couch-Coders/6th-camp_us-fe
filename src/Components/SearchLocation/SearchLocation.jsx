@@ -1,6 +1,6 @@
 import React from 'react';
-import { Map, MapMarker } from 'react-kakao-maps-sdk';
-import EventMarkerContainer from './EventMarkerContainer/EventMarkerContainer';
+import { Map } from 'react-kakao-maps-sdk';
+import EventMarker from '../SearchLocation/EventMarker/EventMarker';
 
 const CampLocation = () => {
   const positions = [
@@ -37,7 +37,7 @@ const CampLocation = () => {
       level={3} // 지도의 확대 레벨
     >
       {positions.map((position, index) => (
-        <EventMarkerContainer
+        <EventMarker
           key={`${position.title}-${position.latlng}`}
           position={position.latlng} // 마커를 표시할 위치
           title={position.title} // 마커의 타이틀, 마커에 마우스를 올리면 타이틀이 표시됩니다
