@@ -58,6 +58,9 @@ export const CampThumb = styled.img`
 
 export const CampInfo = styled.div`
   width: calc(100% - 132px);
+  @media screen and (max-width: 760px) {
+    width: 100%;
+  }
 `;
 
 export const TopArea = styled.div`

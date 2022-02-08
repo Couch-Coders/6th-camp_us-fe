@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../auth/AuthProvider';
+import { auth } from '../../../Service/firebaseAuth';
 import { HeartFilled } from '@ant-design/icons';
 import Image from '../../../Assets/Images/default.png';
 import {
@@ -16,53 +18,59 @@ import {
 } from './LikesList.styles';
 
 export default function LikesList({ data }) {
-  /* 좋아요 클릭 시 목록에서 제거 */
-  /* const { setUser } = useContext(UserContext); */
+  const { user } = useContext(UserContext);
+  // console.log('data = ', data);
   const defaultHeaders = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
 
-  const handleCampLike = (e, campId) => {
+  /* 좋아요 클릭 시 목록에서 제거 */
+  const CampLikeCancle = (e, campId) => {
     e.preventDefault();
-    console.log(campId); // 선택한 캠프장의 id
-    // console.log(`nickname :${event.target.nickname.value}`);
-    /* const res = await fetch('/members/me', {
-      method: 'DELETE',
-      headers: defaultHeaders,
-      body: JSON.stringify({
-        id: campId,
-      }),
+
+    auth.onAuthStateChanged(async (firebaseUser) => {
+      const token = await firebaseUser.getIdToken();
+      defaultHeaders.Authorization = `Bearer ${token}`;
+
+      console.log(campId); // 선택한 캠프장의 id
+      const res = await fetch(`/members/me/camps/likes`, {
+        method: 'PATCH',
+        headers: defaultHeaders,
+        body: JSON.stringify({
+          checked: false,
+        }),
+      });
+
+      /*
+       1. 선택한 캠프장의 like_cnt -1
+       2. 마이페이지 좋아요 리스트에서 삭제
+      */
     });
-    const user = await res.json();
-    console.log(`DELETE /members/mes ${JSON.stringify(user)}`); */
-    // setUser(user);
   };
 
   return (
     <LikeList>
       {data.map((camp) => (
-        <LikeCamp key={camp.id}>
+        <LikeCamp key={camp.campLikeId}>
           <CampThumbnail>
             <CampThumb
-              src={camp.firstImageUrl === '' ? Image : camp.firstImageUrl}
+              src={camp.imgUrl === '' ? Image : camp.imgUrl}
             ></CampThumb>
           </CampThumbnail>
           <CampInfo>
             <TopArea>
-              <CampName to={`/detail/${camp.id}`} key={camp.id}>
-                {camp.facltNm}
-              </CampName>
-              <CampLike onClick={(e) => handleCampLike(e, camp.id)}>
+              <CampName to={`/detail/${camp.campId}`}>{camp.campName}</CampName>
+              <CampLike onClick={(e) => CampLikeCancle(e, camp.campLikeId)}>
                 <HeartFilled style={{ color: '#FF7875', fontSize: '20px' }} />
                 {/*  <HeartOutlined style={{ color: '#FF7875', fontSize: '20px' }} /> */}
               </CampLike>
             </TopArea>
-            <BottomArea to={`/detail/${camp.id}`} key={camp.id}>
-              <CampDesc>{camp.lineIntro}</CampDesc>
+            <BottomArea to={`/detail/${camp.campId}`}>
+              <CampDesc>{camp.campDesc}</CampDesc>
               <CampAddr>
                 {camp.addr1}
-                {camp.addr2}
+                {/* {camp.addr2} */}
               </CampAddr>
             </BottomArea>
           </CampInfo>
