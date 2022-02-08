@@ -1,0 +1,86 @@
+import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
+import { UserContext } from '../../auth/AuthProvider';
+import { auth } from '../../../Service/firebaseAuth';
+import * as campService from '../../../Service/camps';
+import Pagination from '../../Pagination/Pagination';
+import MyReviews from './MyReviews';
+
+/* // AuthProvider.js
+export const UserContext = React.createContext(null);  */
+
+export default function MyReviewsLayout() {
+  const { user } = useContext(UserContext);
+  const [data, setData] = useState([]);
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
+
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+  };
+
+  async function request() {
+    const response = await campService.getReview();
+    /* auth.onAuthStateChanged(async (firebaseUser) => {
+      const token = await firebaseUser.getIdToken();
+      defaultHeaders.Authorization = `Bearer ${token}`;
+
+      const res = await fetch('/campReview', {
+        //const res = await fetch('/members/me/reviews', {
+        method: 'GET',
+        headers: defaultHeaders,
+      });
+      const data = await res.json();
+      
+    }); */
+    setData(response[0].contents);
+  }
+
+  useEffect(() => {
+    request();
+  }, [user]);
+
+  /*  async function getCampData() {
+    const response = await campService.getCamp();
+    auth.onAuthStateChanged(async (firebaseUser) => {
+      const token = await firebaseUser.getIdToken();
+      defaultHeaders.Authorization = `Bearer ${token}`;
+
+      const res = await axios({
+        method: 'GET',
+        url: '/members/me/camps/likes',
+        withCredentials: true,
+        headers: defaultHeaders,
+      });
+      console.log('res = ', res);
+    });
+
+    setData(response);
+  }
+
+  useEffect(() => {
+    getCampData();
+  }, []); */
+
+  const indexOfLastPost = currentPage * postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+
+  const paginate = (e, pageNumber) => {
+    e.preventDefault();
+    setCurrentPage(pageNumber);
+  };
+  return (
+    <>
+      <MyReviews data={currentPosts} />
+      <Pagination
+        postsPerPage={postsPerPage}
+        totalPosts={data.length}
+        currentPage={currentPage}
+        paginate={paginate}
+      />
+    </>
+  );
+}
