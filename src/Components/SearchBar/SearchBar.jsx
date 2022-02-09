@@ -37,6 +37,12 @@ const SearchBar = (props) => {
     });
   };
 
+  const changeKeyword = (value) => {
+    setAddress((address) => {
+      return { ...address, keyword: value.target.value };
+    });
+  };
+
   const handleRateChange = (value) => {
     setAddress((address) => {
       return { ...address, rate: value };
@@ -56,13 +62,20 @@ const SearchBar = (props) => {
     });
   }, []);
 
+  const submitAddress = () => {
+    console.log(address);
+  };
+
   // console.log(address);
   return (
     <Container>
       <Header>캠핑장 찾아보기</Header>
       <Form>
         <InputTitle>캠핑장 이름</InputTitle>
-        <InputContent placeholder="캠핑장 이름을 검색하세요." />
+        <InputContent
+          placeholder="캠핑장 이름을 검색하세요."
+          onChange={changeKeyword}
+        />
         <InputTitle>지역</InputTitle>
         <SelectAddress
           placeholder="시/도"
@@ -99,6 +112,9 @@ const SearchBar = (props) => {
             />
           ))}
         </CategoryWrap>
+        <Button type="button" onClick={submitAddress}>
+          검색
+        </Button>
       </Form>
     </Container>
   );
@@ -149,4 +165,17 @@ const CategoryWrap = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+`;
+
+const Button = styled.button`
+  position: absolute;
+  width: 166px;
+  height: 40px;
+  right: 20px;
+  bottom: 65px;
+  color: white;
+  background: #73d13d;
+  border-radius: 2px;
+  border: 0;
+  cursor: pointer;
 `;
