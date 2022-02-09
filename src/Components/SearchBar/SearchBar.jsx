@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import styled from 'styled-components';
 import { Input, Select, Rate } from 'antd';
 import * as district from '../../Common/AddressData';
@@ -11,7 +11,7 @@ const SearchBar = (props) => {
     address2: '강남구',
     rate: null,
     keyword: '',
-    tag: [],
+    category: [],
   });
 
   const category = Tagcategory;
@@ -43,7 +43,20 @@ const SearchBar = (props) => {
     });
   };
 
-  console.log(address);
+  const addCategory = useCallback((tag) => {
+    setAddress((address) => {
+      return { ...address, category: [...address.category, tag] };
+    });
+  }, []);
+
+  const removeCategory = useCallback((tag) => {
+    setAddress((address) => {
+      const newArr = address.category.filter((item) => item !== tag);
+      return { ...address, category: newArr };
+    });
+  }, []);
+
+  // console.log(address);
   return (
     <Container>
       <Header>캠핑장 찾아보기</Header>
@@ -78,7 +91,12 @@ const SearchBar = (props) => {
         <InputTitle>상세 검색</InputTitle>
         <CategoryWrap>
           {category.map((tag) => (
-            <Tag tag={tag} role="category" />
+            <Tag
+              tag={tag}
+              role="category"
+              addCategory={addCategory}
+              removeCategory={removeCategory}
+            />
           ))}
         </CategoryWrap>
       </Form>
