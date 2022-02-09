@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const InfoTag = styled.div`
   display: flex;
@@ -11,6 +11,18 @@ const InfoTag = styled.div`
   border: 1px solid #d9d9d9;
   box-sizing: border-box;
   border-radius: 100px;
+
+  ${(props) =>
+    props.role === 'category' &&
+    css`
+      cursor: pointer;
+    `}
+
+  ${(props) =>
+    props.checked === true &&
+    css`
+      background: #bdbdbd;
+    `}
 `;
 
 const TagText = styled.span`

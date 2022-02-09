@@ -1,9 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { style } from './Tag.style';
 
-const Tag = ({ tag }) => {
+const Tag = ({ tag, role }) => {
+  const [checked, setChecked] = useState(false);
+
+  const onChangeCheckedTag = () => {
+    role === 'category' && setChecked((prev) => !prev);
+  };
+
   return (
-    <InfoTag>
+    <InfoTag onClick={onChangeCheckedTag} checked={checked} role={role}>
       <TagText>{tag}</TagText>
     </InfoTag>
   );
