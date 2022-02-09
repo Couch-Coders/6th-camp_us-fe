@@ -3,7 +3,7 @@ import { UserContext } from '../../Components/auth/AuthProvider';
 import { auth } from '../../Service/firebaseAuth';
 import LikeListLayout from '../../Components/MyPage/LikesList/LikeListLayout';
 import MyReviews from '../../Components/MyPage/MyReviews/MyReviews';
-import AlrimList from '../../Components/MyPage/AlrimList/AlrimList';
+import AlrimLayout from '../../Components/MyPage/AlrimList/AlrimLayout';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper } from '../../Styles/theme';
 import {
@@ -163,7 +163,7 @@ function MyPage(props) {
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
         {selectedTabs === 'myReviews' && <MyReviews />}
-        {selectedTabs === 'alrimList' && <AlrimList />}
+        {selectedTabs === 'alrimList' && <AlrimLayout />}
       </InnerWrapper>
     </Section>
   );
