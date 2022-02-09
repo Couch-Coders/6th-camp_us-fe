@@ -1,7 +1,7 @@
 import React from 'react';
-import { style } from './CampInfoTag.style';
+import { style } from './Tag.style';
 
-const CampInfoTag = ({ tag }) => {
+const Tag = ({ tag }) => {
   return (
     <InfoTag>
       <TagText>{tag}</TagText>
@@ -9,6 +9,6 @@ const CampInfoTag = ({ tag }) => {
   );
 };
 
-export default React.memo(CampInfoTag);
+export default React.memo(Tag);
 
 const { InfoTag, TagText } = style;
