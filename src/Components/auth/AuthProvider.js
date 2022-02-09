@@ -31,7 +31,7 @@ const AuthProvider = ({ children }) => {
           console.log(res);
 
           if (res.status === 200) {
-            const user = await res;
+            const user = res;
             setUser(user);
           }
         } catch (e) {
