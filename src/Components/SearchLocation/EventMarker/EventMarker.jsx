@@ -5,7 +5,7 @@ import defaultImg from '../../../Assets/Images/default_image.png';
 
 const EventMarkerContainer = ({ camp }) => {
   const [isVisible, setIsVisible] = useState(false);
-  console.log(camp);
+  // console.log(camp);
   const [position] = useState({
     lat: camp.mapY,
     lng: camp.mapX,

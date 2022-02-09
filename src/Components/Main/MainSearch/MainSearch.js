@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
-import * as district from './AddressData';
+import * as district from '../../../Common/AddressData';
 import { Form, Input, Space, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
 import { SearchBox, SelectName, SearchContent } from './MainSearch.styles';
 const { Option } = Select;
+
 function MainSearch(props) {
   const navigate = useNavigate();
   /* 지역 검색 */

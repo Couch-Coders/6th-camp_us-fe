@@ -3,7 +3,7 @@ import { Map, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import EventMarker from '../SearchLocation/EventMarker/EventMarker';
 
 const CampLocation = ({ campList }) => {
-  console.log(campList);
+  // console.log(campList);
 
   return (
     <Map // 지도를 표시할 Container
