@@ -3,9 +3,9 @@ import { Input, Select, Rate } from 'antd';
 
 const Container = styled.div`
   position: relative;
-  width: 452px;
+  width: 40%;
   height: 100%;
-  padding: 0 20px 0 20px;
+  padding: 0 75px 0 20px;
 `;
 
 const Header = styled.header`
