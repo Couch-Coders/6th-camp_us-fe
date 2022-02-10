@@ -1,9 +1,9 @@
 import React, { useCallback, useState } from 'react';
-import styled from 'styled-components';
-import { Input, Select, Rate } from 'antd';
+import { Select } from 'antd';
 import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
+import { style } from './SearchBar.style';
 
 const SearchBar = (props) => {
   const [address, setAddress] = useState({
@@ -103,8 +103,9 @@ const SearchBar = (props) => {
         <RateContent onChange={handleRateChange} />
         <InputTitle>상세 검색</InputTitle>
         <CategoryWrap>
-          {category.map((tag) => (
+          {category.map((tag, index) => (
             <Tag
+              key={index}
               tag={tag}
               role="category"
               addCategory={addCategory}
@@ -122,60 +123,14 @@ const SearchBar = (props) => {
 
 export default SearchBar;
 
-const Container = styled.div`
-  position: relative;
-  width: 452px;
-  height: 100%;
-  padding: 0 20px 0 20px;
-`;
-
-const Header = styled.header`
-  font-weight: bold;
-  font-size: 18px;
-  line-height: 21px;
-  padding: 22px 0 32px 0;
-`;
-
-const Form = styled.form`
-  height: auto;
-`;
-
-const InputContent = styled(Input)`
-  margin-bottom: 36px;
-`;
-
-const InputTitle = styled.div`
-  font-size: 14px;
-  line-height: 22px;
-  margin-bottom: 10px;
-`;
-
-const SelectAddress = styled(Select)`
-  width: 98px;
-  height: 32px;
-  margin-right: 13px;
-  margin-bottom: 30px;
-`;
-
-const RateContent = styled(Rate)`
-  margin-bottom: 37px;
-`;
-
-const CategoryWrap = styled.div`
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-`;
-
-const Button = styled.button`
-  position: absolute;
-  width: 166px;
-  height: 40px;
-  right: 20px;
-  bottom: 65px;
-  color: white;
-  background: #73d13d;
-  border-radius: 2px;
-  border: 0;
-  cursor: pointer;
-`;
+const {
+  Container,
+  Header,
+  Form,
+  InputContent,
+  InputTitle,
+  SelectAddress,
+  RateContent,
+  CategoryWrap,
+  Button,
+} = style;

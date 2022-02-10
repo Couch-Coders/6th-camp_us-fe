@@ -20,7 +20,6 @@ const AuthProvider = ({ children }) => {
         try {
           const token = await firebaseUser.getIdToken();
           defaultHeaders.Authorization = `Bearer ${token}`;
-
           const res = await axios({
             method: 'GET',
             url: '/members/me',
