@@ -121,6 +121,7 @@ const SearchBar = (props) => {
                   role="category"
                   addCategory={addCategory}
                   removeCategory={removeCategory}
+                  category={address.category}
                 />
               ))}
             </CategoryWrap>
