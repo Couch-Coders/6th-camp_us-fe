@@ -14,7 +14,6 @@
       "lastModifedBy": "김상운"
     }
   ],
-
   "myInfo": [
     {
       "id": 1,
@@ -24,7 +23,6 @@
       "nickname": "test닉네임"
     }
   ],
-
   "campSearch": [
     {
       "currentPage": 1,
@@ -43,7 +41,6 @@
       ]
     }
   ],
-
   "camp": [
     {
       "id": 1,
@@ -172,7 +169,6 @@
       "swrmCo": 1
     }
   ],
-
   "campReview": [
     {
       "currentPage": 1,
@@ -247,7 +243,6 @@
       ]
     }
   ],
-
   "bestReview": [
     {
       "review_id": 2,
@@ -320,7 +315,6 @@
       "likes": 23
     }
   ],
-
   "myCampsLikes": [
     {
       "campLikeId": 23,
@@ -354,6 +348,38 @@
       "campDesc": "청정한 숲속 비밀 공간에 있는 듯한 캠핑장",
       "addr1": "강원도 강릉시 123-12",
       "checked": true
+    }
+  ],
+  "alrimList": [
+    {
+      "alrimId": 1,
+      "type": "좋아요",
+      "reactUser": "eunbee",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑1",
+      "checked": false
+    },
+    {
+      "alrimId": 2,
+      "type": "댓글",
+      "reactUser": "nickname",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": false
+    },
+    {
+      "alrimId": 3,
+      "type": "좋아요",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑3",
+      "checked": false
     }
   ]
 }

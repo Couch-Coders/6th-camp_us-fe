@@ -1,4 +1,6 @@
-import React, { useState, useEffect, useContext } from 'react';
+//레이아웃
+
+import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
@@ -14,58 +16,25 @@ export default function AlrimLayout() {
   const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
 
-  const [currentPage, setCurrentPage] = useState(1);
-  const [postsPerPage] = useState(10);
-
   const defaultHeaders = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
 
   async function request() {
-    const response = await campService.getMyCampsLikes();
-    /* auth.onAuthStateChanged(async (firebaseUser) => {
-      const token = await firebaseUser.getIdToken();
-      defaultHeaders.Authorization = `Bearer ${token}`;
+    const response = await campService.getAlrimLikes();
 
-      const res = await fetch('/campReview', {
-        //const res = await fetch('/members/me/camps/likes', {
-        method: 'GET',
-        headers: defaultHeaders,
-        checked: false,
-      });
-      const data = await res.json();
-      
-    }); */
-    const sort = response.filter((r) => r.checked === true); // checked : true만 필터
-    setData(sort);
+    /* 알림 ID순 정렬 */
+    let sortAlrim = response.sort(
+      (a, b) => parseFloat(b.alrimId) - parseFloat(a.alrimId),
+    );
+    setData(sortAlrim);
   }
 
   useEffect(() => {
     request();
+    console.log(data);
   }, [user]);
-
-  /*  async function getCampData() {
-    const response = await campService.getCamp();
-    auth.onAuthStateChanged(async (firebaseUser) => {
-      const token = await firebaseUser.getIdToken();
-      defaultHeaders.Authorization = `Bearer ${token}`;
-
-      const res = await axios({
-        method: 'GET',
-        url: '/members/me/camps/likes',
-        withCredentials: true,
-        headers: defaultHeaders,
-      });
-      console.log('res = ', res);
-    });
-
-    setData(response);
-  }
-
-  useEffect(() => {
-    getCampData();
-  }, []); */
 
   const AlrimAllChecked = (e) => {
     e.preventDefault();
@@ -77,6 +46,25 @@ export default function AlrimLayout() {
     console.log('알림 전체 삭제');
   };
 
+  /* 선택한 알림 읽기 */
+  const handleOnUpdate = (e, cardId) => {
+    e.preventDefault();
+    console.log('선택한 알림 읽기', cardId);
+    let newArray = [...data]; // 사본 만들기
+    // newArray.map((card) => card.alrimId === cardId && card.checked === true);
+    // console.log('newArray =', newArray);
+    //setData(newArray);
+  };
+
+  /* 선택한 알림 삭제 */
+  const handleOnDelete = (cardId) => {
+    console.log('선택한 알림 삭제', cardId);
+    setData(data.filter((card) => card.alrimId !== cardId));
+  };
+
+  /* pagination */
+  const [currentPage, setCurrentPage] = useState(1);
+  const [postsPerPage] = useState(10);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
   const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
@@ -85,13 +73,18 @@ export default function AlrimLayout() {
     e.preventDefault();
     setCurrentPage(pageNumber);
   };
+
   return (
     <>
       <AlrimButton>
         <button onClick={AlrimAllChecked}>모든 알림 읽기</button>
         <button onClick={AlrimAllDelete}>전체 삭제</button>
       </AlrimButton>
-      <AlrimList data={currentPosts} />
+      <AlrimList
+        data={currentPosts}
+        handleOnUpdate={handleOnUpdate}
+        handleOnDelete={handleOnDelete}
+      />
       <Pagination
         postsPerPage={postsPerPage}
         totalPosts={data.length}

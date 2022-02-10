@@ -49,3 +49,13 @@ export async function getMyCampsLikes() {
     throw new Error('Failed to load data');
   }
 }
+
+export async function getAlrimLikes() {
+  try {
+    const response = await axios('http://localhost:3001/alrimList');
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
