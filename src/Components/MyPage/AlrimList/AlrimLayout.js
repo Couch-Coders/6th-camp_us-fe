@@ -50,10 +50,11 @@ export default function AlrimLayout() {
   const handleOnUpdate = (e, cardId) => {
     e.preventDefault();
     console.log('선택한 알림 읽기', cardId);
-    let newArray = [...data]; // 사본 만들기
-    // newArray.map((card) => card.alrimId === cardId && card.checked === true);
-    // console.log('newArray =', newArray);
-    //setData(newArray);
+    setData(
+      data.map((data) =>
+        data.alrimId === cardId ? { ...data, checked: true } : data,
+      ),
+    );
   };
 
   /* 선택한 알림 삭제 */

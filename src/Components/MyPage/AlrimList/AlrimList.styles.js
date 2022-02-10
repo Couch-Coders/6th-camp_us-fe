@@ -40,7 +40,7 @@ export const Alrim = styled.div`
   display: flex;
   justify-content: start;
   height: 88px;
-  background: ${({ checked }) => (checked ? '#c05b5b' : '#ffffff')};
+  background: ${({ checked }) => (checked ? '#f5f5f5' : '#ffffff')};
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
   border-radius: 2px;
