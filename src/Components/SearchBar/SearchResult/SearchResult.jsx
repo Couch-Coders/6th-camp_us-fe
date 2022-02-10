@@ -1,5 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
-const SearchResult = (props) => <div>result</div>;
+const SearchResult = (props) => {
+  const [isLoading, setIsLoading] = useState();
+
+  async function getSearchResult() {}
+
+  useEffect(() => {
+    getSearchResult();
+  }, []);
+
+  return <div>result</div>;
+};
 
 export default SearchResult;

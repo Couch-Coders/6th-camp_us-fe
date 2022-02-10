@@ -4,8 +4,11 @@ import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
+import SearchResult from './SearchResult/SearchResult';
 
 const SearchBar = (props) => {
+  const [isResultOpen, setIsResultOpen] = useState(false);
+  const [isDetailSearch, setIsDetailSearch] = useState(true);
   const [address, setAddress] = useState({
     address1: '서울특별시',
     address2: '강남구',
@@ -66,6 +69,12 @@ const SearchBar = (props) => {
     console.log(address);
   };
 
+  const handleSearchEvent = () => {
+    setIsDetailSearch(false);
+    setIsResultOpen(true);
+    submitAddress();
+  };
+
   // console.log(address);
   return (
     <Container>
@@ -101,22 +110,40 @@ const SearchBar = (props) => {
         </SelectAddress>
         <InputTitle>최소 별점</InputTitle>
         <RateContent onChange={handleRateChange} />
-        <InputTitle>상세 검색</InputTitle>
-        <CategoryWrap>
-          {category.map((tag, index) => (
-            <Tag
-              key={index}
-              tag={tag}
-              role="category"
-              addCategory={addCategory}
-              removeCategory={removeCategory}
-            />
-          ))}
-        </CategoryWrap>
-        <Button type="button" onClick={submitAddress}>
-          검색
-        </Button>
+        {isDetailSearch && (
+          <>
+            <InputTitle>상세 검색</InputTitle>
+            <CategoryWrap>
+              {category.map((tag, index) => (
+                <Tag
+                  key={index}
+                  tag={tag}
+                  role="category"
+                  addCategory={addCategory}
+                  removeCategory={removeCategory}
+                />
+              ))}
+            </CategoryWrap>
+          </>
+        )}
+
+        <ButtonWrap>
+          {isResultOpen && (
+            <Button
+              type="button"
+              onClick={() => {
+                setIsDetailSearch(true);
+              }}
+            >
+              상세검색
+            </Button>
+          )}
+          <Button type="button" onClick={handleSearchEvent}>
+            검색
+          </Button>
+        </ButtonWrap>
       </Form>
+      {isResultOpen && <SearchResult />}
     </Container>
   );
 };
@@ -133,4 +160,5 @@ const {
   RateContent,
   CategoryWrap,
   Button,
+  ButtonWrap,
 } = style;

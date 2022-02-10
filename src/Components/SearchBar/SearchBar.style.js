@@ -47,18 +47,21 @@ const CategoryWrap = styled.div`
 `;
 
 const Button = styled.button`
-  position: absolute;
   width: 166px;
   height: 40px;
-  right: 20px;
-  bottom: 30px;
   color: white;
   background: #73d13d;
   border-radius: 2px;
   border: 0;
   cursor: pointer;
+  margin-bottom: 10px;
 `;
 
+const ButtonWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+`;
 export const style = {
   Container,
   Header,
@@ -69,4 +72,5 @@ export const style = {
   RateContent,
   CategoryWrap,
   Button,
+  ButtonWrap,
 };
