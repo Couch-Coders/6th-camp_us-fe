@@ -131,10 +131,13 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
         </SelectAddress>
         <InputTitle>최소 별점</InputTitle>
         {searchCategory !== null ? (
-          // <RateContent onChange={handleRateChange} defaultValue={searchCategory.rate} />
-          <RateContent onChange={handleRateChange} />
+          <RateContent
+            allowHalf
+            onChange={handleRateChange}
+            defaultValue={searchCategory.rate}
+          />
         ) : (
-          <RateContent onChange={handleRateChange} />
+          <RateContent allowHalf onChange={handleRateChange} />
         )}
         {isDetailSearch && (
           <>
