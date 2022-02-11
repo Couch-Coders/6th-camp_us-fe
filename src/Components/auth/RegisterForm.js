@@ -16,23 +16,27 @@ const RegisterForm = ({ setRegisterFormOpen }) => {
   const handleSubmit = (event) => {
     auth.onAuthStateChanged(async (firebaseUser) => {
       event.preventDefault();
-      const token = await firebaseUser.getIdToken();
-      defaultHeaders.Authorization = `Bearer ${token}`;
-      console.log(`nickname :${event.target.nickname.value}`);
+      try {
+        const token = await firebaseUser.getIdToken();
+        defaultHeaders.Authorization = `Bearer ${token}`;
+        console.log(`nickname :${event.target.nickname.value}`);
+        const res = await axios({
+          method: 'POST',
+          url: '/members',
+          withCredentials: true,
+          headers: defaultHeaders,
+          data: JSON.stringify({
+            nickname: event.target.nickname.value,
+          }),
+        });
 
-      const res = await axios({
-        method: 'POST',
-        url: '/members',
-        withCredentials: true,
-        headers: defaultHeaders,
-        data: JSON.stringify({
-          nickname: event.target.nickname.value,
-        }),
-      });
-
-      const user = res;
-      setRegisterFormOpen(false);
-      setUser(user);
+        console.log(res);
+        const user = res;
+        setUser(user);
+        setRegisterFormOpen(false);
+      } catch (e) {
+        throw new Error('에러');
+      }
     });
   };
 
