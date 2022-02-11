@@ -10,6 +10,8 @@ const SearchPage = () => {
   const [campList, setCampList] = useState([]);
   const { state } = useLocation();
 
+  console.log(state);
+
   async function getCampList() {
     // 백엔드 api 완성되면 Search api 사용 예정
     setIsLoading(true);
@@ -24,7 +26,7 @@ const SearchPage = () => {
 
   return (
     <Container>
-      <SearchBar />
+      <SearchBar searchCategory={state} />
       {!isLoading && <SearchLocation campList={campList} />}
     </Container>
   );

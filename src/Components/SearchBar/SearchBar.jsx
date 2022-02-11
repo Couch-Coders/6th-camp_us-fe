@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { Select } from 'antd';
 import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
@@ -6,7 +6,7 @@ import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
 import SearchResult from './SearchResult/SearchResult';
 
-const SearchBar = (props) => {
+const SearchBar = ({ searchCategory }) => {
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [isDetailSearch, setIsDetailSearch] = useState(true);
   const [address, setAddress] = useState({
@@ -20,6 +20,20 @@ const SearchBar = (props) => {
   const category = Tagcategory;
 
   const { Option } = Select;
+
+  useEffect(() => {
+    console.log(searchCategory.rate);
+    if (searchCategory !== null) {
+      setAddress((address) => {
+        return {
+          ...address,
+          address1: searchCategory.address1,
+          address2: searchCategory.address2,
+          keyword: searchCategory.keyword,
+        };
+      });
+    }
+  }, []);
 
   /* 지역 검색 */
   const sido = district.sido;
@@ -84,6 +98,7 @@ const SearchBar = (props) => {
         <InputContent
           placeholder="캠핑장 이름을 검색하세요."
           onChange={changeKeyword}
+          value={address.keyword}
         />
         <InputTitle>지역</InputTitle>
         <SelectAddress
@@ -109,7 +124,12 @@ const SearchBar = (props) => {
           ))}
         </SelectAddress>
         <InputTitle>최소 별점</InputTitle>
-        <RateContent onChange={handleRateChange} />
+        {searchCategory !== null ? (
+          // <RateContent onChange={handleRateChange} defaultValue={searchCategory.rate} />
+          <RateContent onChange={handleRateChange} />
+        ) : (
+          <RateContent onChange={handleRateChange} />
+        )}
         {isDetailSearch && (
           <>
             <InputTitle>상세 검색</InputTitle>
@@ -128,8 +148,8 @@ const SearchBar = (props) => {
           </>
         )}
 
-        <ButtonWrap>
-          {isResultOpen && (
+        <ButtonWrap isResultOpen={isResultOpen}>
+          {!isDetailSearch && (
             <Button
               type="button"
               onClick={() => {

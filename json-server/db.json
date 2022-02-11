@@ -14,7 +14,6 @@
       "lastModifedBy": "김상운"
     }
   ],
-
   "campSearch": [
     {
       "currentPage": 1,
@@ -33,7 +32,6 @@
       ]
     }
   ],
-
   "camp": [
     {
       "id": 1,
@@ -162,7 +160,6 @@
       "swrmCo": 1
     }
   ],
-
   "campReview": [
     {
       "currentPage": 1,
@@ -237,7 +234,6 @@
       ]
     }
   ],
-
   "bestReview": [
     {
       "review_id": 2,
@@ -308,6 +304,12 @@
       "createdBy": "장대영",
       "lastModifedBy": "김상운",
       "likes": 23
+    }
+  ],
+  "alrimList": [
+    {
+      "id": 3,
+      "data": "알림 테스트"
     }
   ]
 }

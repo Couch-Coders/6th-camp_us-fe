@@ -29,6 +29,7 @@ const Tag = ({ tag, role, addCategory, removeCategory, category }) => {
   };
 
   useEffect(() => {
+    if (!category) return;
     const isInclude = category.includes(tag);
     setChecked(isInclude);
   }, [category, tag]);

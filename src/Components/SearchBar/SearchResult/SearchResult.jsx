@@ -27,5 +27,5 @@ export default SearchResult;
 const ResultWrap = styled.section`
   width: 100%;
   border-top: 1px solid #d9d9d9;
-  margin-top: 40px;
+  margin-top: 80px;
 `;
