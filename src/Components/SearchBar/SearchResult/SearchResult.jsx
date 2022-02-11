@@ -1,28 +1,16 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import * as campService from '../../../Service/camps';
 import ResultList from '../ResultList/ResultList';
 import { Select } from 'antd';
 import { throttle } from 'lodash';
 
-const SearchResult = ({ address, setSearchedCampData }) => {
-  const [isLoading, setIsLoading] = useState(false);
-  const [campResult, setCampResult] = useState([]);
+const SearchResult = ({ address, campResult }) => {
   const [resultSort, setResultSort] = useState();
   const [listHeight, setListHeight] = useState();
   const sortList = ['좋아요순', '거리순'];
   const { Option } = Select;
 
   const listRef = useRef();
-
-  async function getSearchResult() {
-    setIsLoading(false);
-    const response = await campService.getSearchCamp();
-    const campData = response[0].content;
-    setCampResult(campData);
-    setSearchedCampData(campData);
-    setIsLoading(true);
-  }
 
   window.addEventListener(
     'resize',
@@ -34,8 +22,6 @@ const SearchResult = ({ address, setSearchedCampData }) => {
   );
 
   useEffect(() => {
-    getSearchResult();
-
     const elementHeight = listRef.current.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
     setListHeight(brouserHeight - elementHeight.y - 20);

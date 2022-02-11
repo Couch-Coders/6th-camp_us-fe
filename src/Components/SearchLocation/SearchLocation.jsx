@@ -6,8 +6,6 @@ const DEFAULT_X = 126.570667;
 const DEFAULT_Y = 33.450701;
 
 const CampLocation = ({ campList }) => {
-  console.log(campList);
-
   return (
     <Map // 지도를 표시할 Container
       center={{

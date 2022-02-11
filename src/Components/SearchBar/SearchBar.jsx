@@ -5,8 +5,11 @@ import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
 import SearchResult from './SearchResult/SearchResult';
+import * as campService from '../../Service/camps';
 
 const SearchBar = ({ searchCategory, setSearchedCampData }) => {
+  const [campResult, setCampResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [isDetailSearch, setIsDetailSearch] = useState(true);
   const [address, setAddress] = useState({
@@ -22,7 +25,6 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
   const { Option } = Select;
 
   useEffect(() => {
-    // console.log(searchCategory.rate);
     if (searchCategory !== null) {
       setAddress((address) => {
         return {
@@ -79,9 +81,19 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
     });
   }, []);
 
+  const getSearchResult = async () => {
+    setIsLoading(false);
+    const response = await campService.getSearchCamp();
+    const campData = response[0].content;
+    setCampResult(campData);
+    setSearchedCampData(campData);
+    setIsLoading(true);
+  };
+
   const handleSearchEvent = () => {
     setIsDetailSearch(false);
     setIsResultOpen(true);
+    getSearchResult();
   };
 
   return (
@@ -161,7 +173,8 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
       {isResultOpen && (
         <SearchResult
           address={address}
-          setSearchedCampData={setSearchedCampData}
+          isLoading={isLoading}
+          campResult={campResult}
         />
       )}
     </Container>
