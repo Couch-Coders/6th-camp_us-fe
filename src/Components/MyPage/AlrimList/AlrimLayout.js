@@ -78,8 +78,7 @@ export default function AlrimLayout() {
   };
 
   /* 선택한 알림 읽기 */
-  const handleOnUpdate = async (e, id) => {
-    e.preventDefault();
+  const handleOnUpdate = async (id) => {
     console.log('선택한 알림 읽기', id);
     const response = await axios({
       method: 'patch',

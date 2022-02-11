@@ -38,7 +38,10 @@ export default function AlrimList(props) {
       <List>
         {post.map((a) => (
           <Alrim key={a.id} checked={a.checked}>
-            <CheckedArea to={`/`} onClick={(e) => handleOnUpdate(e, a.id)}>
+            <CheckedArea
+              to={`/detail/${a.id}`}
+              onClick={() => handleOnUpdate(a.id)}
+            >
               <Thumbnail>
                 <Thumb src={a.imgUrl === '' ? Image : a.imgUrl}></Thumb>
               </Thumbnail>
