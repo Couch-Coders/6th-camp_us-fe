@@ -37,8 +37,8 @@ export default function AlrimList(props) {
     <>
       <List>
         {post.map((a) => (
-          <Alrim key={a.alrimId} checked={a.checked}>
-            <CheckedArea to={`/`} onClick={(e) => handleOnUpdate(e, a.alrimId)}>
+          <Alrim key={a.id} checked={a.checked}>
+            <CheckedArea to={`/`} onClick={(e) => handleOnUpdate(e, a.id)}>
               <Thumbnail>
                 <Thumb src={a.imgUrl === '' ? Image : a.imgUrl}></Thumb>
               </Thumbnail>
@@ -59,7 +59,7 @@ export default function AlrimList(props) {
                 </BottomArea>
               </Info>
             </CheckedArea>
-            <DeleteBtn onClick={(e) => handleOnDelete(a.alrimId)}>
+            <DeleteBtn onClick={(e) => handleOnDelete(a.id)}>
               <CloseOutlined />
             </DeleteBtn>
           </Alrim>

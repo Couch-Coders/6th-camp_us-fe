@@ -352,19 +352,19 @@
   ],
   "alrimList": [
     {
-      "alrimId": 1,
+      "id": 1,
       "type": "좋아요",
-      "reactUser": "eunbee",
+      "reactUser": "ssskim",
       "campId": 123,
       "imgUrl": "www.img.com",
       "createdDate": "2022-01-14T15:48:36.080486",
-      "campName": "아리아캠핑1",
-      "checked": false
+      "campName": "아리아캠핑2",
+      "checked": true
     },
     {
-      "alrimId": 2,
-      "type": "댓글",
-      "reactUser": "nickname",
+      "id": 2,
+      "type": "좋아요",
+      "reactUser": "ssskim",
       "campId": 123,
       "imgUrl": "www.img.com",
       "createdDate": "2022-01-14T15:48:36.080486",
@@ -372,13 +372,23 @@
       "checked": false
     },
     {
-      "alrimId": 3,
+      "id": 3,
       "type": "좋아요",
       "reactUser": "ssskim",
       "campId": 123,
       "imgUrl": "www.img.com",
       "createdDate": "2022-01-14T15:48:36.080486",
-      "campName": "아리아캠핑3",
+      "campName": "아리아캠핑2",
+      "checked": false
+    },
+    {
+      "id": 4,
+      "type": "댓글",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
       "checked": false
     }
   ]
