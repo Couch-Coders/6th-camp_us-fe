@@ -6,6 +6,7 @@ const Container = styled.div`
   width: 40%;
   height: 100%;
   padding: 0 75px 0 20px;
+  overflow-y: hidden;
 `;
 
 const Header = styled.header`
