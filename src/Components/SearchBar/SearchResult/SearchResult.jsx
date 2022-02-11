@@ -5,7 +5,7 @@ import ResultList from '../ResultList/ResultList';
 import { Select } from 'antd';
 import { throttle } from 'lodash';
 
-const SearchResult = (props) => {
+const SearchResult = ({ address }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [campResult, setCampResult] = useState([]);
   const [resultSort, setResultSort] = useState();
@@ -99,4 +99,15 @@ const ListWrap = styled.ul`
   width: 100%;
   overflow: auto;
   height: ${(props) => `${props.listHeight}px`};
+
+  &::-webkit-scrollbar {
+    width: 5px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: #aeaeae;
+  }
+  &::-webkit-scrollbar-track {
+    background-color: #eeeeee;
+  }
 `;

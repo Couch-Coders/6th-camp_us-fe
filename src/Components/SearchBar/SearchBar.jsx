@@ -164,7 +164,7 @@ const SearchBar = ({ searchCategory }) => {
           </Button>
         </ButtonWrap>
       </Form>
-      {isResultOpen && <SearchResult />}
+      {isResultOpen && <SearchResult address={address} />}
     </Container>
   );
 };
