@@ -2,15 +2,18 @@ import React from 'react';
 import { Map, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import EventMarker from '../SearchLocation/EventMarker/EventMarker';
 
+const DEFAULT_X = 126.570667;
+const DEFAULT_Y = 33.450701;
+
 const CampLocation = ({ campList }) => {
-  // console.log(campList);
+  console.log(campList);
 
   return (
     <Map // 지도를 표시할 Container
       center={{
         // 지도의 중심좌표
-        lat: campList[0].mapY,
-        lng: campList[0].mapX,
+        lat: campList ? campList[0].mapY : DEFAULT_Y,
+        lng: campList ? campList[0].mapX : DEFAULT_X,
       }}
       style={{
         // 지도의 크기
@@ -21,9 +24,8 @@ const CampLocation = ({ campList }) => {
     >
       <ZoomControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
       <MapTypeControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
-      {campList.map((camp, index) => (
-        <EventMarker key={camp.id} camp={camp} />
-      ))}
+      {campList &&
+        campList.map((camp) => <EventMarker key={camp.id} camp={camp} />)}
     </Map>
   );
 };

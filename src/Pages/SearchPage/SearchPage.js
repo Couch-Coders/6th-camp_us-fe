@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as campService from '../../Service/camps';
 import { useLocation } from 'react-router';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
@@ -21,13 +21,27 @@ const SearchPage = () => {
   }
 
   useEffect(() => {
-    getCampList();
+    state && getCampList();
   }, []);
+
+  const setSearchedCampData = useCallback((data) => {
+    setCampList(data);
+    console.log('변경 해야함');
+  }, []);
+
+  console.log(campList);
 
   return (
     <Container>
-      <SearchBar searchCategory={state} />
-      {!isLoading && <SearchLocation campList={campList} />}
+      <SearchBar
+        searchCategory={state}
+        setSearchedCampData={setSearchedCampData}
+      />
+      {state ? (
+        !isLoading && <SearchLocation campList={campList} />
+      ) : (
+        <SearchLocation campList={campList} />
+      )}
     </Container>
   );
 };

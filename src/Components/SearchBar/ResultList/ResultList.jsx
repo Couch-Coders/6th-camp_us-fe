@@ -13,7 +13,7 @@ const ResultList = ({ camp }) => {
       <Content>
         <ContentHeader>
           <CampTitle>{camp.facltNm}</CampTitle>
-          <LikeCount>
+          <LikeWrap>
             <svg
               width="13"
               height="12"
@@ -26,12 +26,12 @@ const ResultList = ({ camp }) => {
                 fill="#FF7875"
               />
             </svg>
-            15
-          </LikeCount>
+            <LikeCount>15</LikeCount>
+          </LikeWrap>
         </ContentHeader>
         <ContentDescription>
-          <p>설명...</p>
-          <p>설명...</p>
+          <span>{camp.lineIntro}</span>
+          <span>{camp.addr1}</span>
         </ContentDescription>
       </Content>
     </Result>
@@ -46,6 +46,7 @@ const Result = styled.li`
   height: 150px;
   list-style: none;
   margin-bottom: 10px;
+  cursor: pointer;
 `;
 
 const Image = styled.img`
@@ -73,7 +74,14 @@ const CampTitle = styled.span`
   font-size: 16px;
 `;
 
+const LikeWrap = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 const LikeCount = styled.div`
+  padding-top: 3px;
+  margin-left: 5px;
   font-size: 10px;
 `;
 
@@ -82,5 +90,6 @@ const ContentDescription = styled.div`
   flex-direction: column;
   align-items: flex-start;
   padding: 24px;
-  font-size: 14px;
+  font-size: 13px;
+  color: #595959;
 `;

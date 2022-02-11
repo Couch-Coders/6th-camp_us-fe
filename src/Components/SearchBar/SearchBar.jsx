@@ -6,7 +6,7 @@ import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
 import SearchResult from './SearchResult/SearchResult';
 
-const SearchBar = ({ searchCategory }) => {
+const SearchBar = ({ searchCategory, setSearchedCampData }) => {
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [isDetailSearch, setIsDetailSearch] = useState(true);
   const [address, setAddress] = useState({
@@ -22,7 +22,7 @@ const SearchBar = ({ searchCategory }) => {
   const { Option } = Select;
 
   useEffect(() => {
-    console.log(searchCategory.rate);
+    // console.log(searchCategory.rate);
     if (searchCategory !== null) {
       setAddress((address) => {
         return {
@@ -79,17 +79,11 @@ const SearchBar = ({ searchCategory }) => {
     });
   }, []);
 
-  const submitAddress = () => {
-    console.log(address);
-  };
-
   const handleSearchEvent = () => {
     setIsDetailSearch(false);
     setIsResultOpen(true);
-    submitAddress();
   };
 
-  // console.log(address);
   return (
     <Container>
       <Header>캠핑장 찾아보기</Header>
@@ -164,7 +158,12 @@ const SearchBar = ({ searchCategory }) => {
           </Button>
         </ButtonWrap>
       </Form>
-      {isResultOpen && <SearchResult address={address} />}
+      {isResultOpen && (
+        <SearchResult
+          address={address}
+          setSearchedCampData={setSearchedCampData}
+        />
+      )}
     </Container>
   );
 };

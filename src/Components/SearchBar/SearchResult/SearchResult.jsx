@@ -5,7 +5,7 @@ import ResultList from '../ResultList/ResultList';
 import { Select } from 'antd';
 import { throttle } from 'lodash';
 
-const SearchResult = ({ address }) => {
+const SearchResult = ({ address, setSearchedCampData }) => {
   const [isLoading, setIsLoading] = useState(false);
   const [campResult, setCampResult] = useState([]);
   const [resultSort, setResultSort] = useState();
@@ -17,12 +17,12 @@ const SearchResult = ({ address }) => {
 
   async function getSearchResult() {
     setIsLoading(false);
-    const response = await campService.getCamp();
-    setCampResult(response);
+    const response = await campService.getSearchCamp();
+    const campData = response[0].content;
+    setCampResult(campData);
+    setSearchedCampData(campData);
     setIsLoading(true);
   }
-
-  isLoading && console.log(campResult);
 
   window.addEventListener(
     'resize',
@@ -63,7 +63,7 @@ const SearchResult = ({ address }) => {
       </Header>
       <ListWrap ref={listRef} listHeight={listHeight}>
         {campResult.map((result) => (
-          <ResultList camp={result} />
+          <ResultList camp={result} key={result.id} />
         ))}
       </ListWrap>
     </ResultWrap>
