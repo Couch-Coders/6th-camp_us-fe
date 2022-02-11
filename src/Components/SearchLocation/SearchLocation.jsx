@@ -12,8 +12,8 @@ const CampLocation = ({ campList }) => {
     <Map // 지도를 표시할 Container
       center={{
         // 지도의 중심좌표
-        lat: campList ? campList[0].mapY : DEFAULT_Y,
-        lng: campList ? campList[0].mapX : DEFAULT_X,
+        lat: campList.length > 0 ? campList[0].mapY : DEFAULT_Y,
+        lng: campList.length > 0 ? campList[0].mapX : DEFAULT_X,
       }}
       style={{
         // 지도의 크기
@@ -24,7 +24,7 @@ const CampLocation = ({ campList }) => {
     >
       <ZoomControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
       <MapTypeControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
-      {campList &&
+      {campList.length > 0 &&
         campList.map((camp) => <EventMarker key={camp.id} camp={camp} />)}
     </Map>
   );
