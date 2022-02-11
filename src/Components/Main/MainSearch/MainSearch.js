@@ -14,7 +14,7 @@ function MainSearch(props) {
   const [address, setAddress] = useState({
     address1: '서울특별시',
     address2: '강남구',
-    rate: '전체',
+    rate: 0,
     keyword: '',
   });
   const changeValue = (value) => {
@@ -89,7 +89,7 @@ function MainSearch(props) {
               )}
             </Select>
             <SelectName>별점</SelectName>
-            <Rate allowHalf onChange={handleRateChange} />
+            <Rate allowHalf onChange={handleRateChange} value={address.rate} />
           </Space>
           <SearchContent>
             <Search
