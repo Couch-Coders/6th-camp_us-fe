@@ -26,10 +26,7 @@ const SearchPage = () => {
 
   const setSearchedCampData = useCallback((data) => {
     setCampList(data);
-    console.log('변경 해야함');
   }, []);
-
-  console.log(campList);
 
   return (
     <Container>

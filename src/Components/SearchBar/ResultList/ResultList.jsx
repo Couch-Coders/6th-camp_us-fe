@@ -1,10 +1,18 @@
 import React from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import defaultImage from '../../../Assets/Images/default_image.png';
 const ResultList = ({ camp }) => {
   // console.log(camp.firstImageUrl);
+
+  let navigate = useNavigate();
+
+  const goToDetail = () => {
+    navigate('/detail');
+  };
+
   return (
-    <Result>
+    <Result onClick={goToDetail}>
       {camp.firstImageUrl ? (
         <Image src={camp.firstImageUrl} alt="thumbnail" />
       ) : (
@@ -89,7 +97,9 @@ const ContentDescription = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  padding: 24px;
+  justify-content: center;
+  height: 100%;
   font-size: 13px;
+  padding: 0 24px;
   color: #595959;
 `;
