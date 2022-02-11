@@ -39,6 +39,10 @@ export const NavLogo = styled(Link)`
   font-size: 2rem;
   display: flex;
   align-items: center;
+
+  &:hover {
+    color: #222;
+  }
 `;
 
 export const NavIcon = styled.div`
