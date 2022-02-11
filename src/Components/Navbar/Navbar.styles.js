@@ -70,6 +70,7 @@ export const NavMenu = styled.ul`
   align-items: center;
   list-style: none;
   text-align: center;
+  margin: 0;
 
   @media screen and (max-width: 960px) {
     display: flex;
@@ -87,6 +88,7 @@ export const NavMenu = styled.ul`
 
 export const NavItem = styled.li`
   height: 65px;
+  align-items: center;
 
   @media screen and (max-width: 960px) {
     width: 100%;
@@ -98,16 +100,21 @@ export const NavLinks = styled(Link)`
   color: ${(props) => (props.selected ? '#73D13D' : '#000;')};
   border-bottom: ${(props) =>
     props.selected ? '2px solid #73D13D;' : '2px solid transparent;'};
+  box-sizing: border-box;
   display: flex;
   align-items: center;
   text-decoration: none;
   padding: 0 20px;
   font-size: 14px;
-  padding: 23px;
 
   &:hover {
+    color: #73d13d;
     border-bottom: 2px solid #73d13d;
     transition: all 0.3s ease;
+  }
+
+  @media screen and (min-width: 961px) {
+    line-height: 65px;
   }
 
   @media screen and (max-width: 960px) {
@@ -125,56 +132,148 @@ export const NavLinks = styled(Link)`
   }
 `;
 
-export const LogOutBtn = styled.button`
-  color: #c0c0c0;
-  font-size: 14px;
-  margin: 0 20px;
-  outline: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-
-  &:hover {
-    color: #d3d3d3;
-    transition: all 0.3s ease;
-  }
-`;
-
 export const MyProfile = styled(Link)`
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
   display: block;
   color: #d3d3d3;
   text-align: center;
   line-height: 50px;
   font-size: 28px;
-  background-color: #eeeeee;
+  cursor: pointer;
+  overflow: hidden;
+  position: relative;
 
-  &:hover {
-    background-color: #f1f1f1;
-    transition: all 0.3s ease;
+  & > * {
+    width: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  @media screen and (max-width: 960px) {
+    display: none;
   }
 `;
 
 export const NavItemBtn = styled.li`
-  @media screen and (max-width: 960px) {
+  position: relative;
+  /* @media screen and (max-width: 960px) {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 80px;
+  } */
+  @media screen and (max-width: 960px) {
+    width: 100%;
   }
 `;
 
 export const NavBtnLink = styled(Link)`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-decoration: none;
-  padding: 8px 16px;
-  height: 100%;
-  width: 100%;
-  border: none;
+  @media screen and (min-width: 961px) {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    padding: 8px 16px;
+    height: 100%;
+    width: 100%;
+    border: none;
+    outline: none;
+  }
+
+  @media screen and (max-width: 960px) {
+    display: block;
+  }
+`;
+
+export const MyMenu = styled.div`
+  @media screen and (min-width: 961px) {
+    position: absolute;
+    display: ${(props) => (props.Isclicked ? 'block' : 'none')};
+    top: 52px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    background-color: #ffffff;
+    border: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    border-radius: 3px;
+  }
+`;
+
+export const MenuList = styled(Link)`
+  @media screen and (min-width: 961px) {
+    font-size: 14px;
+    border-bottom: 1px solid #e0e0e0;
+    box-sizing: border-box;
+    display: inline-block;
+    text-align: center;
+    color: #333;
+    width: max-content;
+
+    &:last-child {
+      border-bottom: 0;
+    }
+
+    & > * {
+      padding: 8px;
+    }
+  }
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    text-align: center;
+    width: 100%;
+    display: block;
+    color: #fff;
+  }
+  &:hover {
+    color: #73d13d;
+    transition: all 0.3s ease;
+  }
+
+  & * {
+    font-size: 14px;
+  }
+`;
+
+export const MyPage = styled.div`
+  @media screen and (max-width: 960px) {
+    padding: 2rem;
+  }
+`;
+
+export const LogOutBtn = styled.button`
+  font-size: 14px;
   outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+
+  @media screen and (max-width: 960px) {
+    width: 85%;
+    background-color: #222b41;
+    color: #6f7c9c;
+    padding: 16px 20px;
+    border-radius: 3px;
+    font-size: 16px;
+  }
+`;
+
+export const LogInBtn = styled.button`
+  font-size: 14px;
+  outline: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  background-color: #73d13d;
+  padding: 8px 20px;
+  border-radius: 3px;
+  color: #fff;
+
+  @media screen and (max-width: 960px) {
+    width: 85%;
+    padding: 16px 20px;
+    font-size: 16px;
+  }
 `;
