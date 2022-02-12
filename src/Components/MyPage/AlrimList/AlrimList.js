@@ -1,5 +1,3 @@
-//알림리스트
-
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../auth/AuthProvider';
