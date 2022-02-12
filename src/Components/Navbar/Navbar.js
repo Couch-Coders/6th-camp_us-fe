@@ -3,7 +3,6 @@ import { useLocation } from 'react-router-dom';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FaTimes, FaBars } from 'react-icons/fa';
-import { Button } from '../../globalStyles';
 import Modal from '../Modal/Modal';
 import {
   Nav,
@@ -15,15 +14,19 @@ import {
   NavItem,
   NavLinks,
   LogOutBtn,
+  LogInBtn,
   MyProfile,
   NavItemBtn,
-  NavBtnLink,
+  MyMenu,
+  MenuList,
+  MyPage,
 } from './Navbar.styles';
 import { signOut } from '../../Service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
+  const [IsClicked, setIsClicked] = useState(false);
   const [button, setButton] = useState(true);
   const [isLoggedIn, setLoggedIn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -74,26 +77,49 @@ const Navbar = () => {
             </NavLinks>
           </NavItem>
           {user ? (
-            <>
-              <NavItemBtn>
-                <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
-              </NavItemBtn>
-              <NavItemBtn>
-                <MyProfile to="/member">
+            <NavItemBtn>
+              <MyProfile
+                to="/"
+                onClick={function (e) {
+                  e.preventDefault();
+                  setIsClicked(!IsClicked);
+                }}
+              >
+                {user.data.imgUrl !== '' ? (
+                  <img src={user.data.imgUrl}></img>
+                ) : (
                   <Avatar size="large" icon={<UserOutlined />} />
-                </MyProfile>
-              </NavItemBtn>
-            </>
+                )}
+              </MyProfile>
+              <MyMenu Isclicked={IsClicked}>
+                <MenuList
+                  to="/member"
+                  onClick={function () {
+                    setIsClicked(false);
+                  }}
+                >
+                  <MyPage>마이페이지</MyPage>
+                </MenuList>
+                <MenuList
+                  to="/"
+                  onClick={function () {
+                    setIsClicked(false);
+                  }}
+                >
+                  <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
+                </MenuList>
+              </MyMenu>
+            </NavItemBtn>
           ) : (
             <NavItemBtn>
               {button ? (
-                <Button primary onClick={onToggleModal}>
+                <LogInBtn primary onClick={onToggleModal}>
                   Log In
-                </Button>
+                </LogInBtn>
               ) : (
-                <Button fontBig primary onClick={onToggleModal}>
+                <LogInBtn fontBig primary onClick={onToggleModal}>
                   Log In
-                </Button>
+                </LogInBtn>
               )}
             </NavItemBtn>
           )}

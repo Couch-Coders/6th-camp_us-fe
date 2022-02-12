@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 const InfoTag = styled.div`
   display: flex;
@@ -11,6 +11,20 @@ const InfoTag = styled.div`
   border: 1px solid #d9d9d9;
   box-sizing: border-box;
   border-radius: 100px;
+  color: black;
+
+  ${(props) =>
+    props.role === 'category' &&
+    css`
+      cursor: pointer;
+    `}
+
+  ${(props) =>
+    props.checked === true &&
+    css`
+      color: white;
+      background: #616161;
+    `}
 `;
 
 const TagText = styled.span`
@@ -19,7 +33,6 @@ const TagText = styled.span`
   font-weight: normal;
   font-size: 12px;
   line-height: 20px;
-  color: rgba(0, 0, 0, 0.85);
 `;
 
 export const style = {

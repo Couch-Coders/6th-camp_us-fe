@@ -11,10 +11,12 @@
     "axios": "^0.25.0",
     "firebase": "^8.10.0",
     "json-server": "^0.17.0",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
     "react-icons": "^4.3.1",
+    "react-kakao-maps-sdk": "^1.0.4",
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-slick": "^0.28.1",
@@ -50,5 +52,5 @@
     "eslint": "^8.7.0",
     "prettier": "2.5.1"
   },
-  "proxy": "http://13.124.56.189:8080"
+  "homepage": "pages/"
 }
