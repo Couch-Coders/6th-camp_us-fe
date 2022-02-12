@@ -48,6 +48,7 @@ export async function getUserInfo() {
   } catch (error) {
     throw new Error('Failed to load data');
   }
+}
 
 export async function getMyCampsLikes() {
   try {

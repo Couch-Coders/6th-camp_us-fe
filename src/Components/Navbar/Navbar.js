@@ -93,7 +93,7 @@ const Navbar = () => {
               </MyProfile>
               <MyMenu Isclicked={IsClicked}>
                 <MenuList
-                  to="/member"
+                  to="/mypage"
                   onClick={function () {
                     setIsClicked(false);
                   }}
