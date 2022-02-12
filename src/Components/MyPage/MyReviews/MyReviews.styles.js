@@ -8,7 +8,87 @@ export const List = styled.div`
     display: block;
   }
 `;
+/* editingTemplate */
+export const EditForm = styled.form`
+  width: 100%;
+  display: block;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 18px;
+  margin-bottom: 20px;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+`;
 
+export const CampNameLoad = styled.div`
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.85);
+  margin: 6px 0 8px 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const EditTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+`;
+
+export const EditLeft = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  & > span {
+    margin-left: 35px;
+  }
+`;
+
+export const EditRight = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  & > * {
+    margin-left: 8px;
+    padding: 4px 15px;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+`;
+
+export const RateSelect = styled.div`
+  font-family: Roboto;
+  font-size: 14px;
+  line-height: 16px;
+  color: #000000;
+  & ul {
+    margin-left: 5px;
+  }
+`;
+
+export const EditButton = styled.div`
+  color: #fff;
+  background: #73d13d;
+  border: 1px solid #73d13d;
+`;
+
+export const CancleButton = styled.button`
+  color: #b9b9b9;
+  background: #fff;
+  border: 1px solid #b9b9b9;
+`;
+
+/* viewTemplate */
 export const LikeReview = styled.div`
   width: 100%;
   display: flex;

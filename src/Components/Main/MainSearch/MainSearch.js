@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router';
 import * as district from './AddressData';
-import { Form, Input, Space, Select } from 'antd';
+import { Rate, Input, Space, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
 import { SearchBox, SelectName, SearchContent } from './MainSearch.styles';
@@ -14,7 +14,7 @@ function MainSearch(props) {
   const [address, setAddress] = useState({
     address1: '서울특별시',
     address2: '강남구',
-    rate: '전체',
+    rate: 0,
     keyword: '',
   });
   const changeValue = (value) => {
@@ -31,8 +31,7 @@ function MainSearch(props) {
     });
   };
   /* 별점 검색 */
-  const rateSelectList = ['전체', '1점', '2점', '3점', '4점', '5점'];
-  const changeValue3 = (value) => {
+  const handleRateChange = (value) => {
     setAddress((address) => {
       return { ...address, rate: value };
     });
@@ -51,6 +50,7 @@ function MainSearch(props) {
     if (isSearch === true) {
       navigate('/search', { state: address });
     }
+    console.log('address =', address);
   }, [isSearch]);
 
   const { Search } = Input;
@@ -89,17 +89,7 @@ function MainSearch(props) {
               )}
             </Select>
             <SelectName>별점</SelectName>
-            <Select
-              placeholder="최소별점"
-              onChange={changeValue3}
-              value={address.rate}
-            >
-              {rateSelectList.map((s) => (
-                <Option key={s} value={s}>
-                  {s}
-                </Option>
-              ))}
-            </Select>
+            <Rate allowHalf onChange={handleRateChange} value={address.rate} />
           </Space>
           <SearchContent>
             <Search

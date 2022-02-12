@@ -35,12 +35,49 @@ export default function MyReviewsLayout() {
       const data = await res.json();
       
     }); */
+
     setData(response[0].contents);
   }
-
   useEffect(() => {
     request();
   }, [user]);
+
+  /* 리뷰 리스트 */
+  function deleteTask(id) {
+    const remainingTasks = data.filter((data) => id !== data.id);
+    setData(remainingTasks);
+  }
+
+  function editTask(id, newName) {
+    const editedTaskList = data.map((data) => {
+      // if this task has the same ID as the edited task
+      if (id === data.id) {
+        //
+        return { ...data, name: newName };
+      }
+      return data;
+    });
+    setData(editedTaskList);
+  }
+  const reviewList = data.map((data) => (
+    <MyReviews
+      id={data.id}
+      camp_id={data.camp_id}
+      camp_name={data.camp_name}
+      author={data.author}
+      content={data.content}
+      createdDate={data.createdDate}
+      lastModifiedDate={data.lastModifiedDate}
+      likes={data.likes}
+      rate={data.rate}
+      imgUrl={data.imgUrl}
+      /* createdBy={data.createdBy}
+      lastModifedBy={data.lastModifedBy} */
+      key={data.id}
+      deleteTask={deleteTask}
+      editTask={editTask}
+    />
+  ));
 
   /*  async function getCampData() {
     const response = await campService.getCamp();
@@ -72,9 +109,10 @@ export default function MyReviewsLayout() {
     e.preventDefault();
     setCurrentPage(pageNumber);
   };
+
   return (
     <>
-      <MyReviews data={currentPosts} />
+      {reviewList}
       <Pagination
         postsPerPage={postsPerPage}
         totalPosts={data.length}

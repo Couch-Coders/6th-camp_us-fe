@@ -1,10 +1,19 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
-import { Rate } from 'antd';
+import { Rate, Upload, message, Button, Input } from 'antd';
+import { UploadOutlined } from '@ant-design/icons';
 import Image from '../../../Assets/Images/default.png';
 import {
   List,
+  EditForm,
+  CampNameLoad,
+  EditTop,
+  EditLeft,
+  EditRight,
+  EditButton,
+  CancleButton,
+  RateSelect,
   LikeReview,
   ReviewThumbnail,
   ReviewThumb,
@@ -17,43 +26,95 @@ import {
   BottomArea,
 } from './MyReviews.styles';
 
-export default function MyReviews({ data }) {
+export default function MyReviews(props) {
   const { user } = useContext(UserContext);
   // console.log('data = ', data);
   const defaultHeaders = {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
+  const { TextArea } = Input;
+  const [isEditing, setEditing] = useState(false);
+  const [newRate, setNewRate] = useState(0);
+  const [newImg, setNewImg] = useState('');
+  const [newContent, setNewContent] = useState('');
 
-  return (
-    <List>
-      {data.map((Review) => (
-        <LikeReview key={Review.review_id}>
-          <ReviewThumbnail>
-            <ReviewThumb
-              src={Review.imgUrl === '' ? Image : Review.imgUrl}
-            ></ReviewThumb>
-          </ReviewThumbnail>
-          <ReviewInfo>
-            <TopArea>
-              <div>
-                <CampName to={`/detail/${Review.camp_id}`}>
-                  aaaaaa
-                  <Rate allowHalf disabled defaultValue={Review.rate} />
-                </CampName>
-              </div>
-              <HandleContent>
-                <HandleReview>수정</HandleReview>
-                <HandleReview>삭제</HandleReview>
-              </HandleContent>
-            </TopArea>
-            <Date>{Review.lastModifiedDate}</Date>
-            <BottomArea to={`/detail/${Review.camp_id}`}>
-              {Review.content}
-            </BottomArea>
-          </ReviewInfo>
-        </LikeReview>
-      ))}
-    </List>
+  function handleChange(e) {
+    //setNewName(e.target.value);
+  }
+
+  const handleRateChange = (e) => {
+    setNewRate(e.target.value);
+  };
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    props.editTask(props.id, newRate, newImg, newContent);
+    setNewRate('');
+    setNewImg('');
+    setNewContent('');
+    setEditing(false);
+  }
+  const fileprops = {
+    onChange(info) {
+      if (info.file.status !== 'uploading') {
+        console.log(info.file, info.fileList);
+      }
+      if (info.file.status === 'done') {
+        message.success(`${info.file.name} file uploaded successfully`);
+      } else if (info.file.status === 'error') {
+        message.error(`${info.file.name} file upload failed.`);
+      }
+    },
+  };
+  const editingTemplate = (
+    <EditForm onSubmit={handleSubmit} key={props.review_id}>
+      <CampNameLoad>{props.camp_name}</CampNameLoad>
+      <EditTop>
+        <EditLeft>
+          <RateSelect>
+            별점 선택{' '}
+            <Rate allowHalf onChange={handleRateChange} value={newRate} />
+          </RateSelect>
+          <Upload {...fileprops}>
+            <Button icon={<UploadOutlined />}>Click to Upload</Button>
+          </Upload>
+        </EditLeft>
+        <EditRight>
+          <EditButton typed="submit">수정완료</EditButton>
+          <CancleButton onClick={() => setEditing(false)}>취소</CancleButton>
+        </EditRight>
+      </EditTop>
+      <TextArea rows={4} />
+    </EditForm>
   );
+  const viewTemplate = (
+    <LikeReview key={props.review_id}>
+      <ReviewThumbnail>
+        <ReviewThumb
+          src={props.imgUrl === '' ? Image : props.imgUrl}
+        ></ReviewThumb>
+      </ReviewThumbnail>
+      <ReviewInfo>
+        <TopArea>
+          <div>
+            <CampName to={`/detail/${props.camp_id}`}>
+              {props.camp_name}
+              <Rate allowHalf disabled defaultValue={props.rate} />
+            </CampName>
+          </div>
+          <HandleContent>
+            <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
+            <HandleReview onClick={() => props.deleteTask(props.id)}>
+              삭제
+            </HandleReview>
+          </HandleContent>
+        </TopArea>
+        <Date>{props.lastModifiedDate}</Date>
+        <BottomArea to={`/detail/${props.camp_id}`}>{props.content}</BottomArea>
+      </ReviewInfo>
+    </LikeReview>
+  );
+
+  return <List>{isEditing ? editingTemplate : viewTemplate}</List>;
 }
