@@ -23,7 +23,6 @@
       "nickname": "test닉네임"
     }
   ],
-
   "campSearch": [
     {
       "currentPage": 1,
@@ -338,6 +337,83 @@
       "createdBy": "장대영",
       "lastModifedBy": "김상운",
       "likes": 23
+    }
+  ],
+  "myCampsLikes": [
+    {
+      "campLikeId": 23,
+      "campId": 224,
+      "memberId": 1,
+      "campName": "달빛캠핑장",
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campDesc": "청정한 숲속 비밀 공간에 있는 듯한 캠핑장",
+      "addr1": "강원도 강릉시 123-12",
+      "checked": true
+    },
+    {
+      "campLikeId": 22,
+      "campId": 227,
+      "memberId": 1,
+      "campName": "별빛캠핑장",
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campDesc": "청정한 숲속 비밀 공간에 있는 듯한 캠핑장",
+      "addr1": "강원도 강릉시 123-12",
+      "checked": true
+    },
+    {
+      "campLikeId": 27,
+      "campId": 229,
+      "memberId": 1,
+      "campName": "햇빛캠핑장",
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campDesc": "청정한 숲속 비밀 공간에 있는 듯한 캠핑장",
+      "addr1": "강원도 강릉시 123-12",
+      "checked": true
+    }
+  ],
+  "alrimList": [
+    {
+      "id": 1,
+      "type": "좋아요",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": true
+    },
+    {
+      "id": 2,
+      "type": "좋아요",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": true
+    },
+    {
+      "id": 3,
+      "type": "좋아요",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": false
+    },
+    {
+      "id": 4,
+      "type": "댓글",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": false
     }
   ],
   "alrimList": [

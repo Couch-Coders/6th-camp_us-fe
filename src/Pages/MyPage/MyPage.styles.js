@@ -1,5 +1,5 @@
 import styled, { css } from 'styled-components';
-import { Input } from 'antd';
+import { Input, Avatar } from 'antd';
 
 export const SectionTitle = styled.h2`
   font-family: Work Sans;
@@ -33,6 +33,25 @@ export const MyProfile = styled.div`
 
   & svg {
     cursor: pointer;
+  }
+`;
+
+export const AvatarImg = styled(Avatar)`
+  position: relative;
+
+  & span.ant-avatar-string {
+    position: relative;
+    left: 0;
+    transform: scale(1) translateX(0) !important;
+    width: 100%;
+    height: 100%;
+    display: block;
+  }
+
+  & img {
+    width: 32px;
+    height: 32px;
+    vertical-align: initial;
   }
 `;
 

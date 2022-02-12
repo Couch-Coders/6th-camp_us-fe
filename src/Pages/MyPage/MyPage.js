@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react';
-import * as campService from '../../Service/camps';
+import React, { useState, useEffect, useContext } from 'react';
+import { UserContext } from '../../Components/auth/AuthProvider';
+import { auth } from '../../Service/firebaseAuth';
 import LikeListLayout from '../../Components/MyPage/LikesList/LikeListLayout';
 import MyReviews from '../../Components/MyPage/MyReviews/MyReviews';
-import AlrimList from '../../Components/MyPage/AlrimList/AlrimList';
-import { Avatar } from 'antd';
+import AlrimLayout from '../../Components/MyPage/AlrimList/AlrimLayout';
 import 'antd/dist/antd.css';
-import { UserOutlined } from '@ant-design/icons';
 import { Section, InnerWrapper } from '../../Styles/theme';
 import {
   SectionTitle,
   MyInfo,
   MyProfile,
+  AvatarImg,
   EditUserName,
   UserName,
   MyActivity,
@@ -20,42 +20,49 @@ import {
   LocationTabs,
   ReviewTabs,
 } from './MyPage.styles';
+import Image from '../../Assets/Images/default_image.png';
 
 function MyPage(props) {
-  const [userData, setUserData] = useState([]);
-  const [newName, setNewName] = useState(''); // db에서 받은 user 닉네임 넣기
-
+  /* 닉네임 수정 */
+  const { user } = useContext(UserContext);
+  const [newName, setNewName] = useState(); // db에서 받은 user 닉네임 넣기
+  // console.log(user);
   async function getUserData() {
-    // 유저 정보 가져오기
-    const response = await campService.getUserInfo(); // 유저 정보로 바꾸기!
-    setUserData(response);
-    setNewName(response[0].nickname);
+    setNewName(user.data.nickname);
   }
   useEffect(() => {
     getUserData();
-  }, []);
-
-  /* 닉네임 수정 */
-  const [isEditing, setEditing] = useState(false);
+  }, [user]);
 
   function handleChange(e) {
     setNewName(e.target.value);
   }
 
+  const defaultHeaders = {
+    'Content-Type': 'application/json',
+    Accept: 'application/json',
+    Authorization: '',
+  };
+
+  const [isEditing, setEditing] = useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log(`nickname :${newName}`);
-    /* const res = await fetch('/members/me', {
-      method: 'PATCH',
-      headers: defaultHeaders,
-      body: JSON.stringify({
-        nickname: newName,
-      }),
+    auth.onAuthStateChanged(async (firebaseUser) => {
+      const token = await firebaseUser.getIdToken();
+      defaultHeaders.Authorization = `Bearer ${token}`;
+
+      console.log(`nickname :${newName}`);
+      const res = await fetch('/members/me', {
+        method: 'PATCH',
+        headers: defaultHeaders,
+        body: JSON.stringify({
+          nickname: newName,
+        }),
+      });
+
+      setEditing(false);
     });
-    const user = await res.json();
-    console.log(`patch /members/me ${JSON.stringify(user)}`); */
-    setEditing(false);
   };
 
   const editingTemplate = (
@@ -100,8 +107,6 @@ function MyPage(props) {
     </>
   );
 
-  /* 작성 리뷰 수 조회 */
-
   /* 탭메뉴 변경 */
   const [selectedTabs, setSelectedTabs] = useState('likesList');
 
@@ -113,24 +118,24 @@ function MyPage(props) {
     <Section>
       <InnerWrapper>
         <SectionTitle>마이페이지</SectionTitle>
-        {userData.map((user) => (
-          <MyInfo key={user.id}>
-            <form onSubmit={handleSubmit}>
-              <MyProfile>
-                <Avatar
-                  style={{ backgroundColor: '#87d068' }}
-                  icon={<UserOutlined />}
+        <MyInfo>
+          <form onSubmit={handleSubmit}>
+            <MyProfile>
+              <AvatarImg>
+                <img
+                  // src={user.data.imgUrl}
+                  src={Image}
+                  alt="회원이미지"
                 />
-                {isEditing ? editingTemplate : viewTemplate}
-              </MyProfile>
-            </form>
-            <MyActivity>
-              <li>방문 : {user.visit_cnt}</li>
-              <li>작성글 : {user.write_cnt}</li>
-              <li>리뷰 : {user.reveiw_cnt}</li>
-            </MyActivity>
-          </MyInfo>
-        ))}
+              </AvatarImg>
+              {isEditing ? editingTemplate : viewTemplate}
+            </MyProfile>
+          </form>
+          <MyActivity>
+            <li>작성글 : 1 {/* {user.data.imgUrl} */}</li>
+            <li>리뷰 : 1 {/* {user.data.reviewCnt} */}</li>
+          </MyActivity>
+        </MyInfo>
         <TabsContainer>
           <TabsWrap>
             <InfoTabs
@@ -158,7 +163,7 @@ function MyPage(props) {
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
         {selectedTabs === 'myReviews' && <MyReviews />}
-        {selectedTabs === 'alrimList' && <AlrimList />}
+        {selectedTabs === 'alrimList' && <AlrimLayout />}
       </InnerWrapper>
     </Section>
   );

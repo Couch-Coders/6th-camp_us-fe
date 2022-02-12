@@ -36,7 +36,7 @@ const AuthProvider = ({ children }) => {
         } catch (e) {
           //에러발생 시
           console.log('로그인 된 회원 없음 ');
-          setRegisterFormOpen(true);
+          // setRegisterFormOpen(true);
         }
       } else {
         setUser(null);
