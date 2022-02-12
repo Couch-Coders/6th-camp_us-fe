@@ -14,7 +14,6 @@
       "lastModifedBy": "김상운"
     }
   ],
-
   "campSearch": [
     {
       "currentPage": 1,
@@ -22,18 +21,41 @@
       "totalElements": 8,
       "content": [
         {
-          "campId": "1",
+          "id": "1",
           "addr1": "경상남도 창원시 의창구 북면 달천길, 150 ",
           "addr2": "달천공원오토캠핑장 ",
-          "facltNm": "달천공원오토캠핑장 ",
+          "facltNm": "최고공원오토캠핑장 ",
           "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
           "lineIntro": "사계절 서로 다른 매력의 캠핑을 즐길 수 있는 곳",
-          "like": "30"
+          "like": "30",
+          "mapX": 128.5398171,
+          "mapY": 35.2822939
+        },
+        {
+          "id": "2",
+          "addr1": "경상남도 창원시 의창구 북면 달천길, 150 ",
+          "addr2": "달천공원오토캠핑장 ",
+          "facltNm": "멋진공원오토캠핑장 ",
+          "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+          "lineIntro": "사계절 서로 다른 매력의 캠핑을 즐길 수 있는 곳",
+          "like": "30",
+          "mapX": 128.5398183,
+          "mapY": 35.2829939
+        },
+        {
+          "id": "3",
+          "addr1": "경상남도 창원시 의창구 북면 달천길, 150 ",
+          "addr2": "달천공원오토캠핑장 ",
+          "facltNm": "좋은공원오토캠핑장 ",
+          "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+          "lineIntro": "사계절 서로 다른 매력의 캠핑을 즐길 수 있는 곳",
+          "like": "30",
+          "mapX": 128.5332861,
+          "mapY": 35.2724038
         }
       ]
     }
   ],
-
   "camp": [
     {
       "id": 1,
@@ -162,7 +184,6 @@
       "swrmCo": 1
     }
   ],
-
   "campReview": [
     {
       "currentPage": 1,
@@ -237,7 +258,6 @@
       ]
     }
   ],
-
   "bestReview": [
     {
       "review_id": 2,
@@ -308,6 +328,12 @@
       "createdBy": "장대영",
       "lastModifedBy": "김상운",
       "likes": 23
+    }
+  ],
+  "alrimList": [
+    {
+      "id": 3,
+      "data": "알림 테스트"
     }
   ]
 }
