@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as campService from '../../Service/camps';
 import { useLocation } from 'react-router';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
 import styled from 'styled-components';
+import SearchBar from '../../Components/SearchBar/SearchBar';
 
 const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -18,12 +19,24 @@ const SearchPage = () => {
   }
 
   useEffect(() => {
-    getCampList();
+    state && getCampList();
+  }, []);
+
+  const setSearchedCampData = useCallback((data) => {
+    setCampList(data);
   }, []);
 
   return (
     <Container>
-      {!isLoading && <SearchLocation campList={campList} />}
+      <SearchBar
+        searchCategory={state}
+        setSearchedCampData={setSearchedCampData}
+      />
+      {state ? (
+        !isLoading && <SearchLocation campList={campList} />
+      ) : (
+        <SearchLocation campList={campList} />
+      )}
     </Container>
   );
 };
@@ -31,7 +44,8 @@ export default SearchPage;
 
 const Container = styled.div`
   display: flex;
-  padding: 22px 58px;
+  justify-content: space-between;
+  padding: 22px 58px 22px 38px;
   width: 100%;
   height: calc(100vh - 65px);
 `;

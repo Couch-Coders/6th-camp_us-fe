@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import CampInformation from '../../Components/CampInformation/CampInformation';
-import CampInfoTag from '../../Components/CampInfoTag/CampInfoTag';
+import Tag from '../../Components/Tag/Tag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
 import CampReview from '../../Components/CampReview/CampReview';
 import { CampContext } from '../../context/CampContext';
@@ -68,7 +68,7 @@ const DetailPage = () => {
           </Header>
           <CampInfoWrap>
             {campInfo.map((item, index) => (
-              <CampInfoTag tag={item} key={index} />
+              <Tag tag={item} key={index} />
             ))}
           </CampInfoWrap>
           <Thumbnail src={campData.firstImageUrl} alt="thumbnail"></Thumbnail>

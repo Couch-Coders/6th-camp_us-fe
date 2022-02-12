@@ -11,6 +11,7 @@
     "axios": "^0.25.0",
     "firebase": "^8.10.0",
     "json-server": "^0.17.0",
+    "lodash": "^4.17.21",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-google-login": "^5.2.2",
@@ -50,5 +51,6 @@
   "devDependencies": {
     "eslint": "^8.7.0",
     "prettier": "2.5.1"
-  }
+  },
+  "homepage": "pages/"
 }
