@@ -1,5 +1,15 @@
 import styled, { css } from 'styled-components';
 
+const SectionTitle = styled.h2`
+  font-family: Work Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 33px;
+  letter-spacing: -0.02em;
+  color: #000000;
+`;
+
 const Main = styled.main`
   position: relative;
   width: 100%;
@@ -194,6 +204,7 @@ const ReviewTabs = styled.span`
 `;
 
 export const style = {
+  SectionTitle,
   Main,
   Container,
   Header,
