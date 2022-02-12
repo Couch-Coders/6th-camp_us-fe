@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
+import axios from 'axios';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
 import { HeartFilled } from '@ant-design/icons';
@@ -26,7 +27,31 @@ export default function LikesList({ data }) {
   };
 
   /* 좋아요 클릭 시 목록에서 제거 */
-  const CampLikeCancle = (e, campId) => {
+
+  const unCheckedCampLike = (id) => {
+    // 내 좋아요 목록에서 제거
+    fetch(`/members/me/camps/likes/${id}`, {
+      method: 'PATCH',
+      headers: defaultHeaders,
+      body: JSON.stringify({
+        checked: false,
+      }),
+    });
+  };
+
+  const subtractCampLikeCnt = (campId) => {
+    // 캠핑장 정보에서 좋아요 수 - 1
+    fetch(`/camps/${campId}/likes`, {
+      // 캠핑장 상세 api인지, 캠핑장 좋아요 api인지
+      method: 'PATCH',
+      headers: defaultHeaders,
+      body: JSON.stringify({
+        checked: false,
+        //like_cnt : like_cnt-1
+      }),
+    });
+  };
+  const CampLikeCancle = (e, id, campId) => {
     e.preventDefault();
 
     auth.onAuthStateChanged(async (firebaseUser) => {
@@ -34,18 +59,13 @@ export default function LikesList({ data }) {
       defaultHeaders.Authorization = `Bearer ${token}`;
 
       console.log(campId); // 선택한 캠프장의 id
-      const res = await fetch(`/members/me/camps/likes`, {
-        method: 'PATCH',
-        headers: defaultHeaders,
-        body: JSON.stringify({
-          checked: false,
-        }),
-      });
-
-      /*
-       1. 선택한 캠프장의 like_cnt -1
-       2. 마이페이지 좋아요 리스트에서 삭제
-      */
+      if (window.confirm('이 캠핑장을 좋아요 목록애서 삭제 하시겠습니까?')) {
+        axios.all([unCheckedCampLike(id), subtractCampLikeCnt(campId)]).then(
+          axios.spread(function (acct, perms) {
+            // Both requests are now complete
+          }),
+        );
+      }
     });
   };
 
@@ -61,7 +81,9 @@ export default function LikesList({ data }) {
           <CampInfo>
             <TopArea>
               <CampName to={`/detail/${camp.campId}`}>{camp.campName}</CampName>
-              <CampLike onClick={(e) => CampLikeCancle(e, camp.campLikeId)}>
+              <CampLike
+                onClick={(e) => CampLikeCancle(e, camp.id, camp.campLikeId)}
+              >
                 <HeartFilled style={{ color: '#FF7875', fontSize: '20px' }} />
                 {/*  <HeartOutlined style={{ color: '#FF7875', fontSize: '20px' }} /> */}
               </CampLike>
