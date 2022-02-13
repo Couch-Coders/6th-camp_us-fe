@@ -376,44 +376,16 @@
   ],
   "alrimList": [
     {
-      "id": 1,
-      "type": "좋아요",
-      "reactUser": "ssskim",
-      "campId": 123,
-      "imgUrl": "www.img.com",
-      "createdDate": "2022-01-14T15:48:36.080486",
-      "campName": "아리아캠핑2",
-      "checked": true
-    },
-    {
-      "id": 2,
-      "type": "좋아요",
-      "reactUser": "ssskim",
-      "campId": 123,
-      "imgUrl": "www.img.com",
-      "createdDate": "2022-01-14T15:48:36.080486",
-      "campName": "아리아캠핑2",
-      "checked": true
-    },
-    {
       "id": 3,
-      "type": "좋아요",
-      "reactUser": "ssskim",
-      "campId": 123,
-      "imgUrl": "www.img.com",
-      "createdDate": "2022-01-14T15:48:36.080486",
-      "campName": "아리아캠핑2",
-      "checked": false
+      "data": "알림 테스트"
     },
     {
       "id": 4,
-      "type": "댓글",
-      "reactUser": "ssskim",
-      "campId": 123,
-      "imgUrl": "www.img.com",
-      "createdDate": "2022-01-14T15:48:36.080486",
-      "campName": "아리아캠핑2",
-      "checked": false
+      "data": "알림 테스트"
+    },
+    {
+      "id": 5,
+      "data": "알림 테스트"
     }
   ]
 }
