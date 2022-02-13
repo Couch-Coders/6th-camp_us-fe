@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { CampContext } from '../../context/CampContext';
 import Slider from 'react-slick';
-import CampInfoTag from '../CampInfoTag/CampInfoTag';
+import Tag from '../Tag/Tag';
 import { style } from './CampInformation.style';
 
 const CampInformation = ({ reviewImg, campInfo }) => {
@@ -54,7 +54,7 @@ const CampInformation = ({ reviewImg, campInfo }) => {
       <Title>캠핑장 시설정보</Title>
       <CampInfoWrap>
         {campInfo.map((item, index) => (
-          <CampInfoTag tag={item} key={index} />
+          <Tag tag={item} key={index} />
         ))}
       </CampInfoWrap>
       <Table>

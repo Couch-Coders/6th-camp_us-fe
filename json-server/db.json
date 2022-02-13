@@ -14,7 +14,6 @@
       "lastModifedBy": "김상운"
     }
   ],
-
   "myInfo": [
     {
       "id": 1,
@@ -24,7 +23,6 @@
       "nickname": "test닉네임"
     }
   ],
-
   "campSearch": [
     {
       "currentPage": 1,
@@ -32,18 +30,41 @@
       "totalElements": 8,
       "content": [
         {
-          "campId": "1",
+          "id": "1",
           "addr1": "경상남도 창원시 의창구 북면 달천길, 150 ",
           "addr2": "달천공원오토캠핑장 ",
-          "facltNm": "달천공원오토캠핑장 ",
+          "facltNm": "최고공원오토캠핑장 ",
           "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
           "lineIntro": "사계절 서로 다른 매력의 캠핑을 즐길 수 있는 곳",
-          "like": "30"
+          "like": "30",
+          "mapX": 128.5398171,
+          "mapY": 35.2822939
+        },
+        {
+          "id": "2",
+          "addr1": "경상남도 창원시 의창구 북면 달천길, 150 ",
+          "addr2": "달천공원오토캠핑장 ",
+          "facltNm": "멋진공원오토캠핑장 ",
+          "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+          "lineIntro": "사계절 서로 다른 매력의 캠핑을 즐길 수 있는 곳",
+          "like": "30",
+          "mapX": 128.5398183,
+          "mapY": 35.2829939
+        },
+        {
+          "id": "3",
+          "addr1": "경상남도 창원시 의창구 북면 달천길, 150 ",
+          "addr2": "달천공원오토캠핑장 ",
+          "facltNm": "좋은공원오토캠핑장 ",
+          "firstImageUrl": "https://gocamping.or.kr/upload/camp/704/thumb/thumb_720_6835LN3Y4PG4YQDWJo1y7Vvr.jpg",
+          "lineIntro": "사계절 서로 다른 매력의 캠핑을 즐길 수 있는 곳",
+          "like": "30",
+          "mapX": 128.5332861,
+          "mapY": 35.2724038
         }
       ]
     }
   ],
-
   "camp": [
     {
       "id": 1,
@@ -172,7 +193,6 @@
       "swrmCo": 1
     }
   ],
-
   "campReview": [
     {
       "currentPage": 1,
@@ -252,7 +272,6 @@
       ]
     }
   ],
-
   "bestReview": [
     {
       "review_id": 2,
@@ -325,7 +344,6 @@
       "likes": 23
     }
   ],
-
   "myCampsLikes": [
     {
       "campLikeId": 23,
@@ -359,6 +377,54 @@
       "campDesc": "청정한 숲속 비밀 공간에 있는 듯한 캠핑장",
       "addr1": "강원도 강릉시 123-12",
       "checked": true
+    }
+  ],
+  "alrimList": [
+    {
+      "id": 1,
+      "type": "좋아요",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": true
+    },
+    {
+      "id": 2,
+      "type": "좋아요",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": true
+    },
+    {
+      "id": 3,
+      "type": "좋아요",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": false
+    },
+    {
+      "id": 4,
+      "type": "댓글",
+      "reactUser": "ssskim",
+      "campId": 123,
+      "imgUrl": "www.img.com",
+      "createdDate": "2022-01-14T15:48:36.080486",
+      "campName": "아리아캠핑2",
+      "checked": false
+    }
+  ],
+  "alrimList": [
+    {
+      "id": 3,
+      "data": "알림 테스트"
     }
   ]
 }
