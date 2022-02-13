@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
-import { Rate, Upload, message, Button, Input } from 'antd';
+import { Rate, message, Button, Input } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import Image from '../../../Assets/Images/default.png';
 import {
@@ -13,6 +13,7 @@ import {
   EditRight,
   EditButton,
   CancleButton,
+  ImgUpload,
   RateSelect,
   LikeReview,
   ReviewThumbnail,
@@ -61,13 +62,13 @@ export default function MyReviews(props) {
   const fileprops = {
     /* Post로 이미지 정보 보낼 떄 에러발생 */
     headers: defaultHeaders,
-    action: 'http://localhost:3001/campReview',
+    action: `http://localhost:3001/campReview`,
     //action: '/members/me/reviews',
     name: 'file',
     onChange(info) {
       console.log(info.file.status);
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
+      if (info.file.status === 'uploading') {
+        console.log('info.file =', info.file, 'info.fileList =', info.fileList);
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
@@ -78,7 +79,7 @@ export default function MyReviews(props) {
     },
   };
   const editingTemplate = (
-    <EditForm key={props.review_id}>
+    <EditForm key={props.id}>
       <CampNameLoad>{props.camp_name}</CampNameLoad>
       <EditTop>
         <EditLeft>
@@ -86,9 +87,6 @@ export default function MyReviews(props) {
             별점 선택
             <Rate allowHalf onChange={handleRateChange} value={newRate} />
           </RateSelect>
-          <Upload {...fileprops}>
-            <Button icon={<UploadOutlined />}>Click to Upload</Button>
-          </Upload>
         </EditLeft>
         <EditRight>
           <EditButton type="submit" onClick={handleSubmit}>
@@ -97,6 +95,10 @@ export default function MyReviews(props) {
           <CancleButton onClick={() => setEditing(false)}>취소</CancleButton>
         </EditRight>
       </EditTop>
+
+      <ImgUpload {...fileprops} listType="picture" maxCount={1}>
+        <Button icon={<UploadOutlined />}>리뷰 이미지 등록</Button>
+      </ImgUpload>
       <TextArea rows={4} onChange={handleContentChange} value={newContent} />
     </EditForm>
   );

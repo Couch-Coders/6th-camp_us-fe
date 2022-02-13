@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Upload } from 'antd';
 
 export const List = styled.div`
   width: 100%;
@@ -38,27 +39,12 @@ export const EditTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 16px;
 `;
 
 export const EditLeft = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
-
-  & > span {
-    margin-left: 35px;
-    display: flex;
-    justify-content: start;
-
-    & div.ant-upload-list {
-      align-items: center;
-
-      & div.ant-tooltip-open * {
-        background-color: transparent;
-      }
-    }
-  }
 `;
 
 export const EditRight = styled.div`
@@ -96,6 +82,11 @@ export const CancleButton = styled.button`
   color: #b9b9b9;
   background: #fff;
   border: 1px solid #b9b9b9;
+`;
+
+export const ImgUpload = styled(Upload)`
+  margin: 16px 0;
+  display: flex;
 `;
 
 /* viewTemplate */
