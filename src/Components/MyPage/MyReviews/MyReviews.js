@@ -43,10 +43,9 @@ export default function MyReviews(props) {
     //setNewName(e.target.value);
   }
 
-  const handleRateChange = (e) => {
-    setNewRate(e.target.value);
+  const handleRateChange = (value) => {
+    setNewRate(value);
   };
-
   const handleContentChange = (e) => {
     setNewContent(e.target.value);
   };
@@ -79,7 +78,7 @@ export default function MyReviews(props) {
     },
   };
   const editingTemplate = (
-    <EditForm onSubmit={handleSubmit} key={props.review_id}>
+    <EditForm key={props.review_id}>
       <CampNameLoad>{props.camp_name}</CampNameLoad>
       <EditTop>
         <EditLeft>
@@ -92,7 +91,9 @@ export default function MyReviews(props) {
           </Upload>
         </EditLeft>
         <EditRight>
-          <EditButton typed="submit">수정완료</EditButton>
+          <EditButton type="submit" onClick={handleSubmit}>
+            수정완료
+          </EditButton>
           <CancleButton onClick={() => setEditing(false)}>취소</CancleButton>
         </EditRight>
       </EditTop>
