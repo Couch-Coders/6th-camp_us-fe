@@ -35,9 +35,9 @@ export default function MyReviews(props) {
   };
   const { TextArea } = Input;
   const [isEditing, setEditing] = useState(false);
-  const [newRate, setNewRate] = useState(0);
-  const [newImg, setNewImg] = useState('');
-  const [newContent, setNewContent] = useState('');
+  const [newRate, setNewRate] = useState(props.rate);
+  const [newImg, setNewImg] = useState(props.imgUrl);
+  const [newContent, setNewContent] = useState(props.content);
 
   function handleChange(e) {
     //setNewName(e.target.value);
@@ -45,6 +45,10 @@ export default function MyReviews(props) {
 
   const handleRateChange = (e) => {
     setNewRate(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setNewContent(e.target.value);
   };
 
   function handleSubmit(e) {
@@ -56,12 +60,19 @@ export default function MyReviews(props) {
     setEditing(false);
   }
   const fileprops = {
+    /* Post로 이미지 정보 보낼 떄 에러발생 */
+    headers: defaultHeaders,
+    action: 'http://localhost:3001/campReview',
+    //action: '/members/me/reviews',
+    name: 'file',
     onChange(info) {
+      console.log(info.file.status);
       if (info.file.status !== 'uploading') {
         console.log(info.file, info.fileList);
       }
       if (info.file.status === 'done') {
         message.success(`${info.file.name} file uploaded successfully`);
+        setNewImg(info.file.name);
       } else if (info.file.status === 'error') {
         message.error(`${info.file.name} file upload failed.`);
       }
@@ -73,7 +84,7 @@ export default function MyReviews(props) {
       <EditTop>
         <EditLeft>
           <RateSelect>
-            별점 선택{' '}
+            별점 선택
             <Rate allowHalf onChange={handleRateChange} value={newRate} />
           </RateSelect>
           <Upload {...fileprops}>
@@ -85,7 +96,7 @@ export default function MyReviews(props) {
           <CancleButton onClick={() => setEditing(false)}>취소</CancleButton>
         </EditRight>
       </EditTop>
-      <TextArea rows={4} />
+      <TextArea rows={4} onChange={handleContentChange} value={newContent} />
     </EditForm>
   );
   const viewTemplate = (

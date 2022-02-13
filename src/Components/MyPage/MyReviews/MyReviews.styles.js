@@ -48,6 +48,16 @@ export const EditLeft = styled.div`
 
   & > span {
     margin-left: 35px;
+    display: flex;
+    justify-content: start;
+
+    & div.ant-upload-list {
+      align-items: center;
+
+      & div.ant-tooltip-open * {
+        background-color: transparent;
+      }
+    }
   }
 `;
 

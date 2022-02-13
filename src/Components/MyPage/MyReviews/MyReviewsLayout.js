@@ -48,12 +48,12 @@ export default function MyReviewsLayout() {
     setData(remainingTasks);
   }
 
-  function editTask(id, newName) {
+  function editTask(id, newRate, newImg, newContent) {
     const editedTaskList = data.map((data) => {
       // if this task has the same ID as the edited task
       if (id === data.id) {
         //
-        return { ...data, name: newName };
+        return { ...data, rate: newRate, imgUrl: newImg, content: newContent };
       }
       return data;
     });
