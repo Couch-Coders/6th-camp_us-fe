@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React, { useState, useRef, useContext } from 'react';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
-import { Rate, message, Button, Input } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { Rate, message, Button, Input, Modal } from 'antd';
+import { UploadOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import DeleteModal from '../../Modal/DeleteModal';
 import Image from '../../../Assets/Images/default.png';
 import {
   List,
@@ -102,6 +103,9 @@ export default function MyReviews(props) {
       <TextArea rows={4} onChange={handleContentChange} value={newContent} />
     </EditForm>
   );
+
+  /* 삭제 */
+  const [show, setShow] = useState(false);
   const viewTemplate = (
     <LikeReview key={props.review_id}>
       <ReviewThumbnail>
@@ -119,10 +123,9 @@ export default function MyReviews(props) {
           </div>
           <HandleContent>
             <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
-            <HandleReview onClick={() => props.deleteTask(props.id)}>
-              삭제
-            </HandleReview>
+            <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
           </HandleContent>
+          {show && <DeleteModal onClose={setShow} id={props.id} />}
         </TopArea>
         <Date>{props.lastModifiedDate}</Date>
         <BottomArea to={`/detail/${props.camp_id}`}>{props.content}</BottomArea>
