@@ -4,9 +4,8 @@ import { Button, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
 import { imageUploader } from '../../Service/imageUploder';
 
-const ImageUpload = () => {
+const ImageUpload = ({ setImageUpload }) => {
   const [loading, setLoading] = useState(false);
-
   const inputRef = useRef();
 
   const onbuttonClick = (event) => {
@@ -20,14 +19,18 @@ const ImageUpload = () => {
     const uploaded = await imageUploader(event.target.files[0]);
     setLoading(false);
 
-    console.log(uploaded);
-    // onImageChange({
-    //   name: uploaded.original_filename,
-    //   url: uploaded.url,
-    // });
+    console.log(uploaded.data);
+    setImageUpload(
+      {
+        name: `${uploaded.data.original_filename}.${uploaded.data.format}`,
+        url: uploaded.data.url,
+      },
+      'add',
+    );
   };
+
   return (
-    <div>
+    <Wrap>
       <Input
         ref={inputRef}
         type="file"
@@ -45,11 +48,15 @@ const ImageUpload = () => {
           <Spin />
         </ButtonContent>
       )}
-    </div>
+    </Wrap>
   );
 };
 
 export default ImageUpload;
+
+const Wrap = styled.div`
+  margin-right: 20px;
+`;
 
 const Input = styled.input`
   display: none;
