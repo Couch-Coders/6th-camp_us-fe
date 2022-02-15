@@ -39,41 +39,65 @@ export default function MyReviews(props) {
 
   /* 리뷰 수정 */
   const { TextArea } = Input;
+  const [review, setReview] = useState({
+    id: props.id,
+    camp_id: props.camp_id,
+    camp_name: props.camp_name,
+    author: props.author,
+    createdDate: props.createdDate,
+    lastModifiedDate: props.lastModifiedDate,
+    likes: props.likes,
+    rate: props.rate,
+    content: props.content,
+    imgUrl: props.imgUrl,
+  });
   const [isEditing, setEditing] = useState(false);
-  const [newRate, setNewRate] = useState(props.rate);
-  const [newImg, setNewImg] = useState(props.imgUrl);
-  const [newContent, setNewContent] = useState(props.content);
-
-  function handleChange(e) {
-    //setNewName(e.target.value);
-  }
 
   const handleRateChange = (value) => {
-    setNewRate(value);
+    setReview((review) => {
+      return { ...review, rate: value };
+    });
   };
   const handleContentChange = (e) => {
-    setNewContent(e.target.value);
+    setReview((review) => {
+      return { ...review, content: e.target.value };
+    });
   };
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.editTask(props.id, newRate, newImg, newContent);
-    setNewRate('');
-    setNewImg('');
-    setNewContent('');
+    props.editTask(review);
     setEditing(false);
   }
   function handleCancle(e) {
     e.preventDefault();
-    setNewImg('');
     setEditing(false);
+    setReview((review) => {
+      return {
+        ...review,
+        id: props.id,
+        camp_id: props.camp_id,
+        camp_name: props.camp_name,
+        author: props.author,
+        createdDate: props.createdDate,
+        lastModifiedDate: props.lastModifiedDate,
+        likes: props.likes,
+        rate: props.rate,
+        content: props.content,
+        imgUrl: props.imgUrl,
+      };
+    });
   }
 
   const setImageUpload = useCallback((file, action) => {
     if (action === 'add') {
-      setNewImg(file);
+      setReview((review) => {
+        return { ...review, imgUrl: file.url };
+      });
     } else {
-      setNewImg(null);
+      setReview((review) => {
+        return { ...review, imgUrl: null };
+      });
     }
   }, []);
 
@@ -84,7 +108,7 @@ export default function MyReviews(props) {
         <EditLeft>
           <RateSelect>
             별점 선택
-            <Rate allowHalf onChange={handleRateChange} value={newRate} />
+            <Rate allowHalf onChange={handleRateChange} value={review.rate} />
           </RateSelect>
         </EditLeft>
         <EditRight>
@@ -96,37 +120,52 @@ export default function MyReviews(props) {
       </EditTop>
       <Container>
         <ImageUpload setImageUpload={setImageUpload} />
-        {newImg !== null && newImg !== '' && (
-          <ImagePreview setImageUpload={setImageUpload} previewImg={newImg} />
+        {review.imgUrl !== null && review.imgUrl !== '' && (
+          <ImagePreview
+            setImageUpload={setImageUpload}
+            previewImg={review.imgUrl}
+          />
         )}
       </Container>
-      <TextArea rows={4} onChange={handleContentChange} value={newContent} />
+      <TextArea
+        rows={4}
+        onChange={handleContentChange}
+        value={review.content}
+      />
     </EditForm>
   );
 
   /* 리뷰 삭제 */
   const [show, setShow] = useState(false);
   const viewTemplate = (
-    <LikeReview key={props.id}>
+    <LikeReview key={review.id}>
       <ReviewThumbnail>
-        <ReviewThumb src={props.imgUrl === '' ? Image : props.imgUrl} />
+        <ReviewThumb
+          src={
+            review.imgUrl === '' || review.imgUrl === null
+              ? Image
+              : review.imgUrl
+          }
+        />
       </ReviewThumbnail>
       <ReviewInfo>
         <TopArea>
           <div>
-            <CampName to={`/detail/${props.camp_id}`}>
-              {props.camp_name}
-              <Rate allowHalf disabled defaultValue={props.rate} />
+            <CampName to={`/detail/${review.camp_id}`}>
+              {review.camp_name}
+              <Rate allowHalf disabled defaultValue={review.rate} />
             </CampName>
           </div>
           <HandleContent>
             <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
             <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
           </HandleContent>
-          {show && <DeleteModal onClose={setShow} contentId={props.id} />}
+          {show && <DeleteModal onClose={setShow} contentId={review.id} />}
         </TopArea>
-        <Date>{props.lastModifiedDate}</Date>
-        <BottomArea to={`/detail/${props.camp_id}`}>{props.content}</BottomArea>
+        <Date>{review.lastModifiedDate}</Date>
+        <BottomArea to={`/detail/${review.camp_id}`}>
+          {review.content}
+        </BottomArea>
       </ReviewInfo>
     </LikeReview>
   );

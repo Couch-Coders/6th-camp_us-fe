@@ -138,6 +138,9 @@ export const ReviewThumb = styled(Image)`
   transform: translate(-50%, -50%);
   width: 174%;
   min-height: 100%;
+  border-style: hidden;
+  border: 0px;
+  border-width: 0px;
 `;
 
 export const ReviewInfo = styled.div`
@@ -222,7 +225,14 @@ export const CampName = styled(Link)`
   }
 `;
 
-export const BottomArea = styled(Link)`
+export const BottomArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  padding: 18px;
+  padding-top: 10px;
+`;
+
+export const Content = styled(Link)`
   display: -webkit-box;
   overflow: hidden;
   -webkit-line-clamp: 3;
@@ -234,10 +244,24 @@ export const BottomArea = styled(Link)`
   font-size: 14px;
   line-height: 22px;
   color: #000000;
-  padding: 18px;
-  padding-top: 10px;
 
   &:hover {
     color: #000000;
+  }
+`;
+
+export const ReviewLike = styled.div`
+  width: 50px;
+  color: #000;
+
+  & svg {
+    display: inline-block;
+    margin-right: 4px;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    padding: 18px;
+    padding-top: 0;
   }
 `;
