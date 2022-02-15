@@ -2,6 +2,7 @@ import React, { useState, useCallback, useContext } from 'react';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
 import { Rate, Input } from 'antd';
+import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import DeleteModal from '../../Modal/DeleteModal';
@@ -27,6 +28,8 @@ import {
   CampName,
   Date,
   BottomArea,
+  Content,
+  ReviewLike,
 } from './MyReviews.styles';
 
 export default function MyReviews(props) {
@@ -163,8 +166,12 @@ export default function MyReviews(props) {
           {show && <DeleteModal onClose={setShow} contentId={review.id} />}
         </TopArea>
         <Date>{review.lastModifiedDate}</Date>
-        <BottomArea to={`/detail/${review.camp_id}`}>
-          {review.content}
+        <BottomArea>
+          <Content to={`/detail/${review.camp_id}`}>{review.content}</Content>
+          <ReviewLike>
+            <LikeOutlined />
+            {review.likes}
+          </ReviewLike>
         </BottomArea>
       </ReviewInfo>
     </LikeReview>
