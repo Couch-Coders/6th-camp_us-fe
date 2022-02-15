@@ -23,6 +23,7 @@ function MainCampRecommend() {
 
   useEffect(() => {
     getCampData();
+    console.log(campData);
   }, []);
 
   return (

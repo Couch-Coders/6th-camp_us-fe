@@ -15,7 +15,7 @@ function App() {
           <Route path="/" element={<MainPage />} />
           <Route path="/detail" element={<DetailPage />} />
           <Route path="/search" element={<SearchPage />} />
-          <Route path="/mypage" element={<MyPage />} />
+          <Route path="/member" element={<MyPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

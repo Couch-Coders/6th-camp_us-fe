@@ -200,67 +200,87 @@
       "totalElements": 24,
       "contents": [
         {
-          "review_id": 2,
+          "id": 1,
           "camp_id": 1,
+          "camp_name": "강원도캠핑장",
           "author": "kicker",
           "content": "여기너무좋아요",
           "createdDate": "2021-11-30T23:31:26.764443",
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.gocamping.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
         {
-          "review_id": 3,
-          "camp_id": 1,
+          "id": 2,
+          "camp_id": 2,
+          "camp_name": "서울캠핑장",
           "author": "kicker",
-          "content": "여기너무좋아요",
+          "content": "너무좋아요",
           "createdDate": "2021-11-30T23:31:26.764443",
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.naver.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
         {
-          "review_id": 3,
-          "camp_id": 1,
+          "id": 3,
+          "camp_id": 3,
+          "camp_name": "오토캠핑장",
           "author": "kicker",
           "content": "여기너무좋아요",
           "createdDate": "2021-11-30T23:31:26.764443",
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.naver.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
         {
-          "review_id": 3,
-          "camp_id": 1,
+          "id": 4,
+          "camp_id": 4,
+          "camp_name": "아리아캠핑장",
           "author": "kicker",
-          "content": "여기너무좋아요",
+          "content": "좋아요",
           "createdDate": "2021-11-30T23:31:26.764443",
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.naver.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
         {
-          "review_id": 3,
-          "camp_id": 1,
+          "id": 5,
+          "camp_id": 5,
+          "camp_name": "아리아캠핑장",
           "author": "kicker",
           "content": "여기너무좋아요",
           "createdDate": "2021-11-30T23:31:26.764443",
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.naver.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         }
