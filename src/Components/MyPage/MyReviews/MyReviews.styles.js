@@ -86,6 +86,7 @@ export const CancleButton = styled.button`
 export const Container = styled.div`
   display: flex;
   align-items: center;
+  margin: 10px 0;
 `;
 
 /* viewTemplate */
