@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
-import { Upload } from 'antd';
 
 export const List = styled.div`
   width: 100%;
@@ -84,9 +83,9 @@ export const CancleButton = styled.button`
   border: 1px solid #b9b9b9;
 `;
 
-export const ImgUpload = styled(Upload)`
-  margin: 16px 0;
+export const Container = styled.div`
   display: flex;
+  align-items: center;
 `;
 
 /* viewTemplate */

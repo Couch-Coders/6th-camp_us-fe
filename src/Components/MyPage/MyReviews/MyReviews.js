@@ -1,8 +1,10 @@
-import React, { useState, useRef, useContext } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
 import { Rate, message, Button, Input, Modal } from 'antd';
 import { UploadOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import ImagePreview from '../../ImageUpload/ImagePreview/ImagePreview';
+import ImageUpload from '../../ImageUpload/ImageUpload';
 import DeleteModal from '../../Modal/DeleteModal';
 import Image from '../../../Assets/Images/default.png';
 import {
@@ -14,7 +16,7 @@ import {
   EditRight,
   EditButton,
   CancleButton,
-  ImgUpload,
+  Container,
   RateSelect,
   LikeReview,
   ReviewThumbnail,
@@ -35,6 +37,8 @@ export default function MyReviews(props) {
     'Content-Type': 'application/json',
     Accept: 'application/json',
   };
+
+  /* 리뷰 수정 */
   const { TextArea } = Input;
   const [isEditing, setEditing] = useState(false);
   const [newRate, setNewRate] = useState(props.rate);
@@ -60,24 +64,15 @@ export default function MyReviews(props) {
     setNewContent('');
     setEditing(false);
   }
-  const fileprops = {
-    /* Post로 이미지 정보 보낼 떄 에러발생 */
-    headers: defaultHeaders,
-    action: `http://localhost:3001/campReview`,
-    //action: '/members/me/reviews',
-    name: 'file',
-    onChange(info) {
-      console.log(info.file.status);
-      if (info.file.status === 'uploading') {
-        console.log('info.file =', info.file, 'info.fileList =', info.fileList);
-      }
-      if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
-        setNewImg(info.file.name);
-      } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
-      }
-    },
+  const setImageUpload = (file, action) => {
+    if (action === 'add') {
+      setNewImg(file);
+      console.log('file = ', file);
+    } /* else {
+      setNewImg(() => {
+        return { ...review, image: null };
+      });
+    } */
   };
   const editingTemplate = (
     <EditForm key={props.id}>
@@ -96,15 +91,17 @@ export default function MyReviews(props) {
           <CancleButton onClick={() => setEditing(false)}>취소</CancleButton>
         </EditRight>
       </EditTop>
-
-      <ImgUpload {...fileprops} listType="picture" maxCount={1}>
-        <Button icon={<UploadOutlined />}>리뷰 이미지 등록</Button>
-      </ImgUpload>
+      <Container>
+        <ImageUpload setImageUpload={setImageUpload} />
+        {newImg !== null && (
+          <ImagePreview setImageUpload={setImageUpload} previewImg={newImg} />
+        )}
+      </Container>
       <TextArea rows={4} onChange={handleContentChange} value={newContent} />
     </EditForm>
   );
 
-  /* 삭제 */
+  /* 리뷰 삭제 */
   const [show, setShow] = useState(false);
   const viewTemplate = (
     <LikeReview key={props.review_id}>

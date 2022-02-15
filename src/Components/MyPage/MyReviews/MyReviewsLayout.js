@@ -51,18 +51,24 @@ export default function MyReviewsLayout() {
   function editTask(id, newRate, newImg, newContent) {
     const editedTaskList = data.map((data) => {
       if (id === data.id) {
-        return { ...data, rate: newRate, imgUrl: newImg, content: newContent };
+        return {
+          ...data,
+          rate: newRate,
+          imgUrl: newImg.url,
+          content: newContent,
+        };
       }
       return data;
     });
 
     /* const res = await axiosInstance.patch(`/members/me/reviews/${id}`, {
       rate : newRate,
-      imgUrl : newImg,
+      imgUrl : newImg.url,
       content : newContent
     });
     const data = await res.json(); */
     setData(editedTaskList);
+    console.log('editedTaskList =', editedTaskList);
   }
   const reviewList = data.map((data) => (
     <MyReviews
