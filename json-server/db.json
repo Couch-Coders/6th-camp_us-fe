@@ -209,7 +209,10 @@
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
@@ -223,7 +226,10 @@
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "https://img.lovepik.com/photo/40108/1192.jpg_wh860.jpg",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
@@ -237,7 +243,10 @@
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.naver.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
@@ -251,7 +260,10 @@
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.naver.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         },
@@ -265,7 +277,10 @@
           "lastModifiedDate": "2022-01-11T11:14:34.845039",
           "likes": 23,
           "rate": 4.3,
-          "imgUrl": "www.naver.co.kr",
+          "image": {
+            "name": "fileName",
+            "url": "www.naver.co.kr"
+          },
           "createdBy": "장대영",
           "lastModifedBy": "김상운"
         }
