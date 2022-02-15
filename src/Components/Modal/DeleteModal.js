@@ -2,19 +2,15 @@ import React, { useState } from 'react';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 
-export default function DeleteModal(props) {
-  const { onClose } = props.onClose;
-  const { id } = props.id;
-  console.log('onClose = ', onClose);
-
+export default function DeleteModal({ onClose, contentId }) {
   function hideModal(e) {
     e.preventDefault();
     onClose(false);
   }
 
-  async function ConfirmModal(e, id) {
+  async function ConfirmModal(e) {
     e.preventDefault();
-    //const res = await axiosInstance.delete(`/members/me/reviews/${id}`);
+    //const res = await axiosInstance.delete(`/members/me/reviews/${contentId}`);
     onClose(false);
   }
 

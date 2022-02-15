@@ -103,7 +103,7 @@ export default function MyReviews(props) {
   /* 리뷰 삭제 */
   const [show, setShow] = useState(false);
   const viewTemplate = (
-    <LikeReview key={props.review_id}>
+    <LikeReview key={props.id}>
       <ReviewThumbnail>
         <ReviewThumb
           src={props.imgUrl === '' ? Image : props.imgUrl}
@@ -121,7 +121,7 @@ export default function MyReviews(props) {
             <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
             <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
           </HandleContent>
-          {show && <DeleteModal onClose={setShow} id={props.id} />}
+          {show && <DeleteModal onClose={setShow} contentId={props.id} />}
         </TopArea>
         <Date>{props.lastModifiedDate}</Date>
         <BottomArea to={`/detail/${props.camp_id}`}>{props.content}</BottomArea>
