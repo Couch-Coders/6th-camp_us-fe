@@ -68,16 +68,15 @@ export default function MyReviews(props) {
     setNewImg('');
     setEditing(false);
   }
-  const setImageUpload = (file, action) => {
+
+  const setImageUpload = useCallback((file, action) => {
     if (action === 'add') {
       setNewImg(file);
-      console.log('file = ', file);
-    } /* else {
-      setNewImg(() => {
-        return { ...review, image: null };
-      });
-    } */
-  };
+    } else {
+      setNewImg(null);
+    }
+  }, []);
+
   const editingTemplate = (
     <EditForm key={props.id}>
       <CampNameLoad>{props.camp_name}</CampNameLoad>
