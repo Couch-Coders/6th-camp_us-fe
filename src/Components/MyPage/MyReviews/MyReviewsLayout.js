@@ -80,7 +80,7 @@ export default function MyReviewsLayout() {
       lastModifiedDate={data.lastModifiedDate}
       likes={data.likes}
       rate={data.rate}
-      imgUrl={data.imgUrl}
+      image={data.image}
       /* createdBy={data.createdBy}
       lastModifedBy={data.lastModifedBy} */
       key={data.id}

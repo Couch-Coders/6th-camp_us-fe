@@ -52,7 +52,7 @@ export default function MyReviews(props) {
     likes: props.likes,
     rate: props.rate,
     content: props.content,
-    imgUrl: props.imgUrl,
+    image: props.image,
   });
   const [isEditing, setEditing] = useState(false);
 
@@ -87,19 +87,20 @@ export default function MyReviews(props) {
         likes: props.likes,
         rate: props.rate,
         content: props.content,
-        imgUrl: props.imgUrl,
+        image: props.image,
       };
     });
   }
 
   const setImageUpload = useCallback((file, action) => {
+    console.log('file', file);
     if (action === 'add') {
       setReview((review) => {
-        return { ...review, imgUrl: file.url };
+        return { ...review, image: file };
       });
     } else {
       setReview((review) => {
-        return { ...review, imgUrl: null };
+        return { ...review, image: null };
       });
     }
   }, []);
@@ -123,10 +124,10 @@ export default function MyReviews(props) {
       </EditTop>
       <Container>
         <ImageUpload setImageUpload={setImageUpload} />
-        {review.imgUrl !== null && review.imgUrl !== '' && (
+        {review.image !== null && review.image !== '' && (
           <ImagePreview
             setImageUpload={setImageUpload}
-            previewImg={review.imgUrl}
+            previewImg={review.image}
           />
         )}
       </Container>
@@ -145,9 +146,9 @@ export default function MyReviews(props) {
       <ReviewThumbnail>
         <ReviewThumb
           src={
-            review.imgUrl === '' || review.imgUrl === null
+            review.image === '' || review.image === null
               ? Image
-              : review.imgUrl
+              : review.image.url
           }
         />
       </ReviewThumbnail>
