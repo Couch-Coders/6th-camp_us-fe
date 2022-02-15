@@ -230,6 +230,10 @@ export const BottomArea = styled.div`
   justify-content: space-between;
   padding: 18px;
   padding-top: 10px;
+
+  @media screen and (max-width: 600px) {
+    display: block;
+  }
 `;
 
 export const Content = styled(Link)`
@@ -248,6 +252,11 @@ export const Content = styled(Link)`
   &:hover {
     color: #000000;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    display: block;
+  }
 `;
 
 export const ReviewLike = styled.div`
@@ -261,7 +270,7 @@ export const ReviewLike = styled.div`
 
   @media screen and (max-width: 600px) {
     width: 100%;
-    padding: 18px;
-    padding-top: 0;
+    padding: 0;
+    margin-top: 10px;
   }
 `;
