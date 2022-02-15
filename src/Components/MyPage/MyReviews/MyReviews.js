@@ -1,8 +1,7 @@
 import React, { useState, useCallback, useContext } from 'react';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
-import { Rate, message, Button, Input, Modal } from 'antd';
-import { UploadOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import { Rate, Input } from 'antd';
 import ImagePreview from '../../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../../ImageUpload/ImageUpload';
 import DeleteModal from '../../Modal/DeleteModal';
