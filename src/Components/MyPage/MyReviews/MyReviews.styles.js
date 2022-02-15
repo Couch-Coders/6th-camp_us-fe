@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 
 export const List = styled.div`
@@ -106,11 +107,6 @@ export const LikeReview = styled.div`
     transition: all 0.5s ease;
   }
 
-  &:hover img {
-    height: 105%;
-    transition: all 0.5s ease;
-  }
-
   @media screen and (max-width: 760px) {
     height: auto;
     margin-bottom: 20px;
@@ -123,17 +119,25 @@ export const ReviewThumbnail = styled.div`
   overflow: hidden;
   position: relative;
 
+  & .ant-image {
+    width: 155px;
+    min-height: 100%;
+    position: relative;
+  }
+
   @media screen and (max-width: 760px) {
     display: none;
   }
 `;
 
-export const ReviewThumb = styled.img`
-  height: 100%;
+export const ReviewThumb = styled(Image)`
+  display: block;
   position: absolute;
-  top: 50%;
   left: 50%;
+  top: 50%;
   transform: translate(-50%, -50%);
+  width: 174%;
+  min-height: 100%;
 `;
 
 export const ReviewInfo = styled.div`

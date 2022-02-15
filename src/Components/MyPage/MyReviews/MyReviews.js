@@ -109,9 +109,7 @@ export default function MyReviews(props) {
   const viewTemplate = (
     <LikeReview key={props.id}>
       <ReviewThumbnail>
-        <ReviewThumb
-          src={props.imgUrl === '' ? Image : props.imgUrl}
-        ></ReviewThumb>
+        <ReviewThumb src={props.imgUrl === '' ? Image : props.imgUrl} />
       </ReviewThumbnail>
       <ReviewInfo>
         <TopArea>
