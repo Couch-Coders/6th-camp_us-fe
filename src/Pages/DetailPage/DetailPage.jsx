@@ -3,6 +3,7 @@ import CampInformation from '../../Components/CampInformation/CampInformation';
 import Tag from '../../Components/Tag/Tag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
 import CampReview from '../../Components/CampReview/CampReview';
+import CampLike from '../../Components/CampLike/CampLike';
 import { CampContext } from '../../context/CampContext';
 import * as campService from '../../Service/camps';
 import { style } from './DetailPage.style';
@@ -48,23 +49,7 @@ const DetailPage = () => {
         <Container>
           <Header>
             {campData && <Title>{campData.facltNm}</Title>}
-            <LikeWrap>
-              <Like>
-                <svg
-                  width="22"
-                  height="20"
-                  viewBox="0 0 22 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z"
-                    fill="#FF7875"
-                  />
-                </svg>
-              </Like>
-              {campData && <LikeCount>{campData.like_cnt}</LikeCount>}
-            </LikeWrap>
+            <CampLike likeCount={campData.like_cnt} />
           </Header>
           <CampInfoWrap>
             {campInfo.map((item, index) => (
@@ -165,9 +150,6 @@ const {
   Container,
   Header,
   Title,
-  LikeWrap,
-  Like,
-  LikeCount,
   CampInfoWrap,
   Thumbnail,
   Table,
