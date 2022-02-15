@@ -1,31 +1,23 @@
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../Service/firebaseAuth';
 import Modal from '../Modal/Modal';
+import axiosInstance from '../../Common/axiosInstance';
 
 export const UserContext = React.createContext(null);
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [registerFormOpen, setRegisterFormOpen] = useState(false);
 
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: '',
-  };
-
   useEffect(() => {
     auth.onAuthStateChanged(async (firebaseUser) => {
       if (firebaseUser) {
         try {
+          // const token = await firebaseUser.getIdToken();
+          // defaultHeaders.Authorization = `Bearer ${token}`;
+          // console.log(defaultHeaders.Authorization);
           const token = await firebaseUser.getIdToken();
-          defaultHeaders.Authorization = `Bearer ${token}`;
-          const res = await axios({
-            method: 'GET',
-            url: '/members/me',
-            withCredentials: true,
-            headers: defaultHeaders,
-          });
+          localStorage.setItem('token', 'Bearer ' + token);
+          const res = await axiosInstance.get('/members/me');
 
           console.log(res);
 
@@ -35,8 +27,8 @@ const AuthProvider = ({ children }) => {
           }
         } catch (e) {
           //에러발생 시
-          console.log('로그인 된 회원 없음 ');
-          // setRegisterFormOpen(true);
+          setRegisterFormOpen(true);
+          throw new Error('register error');
         }
       } else {
         setUser(null);
