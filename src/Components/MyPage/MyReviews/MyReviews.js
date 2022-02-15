@@ -63,6 +63,11 @@ export default function MyReviews(props) {
     setNewContent('');
     setEditing(false);
   }
+  function handleCancle(e) {
+    e.preventDefault();
+    setNewImg('');
+    setEditing(false);
+  }
   const setImageUpload = (file, action) => {
     if (action === 'add') {
       setNewImg(file);
@@ -87,12 +92,12 @@ export default function MyReviews(props) {
           <EditButton type="submit" onClick={handleSubmit}>
             수정완료
           </EditButton>
-          <CancleButton onClick={() => setEditing(false)}>취소</CancleButton>
+          <CancleButton onClick={handleCancle}>취소</CancleButton>
         </EditRight>
       </EditTop>
       <Container>
         <ImageUpload setImageUpload={setImageUpload} />
-        {newImg !== null && (
+        {newImg !== null && newImg !== '' && (
           <ImagePreview setImageUpload={setImageUpload} previewImg={newImg} />
         )}
       </Container>
