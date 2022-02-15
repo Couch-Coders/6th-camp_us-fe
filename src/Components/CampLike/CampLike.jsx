@@ -1,10 +1,32 @@
-import React from 'react';
+import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { style } from './CampLike.style';
-const CampLike = ({ likeCount }) => {
+const CampLike = ({ likeCount, campId }) => {
+  const [isLike, setIsLike] = useState(false);
+
+  const getCamplikeList = async () => {
+    try {
+      setIsLike(false);
+      const response = await axios('http://localhost:3001/myCampsLikes');
+      const data = response.data;
+      data.forEach((data) => {
+        data.campId === campId && setIsLike(true);
+      });
+      return data;
+    } catch (error) {
+      throw new Error('Failed to load data');
+    }
+  };
+
+  useEffect(() => {
+    getCamplikeList();
+  }, []);
+
   return (
     <LikeWrap>
       <Like>
         <LikeIcon
+          isLike={isLike}
           viewBox="0 0 22 20"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

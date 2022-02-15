@@ -17,17 +17,11 @@ const LikeIcon = styled.svg`
   transition: all 200ms ease;
 
   path {
-    /* fill: #ff7875; */
-
-    fill: #e0e0e0;
+    fill: ${(props) => (props.isLike ? '#ff7875' : '#e0e0e0')};
   }
 
   &:hover {
     transform: scale(1.2);
-
-    path {
-      /* fill: #ff7875; */
-    }
   }
 `;
 
