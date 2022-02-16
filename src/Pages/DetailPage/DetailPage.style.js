@@ -70,6 +70,7 @@ const CampInfoWrap = styled.div`
 
 const Thumbnail = styled.img`
   width: 100%;
+  height: 320px;
   margin-top: 25px;
   margin-bottom: 37px;
 `;

@@ -397,7 +397,8 @@
   "alrimList": [
     {
       "id": 3,
-      "data": "알림 테스트"
+      "data": "알림 테스트",
+      "checked": true
     },
     {
       "id": 4,

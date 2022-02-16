@@ -6,6 +6,7 @@ import CampReview from '../../Components/CampReview/CampReview';
 import { CampContext } from '../../context/CampContext';
 import * as campService from '../../Service/camps';
 import { style } from './DetailPage.style';
+import defaultImage from '../../Assets/Images/default_image.png';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -71,7 +72,11 @@ const DetailPage = () => {
               <Tag tag={item} key={index} />
             ))}
           </CampInfoWrap>
-          <Thumbnail src={campData.firstImageUrl} alt="thumbnail"></Thumbnail>
+          {campData.firstImageUrl ? (
+            <Thumbnail src={campData.firstImageUrl} alt="thumbnail"></Thumbnail>
+          ) : (
+            <Thumbnail src={defaultImage} alt="thumbnail"></Thumbnail>
+          )}
           <Table>
             <tbody>
               <tr>
