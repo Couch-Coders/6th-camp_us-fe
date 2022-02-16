@@ -63,12 +63,20 @@ const SliderWrap = styled.div`
     font-size: 30px;
     opacity: 1;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+
+    .slick-prev:before,
+    .slick-next:before {
+      display: none;
+    }
+  }
 `;
 
 const SlideImage = styled.div`
-  width: 150px;
-  height: 150px;
-  /* background: url(1:1.png); */
+  width: 95%;
+  padding-bottom: 95%;
   margin-right: 14px;
   border: 0.1px solid black;
 `;
@@ -82,6 +90,10 @@ const NoticeWrap = styled.div`
   justify-content: center;
   background: #f0f0f0;
   margin-bottom: 37px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const Notice = styled.p`

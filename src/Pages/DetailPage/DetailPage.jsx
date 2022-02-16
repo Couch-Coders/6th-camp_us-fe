@@ -157,6 +157,7 @@ const DetailPage = () => {
             {selectedTabs === 'location' && <CampLocation />}
             {selectedTabs === 'review' && <CampReview />}
           </CampContext.Provider>
+          <Footer />
         </Container>
       )}
     </Main>
@@ -184,4 +185,5 @@ const {
   InfoTabs,
   LocationTabs,
   ReviewTabs,
+  Footer,
 } = style;
