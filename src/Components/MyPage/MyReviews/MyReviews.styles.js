@@ -19,6 +19,10 @@ export const EditForm = styled.form`
   margin-bottom: 20px;
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
+
+  @media screen and (max-width: 760px) {
+    position: relative;
+  }
 `;
 
 export const CampNameLoad = styled.div`
@@ -33,12 +37,21 @@ export const CampNameLoad = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media screen and (max-width: 760px) {
+    max-width: calc(100% - 164px);
+    margin: 6px 0 14px 0;
+  }
 `;
 
 export const EditTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 760px) {
+    display: block;
+  }
 `;
 
 export const EditLeft = styled.div`
@@ -59,6 +72,12 @@ export const EditRight = styled.div`
     box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
     box-sizing: border-box;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 760px) {
+    position: absolute;
+    top: 18px;
+    right: 18px;
   }
 `;
 
@@ -88,6 +107,14 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   margin: 10px 0;
+
+  @media screen and (max-width: 760px) {
+    display: block;
+
+    & > div:last-child {
+      margin: 12px 0;
+    }
+  }
 `;
 
 /* viewTemplate */
@@ -108,6 +135,7 @@ export const LikeReview = styled.div`
   }
 
   @media screen and (max-width: 760px) {
+    display: block;
     height: auto;
     margin-bottom: 20px;
   }
@@ -123,10 +151,15 @@ export const ReviewThumbnail = styled.div`
     width: 155px;
     min-height: 100%;
     position: relative;
+
+    @media screen and (max-width: 760px) {
+      width: calc(100vw - 20px);
+    }
   }
 
   @media screen and (max-width: 760px) {
-    display: none;
+    width: calc(100vw - 20px);
+    height: 50vw;
   }
 `;
 
@@ -141,12 +174,17 @@ export const ReviewThumb = styled(Image)`
   border-style: hidden;
   border: 0px;
   border-width: 0px;
+
+  @media screen and (max-width: 760px) {
+    width: 100%;
+  }
 `;
 
 export const ReviewInfo = styled.div`
   width: calc(100% - 132px);
   @media screen and (max-width: 760px) {
     width: 100%;
+    position: relative;
   }
 `;
 
@@ -163,11 +201,22 @@ export const TopArea = styled.div`
   & a {
     margin: 0;
   }
+
+  @media screen and (max-width: 760px) {
+    display: block;
+  }
 `;
 
 export const HandleContent = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 760px) {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+  }
 `;
 
 export const HandleReview = styled.button`
@@ -187,6 +236,14 @@ export const HandleReview = styled.button`
 
   &:hover {
     color: rgba(0, 0, 0, 0.342);
+  }
+
+  @media screen and (max-width: 760px) {
+    font-size: 14px;
+    margin-left: 12px;
+    background-color: rgba(224, 224, 224, 100);
+    padding: 5px 10px;
+    border-radius: 3px;
   }
 `;
 
@@ -256,6 +313,7 @@ export const Content = styled(Link)`
   @media screen and (max-width: 600px) {
     width: 100%;
     display: block;
+    padding-bottom: 10px;
   }
 `;
 

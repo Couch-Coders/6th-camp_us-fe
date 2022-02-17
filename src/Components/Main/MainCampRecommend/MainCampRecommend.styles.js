@@ -3,23 +3,42 @@ import { Link } from 'react-router-dom';
 
 export const NearCampList = styled.div`
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+`;
 
-  @media screen and (max-width: 760px) {
-    display: block;
+export const SliderWrap = styled.div`
+  .slick-prev {
+    left: -57px;
+  }
+
+  .slick-next {
+    right: -37px;
+  }
+
+  .slick-next:before {
+    content: '→';
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: #c2c2c2;
+    font-size: 30px;
+    opacity: 1;
+  }
+
+  .slick-slide {
+    text-align: center;
   }
 `;
 
 export const NearCamp = styled(Link)`
-  width: 240px;
+  width: calc(100% - 7px) !important;
   height: 268px;
   display: block;
   background: #ffffff;
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
   border-radius: 2px;
+  margin: 0 auto;
 
   &:hover {
     box-shadow: 0px 2px 8px #f0f1f2;
@@ -60,6 +79,7 @@ export const CampThumb = styled.img`
 
 export const CampInfo = styled.div`
   padding: 18px;
+  text-align: left;
 `;
 
 export const CampLike = styled.div`
