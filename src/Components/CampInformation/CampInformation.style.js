@@ -67,6 +67,10 @@ const SliderWrap = styled.div`
   @media screen and (max-width: 600px) {
     width: 100%;
 
+    .slick-arrow {
+      right: 0;
+    }
+
     .slick-prev:before,
     .slick-next:before {
       display: none;
