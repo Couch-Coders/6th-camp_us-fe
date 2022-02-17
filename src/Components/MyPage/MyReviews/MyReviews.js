@@ -93,7 +93,6 @@ export default function MyReviews(props) {
   }
 
   const setImageUpload = useCallback((file, action) => {
-    console.log('file', file);
     if (action === 'add') {
       setReview((review) => {
         return { ...review, image: file };
@@ -106,8 +105,8 @@ export default function MyReviews(props) {
   }, []);
 
   const editingTemplate = (
-    <EditForm key={props.id}>
-      <CampNameLoad>{props.camp_name}</CampNameLoad>
+    <EditForm key={review.id}>
+      <CampNameLoad>{review.camp_name}</CampNameLoad>
       <EditTop>
         <EditLeft>
           <RateSelect>
