@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../Components/auth/AuthProvider';
-import { auth } from '../../Service/firebaseAuth';
+import * as api from '../../Service/camps';
 import LikeListLayout from '../../Components/MyPage/LikesList/LikeListLayout';
 import MyReviewsLayout from '../../Components/MyPage/MyReviews/MyReviewsLayout';
 import AlrimLayout from '../../Components/MyPage/AlrimList/AlrimLayout';
@@ -20,49 +20,41 @@ import {
   LocationTabs,
   ReviewTabs,
 } from './MyPage.styles';
-import Image from '../../Assets/Images/default_image.png';
 
 function MyPage(props) {
   /* 닉네임 수정 */
   const { user } = useContext(UserContext);
+  const [reviewCnt, setReviewCnt] = useState();
   const [newName, setNewName] = useState(); // db에서 받은 user 닉네임 넣기
-  // console.log(user);
-  async function getUserData() {
-    setNewName(user.data.nickname);
+
+  async function getReviewCount() {
+    const response = await api.getUserInfo();
+    console.log(response);
+    setReviewCnt(response.reviewCnt);
   }
+
   useEffect(() => {
-    getUserData();
+    getReviewCount();
+    user && setNewName(user.data.nickname);
+    // console.log(user.data);
   }, [user]);
 
   function handleChange(e) {
     setNewName(e.target.value);
   }
 
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: '',
-  };
-
   const [isEditing, setEditing] = useState(false);
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    auth.onAuthStateChanged(async (firebaseUser) => {
-      const token = await firebaseUser.getIdToken();
-      defaultHeaders.Authorization = `Bearer ${token}`;
+    console.log(`nickname :${newName}`);
 
-      console.log(`nickname :${newName}`);
-      const res = await fetch('/members/me', {
-        method: 'PATCH',
-        headers: defaultHeaders,
-        body: JSON.stringify({
-          nickname: newName,
-        }),
-      });
-
-      setEditing(false);
+    await api.changeNickname({
+      nickname: newName,
     });
+
+    setEditing(false);
   };
 
   const editingTemplate = (
@@ -88,6 +80,7 @@ function MyPage(props) {
       </button>
     </>
   );
+
   const viewTemplate = (
     <>
       <UserName>{newName}</UserName>
@@ -114,6 +107,7 @@ function MyPage(props) {
     const role = e.target.dataset.role;
     setSelectedTabs(role);
   }
+
   return (
     <Section>
       <InnerWrapper>
@@ -122,18 +116,14 @@ function MyPage(props) {
           <form onSubmit={handleSubmit}>
             <MyProfile>
               <AvatarImg>
-                <img
-                  // src={user.data.imgUrl}
-                  src={Image}
-                  alt="회원이미지"
-                />
+                {user && <img src={user.data.imgUrl} alt="회원이미지" />}
               </AvatarImg>
               {isEditing ? editingTemplate : viewTemplate}
             </MyProfile>
           </form>
           <MyActivity>
-            <li>작성글 : 1 {/* {user.data.imgUrl} */}</li>
-            <li>리뷰 : 1 {/* {user.data.reviewCnt} */}</li>
+            <li>작성글 : 1 </li>
+            <li>리뷰 : {reviewCnt} </li>
           </MyActivity>
         </MyInfo>
         <TabsContainer>
@@ -163,7 +153,7 @@ function MyPage(props) {
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
         {selectedTabs === 'myReviews' && <MyReviewsLayout />}
-        {selectedTabs === 'alrimList' && <AlrimLayout />}
+        {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
       </InnerWrapper>
     </Section>
   );

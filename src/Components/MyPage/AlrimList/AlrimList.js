@@ -1,9 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
-import { UserContext } from '../../auth/AuthProvider';
-import { auth } from '../../../Service/firebaseAuth';
 import { CloseOutlined } from '@ant-design/icons';
 import Image from '../../../Assets/Images/default.png';
+import * as api from '../../../Service/camps';
 import {
   List,
   Alrim,
@@ -21,20 +19,27 @@ import {
   Date,
 } from './AlrimList.styles';
 
-export default function AlrimList(props) {
-  const post = props.data;
-  const handleOnUpdate = props.handleOnUpdate;
-  const handleOnDelete = props.handleOnDelete;
+export default function AlrimList({ alrimList }) {
+  /* 선택한 알림 삭제 */
+  // const handleOnDelete = async (id) => {
+  //   console.log('선택한 id =', id);
+  //   const response = await axios({
+  //     method: 'delete',
+  //     url: `http://localhost:3001/alrimList/${id}`,
+  //   });
+  // };
 
-  const { user } = useContext(UserContext);
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
+  /* 선택한 알림 읽기 */
+  const handleOnUpdate = async (id) => {
+    console.log('선택한 알림 읽기', id);
+    const response = await api.readAlrim(alrimList.id);
+    console.log(response);
   };
+
   return (
     <>
       <List>
-        {post.map((a) => (
+        {alrimList.map((a) => (
           <Alrim key={a.id} checked={a.checked}>
             <CheckedArea
               to={`/detail/${a.id}`}
@@ -48,9 +53,7 @@ export default function AlrimList(props) {
                   <AlrimInfo>
                     <Type>{a.type}</Type>
                     <AlrimContent>
-                      {a.reactUser} 님이 게시글에 좋아요를 눌렀습니다.eunbee
-                      님이 게시글에 좋아요를 눌렀습니다.eunbee 님이 게시글에
-                      좋아요를 눌렀습니다.
+                      {a.reactUser} 님이 리뷰에 좋아요를 눌렀습니다.
                     </AlrimContent>
                   </AlrimInfo>
                 </TopArea>
@@ -60,7 +63,9 @@ export default function AlrimList(props) {
                 </BottomArea>
               </Info>
             </CheckedArea>
-            <DeleteBtn onClick={(e) => handleOnDelete(a.id)}>
+            <DeleteBtn
+            // onClick={(e) => handleOnDelete(a.id)}
+            >
               <CloseOutlined />
             </DeleteBtn>
           </Alrim>

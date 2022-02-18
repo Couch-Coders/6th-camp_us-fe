@@ -4,8 +4,10 @@ import Tag from '../../Components/Tag/Tag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
 import CampReview from '../../Components/CampReview/CampReview';
 import { CampContext } from '../../context/CampContext';
-import * as campService from '../../Service/camps';
+import * as api from '../../Service/camps';
 import { style } from './DetailPage.style';
+import { useLocation } from 'react-router';
+import defaultImg from '../../Assets/Images/default_image.png';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -15,6 +17,10 @@ const DetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTabs, setSelectedTabs] = useState('information');
 
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const id = params.get('id');
+
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
     setSelectedTabs(role);
@@ -22,17 +28,20 @@ const DetailPage = () => {
 
   async function getCampData() {
     setIsLoading(true);
-    const response = await campService.getCamp();
-    const info = response[0].sbrsCl.split(',');
-    setCampData(response[0]);
+    const response = await api.getCamp(id);
+    console.log(response);
+    console.log(response.sbrsCl);
+    const info = response.sbrsCl !== null ? response.sbrsCl.split(',') : [];
+    setCampData(response);
     setCampInfo(info);
     setIsLoading(false);
   }
 
   async function getCampReview() {
-    const response = await campService.getReview();
-    setCampReview(response);
-    response[0].contents.forEach((item) => {
+    const response = await api.getCampReview(id);
+    console.log(response);
+    setCampReview(response.content);
+    response.content.forEach((item) => {
       setReviewImg((prev) => [...prev, item.imgUrl]);
     });
   }
@@ -71,7 +80,12 @@ const DetailPage = () => {
               <Tag tag={item} key={index} />
             ))}
           </CampInfoWrap>
-          <Thumbnail src={campData.firstImageUrl} alt="thumbnail"></Thumbnail>
+          {campData.firstImageUrl !== null ? (
+            <Thumbnail src={campData.firstImageUrl} alt="thumbnail" />
+          ) : (
+            <Thumbnail src={defaultImg} alt="thumbnail" />
+          )}
+
           <Table>
             <tbody>
               <tr>

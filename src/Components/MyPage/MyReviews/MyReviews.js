@@ -32,28 +32,22 @@ import {
   ReviewLike,
 } from './MyReviews.styles';
 
-export default function MyReviews(props) {
+export default function MyReviews({ reviewData, deleteTask, editTask }) {
   const { user } = useContext(UserContext);
-  // console.log('data = ', data);
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  };
+
+  console.log(reviewData);
 
   /* 리뷰 수정 */
   const { TextArea } = Input;
   const [review, setReview] = useState({
-    id: props.id,
-    camp_id: props.camp_id,
-    camp_name: props.camp_name,
-    author: props.author,
-    createdDate: props.createdDate,
-    lastModifiedDate: props.lastModifiedDate,
-    likes: props.likes,
-    rate: props.rate,
-    content: props.content,
-    image: props.image,
+    reviewId: reviewData.reviewId,
+    likeCnt: reviewData.likeCnt,
+    rate: reviewData.rate,
+    content: reviewData.content,
+    imgUrl: reviewData.imgUrl,
+    imgName: '',
   });
+
   const [isEditing, setEditing] = useState(false);
 
   const handleRateChange = (value) => {
@@ -69,25 +63,22 @@ export default function MyReviews(props) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    props.editTask(review);
+    editTask(review);
     setEditing(false);
   }
+
   function handleCancle(e) {
     e.preventDefault();
     setEditing(false);
     setReview((review) => {
       return {
         ...review,
-        id: props.id,
-        camp_id: props.camp_id,
-        camp_name: props.camp_name,
-        author: props.author,
-        createdDate: props.createdDate,
-        lastModifiedDate: props.lastModifiedDate,
-        likes: props.likes,
-        rate: props.rate,
-        content: props.content,
-        image: props.image,
+        reviewId: reviewData.reviewId,
+        likeCnt: reviewData.likeCnt,
+        rate: reviewData.rate,
+        content: reviewData.content,
+        imgUrl: reviewData.imgUrl,
+        imgName: '',
       };
     });
   }
@@ -95,15 +86,16 @@ export default function MyReviews(props) {
   const setImageUpload = useCallback((file, action) => {
     if (action === 'add') {
       setReview((review) => {
-        return { ...review, image: file };
+        return { ...review, imgUrl: file.url, imgName: file.name };
       });
     } else {
       setReview((review) => {
-        return { ...review, image: null };
+        return { ...review, imgUrl: null, imgName: null };
       });
     }
   }, []);
 
+  // 리뷰 수정
   const editingTemplate = (
     <EditForm key={review.id}>
       <CampNameLoad>{review.camp_name}</CampNameLoad>
@@ -123,10 +115,11 @@ export default function MyReviews(props) {
       </EditTop>
       <Container>
         <ImageUpload setImageUpload={setImageUpload} />
-        {review.image !== null && review.image !== '' && (
+        {review.imgUrl !== null && review.imgUrl !== '' && (
           <ImagePreview
             setImageUpload={setImageUpload}
-            previewImg={review.image}
+            previewImg={review.imgUrl}
+            previewName={review.imgName}
           />
         )}
       </Container>
@@ -138,16 +131,16 @@ export default function MyReviews(props) {
     </EditForm>
   );
 
-  /* 리뷰 삭제 */
+  /* 리뷰  */
   const [show, setShow] = useState(false);
   const viewTemplate = (
     <LikeReview key={review.id}>
       <ReviewThumbnail>
         <ReviewThumb
           src={
-            review.image === '' || review.image === null
+            review.imgUrl === '' || review.imgUrl === null
               ? Image
-              : review.image.url
+              : review.imgUrl
           }
         />
       </ReviewThumbnail>
@@ -163,14 +156,16 @@ export default function MyReviews(props) {
             <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
             <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
           </HandleContent>
-          {show && <DeleteModal onClose={setShow} contentId={review.id} />}
+          {show && (
+            <DeleteModal onClose={setShow} contentId={review.reviewId} />
+          )}
         </TopArea>
         <Date>{review.lastModifiedDate}</Date>
         <BottomArea>
           <Content to={`/detail/${review.camp_id}`}>{review.content}</Content>
           <ReviewLike>
             <LikeOutlined />
-            {review.likes}
+            {review.likeCnt}
           </ReviewLike>
         </BottomArea>
       </ReviewInfo>

@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from './AuthProvider';
 import styled from 'styled-components';
-import axiosInstance from '../../Common/axiosInstance';
+import * as api from '../../Service/camps';
 
 const RegisterForm = ({ setRegisterFormOpen }) => {
   const { setUser } = useContext(UserContext);
@@ -10,9 +10,11 @@ const RegisterForm = ({ setRegisterFormOpen }) => {
     event.preventDefault();
     try {
       console.log(`nickname :${event.target.nickname.value}`);
-      const res = await axiosInstance.post('/members', {
-        nickname: event.target.nickname.value,
-      });
+      // const res = await axiosInstance.post('/members', {
+      //   nickname: event.target.nickname.value,
+      // });
+
+      const res = await api.register(event);
 
       console.log(res);
       const user = res;
