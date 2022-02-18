@@ -2,12 +2,12 @@ import React, { useEffect, useState } from 'react';
 import CampInformation from '../../Components/CampInformation/CampInformation';
 import Tag from '../../Components/Tag/Tag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
-import CampReview from '../../Components/CampReview/CampReview';
 import { CampContext } from '../../context/CampContext';
 import * as api from '../../Service/camps';
 import { style } from './DetailPage.style';
 import { useLocation } from 'react-router';
 import defaultImg from '../../Assets/Images/default_image.png';
+import Review from '../../Components/Review/Review';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -164,7 +164,9 @@ const DetailPage = () => {
               <CampInformation reviewImg={reviewImg} campInfo={campInfo} />
             )}
             {selectedTabs === 'location' && <CampLocation />}
-            {selectedTabs === 'review' && <CampReview />}
+            {selectedTabs === 'review' && (
+              <Review id={id} clickedPage="detail" />
+            )}
           </CampContext.Provider>
         </Container>
       )}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import { UserContext } from '../../Components/auth/AuthProvider';
 import * as api from '../../Service/camps';
 import LikeListLayout from '../../Components/MyPage/LikesList/LikeListLayout';
-import MyReviewsLayout from '../../Components/MyPage/MyReviews/MyReviewsLayout';
+import Review from '../../Components/Review/Review';
 import AlrimLayout from '../../Components/MyPage/AlrimList/AlrimLayout';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper } from '../../Styles/theme';
@@ -152,7 +152,7 @@ function MyPage(props) {
           </TabsWrap>
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
-        {selectedTabs === 'myReviews' && <MyReviewsLayout />}
+        {selectedTabs === 'myReviews' && <Review />}
         {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
       </InnerWrapper>
     </Section>
