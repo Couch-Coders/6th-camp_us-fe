@@ -197,18 +197,43 @@ export async function deleteReview(id) {
 }
 
 // 리뷰 작성
-export async function writeReview(id) {
+export async function writeReview(id, review) {
   try {
-    const response = await axiosInstance.post(`/camps/2598/reviews`, {
-      content: '여기 캠핑장 추천합니다.',
-      imgUrl:
-        'https://gocamping.or.kr/upload/camp/1023/thumb/thumb_720_8920mL8X4QwnXtiSF10BNgEW.jpg',
-      rate: 4,
+    const response = await axiosInstance.post(`/camps/${id}/reviews`, {
+      content: review.content,
+      imgUrl: review.imgUrl,
+      rate: review.rate,
     });
 
     console.log(response);
     const data = response.data;
     return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// export async function memberChangeReview(review) {
+//   try {
+//     const response = await axiosInstance.patch(`/members/me/reviews/${id}`, {
+//       rate: newRate,
+//       imgUrl: newImg.url,
+//       content: newContent,
+//     });
+//   } catch (error) {
+//     throw new Error('Failed to load data');
+//   }
+// }
+
+export async function detailChangeReview(review) {
+  try {
+    const response = await axiosInstance.patch(`/reviews/${review.reviewId}`, {
+      rate: review.rate,
+      imgUrl: review.imgUrl,
+      content: review.content,
+    });
+
+    console.log(response);
   } catch (error) {
     throw new Error('Failed to load data');
   }

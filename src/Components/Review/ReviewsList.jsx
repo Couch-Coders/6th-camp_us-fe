@@ -1,12 +1,10 @@
-import React, { useState, useCallback, useContext } from 'react';
-import { UserContext } from '../../auth/AuthProvider';
-import { auth } from '../../../Service/firebaseAuth';
+import React, { useState, useCallback } from 'react';
 import { Rate, Input } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
-import ImagePreview from '../../ImageUpload/ImagePreview/ImagePreview';
-import ImageUpload from '../../ImageUpload/ImageUpload';
-import DeleteModal from '../../Modal/DeleteModal';
-import Image from '../../../Assets/Images/default.png';
+import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
+import ImageUpload from '../ImageUpload/ImageUpload';
+import DeleteModal from '../Modal/DeleteModal';
+import Image from '../../Assets/Images/default.png';
 import {
   List,
   EditForm,
@@ -30,13 +28,10 @@ import {
   BottomArea,
   Content,
   ReviewLike,
-} from './MyReviews.styles';
+} from './ReviewsList.styles';
 
-export default function MyReviews({ reviewData, deleteTask, editTask }) {
-  const { user } = useContext(UserContext);
-
-  console.log(reviewData);
-
+export default function ReviewsList({ reviewData, deleteTask, editTask }) {
+  console.log('리렌더');
   /* 리뷰 수정 */
   const { TextArea } = Input;
   const [review, setReview] = useState({
@@ -147,7 +142,7 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
       <ReviewInfo>
         <TopArea>
           <div>
-            <CampName to={`/detail/${review.camp_id}`}>
+            <CampName to={`/detail?id=${reviewData.campId}`}>
               {review.camp_name}
               <Rate allowHalf disabled defaultValue={review.rate} />
             </CampName>
@@ -157,12 +152,18 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
             <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
           </HandleContent>
           {show && (
-            <DeleteModal onClose={setShow} contentId={review.reviewId} />
+            <DeleteModal
+              onClose={setShow}
+              reviewId={review.reviewId}
+              deleteTask={deleteTask}
+            />
           )}
         </TopArea>
         <Date>{review.lastModifiedDate}</Date>
         <BottomArea>
-          <Content to={`/detail/${review.camp_id}`}>{review.content}</Content>
+          <Content to={`/detail?id=${reviewData.campId}`}>
+            {review.content}
+          </Content>
           <ReviewLike>
             <LikeOutlined />
             {review.likeCnt}
