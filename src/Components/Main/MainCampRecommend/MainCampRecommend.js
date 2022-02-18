@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as campService from '../../../Service/camps';
+import * as api from '../../../Service/camps';
 import Image from '../../../Assets/Images/default_image.png';
 import Slider from 'react-slick';
 import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
@@ -29,7 +29,7 @@ function MainCampRecommend() {
   };
 
   async function getCampData() {
-    const response = await campService.getCamp();
+    const response = await api.getRecommendCamp();
     setCampData(response);
   }
 
@@ -46,7 +46,7 @@ function MainCampRecommend() {
           <SliderWrap sliderLength={3}>
             <Slider {...settings}>
               {campData.map((camp) => (
-                <NearCamp to={`/detail/${camp.id}`} key={camp.id}>
+                <NearCamp to={`/detail?id=${camp.id}`} key={camp.id}>
                   <CampThumbnail>
                     <CampThumb
                       src={

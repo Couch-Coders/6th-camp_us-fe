@@ -5,7 +5,7 @@ import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
 import SearchResult from './SearchResult/SearchResult';
-import * as campService from '../../Service/camps';
+import * as api from '../../Service/camps';
 
 const SearchBar = ({ searchCategory, setSearchedCampData }) => {
   const [campResult, setCampResult] = useState([]);
@@ -83,7 +83,7 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
 
   const getSearchResult = async () => {
     setIsLoading(false);
-    const response = await campService.getSearchCamp();
+    const response = await api.getSearchCamp(address, 0);
     const campData = response[0].content;
     setCampResult(campData);
     setSearchedCampData(campData);

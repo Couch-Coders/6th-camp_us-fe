@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react';
-import * as campService from '../../Service/camps';
+import * as api from '../../Service/camps';
 import { useLocation } from 'react-router';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
 import styled from 'styled-components';
@@ -13,7 +13,7 @@ const SearchPage = () => {
   async function getCampList() {
     // 백엔드 api 완성되면 Search api 사용 예정
     setIsLoading(true);
-    const response = await campService.getCamp();
+    const response = await api.getMainSearch(state, 0);
     setCampList(response);
     setIsLoading(false);
   }

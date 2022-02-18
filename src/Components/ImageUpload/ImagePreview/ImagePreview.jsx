@@ -1,12 +1,12 @@
 import React from 'react';
 import { style } from './ImagePreview.style';
 
-const ImagePreview = ({ setImageUpload, previewImg }) => {
+const ImagePreview = ({ setImageUpload, previewImg, previewName }) => {
   console.log(previewImg);
   return (
     <Wrap>
-      <Image src={previewImg.url} alt="preview" />
-      <ImageName>{previewImg.name}</ImageName>
+      <Image src={previewImg} alt="preview" />
+      {previewName && <ImageName>{previewName}</ImageName>}
       <CloseBtn onClick={setImageUpload}>
         <svg
           width="10"

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import * as campService from '../../../Service/camps';
+import * as api from '../../../Service/camps';
 import Image from '../../../Assets/Images/default_image.png';
 import { Rate } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
@@ -21,7 +21,8 @@ function MainBestReview() {
   const [campData, setCampData] = useState([]);
 
   async function getCampData() {
-    const response = await campService.getBestReview();
+    // const response = await api.getBestReview();
+    const response = [];
     setCampData(response);
   }
 
@@ -41,7 +42,7 @@ function MainBestReview() {
         <BestReviewList>
           {sortReview.map((camp) => (
             <BestReview
-              to={`/detail/${camp.camp_id}`} /* 캠핑장 상세페이지로 */
+              to={`/detail?${camp.camp_id}`} /* 캠핑장 상세페이지로 */
               key={camp.review_id}
             >
               <ReviewThumbnail>
