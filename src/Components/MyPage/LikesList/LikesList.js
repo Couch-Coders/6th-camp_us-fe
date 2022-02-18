@@ -61,7 +61,9 @@ export default function LikesList({ data }) {
           <CampInfo>
             <TopArea>
               <CampName to={`/detail/${camp.campId}`}>{camp.campName}</CampName>
-              <CampLike onClick={(e) => CampLikeCancle(e, camp.campLikeId)}>
+              <CampLike
+              // onClick={(e) => CampLikeCancle(e, camp.campLikeId)}
+              >
                 <HeartFilled style={{ color: '#FF7875', fontSize: '20px' }} />
                 {/*  <HeartOutlined style={{ color: '#FF7875', fontSize: '20px' }} /> */}
               </CampLike>

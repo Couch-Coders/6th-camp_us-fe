@@ -4,12 +4,12 @@ import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
 import * as api from '../../../Service/camps';
 import Pagination from '../../Pagination/Pagination';
-import LikesList from './LikesList';
+import MyReviews from './MyReviews';
 
 /* // AuthProvider.js
 export const UserContext = React.createContext(null);  */
 
-export default function LikeListLayout() {
+export default function MyReviewsLayout() {
   const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
 
@@ -17,49 +17,64 @@ export default function LikeListLayout() {
   const [postsPerPage] = useState(10);
 
   async function request() {
-    const response = await api.getMyCampsLikes();
+    const response = await api.getUserReview();
+    console.log(response);
     /* auth.onAuthStateChanged(async (firebaseUser) => {
       const token = await firebaseUser.getIdToken();
       defaultHeaders.Authorization = `Bearer ${token}`;
 
       const res = await fetch('/campReview', {
-        //const res = await fetch('/members/me/camps/likes', {
+        //const res = await fetch('/members/me/reviews', {
         method: 'GET',
         headers: defaultHeaders,
-        checked: false,
       });
       const data = await res.json();
       
     }); */
-    const sort = response.filter((r) => r.checked === true); // checked : true만 필터
-    setData(sort);
-  }
 
+    setData(response.content);
+  }
   useEffect(() => {
-    // request();
+    request();
   }, [user]);
 
-  /*  async function getCampData() {
-    const response = await campService.getCamp();
-    auth.onAuthStateChanged(async (firebaseUser) => {
-      const token = await firebaseUser.getIdToken();
-      defaultHeaders.Authorization = `Bearer ${token}`;
-
-      const res = await axios({
-        method: 'GET',
-        url: '/members/me/camps/likes',
-        withCredentials: true,
-        headers: defaultHeaders,
-      });
-      console.log('res = ', res);
-    });
-
-    setData(response);
+  /* 리뷰 리스트 */
+  function deleteTask(id) {
+    const remainingTasks = data.filter((data) => id !== data.id);
+    setData(remainingTasks);
   }
 
-  useEffect(() => {
-    getCampData();
-  }, []); */
+  function editTask(review) {
+    console.log('review =', review);
+    const editedTaskList = data.map((data) => {
+      if (review.id === data.id) {
+        return {
+          ...data,
+          ...review,
+        };
+      }
+      return data;
+    });
+    setData(editedTaskList);
+
+    /* const res = await axiosInstance.patch(`/members/me/reviews/${id}`, {
+      rate : newRate,
+      imgUrl : newImg.url,
+      content : newContent
+    });
+    const data = await res.json(); */
+  }
+
+  const reviewList =
+    data &&
+    data.map((data) => (
+      <MyReviews
+        reviewData={data}
+        key={data.reviewId}
+        deleteTask={deleteTask}
+        editTask={editTask}
+      />
+    ));
 
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
@@ -69,9 +84,10 @@ export default function LikeListLayout() {
     e.preventDefault();
     setCurrentPage(pageNumber);
   };
+
   return (
     <>
-      <LikesList data={currentPosts} />
+      {reviewList}
       <Pagination
         postsPerPage={postsPerPage}
         totalPosts={data.length}
