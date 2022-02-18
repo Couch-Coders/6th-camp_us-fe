@@ -1,6 +1,8 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import { style } from './CampLike.style';
+import * as api from '../../Service/camps';
+
 const CampLike = ({ likeCount, campId }) => {
   const [isLike, setIsLike] = useState(false);
 
@@ -18,13 +20,22 @@ const CampLike = ({ likeCount, campId }) => {
     }
   };
 
+  const onCampLike = async (id) => {
+    const response = await api.campLike(id);
+    console.log(response);
+  };
+
   useEffect(() => {
     getCamplikeList();
   }, []);
 
   return (
     <LikeWrap>
-      <Like>
+      <Like
+        onClick={() => {
+          onCampLike(campId);
+        }}
+      >
         <LikeIcon
           isLike={isLike}
           viewBox="0 0 22 20"

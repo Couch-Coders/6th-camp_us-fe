@@ -138,6 +138,18 @@ export async function getCamp(id) {
   }
 }
 
+// 캠핑장 좋아요
+export async function campLike(id) {
+  try {
+    const response = await axiosInstance.patch(`/camps/${id}/like`);
+    console.log(response);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
 // 캠핑장에 대한 리뷰 조회
 export async function getCampReview(id) {
   try {
