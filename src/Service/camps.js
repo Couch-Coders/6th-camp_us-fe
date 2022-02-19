@@ -227,3 +227,14 @@ export async function changeReview(review) {
     throw new Error('Failed to load data');
   }
 }
+
+// 리뷰 좋아요
+export async function changeReviewLike(id) {
+  try {
+    const response = await axiosInstance.patch(`/reviews/${id}/like`);
+
+    console.log(response);
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
