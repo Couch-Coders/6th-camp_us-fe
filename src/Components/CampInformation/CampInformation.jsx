@@ -1,25 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext } from 'react';
 import { CampContext } from '../../context/CampContext';
 import Slider from 'react-slick';
 import Tag from '../Tag/Tag';
 import { style } from './CampInformation.style';
+import {
+  CampReviewNotification,
+  CampInfoNotification,
+} from '../../Components/Notice/Notice';
+import { Image } from 'antd';
 
 const CampInformation = ({ reviewImg, campInfo }) => {
-  const [slideShowCount, setSlideShowCount] = useState();
   const data = useContext(CampContext);
-
-  useEffect(() => {
-    reviewImg.length === 1 && setSlideShowCount(1);
-    reviewImg.length === 2 && setSlideShowCount(2);
-    reviewImg.length >= 3 && setSlideShowCount(3);
-  }, []);
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: slideShowCount ? slideShowCount : 3,
+    slidesToShow: 3,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
 
   return (
@@ -27,30 +27,20 @@ const CampInformation = ({ reviewImg, campInfo }) => {
       <Title>소개글</Title>
       <Intro>{data.intro}</Intro>
       {reviewImg.length < 1 ? (
-        <ImageNoticeWrap>
-          <ImageNotice>
-            <Notice>등록된 이미지 리뷰가 없습니다.</Notice>
-            <Notice>이 캠핑장의 첫 리뷰어가 되어주세요!</Notice>
-          </ImageNotice>
-        </ImageNoticeWrap>
+        <CampReviewNotification />
       ) : (
-        <SliderWrap sliderLength={3}>
+        <SliderWrap sliderLength={3} length={reviewImg.length}>
           <Slider {...settings}>
-            {reviewImg.map(() => (
-              <div>
-                <SlideImage />
-              </div>
+            {reviewImg.map((img) => (
+              <ImageWrap>
+                <Image src={img} />
+              </ImageWrap>
             ))}
           </Slider>
         </SliderWrap>
       )}
 
-      <NoticeWrap>
-        <Notice>기재된 사항과 다를 수 있습니다.</Notice>
-        <Notice>
-          자세한 문의사항이 있으시면 홈페이지 또는 연락처로 문의주세요.
-        </Notice>
-      </NoticeWrap>
+      <CampInfoNotification />
       <Title>캠핑장 시설정보</Title>
       <CampInfoWrap>
         {campInfo.map((item, index) => (
@@ -94,18 +84,5 @@ const CampInformation = ({ reviewImg, campInfo }) => {
 };
 
 export default CampInformation;
-
-const {
-  Title,
-  Intro,
-  ImageNoticeWrap,
-  ImageNotice,
-  SliderWrap,
-  SlideImage,
-  NoticeWrap,
-  Notice,
-  CampInfoWrap,
-  Table,
-  Th,
-  Td,
-} = style;
+const { Title, Intro, SliderWrap, ImageWrap, CampInfoWrap, Table, Th, Td } =
+  style;
