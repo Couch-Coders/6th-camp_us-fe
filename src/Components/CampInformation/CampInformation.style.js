@@ -42,7 +42,6 @@ const ImageNotice = styled.div`
 `;
 
 const SliderWrap = styled.div`
-  width: 480px;
   margin-bottom: 50px;
 
   .slick-prev {
@@ -55,6 +54,14 @@ const SliderWrap = styled.div`
 
   .slick-next:before {
     content: '→';
+  }
+
+  .slick-cloned {
+    display: ${({ length }) => length < 3 && 'none'};
+  }
+
+  .slick-track {
+    margin: 0;
   }
 
   .slick-prev:before,
@@ -78,11 +85,9 @@ const SliderWrap = styled.div`
   }
 `;
 
-const SlideImage = styled.div`
-  width: 95%;
-  padding-bottom: 95%;
+const SlideImage = styled.img`
+  width: ${({ length }) => (length <= 1 ? '33%' : length <= 2 ? '66%' : '95%')};
   margin-right: 14px;
-  border: 0.1px solid black;
 `;
 
 const NoticeWrap = styled.div`

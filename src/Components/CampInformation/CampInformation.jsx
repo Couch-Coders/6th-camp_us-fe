@@ -3,22 +3,16 @@ import { CampContext } from '../../context/CampContext';
 import Slider from 'react-slick';
 import Tag from '../Tag/Tag';
 import { style } from './CampInformation.style';
+import defaultImg from '../../Assets/Images/default_image.png';
 
 const CampInformation = ({ reviewImg, campInfo }) => {
-  const [slideShowCount, setSlideShowCount] = useState();
   const data = useContext(CampContext);
-
-  useEffect(() => {
-    reviewImg.length === 1 && setSlideShowCount(1);
-    reviewImg.length === 2 && setSlideShowCount(2);
-    reviewImg.length >= 3 && setSlideShowCount(3);
-  }, []);
 
   const settings = {
     dots: false,
     infinite: true,
     speed: 500,
-    slidesToShow: slideShowCount ? slideShowCount : 3,
+    slidesToShow: 3,
     slidesToScroll: 1,
   };
 
@@ -34,17 +28,14 @@ const CampInformation = ({ reviewImg, campInfo }) => {
           </ImageNotice>
         </ImageNoticeWrap>
       ) : (
-        <SliderWrap sliderLength={3}>
+        <SliderWrap sliderLength={3} length={reviewImg.length}>
           <Slider {...settings}>
             {reviewImg.map(() => (
-              <div>
-                <SlideImage />
-              </div>
+              <div>{<SlideImage src={defaultImg} />}</div>
             ))}
           </Slider>
         </SliderWrap>
       )}
-
       <NoticeWrap>
         <Notice>기재된 사항과 다를 수 있습니다.</Notice>
         <Notice>
@@ -94,7 +85,6 @@ const CampInformation = ({ reviewImg, campInfo }) => {
 };
 
 export default CampInformation;
-
 const {
   Title,
   Intro,
