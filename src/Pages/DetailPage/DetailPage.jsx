@@ -41,9 +41,10 @@ const DetailPage = () => {
     const response = await api.getCampReview(id);
     console.log(response);
     setCampReview(response.content);
-    response.content.forEach((item) => {
+    for (const item of response.content) {
+      if (item.imgUrl === '') continue;
       setReviewImg((prev) => [...prev, item.imgUrl]);
-    });
+    }
   }
 
   useEffect(() => {

@@ -3,7 +3,6 @@ import { CampContext } from '../../context/CampContext';
 import Slider from 'react-slick';
 import Tag from '../Tag/Tag';
 import { style } from './CampInformation.style';
-import defaultImg from '../../Assets/Images/default_image.png';
 import {
   CampReviewNotification,
   CampInfoNotification,
@@ -29,8 +28,8 @@ const CampInformation = ({ reviewImg, campInfo }) => {
       ) : (
         <SliderWrap sliderLength={3} length={reviewImg.length}>
           <Slider {...settings}>
-            {reviewImg.map(() => (
-              <div>{<SlideImage src={defaultImg} />}</div>
+            {reviewImg.map((img) => (
+              <ImageWrap>{<SlideImage src={img} />}</ImageWrap>
             ))}
           </Slider>
         </SliderWrap>
@@ -80,5 +79,14 @@ const CampInformation = ({ reviewImg, campInfo }) => {
 };
 
 export default CampInformation;
-const { Title, Intro, SliderWrap, SlideImage, CampInfoWrap, Table, Th, Td } =
-  style;
+const {
+  Title,
+  Intro,
+  SliderWrap,
+  ImageWrap,
+  SlideImage,
+  CampInfoWrap,
+  Table,
+  Th,
+  Td,
+} = style;

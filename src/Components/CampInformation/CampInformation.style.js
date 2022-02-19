@@ -71,10 +71,6 @@ const SliderWrap = styled.div`
     opacity: 1;
   }
 
-  .slick-cloned {
-    display: none;
-  }
-
   @media screen and (max-width: 600px) {
     width: 100%;
 
@@ -89,9 +85,20 @@ const SliderWrap = styled.div`
   }
 `;
 
+const ImageWrap = styled.div`
+  position: relative;
+
+  &:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
+`;
+
 const SlideImage = styled.img`
-  width: ${({ length }) => (length <= 1 ? '33%' : length <= 2 ? '66%' : '95%')};
-  margin-right: 14px;
+  position: absolute;
+  width: 95%;
+  height: 100%;
 `;
 
 const NoticeWrap = styled.div`
@@ -158,6 +165,7 @@ export const style = {
   ImageNoticeWrap,
   ImageNotice,
   SliderWrap,
+  ImageWrap,
   SlideImage,
   NoticeWrap,
   Notice,
