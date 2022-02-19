@@ -259,6 +259,25 @@ export const Date = styled.div`
   padding: 0 18px;
 `;
 
+export const Nickname = styled.div`
+  display: block;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.85);
+  margin: 6px 0 8px 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  & ul {
+    margin-left: 7px;
+  }
+`;
+
 export const CampName = styled(Link)`
   display: block;
   line-height: 24px;
