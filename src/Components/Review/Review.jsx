@@ -7,7 +7,7 @@ import * as api from '../../Service/camps';
 import ReviewsList from '../Review/ReviewsList';
 import { style } from './Review.style';
 
-const Review = ({ id, clickedPage }) => {
+const Review = ({ CampId, clickedPage }) => {
   const { TextArea } = Input;
   const [review, setReview] = useState({
     rate: null,
@@ -17,22 +17,36 @@ const Review = ({ id, clickedPage }) => {
   });
 
   const [reviewData, setReviewData] = useState([]);
+  const [totalElement, setTotalElement] = useState();
+  const [currentPage, setCurrentPage] = useState(0);
 
-  async function detailReviewRequest() {
-    const response = await api.getCampReview(id);
+  async function detailReviewRequest(page) {
+    const response = await api.getCampReview(CampId, page);
     console.log(response);
     setReviewData(response.content);
+    setTotalElement(response.totalElements);
   }
 
-  async function MemberReviewRequest() {
-    const response = await api.getUserReview(id);
+  async function MemberReviewRequest(page) {
+    const response = await api.getUserReview(page);
     console.log(response);
     setReviewData(response.content);
+    setTotalElement(response.totalElements);
   }
 
   useEffect(() => {
-    clickedPage === 'detail' ? detailReviewRequest() : MemberReviewRequest();
-  }, []);
+    clickedPage === 'detail'
+      ? detailReviewRequest(currentPage)
+      : MemberReviewRequest(currentPage);
+  }, [currentPage]);
+
+  // 페이지 변경
+  const changePage = (value) => {
+    setCurrentPage(value - 1);
+    clickedPage === 'detail'
+      ? detailReviewRequest(value - 1)
+      : MemberReviewRequest(value - 1);
+  };
 
   /* 리뷰 삭제 */
   async function deleteTask(id) {
@@ -92,7 +106,7 @@ const Review = ({ id, clickedPage }) => {
     e.preventDefault();
     if (review.content === '') return;
 
-    const response = await api.writeReview(id, review);
+    const response = await api.writeReview(CampId, review);
     setReview((review) => {
       return { ...review, rate: null, content: '', imgUrl: '', imgName: '' };
     });
@@ -149,6 +163,15 @@ const Review = ({ id, clickedPage }) => {
             clickedPage={clickedPage}
           />
         ))}
+
+      <PaginationContent
+        current={currentPage + 1}
+        total={totalElement}
+        pageSize={5}
+        onChange={(value) => {
+          changePage(value);
+        }}
+      />
     </Container>
   );
 };
@@ -164,4 +187,5 @@ const {
   RateSelect,
   EditButton,
   Wrap,
+  PaginationContent,
 } = style;
