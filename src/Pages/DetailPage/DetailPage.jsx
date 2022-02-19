@@ -168,6 +168,7 @@ const DetailPage = () => {
               <Review id={id} clickedPage="detail" />
             )}
           </CampContext.Provider>
+          <Footer />
         </Container>
       )}
     </Main>
@@ -195,4 +196,5 @@ const {
   InfoTabs,
   LocationTabs,
   ReviewTabs,
+  Footer,
 } = style;
