@@ -4,7 +4,7 @@ import React, { useState, useEffect, useContext, useCallback } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
-import * as campService from '../../../Service/camps';
+import * as api from '../../../Service/camps';
 import Pagination from '../../Pagination/Pagination';
 import AlrimList from './AlrimList';
 import {
@@ -18,47 +18,24 @@ import { BellFilled } from '@ant-design/icons';
 /* // AuthProvider.js
 export const UserContext = React.createContext(null);  */
 
-export default function AlrimLayout() {
-  const { user } = useContext(UserContext);
+export default function AlrimLayout({ user }) {
   const [data, setData] = useState([]);
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  };
 
   async function request() {
-    await axios
-      .get('http://localhost:3001/alrimList')
-      .then((res) => {
-        let sortAlrim = res.data.sort(
-          (a, b) => parseFloat(b.alrimId) - parseFloat(a.alrimId),
-        );
-        setData(sortAlrim);
-      })
-      .catch((Error) => {
-        console.log(Error);
-      });
+    const response = await api.getAlrimList();
+    setData(response);
   }
 
   useEffect(() => {
     request();
-    console.log(data);
   }, [user]);
 
   const AlrimAllChecked = async (e) => {
     e.preventDefault();
     console.log('모든 알림 읽기');
-    const response = await axios({
-      method: 'patch',
-      url: `http://localhost:3001/alrimList`,
-      data: {
-        checked: true,
-      },
-    });
+
+    const response = await api.readAllAlrim();
     console.log(response.data);
-    /* setData(
-      data.map((data) => (data.id === id ? { ...data, checked: true } : data)),
-    ); */
   };
 
   const AlrimAllDelete = (e) => {
@@ -77,37 +54,12 @@ export default function AlrimLayout() {
     }
   };
 
-  /* 선택한 알림 읽기 */
-  const handleOnUpdate = async (id) => {
-    console.log('선택한 알림 읽기', id);
-    const response = await axios({
-      method: 'patch',
-      url: `http://localhost:3001/alrimList/${id}`,
-      data: {
-        checked: true,
-      },
-    });
-    setData(
-      data.map((data) => (data.id === id ? { ...data, checked: true } : data)),
-    );
-  };
-
-  /* 선택한 알림 삭제 */
-  const handleOnDelete = async (id) => {
-    console.log('선택한 id =', id);
-    const response = await axios({
-      method: 'delete',
-      url: `http://localhost:3001/alrimList/${id}`,
-    });
-    setData(data.filter((card) => card.id !== id));
-  };
-
   /* pagination */
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
+  // const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (e, pageNumber) => {
     e.preventDefault();
@@ -120,15 +72,7 @@ export default function AlrimLayout() {
         <button onClick={AlrimAllChecked}>모든 알림 읽기</button>
         <button onClick={AlrimAllDelete}>전체 삭제</button>
       </AlrimButton>
-      {data.length === 0 ? (
-        <NotNotification />
-      ) : (
-        <AlrimList
-          data={currentPosts}
-          handleOnUpdate={handleOnUpdate}
-          handleOnDelete={handleOnDelete}
-        />
-      )}
+      {data.length === 0 ? <NotNotification /> : <AlrimList alrimList={data} />}
 
       <Pagination
         postsPerPage={postsPerPage}

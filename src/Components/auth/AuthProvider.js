@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { auth } from '../../Service/firebaseAuth';
 import Modal from '../Modal/Modal';
 import axiosInstance from '../../Common/axiosInstance';
+import * as api from '../../Service/camps';
 
 export const UserContext = React.createContext(null);
 const AuthProvider = ({ children }) => {
@@ -12,12 +13,9 @@ const AuthProvider = ({ children }) => {
     auth.onAuthStateChanged(async (firebaseUser) => {
       if (firebaseUser) {
         try {
-          // const token = await firebaseUser.getIdToken();
-          // defaultHeaders.Authorization = `Bearer ${token}`;
-          // console.log(defaultHeaders.Authorization);
           const token = await firebaseUser.getIdToken();
           localStorage.setItem('token', 'Bearer ' + token);
-          const res = await axiosInstance.get('/members/me');
+          const res = await api.login();
 
           console.log(res);
 

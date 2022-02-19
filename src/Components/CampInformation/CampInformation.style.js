@@ -129,6 +129,7 @@ const Th = styled.th`
   font-size: 14px;
   line-height: 16px;
   color: #000000;
+  padding-bottom: 18px;
 `;
 
 const Td = styled.td`

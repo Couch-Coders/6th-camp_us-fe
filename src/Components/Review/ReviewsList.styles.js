@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { Image } from 'antd';
 import { Link } from 'react-router-dom';
 
@@ -19,6 +19,10 @@ export const EditForm = styled.form`
   margin-bottom: 20px;
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
+
+  @media screen and (max-width: 760px) {
+    position: relative;
+  }
 `;
 
 export const CampNameLoad = styled.div`
@@ -33,12 +37,21 @@ export const CampNameLoad = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+
+  @media screen and (max-width: 760px) {
+    max-width: calc(100% - 164px);
+    margin: 6px 0 14px 0;
+  }
 `;
 
 export const EditTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+
+  @media screen and (max-width: 760px) {
+    display: block;
+  }
 `;
 
 export const EditLeft = styled.div`
@@ -59,6 +72,12 @@ export const EditRight = styled.div`
     box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
     box-sizing: border-box;
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 760px) {
+    position: absolute;
+    top: 18px;
+    right: 18px;
   }
 `;
 
@@ -88,6 +107,14 @@ export const Container = styled.div`
   display: flex;
   align-items: center;
   margin: 10px 0;
+
+  @media screen and (max-width: 760px) {
+    display: block;
+
+    & > div:last-child {
+      margin: 12px 0;
+    }
+  }
 `;
 
 /* viewTemplate */
@@ -108,6 +135,7 @@ export const LikeReview = styled.div`
   }
 
   @media screen and (max-width: 760px) {
+    display: block;
     height: auto;
     margin-bottom: 20px;
   }
@@ -123,10 +151,15 @@ export const ReviewThumbnail = styled.div`
     width: 155px;
     min-height: 100%;
     position: relative;
+
+    @media screen and (max-width: 760px) {
+      width: calc(100vw - 20px);
+    }
   }
 
   @media screen and (max-width: 760px) {
-    display: none;
+    width: calc(100vw - 20px);
+    height: 50vw;
   }
 `;
 
@@ -141,12 +174,17 @@ export const ReviewThumb = styled(Image)`
   border-style: hidden;
   border: 0px;
   border-width: 0px;
+
+  @media screen and (max-width: 760px) {
+    width: 100%;
+  }
 `;
 
 export const ReviewInfo = styled.div`
   width: calc(100% - 132px);
   @media screen and (max-width: 760px) {
     width: 100%;
+    position: relative;
   }
 `;
 
@@ -163,11 +201,22 @@ export const TopArea = styled.div`
   & a {
     margin: 0;
   }
+
+  @media screen and (max-width: 760px) {
+    display: block;
+  }
 `;
 
 export const HandleContent = styled.div`
   display: flex;
   align-items: center;
+  justify-content: flex-end;
+
+  @media screen and (max-width: 760px) {
+    position: absolute;
+    bottom: 18px;
+    right: 18px;
+  }
 `;
 
 export const HandleReview = styled.button`
@@ -188,6 +237,14 @@ export const HandleReview = styled.button`
   &:hover {
     color: rgba(0, 0, 0, 0.342);
   }
+
+  @media screen and (max-width: 760px) {
+    font-size: 14px;
+    margin-left: 12px;
+    background-color: rgba(224, 224, 224, 100);
+    padding: 5px 10px;
+    border-radius: 3px;
+  }
 `;
 
 export const Date = styled.div`
@@ -200,6 +257,25 @@ export const Date = styled.div`
   align-items: center;
   color: #bfbfbf;
   padding: 0 18px;
+`;
+
+export const Nickname = styled.div`
+  display: block;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.85);
+  margin: 6px 0 8px 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  & ul {
+    margin-left: 7px;
+  }
 `;
 
 export const CampName = styled(Link)`
@@ -256,17 +332,54 @@ export const Content = styled(Link)`
   @media screen and (max-width: 600px) {
     width: 100%;
     display: block;
+    padding-bottom: 10px;
   }
 `;
 
 export const ReviewLike = styled.div`
-  width: 50px;
-  color: #000;
+  ${({ isMyReview }) =>
+    isMyReview
+      ? css`
+          // 내가 쓴 리뷰일 때 스타일
+          color: #9d9d9d;
+          padding: 5px 15px;
+          background-color: #efefef;
+          border-radius: 25px;
+          font-weight: 400;
+          border: 1px solid #e1e1e1;
 
-  & svg {
-    display: inline-block;
-    margin-right: 4px;
-  }
+          & svg {
+            display: inline-block;
+            margin-right: 4px;
+            font-weight: 400;
+          }
+        `
+      : css`
+          // 내가 쓴 리뷰가 아닐 때 스타일
+          color: ${({ liked }) => (liked ? '#f35656' : '#9d9d9d')};
+          padding: 5px 15px;
+          background-color: ${({ liked }) => (liked ? '#fff0f0' : '#efefef')};
+          border-radius: 25px;
+          font-weight: ${({ liked }) => (liked ? '600' : '400')};
+          border: ${({ liked }) =>
+            liked ? '1px solid #ffc1c1' : '1px solid #e1e1e1'};
+          cursor: pointer;
+
+          &:hover {
+            color: ${({ liked }) => (liked ? '#f35656' : '#8f8f8f')};
+            background-color: ${({ liked }) => (liked ? '#fff0f0' : '#e7e7e7')};
+            font-weight: ${({ liked }) => (liked ? '600' : '400')};
+            border: ${({ liked }) =>
+              liked ? '1px solid #ffc1c1' : '1px solid #d4d4d4'};
+            transition: all 0.3s ease;
+          }
+
+          & svg {
+            display: inline-block;
+            margin-right: 4px;
+            font-weight: ${({ liked }) => (liked ? '600' : '400')};
+          }
+        `}
 
   @media screen and (max-width: 600px) {
     width: 100%;
