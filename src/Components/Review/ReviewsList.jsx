@@ -185,7 +185,7 @@ export default function ReviewsList({
           <Content to={`/detail?id=${reviewData.campId}`}>
             {review.content}
           </Content>
-          <ReviewLike>
+          <ReviewLike liked={reviewData.liked}>
             <LikeOutlined />
             {review.likeCnt}
           </ReviewLike>

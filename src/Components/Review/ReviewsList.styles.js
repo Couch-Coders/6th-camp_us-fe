@@ -337,12 +337,27 @@ export const Content = styled(Link)`
 `;
 
 export const ReviewLike = styled.div`
-  width: 50px;
-  color: #000;
+  color: ${({ liked }) => (liked ? '#f35656' : '#9d9d9d')};
+  padding: 5px 15px;
+  background-color: ${({ liked }) => (liked ? '#fff0f0' : '#efefef')};
+  border-radius: 25px;
+  font-weight: ${({ liked }) => (liked ? '600' : '400')};
+  border: ${({ liked }) => (liked ? '1px solid #ffc1c1' : '1px solid #e1e1e1')};
+  cursor: pointer;
+
+  &:hover {
+    color: ${({ liked }) => (liked ? '#f35656' : '#8f8f8f')};
+    background-color: ${({ liked }) => (liked ? '#fff0f0' : '#e7e7e7')};
+    font-weight: ${({ liked }) => (liked ? '600' : '400')};
+    border: ${({ liked }) =>
+      liked ? '1px solid #ffc1c1' : '1px solid #d4d4d4'};
+    transition: all 0.3s ease;
+  }
 
   & svg {
     display: inline-block;
     margin-right: 4px;
+    font-weight: ${({ liked }) => (liked ? '600' : '400')};
   }
 
   @media screen and (max-width: 600px) {
