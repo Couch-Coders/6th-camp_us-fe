@@ -184,9 +184,9 @@ export async function getMainSearch(address, pageNum) {
 }
 
 // 리뷰 삭제
-export async function deleteReview(id) {
+export async function deleteReview(reviewId) {
   try {
-    const response = await axiosInstance.delete(`/reviews/${id}`);
+    const response = await axiosInstance.delete(`/reviews/${reviewId}`);
 
     console.log(response);
     const data = response.data;
@@ -213,21 +213,10 @@ export async function writeReview(id, review) {
   }
 }
 
-// export async function memberChangeReview(review) {
-//   try {
-//     const response = await axiosInstance.patch(`/members/me/reviews/${id}`, {
-//       rate: newRate,
-//       imgUrl: newImg.url,
-//       content: newContent,
-//     });
-//   } catch (error) {
-//     throw new Error('Failed to load data');
-//   }
-// }
-
-export async function detailChangeReview(review) {
+// 리뷰 수정
+export async function changeReview(review) {
   try {
-    const response = await axiosInstance.patch(`/reviews/${review.reviewId}`, {
+    const response = await axiosInstance.put(`/reviews/${review.reviewId}`, {
       rate: review.rate,
       imgUrl: review.imgUrl,
       content: review.content,

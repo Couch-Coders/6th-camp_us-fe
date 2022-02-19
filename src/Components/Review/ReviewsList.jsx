@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import { Rate, Input } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
@@ -27,11 +27,19 @@ import {
   Date,
   BottomArea,
   Content,
+  Nickname,
   ReviewLike,
 } from './ReviewsList.styles';
+import { UserContext } from '../auth/AuthProvider';
 
-export default function ReviewsList({ reviewData, deleteTask, editTask }) {
-  console.log('리렌더');
+export default function ReviewsList({
+  reviewData,
+  deleteTask,
+  editTask,
+  clickedPage,
+}) {
+  const { user } = useContext(UserContext);
+
   /* 리뷰 수정 */
   const { TextArea } = Input;
   const [review, setReview] = useState({
@@ -41,6 +49,7 @@ export default function ReviewsList({ reviewData, deleteTask, editTask }) {
     content: reviewData.content,
     imgUrl: reviewData.imgUrl,
     imgName: '',
+    lastModifiedDate: reviewData.lastModifiedDate,
   });
 
   const [isEditing, setEditing] = useState(false);
@@ -74,6 +83,7 @@ export default function ReviewsList({ reviewData, deleteTask, editTask }) {
         content: reviewData.content,
         imgUrl: reviewData.imgUrl,
         imgName: '',
+        lastModifiedDate: reviewData.lastModifiedDate,
       };
     });
   }
@@ -129,7 +139,7 @@ export default function ReviewsList({ reviewData, deleteTask, editTask }) {
   /* 리뷰  */
   const [show, setShow] = useState(false);
   const viewTemplate = (
-    <LikeReview key={review.id}>
+    <LikeReview>
       <ReviewThumbnail>
         <ReviewThumb
           src={
@@ -141,16 +151,27 @@ export default function ReviewsList({ reviewData, deleteTask, editTask }) {
       </ReviewThumbnail>
       <ReviewInfo>
         <TopArea>
-          <div>
-            <CampName to={`/detail?id=${reviewData.campId}`}>
-              {review.camp_name}
-              <Rate allowHalf disabled defaultValue={review.rate} />
-            </CampName>
-          </div>
-          <HandleContent>
-            <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
-            <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
-          </HandleContent>
+          <Nickname>
+            {clickedPage === 'detail' ? (
+              <div>
+                {/* {review.camp_name} */}
+                nickname
+                <Rate allowHalf disabled defaultValue={review.rate} />
+              </div>
+            ) : (
+              <CampName to={`/detail?id=${reviewData.campId}`}>
+                {/* {review.camp_name} */}
+                좋은 캠핑장
+                <Rate allowHalf disabled defaultValue={review.rate} />
+              </CampName>
+            )}
+          </Nickname>
+          {reviewData.memberId === user.data.memberId && (
+            <HandleContent>
+              <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
+              <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
+            </HandleContent>
+          )}
           {show && (
             <DeleteModal
               onClose={setShow}

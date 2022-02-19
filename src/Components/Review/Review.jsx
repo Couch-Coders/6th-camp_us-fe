@@ -56,7 +56,7 @@ const Review = ({ id, clickedPage }) => {
     });
     setReviewData(editedTaskList);
 
-    const response = await api.detailChangeReview(review);
+    const response = await api.changeReview(review);
     console.log(response);
   }
 
@@ -146,6 +146,7 @@ const Review = ({ id, clickedPage }) => {
             key={data.reviewId}
             deleteTask={deleteTask}
             editTask={editTask}
+            clickedPage={clickedPage}
           />
         ))}
     </Container>
