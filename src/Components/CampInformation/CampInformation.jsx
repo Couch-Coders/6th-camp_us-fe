@@ -3,6 +3,10 @@ import { CampContext } from '../../context/CampContext';
 import Slider from 'react-slick';
 import Tag from '../Tag/Tag';
 import { style } from './CampInformation.style';
+import {
+  CampReviewNotification,
+  CampInfoNotification,
+} from '../../Components/Notice/Notice';
 
 const CampInformation = ({ reviewImg, campInfo }) => {
   const [slideShowCount, setSlideShowCount] = useState();
@@ -27,12 +31,7 @@ const CampInformation = ({ reviewImg, campInfo }) => {
       <Title>소개글</Title>
       <Intro>{data.intro}</Intro>
       {reviewImg.length < 1 ? (
-        <ImageNoticeWrap>
-          <ImageNotice>
-            <Notice>등록된 이미지 리뷰가 없습니다.</Notice>
-            <Notice>이 캠핑장의 첫 리뷰어가 되어주세요!</Notice>
-          </ImageNotice>
-        </ImageNoticeWrap>
+        <CampReviewNotification />
       ) : (
         <SliderWrap sliderLength={3}>
           <Slider {...settings}>
@@ -45,12 +44,7 @@ const CampInformation = ({ reviewImg, campInfo }) => {
         </SliderWrap>
       )}
 
-      <NoticeWrap>
-        <Notice>기재된 사항과 다를 수 있습니다.</Notice>
-        <Notice>
-          자세한 문의사항이 있으시면 홈페이지 또는 연락처로 문의주세요.
-        </Notice>
-      </NoticeWrap>
+      <CampInfoNotification />
       <Title>캠핑장 시설정보</Title>
       <CampInfoWrap>
         {campInfo.map((item, index) => (

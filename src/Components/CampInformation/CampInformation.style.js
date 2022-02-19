@@ -43,7 +43,15 @@ const ImageNotice = styled.div`
 
 const SliderWrap = styled.div`
   width: 480px;
-  margin-bottom: 50px;
+  margin-bottom: 20px;
+  .slick-track {
+    width: 100% !important;
+  }
+
+  .slick-slide {
+    width: calc(33% - 5px) !important;
+    margin-right: 5px;
+  }
 
   .slick-prev {
     left: -57px;
@@ -64,6 +72,10 @@ const SliderWrap = styled.div`
     opacity: 1;
   }
 
+  .slick-cloned {
+    display: none;
+  }
+
   @media screen and (max-width: 600px) {
     width: 100%;
 
@@ -79,9 +91,7 @@ const SliderWrap = styled.div`
 `;
 
 const SlideImage = styled.div`
-  width: 95%;
   padding-bottom: 95%;
-  margin-right: 14px;
   border: 0.1px solid black;
 `;
 
