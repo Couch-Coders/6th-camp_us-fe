@@ -71,10 +71,6 @@ const SliderWrap = styled.div`
     opacity: 1;
   }
 
-  .slick-cloned {
-    display: none;
-  }
-
   @media screen and (max-width: 600px) {
     width: 100%;
 
