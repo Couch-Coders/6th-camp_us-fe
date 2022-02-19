@@ -7,6 +7,7 @@ import {
   CampReviewNotification,
   CampInfoNotification,
 } from '../../Components/Notice/Notice';
+import { Image } from 'antd';
 
 const CampInformation = ({ reviewImg, campInfo }) => {
   const data = useContext(CampContext);
@@ -17,6 +18,8 @@ const CampInformation = ({ reviewImg, campInfo }) => {
     speed: 500,
     slidesToShow: 3,
     slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
   };
 
   return (
@@ -29,7 +32,9 @@ const CampInformation = ({ reviewImg, campInfo }) => {
         <SliderWrap sliderLength={3} length={reviewImg.length}>
           <Slider {...settings}>
             {reviewImg.map((img) => (
-              <ImageWrap>{<SlideImage src={img} />}</ImageWrap>
+              <ImageWrap>
+                <Image src={img} />
+              </ImageWrap>
             ))}
           </Slider>
         </SliderWrap>
@@ -79,14 +84,5 @@ const CampInformation = ({ reviewImg, campInfo }) => {
 };
 
 export default CampInformation;
-const {
-  Title,
-  Intro,
-  SliderWrap,
-  ImageWrap,
-  SlideImage,
-  CampInfoWrap,
-  Table,
-  Th,
-  Td,
-} = style;
+const { Title, Intro, SliderWrap, ImageWrap, CampInfoWrap, Table, Th, Td } =
+  style;

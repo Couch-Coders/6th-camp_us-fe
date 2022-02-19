@@ -88,17 +88,19 @@ const SliderWrap = styled.div`
 const ImageWrap = styled.div`
   position: relative;
 
+  & .ant-image {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    height: 100%;
+  }
+
   &:after {
     content: '';
     display: block;
     padding-bottom: 100%;
   }
-`;
-
-const SlideImage = styled.img`
-  position: absolute;
-  width: 95%;
-  height: 100%;
 `;
 
 const NoticeWrap = styled.div`
@@ -166,7 +168,6 @@ export const style = {
   ImageNotice,
   SliderWrap,
   ImageWrap,
-  SlideImage,
   NoticeWrap,
   Notice,
   CampInfoWrap,
