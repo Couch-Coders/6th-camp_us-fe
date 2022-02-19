@@ -5,6 +5,7 @@ import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
 import DeleteModal from '../Modal/DeleteModal';
 import Image from '../../Assets/Images/default.png';
+import * as API from '../../Service/camps';
 import {
   List,
   EditForm,
@@ -40,6 +41,7 @@ export default function ReviewsList({
 }) {
   const { user } = useContext(UserContext);
 
+  console.log(reviewData);
   /* 리뷰 수정 */
   const { TextArea } = Input;
   const [review, setReview] = useState({
@@ -50,6 +52,7 @@ export default function ReviewsList({
     imgUrl: reviewData.imgUrl,
     imgName: '',
     lastModifiedDate: reviewData.lastModifiedDate,
+    liked: reviewData.liked,
   });
 
   const [isEditing, setEditing] = useState(false);
@@ -99,6 +102,17 @@ export default function ReviewsList({
       });
     }
   }, []);
+
+  const likeChange = async () => {
+    if (reviewData.memberId === user.data.memberId) return;
+    const response = await API.changeReviewLike(reviewData.reviewId);
+    console.log(response);
+    const reviewCnt = review.liked ? review.likeCnt - 1 : review.likeCnt + 1;
+
+    setReview((review) => {
+      return { ...review, liked: !review.liked, likeCnt: reviewCnt };
+    });
+  };
 
   // 리뷰 수정
   const editingTemplate = (
@@ -185,7 +199,13 @@ export default function ReviewsList({
           <Content to={`/detail?id=${reviewData.campId}`}>
             {review.content}
           </Content>
-          <ReviewLike liked={reviewData.liked}>
+          <ReviewLike
+            liked={review.liked}
+            onClick={likeChange}
+            isMyReview={
+              reviewData.memberId === user.data.memberId ? true : false
+            }
+          >
             <LikeOutlined />
             {review.likeCnt}
           </ReviewLike>
