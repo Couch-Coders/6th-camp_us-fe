@@ -1,8 +1,9 @@
 import styled from 'styled-components';
-
+import { Pagination } from 'antd';
 const Container = styled.div`
   display: flex;
   flex-direction: column;
+  align-items: center;
 `;
 
 const EditForm = styled.form`
@@ -81,6 +82,12 @@ const Wrap = styled.div`
   }
 `;
 
+const PaginationContent = styled(Pagination)`
+  .ant-select-selector {
+    display: none;
+  }
+`;
+
 export const style = {
   Container,
   EditForm,
@@ -90,4 +97,5 @@ export const style = {
   RateSelect,
   EditButton,
   Wrap,
+  PaginationContent,
 };

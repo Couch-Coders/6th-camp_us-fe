@@ -30,6 +30,7 @@ const AuthProvider = ({ children }) => {
         }
       } else {
         setUser(null);
+        localStorage.clear();
       }
     });
   }, []);
