@@ -28,12 +28,9 @@ const Navbar = () => {
   const [click, setClick] = useState(false);
   const [IsClicked, setIsClicked] = useState(false);
   const [button, setButton] = useState(true);
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { pathname } = useLocation();
-  const { user } = useContext(UserContext);
-
-  /* 반응형 */
+  const { user, isRegisterOpen } = useContext(UserContext);
 
   const handleClick = () => setClick(!click);
 
@@ -126,6 +123,9 @@ const Navbar = () => {
         </NavMenu>
       </NavbarContainer>
       {isModalOpen && <Modal role="login" closeLoginModal={onToggleModal} />}
+      {isRegisterOpen && (
+        <Modal role="register" closeLoginModal={onToggleModal} />
+      )}
     </Nav>
   );
 };

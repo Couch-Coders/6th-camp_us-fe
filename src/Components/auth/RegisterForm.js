@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import * as api from '../../Service/camps';
 
 const RegisterForm = ({ setRegisterFormOpen }) => {
-  const { setUser } = useContext(UserContext);
+  const { setUser, setIsRegisterOpen } = useContext(UserContext);
 
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -19,7 +19,7 @@ const RegisterForm = ({ setRegisterFormOpen }) => {
       console.log(res);
       const user = res;
       setUser(user);
-      setRegisterFormOpen(false);
+      setIsRegisterOpen(false);
     } catch (e) {
       throw new Error('login error');
     }

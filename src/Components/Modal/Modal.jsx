@@ -1,12 +1,11 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef } from 'react';
 import styled from 'styled-components';
 import { signInGoogle } from '../../Service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
 import RegisterForm from '../auth/RegisterForm';
-const Modal = ({ role, closeLoginModal }) => {
-  const [registerFormOpen, setRegisterFormOpen] = useState(false);
-  const isRegister = useContext(UserContext);
 
+const Modal = ({ role, closeLoginModal }) => {
+  const { setIsRegisterOpen } = useContext(UserContext);
   const modalRef = useRef();
 
   const handleClickOutside = (e) => {
@@ -105,7 +104,11 @@ const Modal = ({ role, closeLoginModal }) => {
         <LoginModal ref={modalRef}>
           <ModalHeader>
             <ModalTitle>Sign Up</ModalTitle>
-            <CloseButton onClick={closeLoginModal}>
+            <CloseButton
+              onClick={() => {
+                setIsRegisterOpen(false);
+              }}
+            >
               <svg
                 width="12"
                 height="12"
@@ -130,7 +133,7 @@ const Modal = ({ role, closeLoginModal }) => {
                 </div>
               </ContentText>
               {/* 회원가입 컴포넌트 */}
-              <RegisterForm setRegisterFormOpen={setRegisterFormOpen} />
+              <RegisterForm />
             </ContentWrap>
           </Content>
           <LoginFooter />
