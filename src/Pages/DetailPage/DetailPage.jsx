@@ -9,6 +9,7 @@ import * as api from '../../Service/camps';
 import { style } from './DetailPage.style';
 import { useLocation } from 'react-router';
 import defaultImg from '../../Assets/Images/default_image.png';
+import Review from '../../Components/Review/Review';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -20,7 +21,7 @@ const DetailPage = () => {
 
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const id = params.get('id');
+  const CampId = params.get('id');
 
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
@@ -29,7 +30,7 @@ const DetailPage = () => {
 
   async function getCampData() {
     setIsLoading(true);
-    const response = await api.getCamp(id);
+    const response = await api.getCamp(CampId);
     console.log(response);
     console.log(response.sbrsCl);
     const info = response.sbrsCl !== null ? response.sbrsCl.split(',') : [];
@@ -39,12 +40,13 @@ const DetailPage = () => {
   }
 
   async function getCampReview() {
-    const response = await api.getCampReview(id);
+    const response = await api.getCampReview(CampId);
     console.log(response);
     setCampReview(response.content);
-    response.content.forEach((item) => {
+    for (const item of response.content) {
+      if (item.imgUrl === '') continue;
       setReviewImg((prev) => [...prev, item.imgUrl]);
-    });
+    }
   }
 
   useEffect(() => {
@@ -58,7 +60,7 @@ const DetailPage = () => {
         <Container>
           <Header>
             {campData && <Title>{campData.facltNm}</Title>}
-            <CampLike likeCount={campData.like_cnt} campId={id} />
+            <CampLike likeCount={campData.like_cnt} campId={CampId} />
           </Header>
           <CampInfoWrap>
             {campInfo.map((item, index) => (
@@ -149,8 +151,11 @@ const DetailPage = () => {
               <CampInformation reviewImg={reviewImg} campInfo={campInfo} />
             )}
             {selectedTabs === 'location' && <CampLocation />}
-            {selectedTabs === 'review' && <CampReview />}
+            {selectedTabs === 'review' && (
+              <Review CampId={CampId} clickedPage="detail" />
+            )}
           </CampContext.Provider>
+          <Footer />
         </Container>
       )}
     </Main>
@@ -175,4 +180,5 @@ const {
   InfoTabs,
   LocationTabs,
   ReviewTabs,
+  Footer,
 } = style;

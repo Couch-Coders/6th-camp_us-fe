@@ -21,9 +21,14 @@ const Main = styled.main`
 
 const Container = styled.div`
   max-width: 480px;
-  width: 480px;
+  width: 100%;
   padding-top: 50px;
   height: auto;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+    padding: 50px 10px 0 10px;
+  }
 `;
 
 const Header = styled.header`
@@ -50,6 +55,7 @@ const CampInfoWrap = styled.div`
 
 const Thumbnail = styled.img`
   width: 100%;
+  height: 320px;
   margin-top: 25px;
   margin-bottom: 37px;
 `;
@@ -184,6 +190,11 @@ const ReviewTabs = styled.span`
         `}
 `;
 
+const Footer = styled.footer`
+  width: 100%;
+  height: 40px;
+`;
+
 export const style = {
   SectionTitle,
   Main,
@@ -201,4 +212,5 @@ export const style = {
   InfoTabs,
   LocationTabs,
   ReviewTabs,
+  Footer,
 };

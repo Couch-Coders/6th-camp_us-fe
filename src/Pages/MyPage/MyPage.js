@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../Components/auth/AuthProvider';
 import * as api from '../../Service/camps';
 import LikeListLayout from '../../Components/MyPage/LikesList/LikeListLayout';
-import MyReviewsLayout from '../../Components/MyPage/MyReviews/MyReviewsLayout';
+import Review from '../../Components/Review/Review';
 import AlrimLayout from '../../Components/MyPage/AlrimList/AlrimLayout';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper } from '../../Styles/theme';
@@ -33,10 +34,14 @@ function MyPage(props) {
     setReviewCnt(response.reviewCnt);
   }
 
+  const navigate = useNavigate();
   useEffect(() => {
     getReviewCount();
     user && setNewName(user.data.nickname);
-    // console.log(user.data);
+    if (localStorage.length === 0) {
+      alert('로그인한 회원만 이용 가능한 페이지입니다!');
+      navigate('/');
+    }
   }, [user]);
 
   function handleChange(e) {
@@ -152,7 +157,7 @@ function MyPage(props) {
           </TabsWrap>
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
-        {selectedTabs === 'myReviews' && <MyReviewsLayout />}
+        {selectedTabs === 'myReviews' && <Review />}
         {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
       </InnerWrapper>
     </Section>

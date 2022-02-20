@@ -42,7 +42,6 @@ const ImageNotice = styled.div`
 `;
 
 const SliderWrap = styled.div`
-  width: 480px;
   margin-bottom: 50px;
 
   .slick-prev {
@@ -57,20 +56,51 @@ const SliderWrap = styled.div`
     content: '→';
   }
 
+  .slick-cloned {
+    display: ${({ length }) => length < 3 && 'none'};
+  }
+
+  .slick-track {
+    margin: 0;
+  }
+
   .slick-prev:before,
   .slick-next:before {
     color: #c2c2c2;
     font-size: 30px;
     opacity: 1;
   }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+
+    .slick-arrow {
+      right: 0;
+    }
+
+    .slick-prev:before,
+    .slick-next:before {
+      display: none;
+    }
+  }
 `;
 
-const SlideImage = styled.div`
-  width: 150px;
-  height: 150px;
-  /* background: url(1:1.png); */
-  margin-right: 14px;
-  border: 0.1px solid black;
+const ImageWrap = styled.div`
+  position: relative;
+
+  & .ant-image {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    width: 95%;
+    height: 100%;
+  }
+
+  &:after {
+    content: '';
+    display: block;
+    padding-bottom: 100%;
+  }
 `;
 
 const NoticeWrap = styled.div`
@@ -82,6 +112,10 @@ const NoticeWrap = styled.div`
   justify-content: center;
   background: #f0f0f0;
   margin-bottom: 37px;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const Notice = styled.p`
@@ -133,7 +167,7 @@ export const style = {
   ImageNoticeWrap,
   ImageNotice,
   SliderWrap,
-  SlideImage,
+  ImageWrap,
   NoticeWrap,
   Notice,
   CampInfoWrap,

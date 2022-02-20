@@ -1,12 +1,11 @@
 import React, { useState, useCallback, useContext } from 'react';
-import { UserContext } from '../../auth/AuthProvider';
-import { auth } from '../../../Service/firebaseAuth';
 import { Rate, Input } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
-import ImagePreview from '../../ImageUpload/ImagePreview/ImagePreview';
-import ImageUpload from '../../ImageUpload/ImageUpload';
-import DeleteModal from '../../Modal/DeleteModal';
-import Image from '../../../Assets/Images/default.png';
+import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
+import ImageUpload from '../ImageUpload/ImageUpload';
+import DeleteModal from '../Modal/DeleteModal';
+import Image from '../../Assets/Images/default.png';
+import * as API from '../../Service/camps';
 import {
   List,
   EditForm,
@@ -29,13 +28,13 @@ import {
   Date,
   BottomArea,
   Content,
+  Nickname,
   ReviewLike,
-} from './MyReviews.styles';
+} from './ReviewsList.styles';
+import { UserContext } from '../auth/AuthProvider';
 
-export default function MyReviews({ reviewData, deleteTask, editTask }) {
+const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const { user } = useContext(UserContext);
-
-  console.log(reviewData);
 
   /* 리뷰 수정 */
   const { TextArea } = Input;
@@ -46,6 +45,8 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
     content: reviewData.content,
     imgUrl: reviewData.imgUrl,
     imgName: '',
+    lastModifiedDate: reviewData.lastModifiedDate,
+    liked: reviewData.liked,
   });
 
   const [isEditing, setEditing] = useState(false);
@@ -79,6 +80,7 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
         content: reviewData.content,
         imgUrl: reviewData.imgUrl,
         imgName: '',
+        lastModifiedDate: reviewData.lastModifiedDate,
       };
     });
   }
@@ -94,6 +96,17 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
       });
     }
   }, []);
+
+  const likeChange = async () => {
+    if (reviewData.memberId === user.data.memberId) return;
+    const response = await API.changeReviewLike(reviewData.reviewId);
+    console.log(response);
+    const reviewCnt = review.liked ? review.likeCnt - 1 : review.likeCnt + 1;
+
+    setReview((review) => {
+      return { ...review, liked: !review.liked, likeCnt: reviewCnt };
+    });
+  };
 
   // 리뷰 수정
   const editingTemplate = (
@@ -134,7 +147,7 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
   /* 리뷰  */
   const [show, setShow] = useState(false);
   const viewTemplate = (
-    <LikeReview key={review.id}>
+    <LikeReview>
       <ReviewThumbnail>
         <ReviewThumb
           src={
@@ -146,24 +159,47 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
       </ReviewThumbnail>
       <ReviewInfo>
         <TopArea>
-          <div>
-            <CampName to={`/detail/${review.camp_id}`}>
-              {review.camp_name}
-              <Rate allowHalf disabled defaultValue={review.rate} />
-            </CampName>
-          </div>
-          <HandleContent>
-            <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
-            <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
-          </HandleContent>
+          <Nickname>
+            {clickedPage === 'detail' ? (
+              <div>
+                {/* {review.camp_name} */}
+                nickname
+                <Rate allowHalf disabled defaultValue={review.rate} />
+              </div>
+            ) : (
+              <CampName to={`/detail?id=${reviewData.campId}`}>
+                {/* {review.camp_name} */}
+                좋은 캠핑장
+                <Rate allowHalf disabled defaultValue={review.rate} />
+              </CampName>
+            )}
+          </Nickname>
+          {reviewData.memberId === user.data.memberId && (
+            <HandleContent>
+              <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
+              <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
+            </HandleContent>
+          )}
           {show && (
-            <DeleteModal onClose={setShow} contentId={review.reviewId} />
+            <DeleteModal
+              onClose={setShow}
+              reviewId={review.reviewId}
+              deleteTask={deleteTask}
+            />
           )}
         </TopArea>
         <Date>{review.lastModifiedDate}</Date>
         <BottomArea>
-          <Content to={`/detail/${review.camp_id}`}>{review.content}</Content>
-          <ReviewLike>
+          <Content to={`/detail?id=${reviewData.campId}`}>
+            {review.content}
+          </Content>
+          <ReviewLike
+            liked={review.liked}
+            onClick={likeChange}
+            isMyReview={
+              reviewData.memberId === user.data.memberId ? true : false
+            }
+          >
             <LikeOutlined />
             {review.likeCnt}
           </ReviewLike>
@@ -173,4 +209,6 @@ export default function MyReviews({ reviewData, deleteTask, editTask }) {
   );
 
   return <List>{isEditing ? editingTemplate : viewTemplate}</List>;
-}
+};
+
+export default React.memo(ReviewsList);

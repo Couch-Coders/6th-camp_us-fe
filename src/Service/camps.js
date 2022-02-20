@@ -38,9 +38,11 @@ export async function changeNickname(nickname) {
 }
 
 // 유저가 쓴 리뷰 조회
-export async function getUserReview(id) {
+export async function getUserReview(page) {
   try {
-    const response = await axiosInstance(`/members/me/reviews`);
+    const response = await axiosInstance(
+      `/members/me/reviews/?page=${page}&size=5&sort=createdDate,desc`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -151,9 +153,11 @@ export async function campLike(id) {
 }
 
 // 캠핑장에 대한 리뷰 조회
-export async function getCampReview(id) {
+export async function getCampReview(id, page) {
   try {
-    const response = await axiosInstance(`/camps/${id}/reviews`);
+    const response = await axiosInstance(
+      `/camps/${id}/reviews?page=${page}&size=5&sort=createdDate,desc`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -196,9 +200,9 @@ export async function getMainSearch(address, pageNum) {
 }
 
 // 리뷰 삭제
-export async function deleteReview(id) {
+export async function deleteReview(reviewId) {
   try {
-    const response = await axiosInstance.delete(`/reviews/${id}`);
+    const response = await axiosInstance.delete(`/reviews/${reviewId}`);
 
     console.log(response);
     const data = response.data;
@@ -209,18 +213,43 @@ export async function deleteReview(id) {
 }
 
 // 리뷰 작성
-export async function writeReview(id) {
+export async function writeReview(id, review) {
   try {
-    const response = await axiosInstance.post(`/camps/2598/reviews`, {
-      content: '여기 캠핑장 추천합니다.',
-      imgUrl:
-        'https://gocamping.or.kr/upload/camp/1023/thumb/thumb_720_8920mL8X4QwnXtiSF10BNgEW.jpg',
-      rate: 4,
+    const response = await axiosInstance.post(`/camps/${id}/reviews`, {
+      content: review.content,
+      imgUrl: review.imgUrl,
+      rate: review.rate,
     });
 
     console.log(response);
     const data = response.data;
     return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 리뷰 수정
+export async function changeReview(review) {
+  try {
+    const response = await axiosInstance.put(`/reviews/${review.reviewId}`, {
+      rate: review.rate,
+      imgUrl: review.imgUrl,
+      content: review.content,
+    });
+
+    console.log(response);
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 리뷰 좋아요
+export async function changeReviewLike(id) {
+  try {
+    const response = await axiosInstance.patch(`/reviews/${id}/like`);
+
+    console.log(response);
   } catch (error) {
     throw new Error('Failed to load data');
   }

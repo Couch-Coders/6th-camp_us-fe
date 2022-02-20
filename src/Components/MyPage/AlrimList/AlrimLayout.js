@@ -7,13 +7,8 @@ import { auth } from '../../../Service/firebaseAuth';
 import * as api from '../../../Service/camps';
 import Pagination from '../../Pagination/Pagination';
 import AlrimList from './AlrimList';
-import {
-  AlrimButton,
-  Notification,
-  NotiTitle,
-  NotiContent,
-} from './AlrimList.styles';
-import { BellFilled } from '@ant-design/icons';
+import { AlrimButton } from './AlrimList.styles';
+import { AlrimNotification } from '../../../Components/Notice/Notice';
 
 /* // AuthProvider.js
 export const UserContext = React.createContext(null);  */
@@ -72,7 +67,11 @@ export default function AlrimLayout({ user }) {
         <button onClick={AlrimAllChecked}>모든 알림 읽기</button>
         <button onClick={AlrimAllDelete}>전체 삭제</button>
       </AlrimButton>
-      {data.length === 0 ? <NotNotification /> : <AlrimList alrimList={data} />}
+      {data.length === 0 ? (
+        <AlrimNotification />
+      ) : (
+        <AlrimList alrimList={data} />
+      )}
 
       <Pagination
         postsPerPage={postsPerPage}
@@ -83,15 +82,3 @@ export default function AlrimLayout({ user }) {
     </>
   );
 }
-
-const NotNotification = () => {
-  return (
-    <Notification>
-      <BellFilled />
-      <NotiTitle>새로운 알림이 없습니다.</NotiTitle>
-      <NotiContent>
-        나의 활동소식과 친구들의 새소식을 한번에 받아보세요.
-      </NotiContent>
-    </Notification>
-  );
-};
