@@ -80,6 +80,8 @@ const MobileForm = styled.form`
   position: fixed;
   background-color: #73d13d;
   overflow: hidden;
+  z-index: 1;
+  width: 100%;
 
   & * {
     font-weight: 600;
@@ -194,6 +196,20 @@ const MobileResultDefault = styled.div`
   }
 `;
 
+const TopBtn = styled.button`
+  border: none;
+  outline: none;
+  background-color: #e1e5e9;
+  color: #222;
+  width: 100%;
+  padding: 12px 0;
+
+  & span {
+    color: #73d13d;
+    margin-right: 4px;
+  }
+`;
+
 export const style = {
   Container,
   Header,
@@ -217,4 +233,5 @@ export const style = {
   MobileButtonWrap,
   MobileResultArea,
   MobileResultDefault,
+  TopBtn,
 };

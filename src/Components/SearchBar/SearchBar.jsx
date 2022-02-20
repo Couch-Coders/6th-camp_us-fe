@@ -4,7 +4,11 @@ import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
-import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
+import {
+  SearchOutlined,
+  ExclamationCircleOutlined,
+  ArrowUpOutlined,
+} from '@ant-design/icons';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
 
@@ -110,6 +114,10 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
     setIsDetailSearch(false);
     setIsResultOpen(true);
     getSearchResult();
+  };
+
+  const ScrollTop = () => {
+    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
   const PCver = () => {
@@ -279,6 +287,12 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
             </MobileResultDefault>
           )}
         </MobileResultArea>
+        {isResultOpen && (
+          <TopBtn onClick={ScrollTop}>
+            <ArrowUpOutlined />
+            Top
+          </TopBtn>
+        )}
       </>
     );
   };
@@ -311,4 +325,5 @@ const {
   MobileButtonWrap,
   MobileResultArea,
   MobileResultDefault,
+  TopBtn,
 } = style;

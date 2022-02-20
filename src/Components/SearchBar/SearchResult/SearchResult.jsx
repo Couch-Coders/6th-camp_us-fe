@@ -84,6 +84,8 @@ const Title = styled.span`
 
 const SelectContent = styled(Select)`
   width: 100px;
+  position: relative;
+  z-index: 0;
 `;
 
 const ListWrap = styled.ul`

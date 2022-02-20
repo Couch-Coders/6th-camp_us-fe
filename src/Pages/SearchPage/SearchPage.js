@@ -55,7 +55,7 @@ const Container = styled.div`
     padding: 0;
     background-color: #e9ecef;
     height: auto;
-    min-height: 100vh;
+    min-height: calc(100vh - 50px);
     overflow: hidden;
   }
 `;
