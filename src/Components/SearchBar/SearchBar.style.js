@@ -196,6 +196,21 @@ const MobileResultDefault = styled.div`
   }
 `;
 
+const ChangeViewBtn = styled.button`
+  border: none;
+  outline: none;
+  width: 50px;
+  height: 50px;
+  background-color: #73d13d;
+  color: #fff;
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  font-size: 22px;
+  box-shadow: 2px 2px 8px rgb(0 0 0 / 12%);
+  border-radius: 4px;
+`;
+
 const TopBtn = styled.button`
   border: none;
   outline: none;
@@ -233,5 +248,6 @@ export const style = {
   MobileButtonWrap,
   MobileResultArea,
   MobileResultDefault,
+  ChangeViewBtn,
   TopBtn,
 };

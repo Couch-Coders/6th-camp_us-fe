@@ -8,6 +8,8 @@ import {
   SearchOutlined,
   ExclamationCircleOutlined,
   ArrowUpOutlined,
+  EnvironmentFilled,
+  UnorderedListOutlined,
 } from '@ant-design/icons';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
@@ -275,11 +277,16 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
         </MobileForm>
         <MobileResultArea>
           {isResultOpen ? ( // 이거 반대로 해야함!
-            <SearchResult
-              address={address}
-              isLoading={isLoading}
-              campResult={campResult}
-            />
+            <>
+              <SearchResult
+                address={address}
+                isLoading={isLoading}
+                campResult={campResult}
+              />
+              <ChangeViewBtn>
+                <EnvironmentFilled />
+              </ChangeViewBtn>
+            </>
           ) : (
             <MobileResultDefault>
               <ExclamationCircleOutlined />
@@ -325,5 +332,6 @@ const {
   MobileButtonWrap,
   MobileResultArea,
   MobileResultDefault,
+  ChangeViewBtn,
   TopBtn,
 } = style;
