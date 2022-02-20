@@ -177,7 +177,8 @@ export async function getMainSearch(address, pageNum) {
       name: address.keyword,
       pageNumber: pageNum,
       pageSize: 10,
-      // sigunguNm: address.address1,
+      doNm: address.address1,
+      sigunguNm: address.address2,
     });
     console.log(response);
     const data = response.data;

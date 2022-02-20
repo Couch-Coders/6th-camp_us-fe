@@ -7,7 +7,7 @@ import { style } from './SearchBar.style';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
 
-const SearchBar = ({ searchCategory, setSearchedCampData }) => {
+const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
   const [campResult, setCampResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isResultOpen, setIsResultOpen] = useState(false);
@@ -23,6 +23,14 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
   const category = Tagcategory;
 
   const { Option } = Select;
+
+  console.log(campResult);
+
+  useEffect(() => {
+    searchCategory && setCampResult(campList);
+    searchCategory && setIsResultOpen(true);
+    searchCategory && setIsDetailSearch(false);
+  }, []);
 
   useEffect(() => {
     if (searchCategory !== null) {
@@ -173,7 +181,7 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
           </Button>
         </ButtonWrap>
       </Form>
-      {isResultOpen && (
+      {isResultOpen && campResult.length > 0 && (
         <SearchResult
           address={address}
           isLoading={isLoading}
