@@ -166,6 +166,28 @@ export async function getSearchCamp(address, pageNum) {
   }
 }
 
+// 검색페이지 검색 임시(json-server)
+export async function getSearchTemporary() {
+  try {
+    const response = await axiosInstance('http://localhost:3001/camp');
+    console.log(response);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+// 검색페이지 검색 임시(json-server)
+export async function getSearchCampTemporary() {
+  try {
+    const response = await axios('http://localhost:3001/campSearch');
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
 // 메인페이지 캠핑장 검색
 export async function getMainSearch(address, pageNum) {
   try {

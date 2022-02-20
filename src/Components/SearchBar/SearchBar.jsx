@@ -83,7 +83,8 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
 
   const getSearchResult = async () => {
     setIsLoading(false);
-    const response = await api.getSearchCamp(address, 0);
+    //const response = await api.getSearchCamp(address, 0);
+    const response = await api.getSearchCampTemporary();
     const campData = response[0].content;
     setCampResult(campData);
     setSearchedCampData(campData);
