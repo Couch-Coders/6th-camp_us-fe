@@ -88,5 +88,6 @@ const Container = styled.div`
 
 const MobileContainer = styled.div`
   background-color: #e9ecef;
+  min-height: 100vh;
   overflow: hidden;
 `;

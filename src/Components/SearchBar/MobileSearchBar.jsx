@@ -1,6 +1,6 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Select } from 'antd';
-import { SearchOutlined } from '@ant-design/icons';
+import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
@@ -125,7 +125,11 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
               </Option>
             ))}
           </SelectAddress>
-          <Button type="button" onClick={handleSearchEvent}>
+          <Button
+            type="button"
+            onClick={handleSearchEvent}
+            isResultOpen={isResultOpen}
+          >
             <SearchOutlined />
           </Button>
         </FlexBox>
@@ -176,15 +180,20 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
           )}
         </ButtonWrap>
       </Form>
-      {isResultOpen ? (
-        <SearchResult
-          address={address}
-          isLoading={isLoading}
-          campResult={campResult}
-        />
-      ) : (
-        <div>검색결과가 없습니다.</div>
-      )}
+      <ResultArea>
+        {isResultOpen ? (
+          <SearchResult
+            address={address}
+            isLoading={isLoading}
+            campResult={campResult}
+          />
+        ) : (
+          <ResultDefault>
+            <ExclamationCircleOutlined />
+            검색결과가 없습니다.
+          </ResultDefault>
+        )}
+      </ResultArea>
     </>
   );
 };
@@ -202,4 +211,6 @@ const {
   CategoryWrap,
   Button,
   ButtonWrap,
+  ResultArea,
+  ResultDefault,
 } = style;

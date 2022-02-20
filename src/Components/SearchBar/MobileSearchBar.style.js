@@ -31,7 +31,7 @@ const FlexBox = styled.div`
   }
 `;
 const GrayBox = styled.div`
-  background-color: #e9ecef;
+  background-color: #f8f8f8;
   padding: 6px;
   white-space: nowrap;
   transition: transform 0.5s;
@@ -58,10 +58,6 @@ const SelectAddress = styled(Select)`
 
 const RateContent = styled(Rate)`
   margin-top: -5px;
-  /* & .ant-rate-star-first,
-  .ant-rate-star-second {
-    color: #fff;
-  } */
 `;
 
 const CategoryWrap = styled.div`
@@ -107,6 +103,30 @@ const ButtonWrap = styled.div`
     `}
 `;
 
+const ResultArea = styled.div`
+  width: calc(100% - 10px);
+  min-height: calc(100vh - 194px);
+  background-color: #f8f8f8;
+  margin: auto;
+  margin-top: 8px;
+`;
+
+const ResultDefault = styled.div`
+  min-height: inherit;
+  text-align: center;
+  color: #bbbbbb;
+  font-size: 0.9rem;
+  border: 1px solid #dbdbdb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  & span {
+    font-size: 1.3rem;
+    margin-right: 4px;
+  }
+`;
+
 export const style = {
   FlexBox,
   GrayBox,
@@ -118,4 +138,6 @@ export const style = {
   CategoryWrap,
   Button,
   ButtonWrap,
+  ResultArea,
+  ResultDefault,
 };
