@@ -4,10 +4,25 @@ import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
+import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
 
 const SearchBar = ({ searchCategory, setSearchedCampData }) => {
+  /* 디스플레이 사이즈에 따라 보이는 컴포넌트 구분 */
+  const [isMobile, setIsMobile] = useState(false);
+  const ResizeDisplay = () => {
+    if (window.innerWidth <= 960) {
+      setIsMobile(true);
+    } else {
+      setIsMobile(false);
+    }
+  };
+  useEffect(() => {
+    ResizeDisplay();
+  }, []);
+  window.addEventListener('resize', ResizeDisplay);
+
   const [campResult, setCampResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [isResultOpen, setIsResultOpen] = useState(false);
@@ -97,53 +112,146 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
     getSearchResult();
   };
 
-  return (
-    <Container>
-      <Header>캠핑장 찾아보기</Header>
-      <Form>
-        <InputTitle>캠핑장 이름</InputTitle>
-        <InputContent
-          placeholder="캠핑장 이름을 검색하세요."
-          onChange={changeKeyword}
-          value={address.keyword}
-        />
-        <InputTitle>지역</InputTitle>
-        <SelectAddress
-          placeholder="시/도"
-          onChange={changeAddress1}
-          value={address.address1}
-        >
-          {sido.map((address1, index) => (
-            <Option key={index} value={address1}>
-              {address1}
-            </Option>
-          ))}
-        </SelectAddress>
-        <SelectAddress
-          placeholder="시/군/구"
-          onChange={changeAddress2}
-          value={address.address2}
-        >
-          {sigungu[address.address1].map((address2, index) => (
-            <Option key={index} value={address2}>
-              {address2}
-            </Option>
-          ))}
-        </SelectAddress>
-        <InputTitle>최소 별점</InputTitle>
-        {searchCategory !== null ? (
-          <RateContent
-            allowHalf
-            onChange={handleRateChange}
-            defaultValue={searchCategory.rate}
+  const PCver = () => {
+    return (
+      <Container>
+        <Header>캠핑장 찾아보기</Header>
+        <Form>
+          <InputTitle>캠핑장 이름</InputTitle>
+          <InputContent
+            placeholder="캠핑장 이름을 검색하세요."
+            onChange={changeKeyword}
+            value={address.keyword}
           />
-        ) : (
-          <RateContent allowHalf onChange={handleRateChange} />
+          <InputTitle>지역</InputTitle>
+          <SelectAddress
+            placeholder="시/도"
+            onChange={changeAddress1}
+            value={address.address1}
+          >
+            {sido.map((address1, index) => (
+              <Option key={index} value={address1}>
+                {address1}
+              </Option>
+            ))}
+          </SelectAddress>
+          <SelectAddress
+            placeholder="시/군/구"
+            onChange={changeAddress2}
+            value={address.address2}
+          >
+            {sigungu[address.address1].map((address2, index) => (
+              <Option key={index} value={address2}>
+                {address2}
+              </Option>
+            ))}
+          </SelectAddress>
+          <InputTitle>최소 별점</InputTitle>
+          {searchCategory !== null ? (
+            <RateContent
+              allowHalf
+              onChange={handleRateChange}
+              defaultValue={searchCategory.rate}
+            />
+          ) : (
+            <RateContent allowHalf onChange={handleRateChange} />
+          )}
+          {isDetailSearch && (
+            <>
+              <InputTitle>상세 검색</InputTitle>
+              <CategoryWrap>
+                {category.map((tag, index) => (
+                  <Tag
+                    key={index}
+                    tag={tag}
+                    role="category"
+                    addCategory={addCategory}
+                    removeCategory={removeCategory}
+                    category={address.category}
+                  />
+                ))}
+              </CategoryWrap>
+            </>
+          )}
+
+          <ButtonWrap isResultOpen={isResultOpen}>
+            {!isDetailSearch && (
+              <Button
+                type="button"
+                onClick={() => {
+                  setIsDetailSearch(true);
+                }}
+              >
+                상세검색
+              </Button>
+            )}
+            <Button type="button" onClick={handleSearchEvent}>
+              검색
+            </Button>
+          </ButtonWrap>
+        </Form>
+        {isResultOpen && (
+          <SearchResult
+            address={address}
+            isLoading={isLoading}
+            campResult={campResult}
+          />
         )}
-        {isDetailSearch && (
-          <>
-            <InputTitle>상세 검색</InputTitle>
-            <CategoryWrap>
+      </Container>
+    );
+  };
+
+  const Mobilever = () => {
+    return (
+      <>
+        <MobileForm>
+          <MobileFlexBox bg>
+            <MobileSelectAddress
+              placeholder="시/도"
+              onChange={changeAddress1}
+              value={address.address1}
+            >
+              {sido.map((address1, index) => (
+                <Option key={index} value={address1}>
+                  {address1}
+                </Option>
+              ))}
+            </MobileSelectAddress>
+            <MobileSelectAddress
+              placeholder="시/군/구"
+              onChange={changeAddress2}
+              value={address.address2}
+            >
+              {sigungu[address.address1].map((address2, index) => (
+                <Option key={index} value={address2}>
+                  {address2}
+                </Option>
+              ))}
+            </MobileSelectAddress>
+            <MobileButtonWrap isResultOpen={isResultOpen}>
+              <MobileButton type="button" onClick={handleSearchEvent}>
+                <SearchOutlined />
+              </MobileButton>
+            </MobileButtonWrap>
+          </MobileFlexBox>
+          <MobileFlexBox bg>
+            <MobileInputContent
+              placeholder="캠핑장 이름을 검색하세요."
+              onChange={changeKeyword}
+              value={address.keyword}
+            />
+            {searchCategory !== null ? (
+              <MobileRateContent
+                allowHalf
+                onChange={handleRateChange}
+                defaultValue={searchCategory.rate}
+              />
+            ) : (
+              <MobileRateContent allowHalf onChange={handleRateChange} />
+            )}
+          </MobileFlexBox>
+          <MobileGrayBox>
+            <MobileCategoryWrap>
               {category.map((tag, index) => (
                 <Tag
                   key={index}
@@ -154,35 +262,41 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
                   category={address.category}
                 />
               ))}
-            </CategoryWrap>
-          </>
-        )}
+            </MobileCategoryWrap>
+          </MobileGrayBox>
 
-        <ButtonWrap isResultOpen={isResultOpen}>
-          {!isDetailSearch && (
-            <Button
-              type="button"
-              onClick={() => {
-                setIsDetailSearch(true);
-              }}
-            >
-              상세검색
-            </Button>
+          {/* <ButtonWrap isResultOpen={isResultOpen}>
+            {!isDetailSearch && (
+              <Button
+                type="button"
+                onClick={() => {
+                  setIsDetailSearch(true);
+                }}
+              >
+                상세검색
+              </Button>
+            )}
+          </ButtonWrap> */}
+        </MobileForm>
+        <MobileResultArea>
+          {isResultOpen ? ( // 이거 반대로 해야함!
+            <SearchResult
+              address={address}
+              isLoading={isLoading}
+              campResult={campResult}
+            />
+          ) : (
+            <MobileResultDefault>
+              <ExclamationCircleOutlined />
+              검색결과가 없습니다.
+            </MobileResultDefault>
           )}
-          <Button type="button" onClick={handleSearchEvent}>
-            검색
-          </Button>
-        </ButtonWrap>
-      </Form>
-      {isResultOpen && (
-        <SearchResult
-          address={address}
-          isLoading={isLoading}
-          campResult={campResult}
-        />
-      )}
-    </Container>
-  );
+        </MobileResultArea>
+      </>
+    );
+  };
+
+  return isMobile ? <Mobilever /> : <PCver />;
 };
 
 export default SearchBar;
@@ -198,4 +312,16 @@ const {
   CategoryWrap,
   Button,
   ButtonWrap,
+  MobileFlexBox,
+  MobileGrayBox,
+  MobileForm,
+  MobileInputContent,
+  MobileInputTitle,
+  MobileSelectAddress,
+  MobileRateContent,
+  MobileCategoryWrap,
+  MobileButton,
+  MobileButtonWrap,
+  MobileResultArea,
+  MobileResultDefault,
 } = style;

@@ -14,8 +14,8 @@ const SearchPage = () => {
   async function getCampList() {
     // 백엔드 api 완성되면 Search api 사용 예정
     setIsLoading(true);
-    const response = await api.getMainSearch(state, 0);
-    //const response = await api.getSearchTemporary();
+    //const response = await api.getMainSearch(state, 0);
+    const response = await api.getSearchTemporary();
     setCampList(response);
     setIsLoading(false);
   }
@@ -28,53 +28,19 @@ const SearchPage = () => {
     setCampList(data);
   }, []);
 
-  /* 디스플레이 사이즈에 따라 보이는 컴포넌트 구분 */
-  const [isMobile, setIsMobile] = useState(false);
-  const ResizeDisplay = () => {
-    if (window.innerWidth <= 960) {
-      setIsMobile(true);
-    } else {
-      setIsMobile(false);
-    }
-  };
-  useEffect(() => {
-    ResizeDisplay();
-  }, []);
-  window.addEventListener('resize', ResizeDisplay);
-
-  const PCver = () => {
-    return (
-      <Container>
-        <SearchBar
-          searchCategory={state}
-          setSearchedCampData={setSearchedCampData}
-        />
-        {state ? (
-          !isLoading && <SearchLocation campList={campList} />
-        ) : (
-          <SearchLocation campList={campList} />
-        )}
-      </Container>
-    );
-  };
-
-  const Mobilever = () => {
-    return (
-      <MobileContainer>
-        <MobileSearchBar
-          searchCategory={state}
-          setSearchedCampData={setSearchedCampData}
-        />
-        {state ? (
-          !isLoading && <SearchLocation campList={campList} />
-        ) : (
-          <SearchLocation campList={campList} />
-        )}
-      </MobileContainer>
-    );
-  };
-
-  return isMobile ? <Mobilever /> : <PCver />;
+  return (
+    <Container>
+      <SearchBar
+        searchCategory={state}
+        setSearchedCampData={setSearchedCampData}
+      />
+      {state ? (
+        !isLoading && <SearchLocation campList={campList} />
+      ) : (
+        <SearchLocation campList={campList} />
+      )}
+    </Container>
+  );
 };
 export default SearchPage;
 
@@ -84,10 +50,13 @@ const Container = styled.div`
   padding: 22px 58px 22px 38px;
   width: 100%;
   height: calc(100vh - 65px);
-`;
 
-const MobileContainer = styled.div`
-  background-color: #e9ecef;
-  min-height: 100vh;
-  overflow: hidden;
+  @media screen and (max-width: 960px) {
+    display: block;
+    padding: 0;
+    background-color: #e9ecef;
+    height: auto;
+    min-height: 100vh;
+    overflow: hidden;
+  }
 `;
