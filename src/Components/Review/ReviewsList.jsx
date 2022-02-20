@@ -3,7 +3,7 @@ import { Rate, Input } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import DeleteModal from '../Modal/DeleteModal';
+import Modal from '../Modal/Modal';
 import Image from '../../Assets/Images/default.png';
 import * as API from '../../Service/camps';
 import {
@@ -181,7 +181,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
             </HandleContent>
           )}
           {show && (
-            <DeleteModal
+            <Modal
               onClose={setShow}
               reviewId={review.reviewId}
               deleteTask={deleteTask}
