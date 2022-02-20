@@ -38,9 +38,11 @@ export async function changeNickname(nickname) {
 }
 
 // 유저가 쓴 리뷰 조회
-export async function getUserReview(id) {
+export async function getUserReview(page) {
   try {
-    const response = await axiosInstance(`/members/me/reviews`);
+    const response = await axiosInstance(
+      `/members/me/reviews/?page=${page}&size=5&sort=createdDate,desc`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -139,9 +141,11 @@ export async function getCamp(id) {
 }
 
 // 캠핑장에 대한 리뷰 조회
-export async function getCampReview(id) {
+export async function getCampReview(id, page) {
   try {
-    const response = await axiosInstance(`/camps/${id}/reviews`);
+    const response = await axiosInstance(
+      `/camps/${id}/reviews?page=${page}&size=5&sort=createdDate,desc`,
+    );
     const data = response.data;
     return data;
   } catch (error) {

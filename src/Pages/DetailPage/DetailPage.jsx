@@ -19,7 +19,7 @@ const DetailPage = () => {
 
   const { search } = useLocation();
   const params = new URLSearchParams(search);
-  const id = params.get('id');
+  const CampId = params.get('id');
 
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
@@ -28,7 +28,7 @@ const DetailPage = () => {
 
   async function getCampData() {
     setIsLoading(true);
-    const response = await api.getCamp(id);
+    const response = await api.getCamp(CampId);
     console.log(response);
     console.log(response.sbrsCl);
     const info = response.sbrsCl !== null ? response.sbrsCl.split(',') : [];
@@ -38,7 +38,7 @@ const DetailPage = () => {
   }
 
   async function getCampReview() {
-    const response = await api.getCampReview(id);
+    const response = await api.getCampReview(CampId);
     console.log(response);
     setCampReview(response.content);
     for (const item of response.content) {
@@ -166,7 +166,7 @@ const DetailPage = () => {
             )}
             {selectedTabs === 'location' && <CampLocation />}
             {selectedTabs === 'review' && (
-              <Review id={id} clickedPage="detail" />
+              <Review CampId={CampId} clickedPage="detail" />
             )}
           </CampContext.Provider>
           <Footer />

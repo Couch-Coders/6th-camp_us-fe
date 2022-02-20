@@ -33,15 +33,9 @@ import {
 } from './ReviewsList.styles';
 import { UserContext } from '../auth/AuthProvider';
 
-export default function ReviewsList({
-  reviewData,
-  deleteTask,
-  editTask,
-  clickedPage,
-}) {
+const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const { user } = useContext(UserContext);
 
-  console.log(reviewData);
   /* 리뷰 수정 */
   const { TextArea } = Input;
   const [review, setReview] = useState({
@@ -215,4 +209,6 @@ export default function ReviewsList({
   );
 
   return <List>{isEditing ? editingTemplate : viewTemplate}</List>;
-}
+};
+
+export default React.memo(ReviewsList);
