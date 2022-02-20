@@ -174,7 +174,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
               </CampName>
             )}
           </Nickname>
-          {reviewData.memberId === user.data.memberId && (
+          {user && reviewData.memberId === user.data.memberId && (
             <HandleContent>
               <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
               <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
@@ -198,7 +198,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
             liked={review.liked}
             onClick={likeChange}
             isMyReview={
-              reviewData.memberId === user.data.memberId ? true : false
+              user && reviewData.memberId === user.data.memberId ? true : false
             }
           >
             <LikeOutlined />
