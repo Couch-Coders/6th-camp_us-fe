@@ -264,19 +264,6 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
               ))}
             </MobileCategoryWrap>
           </MobileGrayBox>
-
-          {/* <ButtonWrap isResultOpen={isResultOpen}>
-            {!isDetailSearch && (
-              <Button
-                type="button"
-                onClick={() => {
-                  setIsDetailSearch(true);
-                }}
-              >
-                상세검색
-              </Button>
-            )}
-          </ButtonWrap> */}
         </MobileForm>
         <MobileResultArea>
           {isResultOpen ? ( // 이거 반대로 해야함!

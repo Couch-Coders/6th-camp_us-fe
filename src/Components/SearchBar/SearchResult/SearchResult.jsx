@@ -89,8 +89,7 @@ const SelectContent = styled(Select)`
 const ListWrap = styled.ul`
   width: 100%;
   overflow: auto;
-  background-color: #ff0000;
-  //height: ${(props) => `${props.listHeight}px`};
+  height: ${(props) => `${props.listHeight}px`};
 
   &::-webkit-scrollbar {
     width: 5px;

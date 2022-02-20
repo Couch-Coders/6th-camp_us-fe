@@ -4,7 +4,6 @@ import { useLocation } from 'react-router';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
 import styled from 'styled-components';
 import SearchBar from '../../Components/SearchBar/SearchBar';
-import MobileSearchBar from '../../Components/SearchBar/MobileSearchBar';
 
 const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);

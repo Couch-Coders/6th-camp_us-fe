@@ -77,7 +77,7 @@ const ButtonWrap = styled.div`
 /* Mobile design */
 
 const MobileForm = styled.form`
-  position: relative;
+  position: fixed;
   background-color: #73d13d;
   overflow: hidden;
 
@@ -175,7 +175,7 @@ const MobileResultArea = styled.div`
   min-height: calc(100vh - 194px);
   background-color: #f8f8f8;
   margin: auto;
-  margin-top: 8px;
+  margin-top: 144px;
 `;
 
 const MobileResultDefault = styled.div`
