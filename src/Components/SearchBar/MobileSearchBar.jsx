@@ -1,13 +1,12 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { Select } from 'antd';
-import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
 import Tag from '../Tag/Tag';
+import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons';
 import { style } from './MobileSearchBar.style';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
-
 const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
   const [campResult, setCampResult] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -20,11 +19,8 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
     keyword: '',
     category: [],
   });
-
   const category = Tagcategory;
-
   const { Option } = Select;
-
   useEffect(() => {
     if (searchCategory !== null) {
       setAddress((address) => {
@@ -37,11 +33,9 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
       });
     }
   }, []);
-
   /* 지역 검색 */
   const sido = district.sido;
   const sigungu = district.sigungu;
-
   const changeAddress1 = (value) => {
     setAddress((address) => {
       return { ...address, address1: value };
@@ -50,50 +44,43 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
       return { ...address, address2: null };
     });
   };
-
   const changeAddress2 = (value) => {
     setAddress((address) => {
       return { ...address, address2: value };
     });
   };
-
   const changeKeyword = (value) => {
     setAddress((address) => {
       return { ...address, keyword: value.target.value };
     });
   };
-
   const handleRateChange = (value) => {
     setAddress((address) => {
       return { ...address, rate: value };
     });
   };
-
   const addCategory = useCallback((tag) => {
     setAddress((address) => {
       return { ...address, category: [...address.category, tag] };
     });
   }, []);
-
   const removeCategory = useCallback((tag) => {
     setAddress((address) => {
       const newArr = address.category.filter((item) => item !== tag);
       return { ...address, category: newArr };
     });
   }, []);
-
   const getSearchResult = async () => {
     setIsLoading(false);
-    //const response = await api.getSearchCamp(address, 0);
-    const response = await api.getSearchCampTemporary();
-    const campData = response[0].content;
+    const response = await api.getSearchCamp(address, 0);
+    const campData = response.content;
+    console.log(campData);
     setCampResult(campData);
-    console.log('campData', campData);
     setSearchedCampData(campData);
     setIsLoading(true);
   };
-
   const handleSearchEvent = () => {
+    console.log('ss');
     setIsDetailSearch(false);
     setIsResultOpen(true);
     getSearchResult();
@@ -125,13 +112,11 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
               </Option>
             ))}
           </SelectAddress>
-          <Button
-            type="button"
-            onClick={handleSearchEvent}
-            isResultOpen={isResultOpen}
-          >
-            <SearchOutlined />
-          </Button>
+          <ButtonWrap isResultOpen={isResultOpen}>
+            <Button type="button" onClick={handleSearchEvent}>
+              <SearchOutlined />
+            </Button>
+          </ButtonWrap>
         </FlexBox>
         <FlexBox bg>
           <InputContent
@@ -151,7 +136,6 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
         </FlexBox>
         {isDetailSearch && (
           <GrayBox>
-            {/* <InputTitle>상세 검색</InputTitle> */}
             <CategoryWrap>
               {category.map((tag, index) => (
                 <Tag
@@ -167,7 +151,7 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
           </GrayBox>
         )}
 
-        <ButtonWrap isResultOpen={isResultOpen}>
+        {/* <ButtonWrap isResultOpen={isResultOpen}>
           {!isDetailSearch && (
             <Button
               type="button"
@@ -178,10 +162,10 @@ const MobileSearchBar = ({ searchCategory, setSearchedCampData }) => {
               상세검색
             </Button>
           )}
-        </ButtonWrap>
+        </ButtonWrap> */}
       </Form>
       <ResultArea>
-        {isResultOpen ? (
+        {isResultOpen ? ( // 이거 반대로 해야함!
           <SearchResult
             address={address}
             isLoading={isLoading}

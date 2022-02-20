@@ -14,8 +14,8 @@ const SearchPage = () => {
   async function getCampList() {
     // 백엔드 api 완성되면 Search api 사용 예정
     setIsLoading(true);
-    //const response = await api.getMainSearch(state, 0);
-    const response = await api.getSearchTemporary();
+    const response = await api.getMainSearch(state, 0);
+    //const response = await api.getSearchTemporary();
     setCampList(response);
     setIsLoading(false);
   }

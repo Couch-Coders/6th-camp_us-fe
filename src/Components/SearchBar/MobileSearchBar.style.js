@@ -89,18 +89,10 @@ const Button = styled.button`
 `;
 
 const ButtonWrap = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: -150px;
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
-
-  ${(props) =>
-    props.isResultOpen &&
-    css`
-      bottom: -70px;
-    `}
+  align-items: center;
+  padding: 0 5px;
 `;
 
 const ResultArea = styled.div`
