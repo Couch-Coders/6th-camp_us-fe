@@ -185,6 +185,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
               onClose={setShow}
               reviewId={review.reviewId}
               deleteTask={deleteTask}
+              role="deleteReview"
             />
           )}
         </TopArea>

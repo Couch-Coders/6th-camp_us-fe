@@ -26,7 +26,7 @@ const AuthProvider = ({ children }) => {
         } catch (e) {
           //에러발생 시
           setIsRegisterOpen(true);
-          signOut();
+          // signOut();
           throw new Error('register error');
         }
       } else {

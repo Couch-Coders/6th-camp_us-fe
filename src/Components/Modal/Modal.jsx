@@ -8,14 +8,8 @@ const Modal = ({ role, closeLoginModal }) => {
   const { setIsRegisterOpen } = useContext(UserContext);
   const modalRef = useRef();
 
-  const handleClickOutside = (e) => {
-    if (e.target.tagName === 'SPAN' || e.target.tagName === 'BUTTON') return;
-
-    if (!modalRef.current?.contains(e.target)) closeLoginModal();
-  };
-
   return (
-    <Container onClick={handleClickOutside}>
+    <Container>
       {role === 'login' && (
         <LoginModal ref={modalRef}>
           <ModalHeader>

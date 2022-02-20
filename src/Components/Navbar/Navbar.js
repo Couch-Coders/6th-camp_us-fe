@@ -23,6 +23,7 @@ import {
 } from './Navbar.styles';
 import { signOut } from '../../Service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
+import DeleteModal from '../Modal/DeleteModal';
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
@@ -122,9 +123,9 @@ const Navbar = () => {
           )}
         </NavMenu>
       </NavbarContainer>
-      {isModalOpen && <Modal role="login" closeLoginModal={onToggleModal} />}
+      {isModalOpen && <DeleteModal role="login" onClose={onToggleModal} />}
       {isRegisterOpen && (
-        <Modal role="register" closeLoginModal={onToggleModal} />
+        <DeleteModal role="register" onClose={onToggleModal} />
       )}
     </Nav>
   );
