@@ -1,8 +1,12 @@
-import React, { useRef } from 'react';
+import React, { useContext, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { signInGoogle } from '../../Service/firebaseAuth';
+import { UserContext } from '../auth/AuthProvider';
 import RegisterForm from '../auth/RegisterForm';
-const Modal = ({ role, closeLoginModal, setRegisterFormOpen }) => {
+const Modal = ({ role, closeLoginModal }) => {
+  const [registerFormOpen, setRegisterFormOpen] = useState(false);
+  const isRegister = useContext(UserContext);
+
   const modalRef = useRef();
 
   const handleClickOutside = (e) => {
@@ -96,6 +100,7 @@ const Modal = ({ role, closeLoginModal, setRegisterFormOpen }) => {
           <LoginFooter />
         </LoginModal>
       )}
+
       {role === 'register' && (
         <LoginModal ref={modalRef}>
           <ModalHeader>
