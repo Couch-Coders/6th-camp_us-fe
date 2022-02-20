@@ -8,7 +8,7 @@ const ResultList = ({ camp }) => {
   let navigate = useNavigate();
 
   const goToDetail = () => {
-    navigate('/detail');
+    navigate(`/detail?id=${camp.campId}`);
   };
 
   return (
