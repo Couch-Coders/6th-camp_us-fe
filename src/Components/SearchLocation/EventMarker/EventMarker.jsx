@@ -70,7 +70,7 @@ const EventMarkerContainer = ({ camp }) => {
                     {camp.lineIntro}
                   </Address2>
                   <div>
-                    <ToDetail to="/detail" rel="noreferrer">
+                    <ToDetail to={`/detail?id=${camp.campId}`} rel="noreferrer">
                       자세히보기
                     </ToDetail>
                   </div>
