@@ -100,4 +100,11 @@ const ListWrap = styled.ul`
   &::-webkit-scrollbar-track {
     background-color: #eeeeee;
   }
+  @media screen and (max-width: 991px) {
+    &::-webkit-scrollbar,
+    ::-webkit-scrollbar-thumb,
+    ::-webkit-scrollbar-track {
+      display: none;
+    }
+  }
 `;
