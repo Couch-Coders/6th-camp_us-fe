@@ -36,7 +36,7 @@ const SearchResult = ({ address, campResult }) => {
       <Header>
         <Title>검색결과 리스트</Title>
         <SelectContent
-          placeholder="시/도"
+          placeholder="정렬"
           onChange={onResultSort}
           value={resultSort}
         >
