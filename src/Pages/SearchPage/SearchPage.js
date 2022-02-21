@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import * as api from '../../Service/camps';
 import { useLocation } from 'react-router';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
@@ -27,16 +27,30 @@ const SearchPage = () => {
     setCampList(data);
   }, []);
 
+  const [isViewLSearchList, setIsViewLSearchList] = useState(false);
+  console.log('isViewLSearchList', isViewLSearchList);
   return (
     <Container>
       <SearchBar
         searchCategory={state}
         setSearchedCampData={setSearchedCampData}
+        isViewLSearchList={isViewLSearchList}
+        setIsViewLSearchList={setIsViewLSearchList}
       />
       {state ? (
-        !isLoading && <SearchLocation campList={campList} />
+        !isLoading && (
+          <SearchLocation
+            campList={campList}
+            isViewLSearchList={isViewLSearchList}
+            setIsViewLSearchList={setIsViewLSearchList}
+          />
+        )
       ) : (
-        <SearchLocation campList={campList} />
+        <SearchLocation
+          campList={campList}
+          isViewLSearchList={isViewLSearchList}
+          setIsViewLSearchList={setIsViewLSearchList}
+        />
       )}
     </Container>
   );

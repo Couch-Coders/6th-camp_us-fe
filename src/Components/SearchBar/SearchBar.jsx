@@ -9,12 +9,16 @@ import {
   ExclamationCircleOutlined,
   ArrowUpOutlined,
   EnvironmentFilled,
-  UnorderedListOutlined,
 } from '@ant-design/icons';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
 
-const SearchBar = ({ searchCategory, setSearchedCampData }) => {
+const SearchBar = ({
+  searchCategory,
+  setSearchedCampData,
+  isViewLSearchList,
+  setIsViewLSearchList,
+}) => {
   /* 디스플레이 사이즈에 따라 보이는 컴포넌트 구분 */
   const [isMobile, setIsMobile] = useState(false);
   const ResizeDisplay = () => {
@@ -210,8 +214,7 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
       </Container>
     );
   };
-
-  const Mobilever = () => {
+  const Mobilever = ({ isViewLSearchList, setIsViewLSearchList }) => {
     return (
       <>
         <MobileForm>
@@ -275,36 +278,44 @@ const SearchBar = ({ searchCategory, setSearchedCampData }) => {
             </MobileCategoryWrap>
           </MobileGrayBox>
         </MobileForm>
-        <MobileResultArea>
-          {isResultOpen ? ( // 이거 반대로 해야함!
-            <>
-              <SearchResult
-                address={address}
-                isLoading={isLoading}
-                campResult={campResult}
-              />
-              <ChangeViewBtn>
-                <EnvironmentFilled />
-              </ChangeViewBtn>
-            </>
-          ) : (
-            <MobileResultDefault>
-              <ExclamationCircleOutlined />
-              검색결과가 없습니다.
-            </MobileResultDefault>
-          )}
-        </MobileResultArea>
-        {isResultOpen && (
-          <TopBtn onClick={ScrollTop}>
-            <ArrowUpOutlined />
-            Top
-          </TopBtn>
+
+        {isViewLSearchList && (
+          <MobileResultArea>
+            {isResultOpen ? (
+              <>
+                <SearchResult
+                  address={address}
+                  isLoading={isLoading}
+                  campResult={campResult}
+                />
+                <ChangeViewBtn onClick={() => setIsViewLSearchList(false)}>
+                  <EnvironmentFilled />
+                </ChangeViewBtn>
+                <TopBtn onClick={ScrollTop}>
+                  <ArrowUpOutlined />
+                  Top
+                </TopBtn>
+              </>
+            ) : (
+              <MobileResultDefault>
+                <ExclamationCircleOutlined />
+                검색결과가 없습니다.
+              </MobileResultDefault>
+            )}
+          </MobileResultArea>
         )}
       </>
     );
   };
 
-  return isMobile ? <Mobilever /> : <PCver />;
+  return isMobile ? (
+    <Mobilever
+      isViewLSearchList={isViewLSearchList}
+      setIsViewLSearchList={setIsViewLSearchList}
+    />
+  ) : (
+    <PCver />
+  );
 };
 
 export default SearchBar;

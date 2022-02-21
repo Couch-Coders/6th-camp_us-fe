@@ -204,6 +204,7 @@ const ChangeViewBtn = styled.button`
   background-color: #73d13d;
   color: #fff;
   position: fixed;
+  z-index: 1;
   bottom: 20px;
   right: 20px;
   font-size: 22px;

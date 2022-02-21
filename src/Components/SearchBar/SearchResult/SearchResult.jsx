@@ -22,7 +22,7 @@ const SearchResult = ({ address, campResult }) => {
   ); */
 
   useEffect(() => {
-    console.log('searchResultPage', campResult);
+    //console.log('searchResultPage', campResult);
     /* const elementHeight = listRef.current.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
     setListHeight(brouserHeight - elementHeight.y - 20); */
