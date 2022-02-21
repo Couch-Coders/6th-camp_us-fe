@@ -13,8 +13,8 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [isDetailSearch, setIsDetailSearch] = useState(true);
   const [address, setAddress] = useState({
-    address1: '서울특별시',
-    address2: '강남구',
+    address1: null,
+    address2: null,
     rate: null,
     keyword: '',
     category: [],
@@ -131,11 +131,12 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
           onChange={changeAddress2}
           value={address.address2}
         >
-          {sigungu[address.address1].map((address2, index) => (
-            <Option key={index} value={address2}>
-              {address2}
-            </Option>
-          ))}
+          {address.address1 &&
+            sigungu[address.address1].map((address2, index) => (
+              <Option key={index} value={address2}>
+                {address2}
+              </Option>
+            ))}
         </SelectAddress>
         <InputTitle>최소 별점</InputTitle>
         {searchCategory !== null ? (
