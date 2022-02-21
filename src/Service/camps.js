@@ -155,7 +155,11 @@ export async function getCampReview(id, page) {
 
 // 검색페이지 캠핑장 검색
 export async function getSearchCamp(address, pageNum, category) {
-  let url = `/camps?pages=${pageNum}&size=10`;
+  // sort를 rate로 하면 response에 캠핑장 리스트가 몇개 나오지 않음. (지역 필터링은 가능)
+  // x, y 좌표가 있어야만 제대로된 캠핑장 리스트 나옴 (즉 거리순 캠핑장만 제대로 데이터가 가져와짐)
+  // sort를 하지 않을 경우에는 모든 데이터가 나오도록 하면 되지 않을까?
+
+  let url = `/camps?pages=${pageNum}&size=10&sort=distance&mapY=35.4992124&mapX=129.4258925`;
 
   if (address.address1 !== null) url = url.concat(`&doNm=${address.address1}`);
   if (address.address2 !== null)
@@ -164,8 +168,11 @@ export async function getSearchCamp(address, pageNum, category) {
   if (address.rate !== null) url = url.concat(`&rate=${address.rate}`);
   if (category !== '') url = url.concat(`&tag=${category}`);
 
+  console.log(url);
+
   try {
     const response = await axiosInstance(url);
+    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -175,7 +182,7 @@ export async function getSearchCamp(address, pageNum, category) {
 
 // 메인페이지 캠핑장 검색
 export async function getMainSearch(address, pageNum) {
-  let url = `/camps?pages=${pageNum}&size=10`;
+  let url = `/camps?pages=${pageNum}&size=10&sort=distance`;
 
   if (address.address1 !== null) url = url.concat(`&doNm=${address.address1}`);
   if (address.address2 !== null)
