@@ -13,7 +13,7 @@ function MainSearch(props) {
   const sido = district.sido;
   const sigungu = district.sigungu;
   const [address, setAddress] = useState({
-    address1: '서울특별시',
+    address1: '서울시',
     address2: '강남구',
     rate: 0,
     keyword: '',

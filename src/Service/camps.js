@@ -132,7 +132,7 @@ export async function getBestReview() {
 // 캠핑장 상세 조회
 export async function getCamp(id) {
   try {
-    const response = await axios(`/camps/${id}`);
+    const response = await axiosInstance(`/camps/${id}`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -157,12 +157,9 @@ export async function getCampReview(id, page) {
 export async function getSearchCamp(address, pageNum) {
   console.log(address);
   try {
-    const response = await axiosInstance('/camps', {
-      name: address.keyword,
-      pageNumber: pageNum,
-      pageSize: 10,
-      // sigunguNm: address.address1,
-    });
+    const response = await axiosInstance(
+      `/camps?page=0&size=20&doNm=서울&sort=distance`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -172,14 +169,11 @@ export async function getSearchCamp(address, pageNum) {
 
 // 메인페이지 캠핑장 검색
 export async function getMainSearch(address, pageNum) {
+  console.log(address);
   try {
-    const response = await axiosInstance('/camps', {
-      name: address.keyword,
-      pageNumber: pageNum,
-      pageSize: 10,
-      doNm: address.address1,
-      sigunguNm: address.address2,
-    });
+    const response = await axiosInstance(
+      `/camps?page=0&size=20&doNm=서울&sort=distance`,
+    );
     console.log(response);
     const data = response.data;
     return data;
