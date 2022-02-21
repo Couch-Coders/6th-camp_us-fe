@@ -5,6 +5,7 @@ import { Input, Select, Rate } from 'antd';
 const Container = styled.div`
   position: relative;
   width: 40%;
+  min-width: 480px;
   height: 100%;
   padding: 0 75px 0 20px;
   overflow-y: hidden;
@@ -22,30 +23,34 @@ const Form = styled.form`
 `;
 
 const InputContent = styled(Input)`
-  margin-bottom: 36px;
+  max-width: 300px;
 `;
 
 const InputTitle = styled.div`
   font-size: 14px;
   line-height: 22px;
-  margin-bottom: 10px;
+  color: #333333;
+`;
+const FlexBox = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
 `;
 
 const SelectAddress = styled(Select)`
   width: 98px;
   height: 32px;
-  margin-right: 13px;
-  margin-bottom: 30px;
+  margin-left: 8px;
 `;
 
-const RateContent = styled(Rate)`
-  margin-bottom: 37px;
-`;
+const RateContent = styled(Rate)``;
 
 const CategoryWrap = styled.div`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+  margin-top: 8px;
 `;
 
 const Button = styled.button`
@@ -60,18 +65,19 @@ const Button = styled.button`
 `;
 
 const ButtonWrap = styled.div`
-  position: absolute;
-  right: 0;
-  bottom: -150px;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  justify-content: space-between;
+  margin: 8px 0;
 
   ${(props) =>
     props.isResultOpen &&
     css`
       bottom: -70px;
     `}
+
+  & button {
+    width: calc(50% - 4px);
+  }
 `;
 
 /* Mobile design */
@@ -135,6 +141,8 @@ const MobileSelectAddress = styled(Select)`
 
 const MobileRateContent = styled(Rate)`
   margin-top: -5px;
+  margin-right: 10px;
+  min-width: 140px;
 `;
 
 const MobileCategoryWrap = styled.div`
@@ -236,6 +244,7 @@ export const style = {
   SelectAddress,
   RateContent,
   CategoryWrap,
+  FlexBox,
   Button,
   ButtonWrap,
   MobileFlexBox,

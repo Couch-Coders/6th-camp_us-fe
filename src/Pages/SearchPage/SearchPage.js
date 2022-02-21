@@ -28,7 +28,6 @@ const SearchPage = () => {
   }, []);
 
   const [isViewLSearchList, setIsViewLSearchList] = useState(true);
-  console.log('isViewLSearchList', isViewLSearchList);
   return (
     <Container>
       <SearchBar

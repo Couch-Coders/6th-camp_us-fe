@@ -12,20 +12,19 @@ const SearchResult = ({ address, campResult }) => {
 
   const listRef = useRef();
 
-  /* window.addEventListener(
+  window.addEventListener(
     'resize',
     throttle(() => {
       const elementHeight = listRef.current.getBoundingClientRect();
       const brouserHeight = window.innerHeight;
       setListHeight(brouserHeight - elementHeight.y - 20);
     }, 500),
-  ); */
+  );
 
   useEffect(() => {
-    //console.log('searchResultPage', campResult);
-    /* const elementHeight = listRef.current.getBoundingClientRect();
+    const elementHeight = listRef.current.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
-    setListHeight(brouserHeight - elementHeight.y - 20); */
+    setListHeight(brouserHeight - elementHeight.y - 20);
   }, []);
 
   const onResultSort = (value) => {
@@ -48,7 +47,7 @@ const SearchResult = ({ address, campResult }) => {
           ))}
         </SelectContent>
       </Header>
-      <ListWrap ref={listRef} /* listHeight={listHeight} */>
+      <ListWrap ref={listRef} listHeight={listHeight}>
         {campResult.map((result) => (
           <ResultList camp={result} key={result.id} />
         ))}
@@ -62,12 +61,6 @@ export default SearchResult;
 const ResultWrap = styled.section`
   width: 100%;
   border-top: 1px solid #d9d9d9;
-  overflow-y: auto;
-  &::-webkit-scrollbar,
-  ::-webkit-scrollbar-thumb,
-  ::-webkit-scrollbar-track {
-    display: none;
-  }
 `;
 
 const Header = styled.header`
@@ -92,6 +85,10 @@ const ListWrap = styled.ul`
   width: 100%;
   overflow: auto;
   height: ${(props) => `${props.listHeight}px`};
+  overflow-y: auto;
+  border: 1px solid #e4e4e4;
+  box-sizing: border-box;
+  background-color: #e9ecef;
 
   &::-webkit-scrollbar {
     width: 5px;

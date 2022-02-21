@@ -131,45 +131,52 @@ const SearchBar = ({
       <Container>
         <Header>캠핑장 찾아보기</Header>
         <Form>
-          <InputTitle>캠핑장 이름</InputTitle>
-          <InputContent
-            placeholder="캠핑장 이름을 검색하세요."
-            onChange={changeKeyword}
-            value={address.keyword}
-          />
-          <InputTitle>지역</InputTitle>
-          <SelectAddress
-            placeholder="시/도"
-            onChange={changeAddress1}
-            value={address.address1}
-          >
-            {sido.map((address1, index) => (
-              <Option key={index} value={address1}>
-                {address1}
-              </Option>
-            ))}
-          </SelectAddress>
-          <SelectAddress
-            placeholder="시/군/구"
-            onChange={changeAddress2}
-            value={address.address2}
-          >
-            {sigungu[address.address1].map((address2, index) => (
-              <Option key={index} value={address2}>
-                {address2}
-              </Option>
-            ))}
-          </SelectAddress>
-          <InputTitle>최소 별점</InputTitle>
-          {searchCategory !== null ? (
-            <RateContent
-              allowHalf
-              onChange={handleRateChange}
-              defaultValue={searchCategory.rate}
+          <FlexBox>
+            <InputTitle>캠핑장 이름</InputTitle>
+            <InputContent
+              placeholder="캠핑장 이름을 검색하세요."
+              onChange={changeKeyword}
+              value={address.keyword}
             />
-          ) : (
-            <RateContent allowHalf onChange={handleRateChange} />
-          )}
+          </FlexBox>
+          <FlexBox>
+            <InputTitle>지역</InputTitle>
+            <div>
+              <SelectAddress
+                placeholder="시/도"
+                onChange={changeAddress1}
+                value={address.address1}
+              >
+                {sido.map((address1, index) => (
+                  <Option key={index} value={address1}>
+                    {address1}
+                  </Option>
+                ))}
+              </SelectAddress>
+              <SelectAddress
+                placeholder="시/군/구"
+                onChange={changeAddress2}
+                value={address.address2}
+              >
+                {sigungu[address.address1].map((address2, index) => (
+                  <Option key={index} value={address2}>
+                    {address2}
+                  </Option>
+                ))}
+              </SelectAddress>
+            </div>
+          </FlexBox>
+          <FlexBox>
+            <InputTitle>최소 별점</InputTitle>
+            {searchCategory !== null ? (
+              <RateContent
+                onChange={handleRateChange}
+                defaultValue={searchCategory.rate}
+              />
+            ) : (
+              <RateContent onChange={handleRateChange} />
+            )}
+          </FlexBox>
           {isDetailSearch && (
             <>
               <InputTitle>상세 검색</InputTitle>
@@ -189,6 +196,9 @@ const SearchBar = ({
           )}
 
           <ButtonWrap isResultOpen={isResultOpen}>
+            <Button type="button" onClick={handleSearchEvent}>
+              검색
+            </Button>
             {!isDetailSearch && (
               <Button
                 type="button"
@@ -199,9 +209,6 @@ const SearchBar = ({
                 상세검색
               </Button>
             )}
-            <Button type="button" onClick={handleSearchEvent}>
-              검색
-            </Button>
           </ButtonWrap>
         </Form>
         {isResultOpen && (
@@ -255,12 +262,11 @@ const SearchBar = ({
             />
             {searchCategory !== null ? (
               <MobileRateContent
-                allowHalf
                 onChange={handleRateChange}
                 defaultValue={searchCategory.rate}
               />
             ) : (
-              <MobileRateContent allowHalf onChange={handleRateChange} />
+              <MobileRateContent onChange={handleRateChange} />
             )}
           </MobileFlexBox>
           <MobileGrayBox>
@@ -328,6 +334,7 @@ const {
   InputTitle,
   SelectAddress,
   RateContent,
+  FlexBox,
   CategoryWrap,
   Button,
   ButtonWrap,
