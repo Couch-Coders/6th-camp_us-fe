@@ -1,13 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../Service/firebaseAuth';
-import Modal from '../Modal/Modal';
-import axiosInstance from '../../Common/axiosInstance';
+import { signOut } from '../../Service/firebaseAuth';
 import * as api from '../../Service/camps';
 
 export const UserContext = React.createContext(null);
+
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [registerFormOpen, setRegisterFormOpen] = useState(false);
+  const [isRegisterOpen, setIsRegisterOpen] = useState(false);
 
   useEffect(() => {
     auth.onAuthStateChanged(async (firebaseUser) => {
@@ -25,7 +25,8 @@ const AuthProvider = ({ children }) => {
           }
         } catch (e) {
           //에러발생 시
-          setRegisterFormOpen(true);
+          setIsRegisterOpen(true);
+          // signOut();
           throw new Error('register error');
         }
       } else {
@@ -36,12 +37,10 @@ const AuthProvider = ({ children }) => {
   }, []);
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
-      {registerFormOpen ? (
-        <Modal setRegisterFormOpen={setRegisterFormOpen} role="register" />
-      ) : (
-        children
-      )}
+    <UserContext.Provider
+      value={{ user, setUser, isRegisterOpen, setIsRegisterOpen }}
+    >
+      {children}
     </UserContext.Provider>
   );
 };
