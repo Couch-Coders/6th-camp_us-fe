@@ -1,11 +1,12 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import { Rate, Input } from 'antd';
+import { Rate, Input, message, Button } from 'antd';
 import * as api from '../../Service/camps';
 import ReviewsList from '../Review/ReviewsList';
 import { style } from './Review.style';
+import { UserContext } from '../auth/AuthProvider';
 
 const Review = ({ CampId, clickedPage }) => {
   const { TextArea } = Input;
@@ -19,6 +20,8 @@ const Review = ({ CampId, clickedPage }) => {
   const [reviewData, setReviewData] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
+
+  const { user } = useContext(UserContext);
 
   async function detailReviewRequest(page) {
     const response = await api.getCampReview(CampId, page);
@@ -114,6 +117,10 @@ const Review = ({ CampId, clickedPage }) => {
     console.log(response);
   }
 
+  const warning = () => {
+    message.warning('로그인한 유저만 리뷰를 작성 할 수 있습니다.');
+  };
+
   return (
     <Container>
       {clickedPage === 'detail' && (
@@ -130,9 +137,22 @@ const Review = ({ CampId, clickedPage }) => {
               </RateSelect>
             </EditLeft>
             <EditRight>
-              <EditButton type="submit" onClick={handleSubmit}>
-                작성
-              </EditButton>
+              {user ? (
+                <EditButton type="submit" onClick={handleSubmit}>
+                  작성
+                </EditButton>
+              ) : (
+                <Button
+                  type="primary"
+                  onClick={warning}
+                  style={{
+                    background: '#73d13d',
+                    border: '1px solid #73d13d',
+                  }}
+                >
+                  작성
+                </Button>
+              )}
             </EditRight>
           </EditTop>
           <Wrap>

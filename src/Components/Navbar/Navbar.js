@@ -23,17 +23,15 @@ import {
 } from './Navbar.styles';
 import { signOut } from '../../Service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
+import DeleteModal from '../Modal/Modal';
 
 const Navbar = () => {
   const [click, setClick] = useState(false);
   const [IsClicked, setIsClicked] = useState(false);
   const [button, setButton] = useState(true);
-  const [isLoggedIn, setLoggedIn] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const { pathname } = useLocation();
-  const { user } = useContext(UserContext);
-
-  /* 반응형 */
+  const { user, isRegisterOpen } = useContext(UserContext);
 
   const handleClick = () => setClick(!click);
 
@@ -125,7 +123,8 @@ const Navbar = () => {
           )}
         </NavMenu>
       </NavbarContainer>
-      {isModalOpen && <Modal role="login" closeLoginModal={onToggleModal} />}
+      {isModalOpen && <Modal role="login" onClose={onToggleModal} />}
+      {isRegisterOpen && <Modal role="register" onClose={onToggleModal} />}
     </Nav>
   );
 };
