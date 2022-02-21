@@ -170,6 +170,7 @@ const MobileButtonWrap = styled.div`
   flex-direction: column;
   align-items: center;
   padding: 0 5px;
+  margin-right: 10px;
 `;
 
 const MobileResultArea = styled.div`

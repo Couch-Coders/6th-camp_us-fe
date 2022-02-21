@@ -27,7 +27,7 @@ const SearchPage = () => {
     setCampList(data);
   }, []);
 
-  const [isViewLSearchList, setIsViewLSearchList] = useState(false);
+  const [isViewLSearchList, setIsViewLSearchList] = useState(true);
   console.log('isViewLSearchList', isViewLSearchList);
   return (
     <Container>
