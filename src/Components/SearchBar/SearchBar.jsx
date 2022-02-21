@@ -16,15 +16,13 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
     address1: null,
     address2: null,
     rate: null,
-    keyword: '',
+    keyword: null,
     category: [],
   });
 
   const category = Tagcategory;
 
   const { Option } = Select;
-
-  console.log(campResult);
 
   useEffect(() => {
     searchCategory && setCampResult(campList);
@@ -65,8 +63,10 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
   };
 
   const changeKeyword = (value) => {
+    const campName = value.target.value;
+
     setAddress((address) => {
-      return { ...address, keyword: value.target.value };
+      return { ...address, keyword: campName === '' ? null : campName };
     });
   };
 
@@ -91,7 +91,9 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
 
   const getSearchResult = async () => {
     setIsLoading(false);
-    const response = await api.getSearchCamp(address, 0);
+    const category = address.category.join('_');
+    console.log(typeof category);
+    const response = await api.getSearchCamp(address, 0, category);
     const campData = response.content;
     setCampResult(campData);
     setSearchedCampData(campData);

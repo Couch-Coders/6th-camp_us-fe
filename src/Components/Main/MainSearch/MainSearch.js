@@ -15,8 +15,8 @@ function MainSearch(props) {
   const [address, setAddress] = useState({
     address1: null,
     address2: null,
-    rate: 0,
-    keyword: '',
+    rate: null,
+    keyword: null,
   });
   const changeValue = (value) => {
     setAddress((address) => {
@@ -42,7 +42,7 @@ function MainSearch(props) {
   const [isSearch, setIsSearch] = useState(false);
   const onSearch = (value) => {
     setAddress((address) => {
-      return { ...address, keyword: value };
+      return { ...address, keyword: value === '' ? null : value };
     });
     setIsSearch(true);
   };
