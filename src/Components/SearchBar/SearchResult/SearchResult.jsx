@@ -4,7 +4,7 @@ import ResultList from '../ResultList/ResultList';
 import { Select } from 'antd';
 import { throttle } from 'lodash';
 
-const SearchResult = ({ address, campResult }) => {
+const SearchResult = ({ campResult, getSearchResult }) => {
   const [resultSort, setResultSort] = useState();
   const [listHeight, setListHeight] = useState();
   const sortList = ['좋아요순', '거리순'];
@@ -29,6 +29,8 @@ const SearchResult = ({ address, campResult }) => {
 
   const onResultSort = (value) => {
     setResultSort(value);
+    const sort = value === '좋아요순' ? 'rate' : 'distance';
+    getSearchResult(sort);
   };
 
   return (
