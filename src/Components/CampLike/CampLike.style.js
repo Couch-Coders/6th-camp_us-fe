@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { Button } from 'antd';
 
 const LikeWrap = styled.div`
   display: flex;
-  align-items: flex-end;
+  align-items: center;
 `;
 
 const Like = styled.div`
@@ -25,6 +26,10 @@ const LikeIcon = styled.svg`
   }
 `;
 
+const NoUserLike = styled(Button)`
+  --antd-wave-shadow-color: none;
+`;
+
 const LikeCount = styled.span`
   font-family: Roboto;
   font-style: normal;
@@ -35,6 +40,7 @@ const LikeCount = styled.span`
 `;
 
 export const style = {
+  NoUserLike,
   LikeWrap,
   Like,
   LikeIcon,
