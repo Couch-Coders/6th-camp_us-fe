@@ -130,10 +130,6 @@ const MobileInputContent = styled(Input)`
   max-width: calc(100% - 132px);
 `;
 
-const MobileInputTitle = styled.div`
-  font-size: 14px;
-`;
-
 const MobileSelectAddress = styled(Select)`
   width: calc(45% - 5px);
   height: 32px;
@@ -250,7 +246,6 @@ export const style = {
   MobileGrayBox,
   MobileForm,
   MobileInputContent,
-  MobileInputTitle,
   MobileSelectAddress,
   MobileRateContent,
   MobileCategoryWrap,

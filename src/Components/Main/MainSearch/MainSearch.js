@@ -13,10 +13,10 @@ function MainSearch(props) {
   const sido = district.sido;
   const sigungu = district.sigungu;
   const [address, setAddress] = useState({
-    address1: '서울특별시',
-    address2: '강남구',
-    rate: 0,
-    keyword: '',
+    address1: null,
+    address2: null,
+    rate: null,
+    keyword: null,
   });
   const changeValue = (value) => {
     setAddress((address) => {
@@ -42,7 +42,7 @@ function MainSearch(props) {
   const [isSearch, setIsSearch] = useState(false);
   const onSearch = (value) => {
     setAddress((address) => {
-      return { ...address, keyword: value };
+      return { ...address, keyword: value === '' ? null : value };
     });
     setIsSearch(true);
   };
