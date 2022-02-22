@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import CampInformation from '../../Components/CampInformation/CampInformation';
 import Tag from '../../Components/Tag/Tag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
-import CampReview from '../../Components/CampReview/CampReview';
 import CampLike from '../../Components/CampLike/CampLike';
 import { CampContext } from '../../context/CampContext';
 import * as api from '../../Service/camps';
@@ -14,7 +13,6 @@ import Review from '../../Components/Review/Review';
 const DetailPage = () => {
   const [campData, setCampData] = useState();
   const [campInfo, setCampInfo] = useState([]);
-  const [campReview, setCampReview] = useState();
   const [reviewImg, setReviewImg] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTabs, setSelectedTabs] = useState('information');
@@ -42,7 +40,6 @@ const DetailPage = () => {
   async function getCampReview() {
     const response = await api.getCampReview(CampId);
     console.log(response);
-    setCampReview(response.content);
     for (const item of response.content) {
       if (item.imgUrl === '') continue;
       setReviewImg((prev) => [...prev, item.imgUrl]);
@@ -60,7 +57,7 @@ const DetailPage = () => {
         <Container>
           <Header>
             {campData && <Title>{campData.facltNm}</Title>}
-            <CampLike likeCount={campData.like_cnt} campId={CampId} />
+            <CampLike likeCount={campData.likeCnt} campId={CampId} />
           </Header>
           <CampInfoWrap>
             {campInfo.map((item, index) => (
