@@ -39,7 +39,13 @@ export default function Alrim({ alrim }) {
         onClick={() => handleOnUpdate(alrim.notificationId)}
       >
         <Thumbnail>
-          <Thumb src={alrim.imgUrl === '' ? Image : alrim.imgUrl}></Thumb>
+          <Thumb
+            src={
+              alrim.imgUrl === '' || alrim.imgUrl === null
+                ? Image
+                : alrim.imgUrl
+            }
+          ></Thumb>
         </Thumbnail>
         <Info>
           <TopArea>
@@ -51,7 +57,7 @@ export default function Alrim({ alrim }) {
             </AlrimInfo>
           </TopArea>
           <BottomArea>
-            {/* <AlrimFrom>{alrim.campName}</AlrimFrom> */}
+            <AlrimFrom>{alrim.facltNm}</AlrimFrom>
             <Date>{alrim.createdDate}</Date>
           </BottomArea>
         </Info>
