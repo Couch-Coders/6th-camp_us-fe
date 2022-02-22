@@ -89,7 +89,8 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
     });
   }, []);
 
-  const getSearchResult = useCallback(async (sort) => {
+  const getSearchResult = async (sort) => {
+    console.log(address);
     setIsLoading(false);
     const category = address.category.join('_');
     const response = await api.getSearchCamp(address, 0, category, sort);
@@ -97,7 +98,7 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
     setCampResult(campData);
     setSearchedCampData(campData);
     setIsLoading(true);
-  }, []);
+  };
 
   const handleSearchEvent = () => {
     setIsDetailSearch(false);

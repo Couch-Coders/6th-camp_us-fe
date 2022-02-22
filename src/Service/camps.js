@@ -167,7 +167,7 @@ export async function getSearchCamp(address, pageNum, category, sort) {
   if (address.keyword !== null) url = url.concat(`&name=${address.keyword}`);
   if (address.rate !== null) url = url.concat(`&rate=${address.rate}`);
   if (category !== '') url = url.concat(`&tag=${category}`);
-  if (category !== undefined) url = url.concat(`&sort=${sort}`);
+  if (sort !== undefined) url = url.concat(`&sort=${sort}`);
 
   console.log(url);
 
@@ -183,14 +183,15 @@ export async function getSearchCamp(address, pageNum, category, sort) {
 
 // 메인페이지 캠핑장 검색
 export async function getMainSearch(address, pageNum) {
-  let url = `/camps?pages=${pageNum}&size=10&sort=distance`;
+  console.log(address);
+  let url = `/camps?pages=${pageNum}&size=10`;
 
   if (address.address1 !== null) url = url.concat(`&doNm=${address.address1}`);
   if (address.address2 !== null)
     url = url.concat(`&sigunguNm=${address.address2}`);
   if (address.keyword !== null) url = url.concat(`&name=${address.keyword}`);
   if (address.rate !== null) url = url.concat(`&rate=${address.rate}`);
-
+  console.log(url);
   try {
     const response = await axiosInstance(url);
     console.log(response);
