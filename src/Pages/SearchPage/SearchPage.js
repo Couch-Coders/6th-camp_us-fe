@@ -14,7 +14,6 @@ const SearchPage = () => {
     // 백엔드 api 완성되면 Search api 사용 예정
     setIsLoading(true);
     const response = await api.getMainSearch(state, 0);
-    console.log(response);
     setCampList(response.content);
     setIsLoading(false);
   }
@@ -30,12 +29,30 @@ const SearchPage = () => {
   const [isViewLSearchList, setIsViewLSearchList] = useState(true);
   return (
     <Container>
+<<<<<<< HEAD
       <SearchBar
         searchCategory={state}
         setSearchedCampData={setSearchedCampData}
         isViewLSearchList={isViewLSearchList}
         setIsViewLSearchList={setIsViewLSearchList}
       />
+=======
+      {state ? (
+        !isLoading && (
+          <SearchBar
+            searchCategory={state}
+            setSearchedCampData={setSearchedCampData}
+            campList={campList}
+          />
+        )
+      ) : (
+        <SearchBar
+          searchCategory={state}
+          setSearchedCampData={setSearchedCampData}
+        />
+      )}
+
+>>>>>>> a389fb280394a3599161c62bd104f4a986722600
       {state ? (
         !isLoading && (
           <SearchLocation

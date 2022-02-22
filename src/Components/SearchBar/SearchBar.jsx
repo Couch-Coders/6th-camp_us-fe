@@ -12,6 +12,7 @@ import {
 } from '@ant-design/icons';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
+import useGetGeolocation from '../../Hooks/useGetGeolocation';
 
 const SearchBar = ({
   searchCategory,
@@ -38,16 +39,24 @@ const SearchBar = ({
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [isDetailSearch, setIsDetailSearch] = useState(true);
   const [address, setAddress] = useState({
-    address1: '서울특별시',
-    address2: '강남구',
+    address1: null,
+    address2: null,
     rate: null,
-    keyword: '',
+    keyword: null,
     category: [],
   });
 
   const category = Tagcategory;
 
   const { Option } = Select;
+
+  const geoLocation = useGetGeolocation();
+
+  useEffect(() => {
+    searchCategory && setCampResult(campList);
+    searchCategory && setIsResultOpen(true);
+    searchCategory && setIsDetailSearch(false);
+  }, []);
 
   useEffect(() => {
     if (searchCategory !== null) {
@@ -82,8 +91,10 @@ const SearchBar = ({
   };
 
   const changeKeyword = (value) => {
+    const campName = value.target.value;
+
     setAddress((address) => {
-      return { ...address, keyword: value.target.value };
+      return { ...address, keyword: campName === '' ? null : campName };
     });
   };
 
@@ -106,9 +117,18 @@ const SearchBar = ({
     });
   }, []);
 
-  const getSearchResult = async () => {
+  const getSearchResult = async (sort) => {
+    console.log(sort);
+    const myLocation = sort === undefined ? null : geoLocation;
     setIsLoading(false);
-    const response = await api.getSearchCamp(address, 0);
+    const category = address.category.join('_');
+    const response = await api.getSearchCamp(
+      address,
+      0,
+      category,
+      sort,
+      myLocation,
+    );
     const campData = response.content;
     setCampResult(campData);
     setSearchedCampData(campData);
