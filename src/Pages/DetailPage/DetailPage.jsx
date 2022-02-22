@@ -111,7 +111,7 @@ const DetailPage = () => {
                   </Th>
                 )}
                 <Td>
-                  <Rate disabled value={campData.avgRate} />
+                  <Rate disabled allowHalf value={campData.avgRate} />
                 </Td>
               </tr>
             </tbody>
