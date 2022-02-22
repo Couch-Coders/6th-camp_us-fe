@@ -17,7 +17,7 @@ const LikeIcon = styled.svg`
   transition: all 200ms ease;
 
   path {
-    fill: ${(props) => (props.isLike ? '#ff7875' : '#e0e0e0')};
+    fill: ${({ isLikeState }) => (isLikeState ? '#ff7875' : '#e0e0e0')};
   }
 
   &:hover {

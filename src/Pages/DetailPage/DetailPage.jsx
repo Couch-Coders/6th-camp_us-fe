@@ -57,7 +57,11 @@ const DetailPage = () => {
         <Container>
           <Header>
             {campData && <Title>{campData.facltNm}</Title>}
-            <CampLike likeCount={campData.likeCnt} campId={CampId} />
+            <CampLike
+              likeCount={campData.likeCnt}
+              campId={CampId}
+              liked={campData.liked}
+            />
           </Header>
           <CampInfoWrap>
             {campInfo.map((item, index) => (
