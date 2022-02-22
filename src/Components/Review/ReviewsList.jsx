@@ -3,7 +3,7 @@ import { Rate, Input } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import DeleteModal from '../Modal/DeleteModal';
+import Modal from '../Modal/Modal';
 import Image from '../../Assets/Images/default.png';
 import * as API from '../../Service/camps';
 import {
@@ -174,17 +174,18 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
               </CampName>
             )}
           </Nickname>
-          {reviewData.memberId === user.data.memberId && (
+          {user && reviewData.memberId === user.data.memberId && (
             <HandleContent>
               <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
               <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
             </HandleContent>
           )}
           {show && (
-            <DeleteModal
+            <Modal
               onClose={setShow}
               reviewId={review.reviewId}
               deleteTask={deleteTask}
+              role="deleteReview"
             />
           )}
         </TopArea>
@@ -197,7 +198,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
             liked={review.liked}
             onClick={likeChange}
             isMyReview={
-              reviewData.memberId === user.data.memberId ? true : false
+              user && reviewData.memberId === user.data.memberId ? true : false
             }
           >
             <LikeOutlined />

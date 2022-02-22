@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState, useRef } from 'react';
 import * as api from '../../Service/camps';
 import { useLocation } from 'react-router';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
@@ -14,7 +14,7 @@ const SearchPage = () => {
     // 백엔드 api 완성되면 Search api 사용 예정
     setIsLoading(true);
     const response = await api.getMainSearch(state, 0);
-    setCampList(response);
+    setCampList(response.content);
     setIsLoading(false);
   }
 
@@ -26,16 +26,42 @@ const SearchPage = () => {
     setCampList(data);
   }, []);
 
+  const [isViewLSearchList, setIsViewLSearchList] = useState(true);
   return (
     <Container>
-      <SearchBar
-        searchCategory={state}
-        setSearchedCampData={setSearchedCampData}
-      />
       {state ? (
-        !isLoading && <SearchLocation campList={campList} />
+        !isLoading && (
+          <SearchBar
+            searchCategory={state}
+            setSearchedCampData={setSearchedCampData}
+            isViewLSearchList={isViewLSearchList}
+            setIsViewLSearchList={setIsViewLSearchList}
+            campList={campList}
+          />
+        )
       ) : (
-        <SearchLocation campList={campList} />
+        <SearchBar
+          searchCategory={state}
+          setSearchedCampData={setSearchedCampData}
+          isViewLSearchList={isViewLSearchList}
+          setIsViewLSearchList={setIsViewLSearchList}
+        />
+      )}
+
+      {state ? (
+        !isLoading && (
+          <SearchLocation
+            campList={campList}
+            isViewLSearchList={isViewLSearchList}
+            setIsViewLSearchList={setIsViewLSearchList}
+          />
+        )
+      ) : (
+        <SearchLocation
+          campList={campList}
+          isViewLSearchList={isViewLSearchList}
+          setIsViewLSearchList={setIsViewLSearchList}
+        />
       )}
     </Container>
   );
@@ -48,4 +74,13 @@ const Container = styled.div`
   padding: 22px 58px 22px 38px;
   width: 100%;
   height: calc(100vh - 65px);
+
+  @media screen and (max-width: 960px) {
+    display: block;
+    padding: 0;
+    background-color: #e9ecef;
+    height: auto;
+    min-height: calc(100vh - 50px);
+    overflow: hidden;
+  }
 `;
