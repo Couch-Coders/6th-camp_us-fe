@@ -7,7 +7,7 @@ import { throttle } from 'lodash';
 const SearchResult = ({ campResult, getSearchResult }) => {
   const [resultSort, setResultSort] = useState();
   const [listHeight, setListHeight] = useState();
-  const sortList = ['좋아요순', '거리순'];
+  const sortList = ['좋아요순', '가까운순'];
   const { Option } = Select;
 
   const listRef = useRef();
