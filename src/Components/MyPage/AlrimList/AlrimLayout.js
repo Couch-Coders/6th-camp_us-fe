@@ -19,7 +19,7 @@ export default function AlrimLayout({ user }) {
   async function request() {
     const response = await api.getAlrimList();
     setData(response);
-    console.log(response);
+    //console.log(response);
   }
   useEffect(() => {
     request();
@@ -30,22 +30,18 @@ export default function AlrimLayout({ user }) {
     console.log('모든 알림 읽기');
 
     const response = await api.readAllAlrim();
-    console.log(response.data);
+
+    const ChangeAllReadAlrim = data.map((obj) => {
+      return { ...obj, checked: true };
+    });
+    setData(ChangeAllReadAlrim);
   };
 
   const AlrimAllDelete = (e) => {
     e.preventDefault();
     console.log('알림 전체 삭제');
     if (window.confirm('알림을 전체 삭제 하시겠습니까?')) {
-      axios
-        .delete(`http://localhost:3001/alrimList`)
-        .then(function (response) {
-          console.log(response);
-          //setData([]);
-        })
-        .catch(function (ex) {
-          throw new Error(ex);
-        });
+      setData([]);
     }
   };
 
