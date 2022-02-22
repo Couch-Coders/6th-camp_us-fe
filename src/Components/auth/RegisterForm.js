@@ -1,43 +1,28 @@
 import { useContext } from 'react';
 import { UserContext } from './AuthProvider';
-import { auth } from '../../Service/firebaseAuth';
-import axios from 'axios';
 import styled from 'styled-components';
+import * as api from '../../Service/camps';
 
 const RegisterForm = ({ setRegisterFormOpen }) => {
-  const { setUser } = useContext(UserContext);
+  const { setUser, setIsRegisterOpen } = useContext(UserContext);
 
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-    Authorization: '',
-  };
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      console.log(`nickname :${event.target.nickname.value}`);
+      // const res = await axiosInstance.post('/members', {
+      //   nickname: event.target.nickname.value,
+      // });
 
-  const handleSubmit = (event) => {
-    auth.onAuthStateChanged(async (firebaseUser) => {
-      event.preventDefault();
-      try {
-        const token = await firebaseUser.getIdToken();
-        defaultHeaders.Authorization = `Bearer ${token}`;
-        console.log(`nickname :${event.target.nickname.value}`);
-        const res = await axios({
-          method: 'POST',
-          url: '/members',
-          withCredentials: true,
-          headers: defaultHeaders,
-          data: JSON.stringify({
-            nickname: event.target.nickname.value,
-          }),
-        });
+      const res = await api.register(event);
 
-        console.log(res);
-        const user = res;
-        setUser(user);
-        setRegisterFormOpen(false);
-      } catch (e) {
-        throw new Error('에러');
-      }
-    });
+      console.log(res);
+      const user = res;
+      setUser(user);
+      setIsRegisterOpen(false);
+    } catch (e) {
+      throw new Error('login error');
+    }
   };
 
   return (

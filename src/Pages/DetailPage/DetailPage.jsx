@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from 'react';
 import CampInformation from '../../Components/CampInformation/CampInformation';
-import CampInfoTag from '../../Components/CampInfoTag/CampInfoTag';
+import Tag from '../../Components/Tag/Tag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
-import CampReview from '../../Components/CampReview/CampReview';
 import { CampContext } from '../../context/CampContext';
-import * as campService from '../../Service/camps';
+import * as api from '../../Service/camps';
 import { style } from './DetailPage.style';
+import { useLocation } from 'react-router';
+import defaultImg from '../../Assets/Images/default_image.png';
+import Review from '../../Components/Review/Review';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -15,6 +17,10 @@ const DetailPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTabs, setSelectedTabs] = useState('information');
 
+  const { search } = useLocation();
+  const params = new URLSearchParams(search);
+  const CampId = params.get('id');
+
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
     setSelectedTabs(role);
@@ -22,19 +28,23 @@ const DetailPage = () => {
 
   async function getCampData() {
     setIsLoading(true);
-    const response = await campService.getCamp();
-    const info = response[0].sbrsCl.split(',');
-    setCampData(response[0]);
+    const response = await api.getCamp(CampId);
+    console.log(response);
+    console.log(response.sbrsCl);
+    const info = response.sbrsCl !== null ? response.sbrsCl.split(',') : [];
+    setCampData(response);
     setCampInfo(info);
     setIsLoading(false);
   }
 
   async function getCampReview() {
-    const response = await campService.getReview();
-    setCampReview(response);
-    response[0].contents.forEach((item) => {
+    const response = await api.getCampReview(CampId);
+    console.log(response);
+    setCampReview(response.content);
+    for (const item of response.content) {
+      if (item.imgUrl === '') continue;
       setReviewImg((prev) => [...prev, item.imgUrl]);
-    });
+    }
   }
 
   useEffect(() => {
@@ -68,10 +78,15 @@ const DetailPage = () => {
           </Header>
           <CampInfoWrap>
             {campInfo.map((item, index) => (
-              <CampInfoTag tag={item} key={index} />
+              <Tag tag={item} key={index} />
             ))}
           </CampInfoWrap>
-          <Thumbnail src={campData.firstImageUrl} alt="thumbnail"></Thumbnail>
+          {campData.firstImageUrl !== null ? (
+            <Thumbnail src={campData.firstImageUrl} alt="thumbnail" />
+          ) : (
+            <Thumbnail src={defaultImg} alt="thumbnail" />
+          )}
+
           <Table>
             <tbody>
               <tr>
@@ -150,8 +165,11 @@ const DetailPage = () => {
               <CampInformation reviewImg={reviewImg} campInfo={campInfo} />
             )}
             {selectedTabs === 'location' && <CampLocation />}
-            {selectedTabs === 'review' && <CampReview />}
+            {selectedTabs === 'review' && (
+              <Review CampId={CampId} clickedPage="detail" />
+            )}
           </CampContext.Provider>
+          <Footer />
         </Container>
       )}
     </Main>
@@ -179,4 +197,5 @@ const {
   InfoTabs,
   LocationTabs,
   ReviewTabs,
+  Footer,
 } = style;

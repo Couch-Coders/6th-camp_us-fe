@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../auth/AuthProvider';
 import { auth } from '../../../Service/firebaseAuth';
-import * as campService from '../../../Service/camps';
+import * as api from '../../../Service/camps';
 import Pagination from '../../Pagination/Pagination';
 import LikesList from './LikesList';
 
@@ -16,13 +16,8 @@ export default function LikeListLayout() {
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
 
-  const defaultHeaders = {
-    'Content-Type': 'application/json',
-    Accept: 'application/json',
-  };
-
   async function request() {
-    const response = await campService.getMyCampsLikes();
+    const response = await api.getMyCampsLikes();
     /* auth.onAuthStateChanged(async (firebaseUser) => {
       const token = await firebaseUser.getIdToken();
       defaultHeaders.Authorization = `Bearer ${token}`;
@@ -41,7 +36,7 @@ export default function LikeListLayout() {
   }
 
   useEffect(() => {
-    request();
+    // request();
   }, [user]);
 
   /*  async function getCampData() {

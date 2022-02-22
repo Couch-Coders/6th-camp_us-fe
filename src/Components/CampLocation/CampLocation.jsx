@@ -29,13 +29,13 @@ const CampLocation = () => {
   }, []);
 
   return (
-    <Section>
+    <section>
       <Title>찾아오시는 길</Title>
       <Map id="map" />
-    </Section>
+    </section>
   );
 };
 
 export default CampLocation;
 
-const { Title, Map, Section } = style;
+const { Title, Map } = style;
