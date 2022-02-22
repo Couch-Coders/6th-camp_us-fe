@@ -6,6 +6,7 @@ import Tag from '../Tag/Tag';
 import { style } from './SearchBar.style';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
+import useGetGeolocation from '../../Hooks/useGetGeolocation';
 
 const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
   const [campResult, setCampResult] = useState([]);
@@ -23,6 +24,8 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
   const category = Tagcategory;
 
   const { Option } = Select;
+
+  const geoLocation = useGetGeolocation();
 
   useEffect(() => {
     searchCategory && setCampResult(campList);
@@ -90,10 +93,17 @@ const SearchBar = ({ searchCategory, setSearchedCampData, campList }) => {
   }, []);
 
   const getSearchResult = async (sort) => {
-    console.log(address);
+    console.log(sort);
+    const myLocation = sort === undefined ? null : geoLocation;
     setIsLoading(false);
     const category = address.category.join('_');
-    const response = await api.getSearchCamp(address, 0, category, sort);
+    const response = await api.getSearchCamp(
+      address,
+      0,
+      category,
+      sort,
+      myLocation,
+    );
     const campData = response.content;
     setCampResult(campData);
     setSearchedCampData(campData);

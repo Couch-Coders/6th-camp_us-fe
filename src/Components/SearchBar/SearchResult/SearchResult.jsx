@@ -51,7 +51,7 @@ const SearchResult = ({ campResult, getSearchResult }) => {
       </Header>
       <ListWrap ref={listRef} listHeight={listHeight}>
         {campResult.map((result) => (
-          <ResultList camp={result} key={result.id} />
+          <ResultList camp={result} key={result.campId} />
         ))}
       </ListWrap>
     </ResultWrap>
