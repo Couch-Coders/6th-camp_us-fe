@@ -10,6 +10,7 @@ const CampLike = ({ likeCount, campId, liked }) => {
   const [campLikeCount, setCampLikeCount] = useState(likeCount);
 
   const onCampLike = async (id) => {
+    if (user === null) return;
     const response = await api.campLike(id);
     setIsLike((isLike) => !isLike);
     const likeCount = isLike ? campLikeCount - 1 : campLikeCount + 1;
