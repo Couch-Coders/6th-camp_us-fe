@@ -58,7 +58,7 @@ const Navbar = () => {
       <NavbarContainer>
         <NavLogo to="/">
           <NavIcon />
-          CampUs
+          {button && 'CampUs'}
         </NavLogo>
         <MobileIcon onClick={handleClick}>
           {click ? <FaTimes /> : <FaBars />}

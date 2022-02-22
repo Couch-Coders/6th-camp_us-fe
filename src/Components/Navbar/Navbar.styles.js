@@ -16,7 +16,7 @@ export const Nav = styled.nav`
   z-index: 998;
 
   @media screen and (max-width: 960px) {
-    height: 80px;
+    height: 50px;
   }
 `;
 
@@ -28,6 +28,11 @@ export const NavbarContainer = styled(Container)`
   box-shadow: 0px 2px 8px #f0f1f2;
   box-sizing: border-box;
   ${Container}
+
+  @media screen and (max-width: 960px) {
+    position: relative;
+    height: 50px;
+  }
 `;
 
 export const NavLogo = styled(Link)`
@@ -43,6 +48,9 @@ export const NavLogo = styled(Link)`
   &:hover {
     color: #222;
   }
+  @media screen and (max-width: 960px) {
+    font-size: 1.2rem;
+  }
 `;
 
 export const NavIcon = styled.div`
@@ -52,6 +60,10 @@ export const NavIcon = styled.div`
   background: url(${LogoSrc}) no-repeat center center / 100%;
   display: inline-block;
   margin-right: 0.5rem;
+  @media screen and (max-width: 960px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const MobileIcon = styled.div`
@@ -60,7 +72,7 @@ export const MobileIcon = styled.div`
   @media screen and (max-width: 960px) {
     display: block;
     position: absolute;
-    top: 0;
+    top: -19px;
     right: 0;
     transform: translate(-100%, 60%);
     font-size: 1.8rem;
