@@ -19,8 +19,8 @@ export default function AlrimLayout({ user }) {
   async function request() {
     const response = await api.getAlrimList();
     setData(response);
+    console.log(response);
   }
-
   useEffect(() => {
     request();
   }, [user]);

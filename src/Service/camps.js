@@ -75,7 +75,7 @@ export async function getMyCampsLikes() {
 // 알림 조회
 export async function getAlrimList() {
   try {
-    const response = await axiosInstance('/members/me/notifications');
+    const response = await axiosInstance(`/members/me/notifications`);
     const data = response.data.content;
     return data;
   } catch (error) {
@@ -99,6 +99,9 @@ export async function readAlrim(id) {
   try {
     const response = await axiosInstance.patch(
       `/members/me/notifications/${id}`,
+      {
+        checked: true,
+      },
     );
     const data = response.data;
     return data;

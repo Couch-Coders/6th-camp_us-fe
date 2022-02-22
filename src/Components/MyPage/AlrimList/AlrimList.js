@@ -21,45 +21,41 @@ import {
 
 export default function AlrimList({ alrimList }) {
   /* 선택한 알림 삭제 */
-  // const handleOnDelete = async (id) => {
-  //   console.log('선택한 id =', id);
-  //   const response = await axios({
-  //     method: 'delete',
-  //     url: `http://localhost:3001/alrimList/${id}`,
-  //   });
-  // };
+  /* const handleOnDelete = async (id) => {
+    console.log('선택한 id =', id);
+    const response = await api.readAlrim(id);
+  }; */
 
   /* 선택한 알림 읽기 */
-  const handleOnUpdate = async (id) => {
-    console.log('선택한 알림 읽기', id);
+  const handleOnUpdate = async () => {
     const response = await api.readAlrim(alrimList.id);
-    console.log(response);
   };
 
   return (
     <>
       <List>
-        {alrimList.map((a) => (
-          <Alrim key={a.id} checked={a.checked}>
+        {alrimList.map((alrim) => (
+          <Alrim key={alrim.notificationId} checked={alrim.checked}>
             <CheckedArea
-              to={`/detail/${a.id}`}
-              onClick={() => handleOnUpdate(a.id)}
+              /* to={`/detail/${alrim.id}`} */
+              to={`/member`}
+              onClick={() => handleOnUpdate(alrim.notificationId)}
             >
               <Thumbnail>
-                <Thumb src={a.imgUrl === '' ? Image : a.imgUrl}></Thumb>
+                <Thumb src={alrim.imgUrl === '' ? Image : alrim.imgUrl}></Thumb>
               </Thumbnail>
               <Info>
                 <TopArea>
                   <AlrimInfo>
-                    <Type>{a.type}</Type>
+                    <Type>{/* {alrim.type} */} 좋아요</Type>
                     <AlrimContent>
-                      {a.reactUser} 님이 리뷰에 좋아요를 눌렀습니다.
+                      <b>{alrim.nickname}</b> 님이 리뷰에 좋아요를 눌렀습니다.
                     </AlrimContent>
                   </AlrimInfo>
                 </TopArea>
                 <BottomArea>
-                  <AlrimFrom>{a.campName}</AlrimFrom>
-                  <Date>{a.createdDate}</Date>
+                  {/* <AlrimFrom>{alrim.campName}</AlrimFrom> */}
+                  <Date>{alrim.createdDate}</Date>
                 </BottomArea>
               </Info>
             </CheckedArea>
