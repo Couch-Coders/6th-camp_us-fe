@@ -60,6 +60,10 @@ export const NavIcon = styled.div`
   background: url(${LogoSrc}) no-repeat center center / 100%;
   display: inline-block;
   margin-right: 0.5rem;
+  @media screen and (max-width: 960px) {
+    width: 30px;
+    height: 30px;
+  }
 `;
 
 export const MobileIcon = styled.div`
