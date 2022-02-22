@@ -83,6 +83,17 @@ export async function getAlrimList() {
   }
 }
 
+// 모든 알림 삭제
+export async function deleteAllAlrim() {
+  try {
+    const response = await axiosInstance.delete(`/members/me/notifications`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
 // 모든 알림 읽기
 export async function readAllAlrim() {
   try {
