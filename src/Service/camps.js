@@ -175,6 +175,8 @@ export async function getSearchCamp(
   if (myLocation !== null)
     url = url.concat(`&mapY=${myLocation.lat}&mapX=${myLocation.long}`);
 
+  console.log(url);
+
   try {
     const response = await axiosInstance(url);
     console.log(response);

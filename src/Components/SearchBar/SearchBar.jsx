@@ -67,6 +67,7 @@ const SearchBar = ({
           address1: searchCategory.address1,
           address2: searchCategory.address2,
           keyword: searchCategory.keyword,
+          rate: searchCategory.rate,
         };
       });
     }
@@ -119,21 +120,28 @@ const SearchBar = ({
   }, []);
 
   const getSearchResult = async (sort) => {
-    console.log(sort);
-    const myLocation = sort === undefined ? null : geoLocation;
-    setIsLoading(false);
-    const category = address.category.join('_');
-    const response = await api.getSearchCamp(
-      address,
-      0,
-      category,
-      sort,
-      myLocation,
-    );
-    const campData = response.content;
-    setCampResult(campData);
-    setSearchedCampData(campData);
-    setIsLoading(true);
+    try {
+      const myLocation = sort === undefined ? null : geoLocation;
+      setIsLoading(false);
+      const category = address.category.join('_');
+      const response = await api.getSearchCamp(
+        address,
+        0,
+        category,
+        sort,
+        myLocation,
+      );
+      const campData = response.content;
+      setCampResult(campData);
+      setSearchedCampData(campData);
+      sort === 'distance' &&
+        setAddress((address) => {
+          return { ...address, address1: null, address2: null, rate: null };
+        });
+      setIsLoading(true);
+    } catch (e) {
+      throw new Error('에러');
+    }
   };
 
   const handleSearchEvent = () => {
@@ -190,7 +198,7 @@ const SearchBar = ({
               {searchCategory !== null ? (
                 <MobileRateContent
                   onChange={handleRateChange}
-                  defaultValue={searchCategory.rate}
+                  value={address.rate}
                 />
               ) : (
                 <MobileRateContent onChange={handleRateChange} />
@@ -217,9 +225,9 @@ const SearchBar = ({
               {isResultOpen && campResult.length > 0 ? (
                 <>
                   <SearchResult
-                    address={address}
                     isLoading={isLoading}
                     campResult={campResult}
+                    getSearchResult={getSearchResult}
                   />
                   <ChangeViewBtn onClick={() => setIsViewLSearchList(false)}>
                     <EnvironmentFilled />
@@ -281,10 +289,7 @@ const SearchBar = ({
             <FlexBox>
               <InputTitle>최소 별점</InputTitle>
               {searchCategory !== null ? (
-                <RateContent
-                  onChange={handleRateChange}
-                  defaultValue={searchCategory.rate}
-                />
+                <RateContent onChange={handleRateChange} value={address.rate} />
               ) : (
                 <RateContent onChange={handleRateChange} />
               )}
@@ -325,9 +330,9 @@ const SearchBar = ({
           </Form>
           {isResultOpen && campResult.length > 0 && (
             <SearchResult
-              address={address}
               isLoading={isLoading}
               campResult={campResult}
+              getSearchResult={getSearchResult}
             />
           )}
         </Container>
