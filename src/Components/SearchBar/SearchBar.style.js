@@ -140,7 +140,6 @@ const MobileSelectAddress = styled(Select)`
 `;
 
 const MobileRateContent = styled(Rate)`
-  margin-top: -5px;
   margin-right: 10px;
   min-width: 140px;
 `;
