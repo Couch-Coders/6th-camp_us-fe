@@ -13,6 +13,7 @@ const Like = styled.div`
 `;
 
 const LikeIcon = styled.svg`
+  cursor: pointer;
   width: 22px;
   height: 20px;
   transition: all 200ms ease;
