@@ -107,7 +107,7 @@ const DetailPage = () => {
                 {campData && (
                   <Th>
                     별점
-                    {campData.avgRate === 0 ? '0' : `${campData.avgRate}.0`}
+                    {`${campData.avgRate.toFixed(1)}`}
                   </Th>
                 )}
                 <Td>
