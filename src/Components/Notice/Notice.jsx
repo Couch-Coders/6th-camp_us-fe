@@ -5,6 +5,7 @@ import {
   MessageOutlined,
   AlertOutlined,
   FrownOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons';
 
 export const AlrimNotification = () => {
@@ -57,6 +58,15 @@ export const CampInfoNotification = () => {
       <NotiContent>
         자세한 문의사항이 있으시면 홈페이지 또는 연락처로 문의주세요!
       </NotiContent>
+    </Notification>
+  );
+};
+
+export const CampSearchResultNotification = () => {
+  return (
+    <Notification>
+      <ExclamationCircleOutlined />
+      <NotiTitle>검색결과가 없습니다.</NotiTitle>
     </Notification>
   );
 };

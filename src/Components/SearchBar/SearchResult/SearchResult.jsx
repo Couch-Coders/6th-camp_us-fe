@@ -4,6 +4,7 @@ import ResultList from '../ResultList/ResultList';
 import { Pagination, Select } from 'antd';
 import { throttle } from 'lodash';
 import { PageContext } from '../../../context/SearchPaginationContext';
+import { CampSearchResultNotification } from '../../../Components/Notice/Notice';
 
 const SearchResult = ({ campResult, getSearchResult, changePage }) => {
   const [resultSort, setResultSort] = useState();
@@ -55,19 +56,25 @@ const SearchResult = ({ campResult, getSearchResult, changePage }) => {
           ))}
         </SelectContent>
       </Header>
-      <ListWrap ref={listRef} listHeight={listHeight}>
-        {campResult.map((result) => (
-          <ResultList camp={result} key={result.campId} />
-        ))}
-      </ListWrap>
-      <PaginationContent
-        current={currentPage + 1}
-        total={totalElement}
-        pageSize={10}
-        onChange={(value) => {
-          changePage(resultSort, value);
-        }}
-      />
+      {campResult.length === 0 ? (
+        <CampSearchResultNotification />
+      ) : (
+        <>
+          <ListWrap ref={listRef} listHeight={listHeight}>
+            {campResult.map((result) => (
+              <ResultList camp={result} key={result.campId} />
+            ))}
+          </ListWrap>
+          <PaginationContent
+            current={currentPage + 1}
+            total={totalElement}
+            pageSize={10}
+            onChange={(value) => {
+              changePage(resultSort, value);
+            }}
+          />
+        </>
+      )}
     </ResultWrap>
   );
 };
