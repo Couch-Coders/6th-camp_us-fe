@@ -42,7 +42,7 @@ export default function LikeListLayout() {
 
   return (
     <>
-      <LikesList data={data} />
+      <LikesList camp={data} request={request} />
       <PaginationContent
         current={currentPage + 1}
         total={totalElement}

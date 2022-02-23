@@ -10,7 +10,7 @@ export const LikeList = styled.div`
   }
 `;
 
-export const LikeCamp = styled.div`
+export const LikeCampWrap = styled.div`
   width: 100%;
   height: 156px;
   display: flex;
