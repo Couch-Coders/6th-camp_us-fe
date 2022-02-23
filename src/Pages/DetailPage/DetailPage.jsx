@@ -9,7 +9,6 @@ import { style } from './DetailPage.style';
 import { useLocation } from 'react-router';
 import defaultImg from '../../Assets/Images/default_image.png';
 import Review from '../../Components/Review/Review';
-import { Rate } from 'antd';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -104,14 +103,10 @@ const DetailPage = () => {
                 <Td>{campData.induty}</Td>
               </tr>
               <tr>
-                {campData && (
-                  <Th>
-                    별점
-                    {`${campData.avgRate.toFixed(1)}`}
-                  </Th>
-                )}
+                {campData && <Th>별점</Th>}
                 <Td>
-                  <Rate disabled allowHalf value={campData.avgRate} />
+                  <RateContant disabled allowHalf value={campData.avgRate} />
+                  {`${campData.avgRate.toFixed(1)}`}
                 </Td>
               </tr>
             </tbody>
@@ -170,6 +165,7 @@ const {
   Table,
   Th,
   Td,
+  RateContant,
   Devider,
   TabsContainer,
   TabsWrap,

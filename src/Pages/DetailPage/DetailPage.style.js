@@ -1,3 +1,4 @@
+import { Rate } from 'antd';
 import styled, { css } from 'styled-components';
 
 const SectionTitle = styled.h2`
@@ -86,6 +87,10 @@ const Td = styled.td`
   line-height: 16px;
   color: #000000;
   padding-bottom: 18px;
+`;
+
+const RateContant = styled(Rate)`
+  margin-right: 10px;
 `;
 
 const Devider = styled.div`
@@ -206,6 +211,7 @@ export const style = {
   Table,
   Th,
   Td,
+  RateContant,
   Devider,
   TabsContainer,
   TabsWrap,
