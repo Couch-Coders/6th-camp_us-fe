@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useContext } from 'react';
-import { Rate, Input } from 'antd';
+import React, { useState, useCallback, useContext, useRef } from 'react';
+import { Rate, Input, message, Button } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
@@ -35,8 +35,8 @@ import { UserContext } from '../auth/AuthProvider';
 
 const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const { user } = useContext(UserContext);
+  const buttonRef = useRef();
 
-  /* 리뷰 수정 */
   const { TextArea } = Input;
   const [review, setReview] = useState({
     reviewId: reviewData.reviewId,
@@ -98,9 +98,14 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   }, []);
 
   const likeChange = async () => {
+    if (!user) {
+      message.warning('로그인한 유저만 리뷰에 좋아요 할 수 있습니다.');
+      return;
+    }
+
     if (reviewData.memberId === user.data.memberId) return;
-    const response = await API.changeReviewLike(reviewData.reviewId);
-    console.log(response);
+
+    await API.changeReviewLike(reviewData.reviewId);
     const reviewCnt = review.liked ? review.likeCnt - 1 : review.likeCnt + 1;
 
     setReview((review) => {
@@ -110,7 +115,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
 
   // 리뷰 수정
   const editingTemplate = (
-    <EditForm key={review.id}>
+    <EditForm>
       <CampNameLoad>{review.camp_name}</CampNameLoad>
       <EditTop>
         <EditLeft>

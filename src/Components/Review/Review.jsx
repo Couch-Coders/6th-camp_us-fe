@@ -114,16 +114,18 @@ const Review = ({ CampId, clickedPage }) => {
   async function handleSubmit(e) {
     e.preventDefault();
     if (!user) {
-      buttonRef.current.click();
+      message.warning('로그인한 유저만 리뷰를 작성 할 수 있습니다.');
       return;
     }
 
     if (review.content.length < 5) {
+      message.warning('5글자 이상의 리뷰만 등록이 가능합니다.');
       buttonRef.current.click();
       return;
     }
 
     if (!review.rate) {
+      message.warning('별점을 등록해주세요.');
       buttonRef.current.click();
       return;
     }
@@ -135,21 +137,6 @@ const Review = ({ CampId, clickedPage }) => {
     detailReviewRequest();
     console.log(response);
   }
-
-  const warning = () => {
-    if (!user) {
-      message.warning('로그인한 유저만 리뷰를 작성 할 수 있습니다.');
-      return;
-    }
-
-    if (review.content.length < 5) {
-      message.warning('5글자 이상의 리뷰만 등록이 가능합니다.');
-    }
-
-    if (!review.rate) {
-      message.warning('별점을 등록해주세요.');
-    }
-  };
 
   return (
     <Container>
@@ -207,14 +194,6 @@ const Review = ({ CampId, clickedPage }) => {
         pageSize={5}
         onChange={(value) => {
           changePage(value);
-        }}
-      />
-      <Button
-        ref={buttonRef}
-        type="primary"
-        onClick={warning}
-        style={{
-          display: 'none',
         }}
       />
     </Container>
