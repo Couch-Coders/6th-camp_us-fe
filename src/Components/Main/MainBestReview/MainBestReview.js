@@ -15,34 +15,21 @@ import {
   Reviewer,
   Content,
   ReviewLike,
-  PaginationContent,
 } from './MainBestReview.styles';
 
 function MainBestReview() {
   const [campData, setCampData] = useState([]);
-  const [totalElement, setTotalElement] = useState();
-  const [currentPage, setCurrentPage] = useState(0);
 
-  async function getCampData() {
-    const response = await api.getBestReview();
+  async function getCampData(page) {
+    const response = await api.getBestReview(page);
     console.log(response);
-    setCampData(response.content);
-    setTotalElement(response.totalElements);
+    const sortResult = response.content.slice(0, 5);
+    setCampData(sortResult);
   }
 
   useEffect(() => {
     getCampData();
   }, []);
-
-  // 페이지 변경
-  const changePage = (value) => {
-    console.log('changePage', value);
-    setCurrentPage(value - 1);
-  };
-
-  useEffect(() => {
-    getCampData(currentPage);
-  }, [currentPage]);
 
   return (
     <Section>
@@ -61,9 +48,9 @@ function MainBestReview() {
                 ></ReviewImg>
               </ReviewThumbnail>
               <ReviewContent>
-                <CampName>{camp.detailAddress}</CampName>
+                <CampName>{camp.facltNm}</CampName>
                 <ReviewInfo>
-                  <Reviewer>{camp.createdBy}</Reviewer>
+                  <Reviewer>{camp.nickname}</Reviewer>
                   <Rate disabled defaultValue={camp.rate} />
                 </ReviewInfo>
                 <Content>{camp.content}</Content>
@@ -75,14 +62,6 @@ function MainBestReview() {
             </BestReview>
           ))}
         </BestReviewList>
-        <PaginationContent
-          current={currentPage + 1}
-          total={totalElement}
-          pageSize={5}
-          onChange={(value) => {
-            changePage(value);
-          }}
-        />
       </InnerWrapper>
     </Section>
   );
