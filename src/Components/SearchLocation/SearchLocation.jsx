@@ -1,11 +1,12 @@
 import React from 'react';
 import { Map, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
+import useGetGeolocation from '../../Hooks/useGetGeolocation';
 import EventMarker from '../SearchLocation/EventMarker/EventMarker';
 import styled, { css } from 'styled-components';
 import { UnorderedListOutlined } from '@ant-design/icons';
 
-const DEFAULT_X = 126.570667;
-const DEFAULT_Y = 33.450701;
+const DEFAULT_X = 127.02761;
+const DEFAULT_Y = 37.498095;
 
 const CampLocation = ({
   campList,
@@ -13,14 +14,25 @@ const CampLocation = ({
   setIsViewLSearchList,
 }) => {
   const PropState = isViewLSearchList ? 'true' : 'false';
-  console.log('PropState', PropState);
+  const geoLocation = useGetGeolocation();
+
   return (
     <Wrap PropState={PropState}>
       <MapStyle // 지도를 표시할 Container
         center={{
           // 지도의 중심좌표
-          lat: campList.length > 0 ? campList[0].mapY : DEFAULT_Y,
-          lng: campList.length > 0 ? campList[0].mapX : DEFAULT_X,
+          lat:
+            campList.length > 0
+              ? campList[0].mapY
+              : geoLocation.lat
+              ? geoLocation.lat
+              : DEFAULT_Y,
+          lng:
+            campList.length > 0
+              ? campList[0].mapX
+              : geoLocation.long
+              ? geoLocation.long
+              : DEFAULT_X,
         }}
         level={3} // 지도의 확대 레벨
       >

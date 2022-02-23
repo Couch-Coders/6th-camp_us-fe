@@ -1,13 +1,17 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ResultList from '../ResultList/ResultList';
-import { Select } from 'antd';
+import { Pagination, Select } from 'antd';
 import { throttle } from 'lodash';
+import { PageContext } from '../../../context/SearchPaginationContext';
 
-const SearchResult = ({ address, campResult }) => {
+const SearchResult = ({ campResult, getSearchResult, changePage }) => {
   const [resultSort, setResultSort] = useState();
   const [listHeight, setListHeight] = useState();
-  const sortList = ['좋아요순', '거리순'];
+
+  const { totalElement, currentPage, setCurrentPage } = useContext(PageContext);
+
+  const sortList = ['좋아요순', '가까운순'];
   const { Option } = Select;
 
   const listRef = useRef();
@@ -17,18 +21,22 @@ const SearchResult = ({ address, campResult }) => {
     throttle(() => {
       const elementHeight = listRef.current.getBoundingClientRect();
       const brouserHeight = window.innerHeight;
-      setListHeight(brouserHeight - elementHeight.y - 20);
+      setListHeight(brouserHeight - elementHeight.y - 70);
     }, 500),
   );
 
   useEffect(() => {
     const elementHeight = listRef.current.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
-    setListHeight(brouserHeight - elementHeight.y - 20);
+    setListHeight(brouserHeight - elementHeight.y - 70);
   }, []);
 
   const onResultSort = (value) => {
     setResultSort(value);
+    setCurrentPage(0);
+    const sort = value === '좋아요순' ? 'rate' : 'distance';
+
+    getSearchResult(sort);
   };
 
   return (
@@ -36,7 +44,7 @@ const SearchResult = ({ address, campResult }) => {
       <Header>
         <Title>검색결과 리스트</Title>
         <SelectContent
-          placeholder="시/도"
+          placeholder="정렬"
           onChange={onResultSort}
           value={resultSort}
         >
@@ -49,9 +57,17 @@ const SearchResult = ({ address, campResult }) => {
       </Header>
       <ListWrap ref={listRef} listHeight={listHeight}>
         {campResult.map((result) => (
-          <ResultList camp={result} key={result.id} />
+          <ResultList camp={result} key={result.campId} />
         ))}
       </ListWrap>
+      <PaginationContent
+        current={currentPage + 1}
+        total={totalElement}
+        pageSize={10}
+        onChange={(value) => {
+          changePage(resultSort, value);
+        }}
+      />
     </ResultWrap>
   );
 };
@@ -106,5 +122,15 @@ const ListWrap = styled.ul`
     ::-webkit-scrollbar-track {
       display: none;
     }
+  }
+`;
+
+const PaginationContent = styled(Pagination)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  .ant-select-selector {
+    display: none;
   }
 `;

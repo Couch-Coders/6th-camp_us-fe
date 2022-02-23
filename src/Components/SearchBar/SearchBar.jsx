@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Select } from 'antd';
 import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
@@ -12,13 +12,31 @@ import {
 } from '@ant-design/icons';
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
+import useGetGeolocation from '../../Hooks/useGetGeolocation';
+import { PageContext } from '../../context/SearchPaginationContext';
 
 const SearchBar = ({
   searchCategory,
   setSearchedCampData,
   isViewLSearchList,
   setIsViewLSearchList,
+  campList,
 }) => {
+  const [campResult, setCampResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isResultOpen, setIsResultOpen] = useState(false);
+  const [isDetailSearch, setIsDetailSearch] = useState(true);
+  const [address, setAddress] = useState({
+    category: [],
+  });
+  const { setTotalElement, setCurrentPage } = useContext(PageContext);
+
+  const category = Tagcategory;
+
+  const { Option } = Select;
+
+  const geoLocation = useGetGeolocation();
+
   /* 디스플레이 사이즈에 따라 보이는 컴포넌트 구분 */
   const [isMobile, setIsMobile] = useState(false);
   const ResizeDisplay = () => {
@@ -33,30 +51,21 @@ const SearchBar = ({
   }, []);
   window.addEventListener('resize', ResizeDisplay);
 
-  const [campResult, setCampResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isResultOpen, setIsResultOpen] = useState(false);
-  const [isDetailSearch, setIsDetailSearch] = useState(true);
-  const [address, setAddress] = useState({
-    address1: '서울특별시',
-    address2: '강남구',
-    rate: null,
-    keyword: '',
-    category: [],
-  });
-
-  const category = Tagcategory;
-
-  const { Option } = Select;
+  useEffect(() => {
+    searchCategory && setCampResult(campList);
+    searchCategory && setIsResultOpen(true);
+    searchCategory && setIsDetailSearch(false);
+  }, []);
 
   useEffect(() => {
     if (searchCategory !== null) {
       setAddress((address) => {
         return {
           ...address,
-          address1: searchCategory.address1,
-          address2: searchCategory.address2,
-          keyword: searchCategory.keyword,
+          doNm: searchCategory.doNm && searchCategory.doNm,
+          sigunguNm: searchCategory.sigunguNm && searchCategory.sigunguNm,
+          name: searchCategory.name && searchCategory.name,
+          rate: searchCategory.rate && searchCategory.rate,
         };
       });
     }
@@ -66,24 +75,26 @@ const SearchBar = ({
   const sido = district.sido;
   const sigungu = district.sigungu;
 
-  const changeAddress1 = (value) => {
+  const changedoNm = (value) => {
     setAddress((address) => {
-      return { ...address, address1: value };
+      return { ...address, doNm: value };
     });
     setAddress((address) => {
-      return { ...address, address2: null };
-    });
-  };
-
-  const changeAddress2 = (value) => {
-    setAddress((address) => {
-      return { ...address, address2: value };
+      return { ...address, sigunguNm: null };
     });
   };
 
-  const changeKeyword = (value) => {
+  const changesigunguNm = (value) => {
     setAddress((address) => {
-      return { ...address, keyword: value.target.value };
+      return { ...address, sigunguNm: value };
+    });
+  };
+
+  const changename = (value) => {
+    const campName = value.target.value;
+
+    setAddress((address) => {
+      return { ...address, name: campName === '' ? null : campName };
     });
   };
 
@@ -106,18 +117,60 @@ const SearchBar = ({
     });
   }, []);
 
-  const getSearchResult = async () => {
-    setIsLoading(false);
-    const response = await api.getSearchCamp(address, 0);
-    const campData = response.content;
-    setCampResult(campData);
-    setSearchedCampData(campData);
-    setIsLoading(true);
+  const getSearchResult = async (sort, page) => {
+    console.log(sort);
+    try {
+      setIsLoading(true);
+      let paramAddress = { ...address };
+      if (sort === 'distance')
+        paramAddress = {
+          ...paramAddress,
+          mapX: geoLocation.long,
+          mapY: geoLocation.lat,
+        };
+      if (address.category.length > 0) {
+        paramAddress = {
+          ...paramAddress,
+          tag: address.category.join('_'),
+        };
+      }
+      delete paramAddress.category;
+
+      const response = await api.getSearchCamp(paramAddress, page, sort);
+      console.log(response);
+      const campData = response.content;
+      setCampResult(campData);
+      setSearchedCampData(campData);
+
+      sort === 'distance' &&
+        setAddress((address) => {
+          return { ...address, doNm: null, sigunguNm: null, rate: null };
+        });
+
+      setIsLoading(false);
+    } catch (e) {
+      throw new Error('에러');
+    }
+  };
+
+  const changePage = (resultSort, value) => {
+    console.log(value);
+    console.log(resultSort);
+    if (resultSort === undefined) {
+      setCurrentPage(value - 1);
+      getSearchResult(resultSort, value - 1);
+      return;
+    }
+
+    const sort = resultSort === '좋아요순' ? 'rate' : 'distance';
+    setCurrentPage(value - 1);
+    getSearchResult(sort, value - 1);
   };
 
   const handleSearchEvent = () => {
     setIsDetailSearch(false);
     setIsResultOpen(true);
+    setCurrentPage(0);
     getSearchResult();
   };
 
@@ -125,61 +178,58 @@ const SearchBar = ({
     window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
   };
 
-  const PCver = () => {
-    return (
-      <Container>
-        <Header>캠핑장 찾아보기</Header>
-        <Form>
-          <FlexBox>
-            <InputTitle>캠핑장 이름</InputTitle>
-            <InputContent
-              placeholder="캠핑장 이름을 검색하세요."
-              onChange={changeKeyword}
-              value={address.keyword}
-            />
-          </FlexBox>
-          <FlexBox>
-            <InputTitle>지역</InputTitle>
-            <div>
-              <SelectAddress
+  return (
+    <>
+      {isMobile ? (
+        <>
+          <MobileForm>
+            <MobileFlexBox bg>
+              <MobileSelectAddress
                 placeholder="시/도"
-                onChange={changeAddress1}
-                value={address.address1}
+                onChange={changedoNm}
+                value={address.doNm}
               >
-                {sido.map((address1, index) => (
-                  <Option key={index} value={address1}>
-                    {address1}
+                {sido.map((doNm, index) => (
+                  <Option key={index} value={doNm}>
+                    {doNm}
                   </Option>
                 ))}
-              </SelectAddress>
-              <SelectAddress
+              </MobileSelectAddress>
+              <MobileSelectAddress
                 placeholder="시/군/구"
-                onChange={changeAddress2}
-                value={address.address2}
+                onChange={changesigunguNm}
+                value={address.sigunguNm}
               >
-                {sigungu[address.address1].map((address2, index) => (
-                  <Option key={index} value={address2}>
-                    {address2}
-                  </Option>
-                ))}
-              </SelectAddress>
-            </div>
-          </FlexBox>
-          <FlexBox>
-            <InputTitle>최소 별점</InputTitle>
-            {searchCategory !== null ? (
-              <RateContent
-                onChange={handleRateChange}
-                defaultValue={searchCategory.rate}
+                {address.doNm &&
+                  sigungu[address.doNm].map((sigunguNm, index) => (
+                    <Option key={index} value={sigunguNm}>
+                      {sigunguNm}
+                    </Option>
+                  ))}
+              </MobileSelectAddress>
+              <MobileButtonWrap isResultOpen={isResultOpen}>
+                <MobileButton type="button" onClick={handleSearchEvent}>
+                  <SearchOutlined />
+                </MobileButton>
+              </MobileButtonWrap>
+            </MobileFlexBox>
+            <MobileFlexBox bg>
+              <MobileInputContent
+                placeholder="캠핑장 이름을 검색하세요."
+                onChange={changename}
+                value={address.name}
               />
-            ) : (
-              <RateContent onChange={handleRateChange} />
-            )}
-          </FlexBox>
-          {isDetailSearch && (
-            <>
-              <InputTitle>상세 검색</InputTitle>
-              <CategoryWrap>
+              {searchCategory !== null ? (
+                <MobileRateContent
+                  onChange={handleRateChange}
+                  value={address.rate}
+                />
+              ) : (
+                <MobileRateContent onChange={handleRateChange} />
+              )}
+            </MobileFlexBox>
+            <MobileGrayBox>
+              <MobileCategoryWrap>
                 {category.map((tag, index) => (
                   <Tag
                     key={index}
@@ -190,136 +240,130 @@ const SearchBar = ({
                     category={address.category}
                   />
                 ))}
-              </CategoryWrap>
-            </>
+              </MobileCategoryWrap>
+            </MobileGrayBox>
+          </MobileForm>
+
+          {isViewLSearchList && (
+            <MobileResultArea>
+              {isResultOpen && campResult.length > 0 ? (
+                <>
+                  <SearchResult
+                    isLoading={isLoading}
+                    campResult={campResult}
+                    getSearchResult={getSearchResult}
+                    changePage={changePage}
+                  />
+                  <ChangeViewBtn onClick={() => setIsViewLSearchList(false)}>
+                    <EnvironmentFilled />
+                  </ChangeViewBtn>
+                  <TopBtn onClick={ScrollTop}>
+                    <ArrowUpOutlined />
+                    Top
+                  </TopBtn>
+                </>
+              ) : (
+                <MobileResultDefault>
+                  <ExclamationCircleOutlined />
+                  검색결과가 없습니다.
+                </MobileResultDefault>
+              )}
+            </MobileResultArea>
           )}
-
-          <ButtonWrap isResultOpen={isResultOpen}>
-            <Button type="button" onClick={handleSearchEvent}>
-              검색
-            </Button>
-            {!isDetailSearch && (
-              <Button
-                type="button"
-                onClick={() => {
-                  setIsDetailSearch(true);
-                }}
-              >
-                상세검색
-              </Button>
-            )}
-          </ButtonWrap>
-        </Form>
-        {isResultOpen && (
-          <SearchResult
-            address={address}
-            isLoading={isLoading}
-            campResult={campResult}
-          />
-        )}
-      </Container>
-    );
-  };
-  const Mobilever = ({ isViewLSearchList, setIsViewLSearchList }) => {
-    return (
-      <>
-        <MobileForm>
-          <MobileFlexBox bg>
-            <MobileSelectAddress
-              placeholder="시/도"
-              onChange={changeAddress1}
-              value={address.address1}
-            >
-              {sido.map((address1, index) => (
-                <Option key={index} value={address1}>
-                  {address1}
-                </Option>
-              ))}
-            </MobileSelectAddress>
-            <MobileSelectAddress
-              placeholder="시/군/구"
-              onChange={changeAddress2}
-              value={address.address2}
-            >
-              {sigungu[address.address1].map((address2, index) => (
-                <Option key={index} value={address2}>
-                  {address2}
-                </Option>
-              ))}
-            </MobileSelectAddress>
-            <MobileButtonWrap isResultOpen={isResultOpen}>
-              <MobileButton type="button" onClick={handleSearchEvent}>
-                <SearchOutlined />
-              </MobileButton>
-            </MobileButtonWrap>
-          </MobileFlexBox>
-          <MobileFlexBox bg>
-            <MobileInputContent
-              placeholder="캠핑장 이름을 검색하세요."
-              onChange={changeKeyword}
-              value={address.keyword}
-            />
-            {searchCategory !== null ? (
-              <MobileRateContent
-                onChange={handleRateChange}
-                defaultValue={searchCategory.rate}
+        </>
+      ) : (
+        <Container>
+          <Header>캠핑장 찾아보기</Header>
+          <Form>
+            <FlexBox>
+              <InputTitle>캠핑장 이름</InputTitle>
+              <InputContent
+                placeholder="캠핑장 이름을 검색하세요."
+                onChange={changename}
+                value={address.name}
               />
-            ) : (
-              <MobileRateContent onChange={handleRateChange} />
-            )}
-          </MobileFlexBox>
-          <MobileGrayBox>
-            <MobileCategoryWrap>
-              {category.map((tag, index) => (
-                <Tag
-                  key={index}
-                  tag={tag}
-                  role="category"
-                  addCategory={addCategory}
-                  removeCategory={removeCategory}
-                  category={address.category}
-                />
-              ))}
-            </MobileCategoryWrap>
-          </MobileGrayBox>
-        </MobileForm>
-
-        {isViewLSearchList && (
-          <MobileResultArea>
-            {isResultOpen ? (
+            </FlexBox>
+            <FlexBox>
+              <InputTitle>지역</InputTitle>
+              <div>
+                <SelectAddress
+                  placeholder="시/도"
+                  onChange={changedoNm}
+                  value={address.doNm}
+                >
+                  {sido.map((doNm, index) => (
+                    <Option key={index} value={doNm}>
+                      {doNm}
+                    </Option>
+                  ))}
+                </SelectAddress>
+                <SelectAddress
+                  placeholder="시/군/구"
+                  onChange={changesigunguNm}
+                  value={address.sigunguNm}
+                >
+                  {address.doNm &&
+                    sigungu[address.doNm].map((sigunguNm, index) => (
+                      <Option key={index} value={sigunguNm}>
+                        {sigunguNm}
+                      </Option>
+                    ))}
+                </SelectAddress>
+              </div>
+            </FlexBox>
+            <FlexBox>
+              <InputTitle>최소 별점</InputTitle>
+              {searchCategory !== null ? (
+                <RateContent onChange={handleRateChange} value={address.rate} />
+              ) : (
+                <RateContent onChange={handleRateChange} />
+              )}
+            </FlexBox>
+            {isDetailSearch && (
               <>
-                <SearchResult
-                  address={address}
-                  isLoading={isLoading}
-                  campResult={campResult}
-                />
-                <ChangeViewBtn onClick={() => setIsViewLSearchList(false)}>
-                  <EnvironmentFilled />
-                </ChangeViewBtn>
-                <TopBtn onClick={ScrollTop}>
-                  <ArrowUpOutlined />
-                  Top
-                </TopBtn>
+                <InputTitle>상세 검색</InputTitle>
+                <CategoryWrap>
+                  {category.map((tag, index) => (
+                    <Tag
+                      key={index}
+                      tag={tag}
+                      role="category"
+                      addCategory={addCategory}
+                      removeCategory={removeCategory}
+                      category={address.category}
+                    />
+                  ))}
+                </CategoryWrap>
               </>
-            ) : (
-              <MobileResultDefault>
-                <ExclamationCircleOutlined />
-                검색결과가 없습니다.
-              </MobileResultDefault>
             )}
-          </MobileResultArea>
-        )}
-      </>
-    );
-  };
 
-  return isMobile ? (
-    <Mobilever
-      isViewLSearchList={isViewLSearchList}
-      setIsViewLSearchList={setIsViewLSearchList}
-    />
-  ) : (
-    <PCver />
+            <ButtonWrap isResultOpen={isResultOpen}>
+              <Button type="button" onClick={handleSearchEvent}>
+                검색
+              </Button>
+              {!isDetailSearch && (
+                <Button
+                  type="button"
+                  onClick={() => {
+                    setIsDetailSearch(true);
+                  }}
+                >
+                  상세검색
+                </Button>
+              )}
+            </ButtonWrap>
+          </Form>
+          {isResultOpen && campResult.length > 0 && (
+            <SearchResult
+              isLoading={isLoading}
+              campResult={campResult}
+              getSearchResult={getSearchResult}
+              changePage={changePage}
+            />
+          )}
+        </Container>
+      )}
+    </>
   );
 };
 
@@ -341,7 +385,6 @@ const {
   MobileGrayBox,
   MobileForm,
   MobileInputContent,
-  MobileInputTitle,
   MobileSelectAddress,
   MobileRateContent,
   MobileCategoryWrap,
