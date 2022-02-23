@@ -18,12 +18,11 @@ import {
   Date,
 } from './AlrimList.styles';
 
-export default function Alrim({ alrim }) {
+export default function Alrim({ alrim, request }) {
   /* 선택한 알림 삭제 */
-  const [isDelete, setIsDelete] = useState(false);
   const handleOnDelete = async (id) => {
     const response = await api.deleteAlrim(alrim.notificationId);
-    setIsDelete(true);
+    request();
   };
 
   /* 선택한 알림 읽기 */
@@ -34,12 +33,7 @@ export default function Alrim({ alrim }) {
   };
 
   return (
-    <AlrimWrap
-      key={alrim.notificationId}
-      checked={alrim.checked}
-      read={read}
-      isDelete={isDelete}
-    >
+    <AlrimWrap key={alrim.notificationId} checked={alrim.checked} read={read}>
       <CheckedArea
         to={`/detail?id=${alrim.campId}`}
         onClick={() => handleOnUpdate(alrim.notificationId)}

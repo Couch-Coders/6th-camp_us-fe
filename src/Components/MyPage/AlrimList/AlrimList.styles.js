@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'antd';
 
 export const AlrimButton = styled.div`
   display: flex;
@@ -63,7 +64,7 @@ export const List = styled.div`
 `;
 
 export const AlrimWrap = styled.div`
-  display: ${({ isDelete }) => (isDelete ? 'none' : 'flex')};
+  display: flex;
   justify-content: start;
   height: 88px;
   background: ${({ checked, read }) =>
@@ -189,4 +190,11 @@ export const AlrimFrom = styled.div`
 export const Date = styled.div`
   margin-left: 8px;
   color: rgba(0, 0, 0, 0.45);
+`;
+
+export const PaginationContent = styled(Pagination)`
+  text-align: center;
+  .ant-select-selector {
+    display: none;
+  }
 `;

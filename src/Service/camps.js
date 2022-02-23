@@ -62,9 +62,11 @@ export async function getUserInfo() {
 }
 
 // 회원이 좋아요한 캠핑장 조회
-export async function getMyCampsLikes() {
+export async function getMyCampsLikes(page) {
   try {
-    const response = await axiosInstance('/members/me/camps/likes');
+    const response = await axiosInstance(
+      `/members/me/camps?page=${page}&size=5&sort=createdDate,desc`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -73,10 +75,12 @@ export async function getMyCampsLikes() {
 }
 
 // 알림 조회
-export async function getAlrimList() {
+export async function getAlrimList(page) {
   try {
-    const response = await axiosInstance(`/members/me/notifications`);
-    const data = response.data.content;
+    const response = await axiosInstance(
+      `/members/me/notifications?page=${page}&size=5&sort=createdDate,desc`,
+    );
+    const data = response.data;
     return data;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -245,7 +249,7 @@ export async function getSearchCampTemporary() {
 export async function getMainSearch(address, pageNum) {
   try {
     const response = await axiosInstance({
-      url: `/camps?pages=${pageNum}&size=10`,
+      url: `/camps?page=${pageNum}&size=10`,
       params: {
         name: address.name && address.name,
         doNm: address.doNm && address.doNm,
