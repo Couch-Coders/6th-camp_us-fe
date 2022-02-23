@@ -139,20 +139,6 @@ export async function deleteAlrim(notificationId) {
   }
 }
 
-// 선택한 알림 삭제
-export async function deleteAlrim(notificationId) {
-  try {
-    const response = await axiosInstance.delete(
-      `/notifications/${notificationId}`,
-    );
-    console.log(response);
-    const data = response.data;
-    return data;
-  } catch (error) {
-    throw new Error('Failed to load data');
-  }
-}
-
 // 캠핑장 추천
 export async function getRecommendCamp() {
   try {

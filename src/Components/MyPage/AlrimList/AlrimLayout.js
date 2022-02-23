@@ -87,17 +87,18 @@ export default function AlrimLayout({ user }) {
       {data.length === 0 ? (
         <AlrimNotification />
       ) : (
-        <AlrimList alrimList={data} request={request} />
+        <>
+          <AlrimList alrimList={data} request={request} />
+          <PaginationContent
+            current={currentPage + 1}
+            total={totalElement}
+            pageSize={5}
+            onChange={(value) => {
+              changePage(value);
+            }}
+          />
+        </>
       )}
-
-      <PaginationContent
-        current={currentPage + 1}
-        total={totalElement}
-        pageSize={5}
-        onChange={(value) => {
-          changePage(value);
-        }}
-      />
     </>
   );
 }
