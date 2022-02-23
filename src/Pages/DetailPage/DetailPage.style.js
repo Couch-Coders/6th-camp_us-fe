@@ -1,3 +1,4 @@
+import { Rate } from 'antd';
 import styled, { css } from 'styled-components';
 
 const SectionTitle = styled.h2`
@@ -47,26 +48,6 @@ const Title = styled.span`
   color: #000000;
 `;
 
-const LikeWrap = styled.div`
-  display: flex;
-  align-items: flex-end;
-`;
-
-const Like = styled.div`
-  width: 22px;
-  height: 20px;
-  margin-right: 5px;
-`;
-
-const LikeCount = styled.span`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 19px;
-  color: #262626;
-`;
-
 const CampInfoWrap = styled.div`
   width: 100%;
   display: flex;
@@ -106,6 +87,10 @@ const Td = styled.td`
   line-height: 16px;
   color: #000000;
   padding-bottom: 18px;
+`;
+
+const RateContant = styled(Rate)`
+  margin-right: 10px;
 `;
 
 const Devider = styled.div`
@@ -221,14 +206,12 @@ export const style = {
   Container,
   Header,
   Title,
-  LikeWrap,
-  Like,
-  LikeCount,
   CampInfoWrap,
   Thumbnail,
   Table,
   Th,
   Td,
+  RateContant,
   Devider,
   TabsContainer,
   TabsWrap,
