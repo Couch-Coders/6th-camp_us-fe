@@ -62,11 +62,12 @@ export const List = styled.div`
   }
 `;
 
-export const Alrim = styled.div`
-  display: flex;
+export const AlrimWrap = styled.div`
+  display: ${({ isDelete }) => (isDelete ? 'none' : 'flex')};
   justify-content: start;
   height: 88px;
-  background: ${({ checked }) => (checked ? '#f5f5f5' : '#ffffff')};
+  background: ${({ checked, read }) =>
+    checked ? '#f5f5f5' : read ? '#f5f5f5' : '#ffffff'};
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
   border-radius: 2px;
