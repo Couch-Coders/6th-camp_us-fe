@@ -141,7 +141,7 @@ export async function deleteAlrim(notificationId) {
 
 // 캠핑장 추천
 export async function getRecommendCamp(geoLocation) {
-  geoLocation && console.log(geoLocation);
+  console.log(geoLocation);
   try {
     const response = await axiosInstance({
       url: `/camps?page=0&size=10`,

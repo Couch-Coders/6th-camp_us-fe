@@ -1,6 +1,15 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 
+export const TitleWrap = styled.div`
+  display: flex;
+`;
+
+export const Notice = styled.span`
+  padding-left: 10px;
+  color: rgba(0, 0, 0, 0.45);
+`;
+
 export const NearCampList = styled.div`
   width: 100%;
 `;

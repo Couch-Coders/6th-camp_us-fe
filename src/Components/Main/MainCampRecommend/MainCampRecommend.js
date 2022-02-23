@@ -4,6 +4,8 @@ import Image from '../../../Assets/Images/default_image.png';
 import Slider from 'react-slick';
 import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
 import {
+  TitleWrap,
+  Notice,
   NearCampList,
   NearCamp,
   CampLink,
@@ -22,8 +24,6 @@ function MainCampRecommend() {
   const [slideShowCount, setSlideShowCount] = useState();
 
   const geoLocation = useGetGeolocation();
-
-  geoLocation.lat && geoLocation.long && console.log(geoLocation);
 
   /* 모바일사이즈일 때 컨텐츠 갯수 */
   const [isMobile, setIsMobile] = useState(false);
@@ -51,20 +51,40 @@ function MainCampRecommend() {
     autoplaySpeed: 2000,
   };
 
-  async function getCampData(geoLocation) {
+  async function getAllowLocationCamp(geoLocation) {
+    const response = await api.getRecommendCamp(geoLocation);
+    console.log(response);
+    setCampData(response);
+  }
+
+  async function getNotAllowLocationCamp(geoLocation) {
     const response = await api.getRecommendCamp(geoLocation);
     console.log(response);
     setCampData(response);
   }
 
   useEffect(() => {
-    geoLocation.lat && geoLocation.long && getCampData(geoLocation);
+    console.log(geoLocation);
+    geoLocation.lat && geoLocation.long && getAllowLocationCamp(geoLocation);
+    !geoLocation && getNotAllowLocationCamp(geoLocation);
   }, [geoLocation]);
 
+  console.log(geoLocation);
   return (
     <Section>
       <InnerWrapper>
-        <SectionTitle>내 근처 캠핑장 추천</SectionTitle>
+        {geoLocation.lat && geoLocation.long && (
+          <SectionTitle>내 근처 캠핑장 추천</SectionTitle>
+        )}
+        {!geoLocation && (
+          <TitleWrap>
+            <SectionTitle>서울 주변 캠핑장 추천</SectionTitle>
+            <Notice>
+              위치를 허용하면 내 주변 캠핑장을 확인할 수 있습니다 !
+            </Notice>
+          </TitleWrap>
+        )}
+
         <NearCampList>
           <SliderWrap sliderLength={3} isMobile>
             <Slider {...settings}>
