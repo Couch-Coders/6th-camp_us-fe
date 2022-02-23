@@ -51,7 +51,7 @@ export default function LikesList({ data }) {
       }),
     });
   };
-  const CampLikeCancle = (e, id, campId) => {
+  const CampLikeCancle = (e, campId) => {
     e.preventDefault();
 
     auth.onAuthStateChanged(async (firebaseUser) => {
@@ -60,11 +60,13 @@ export default function LikesList({ data }) {
 
       console.log(campId); // 선택한 캠프장의 id
       if (window.confirm('이 캠핑장을 좋아요 목록애서 삭제 하시겠습니까?')) {
-        axios.all([unCheckedCampLike(id), subtractCampLikeCnt(campId)]).then(
-          axios.spread(function (acct, perms) {
-            // Both requests are now complete
-          }),
-        );
+        axios
+          .all([unCheckedCampLike(campId), subtractCampLikeCnt(campId)])
+          .then(
+            axios.spread(function (acct, perms) {
+              // Both requests are now complete
+            }),
+          );
       }
     });
   };
@@ -72,28 +74,29 @@ export default function LikesList({ data }) {
   return (
     <LikeList>
       {data.map((camp) => (
-        <LikeCamp key={camp.campLikeId}>
+        <LikeCamp key={camp.campId}>
           <CampThumbnail>
             <CampThumb
-              src={camp.imgUrl === '' ? Image : camp.imgUrl}
+              src={
+                camp.firstImageUrl === '' || camp.firstImageUrl === null
+                  ? Image
+                  : camp.firstImageUrl
+              }
             ></CampThumb>
           </CampThumbnail>
           <CampInfo>
             <TopArea>
-              <CampName to={`/detail/${camp.campId}`}>{camp.campName}</CampName>
-              <CampLike
-                onClick={(e) => CampLikeCancle(e, camp.id, camp.campLikeId)}
-              >
+              <CampName to={`/detail?id=${camp.campId}`}>
+                {camp.facltNm}
+              </CampName>
+              <CampLike onClick={(e) => CampLikeCancle(camp.campId)}>
                 <HeartFilled style={{ color: '#FF7875', fontSize: '20px' }} />
                 {/*  <HeartOutlined style={{ color: '#FF7875', fontSize: '20px' }} /> */}
               </CampLike>
             </TopArea>
-            <BottomArea to={`/detail/${camp.campId}`}>
-              <CampDesc>{camp.campDesc}</CampDesc>
-              <CampAddr>
-                {camp.addr1}
-                {/* {camp.addr2} */}
-              </CampAddr>
+            <BottomArea to={`/detail?id=${camp.campId}`}>
+              <CampDesc>{camp.lineIntro}</CampDesc>
+              <CampAddr>{camp.addr1}</CampAddr>
             </BottomArea>
           </CampInfo>
         </LikeCamp>
