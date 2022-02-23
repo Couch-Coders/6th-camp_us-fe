@@ -1,4 +1,10 @@
-import React, { useCallback, useContext, useEffect, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import styled from 'styled-components';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
@@ -16,10 +22,10 @@ const Review = ({ CampId, clickedPage }) => {
     imgUrl: '',
     imgName: '',
   });
-
   const [reviewData, setReviewData] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
+  const buttonRef = useRef();
 
   const { user } = useContext(UserContext);
 
@@ -107,7 +113,20 @@ const Review = ({ CampId, clickedPage }) => {
   // 리뷰 작성
   async function handleSubmit(e) {
     e.preventDefault();
-    if (review.content === '') return;
+    if (!user) {
+      buttonRef.current.click();
+      return;
+    }
+
+    if (review.content.length < 5) {
+      buttonRef.current.click();
+      return;
+    }
+
+    if (!review.rate) {
+      buttonRef.current.click();
+      return;
+    }
 
     const response = await api.writeReview(CampId, review);
     setReview((review) => {
@@ -118,7 +137,17 @@ const Review = ({ CampId, clickedPage }) => {
   }
 
   const warning = () => {
-    message.warning('로그인한 유저만 리뷰를 작성 할 수 있습니다.');
+    if (!user) {
+      message.warning('로그인한 유저만 리뷰를 작성 할 수 있습니다.');
+    }
+
+    if (review.content.length < 5) {
+      message.warning('5글자 이상의 리뷰만 등록이 가능합니다.');
+    }
+
+    if (!review.rate) {
+      message.warning('별점을 등록해주세요.');
+    }
   };
 
   return (
@@ -137,22 +166,9 @@ const Review = ({ CampId, clickedPage }) => {
               </RateSelect>
             </EditLeft>
             <EditRight>
-              {user ? (
-                <EditButton type="submit" onClick={handleSubmit}>
-                  작성
-                </EditButton>
-              ) : (
-                <Button
-                  type="primary"
-                  onClick={warning}
-                  style={{
-                    background: '#73d13d',
-                    border: '1px solid #73d13d',
-                  }}
-                >
-                  작성
-                </Button>
-              )}
+              <EditButton type="submit" onClick={handleSubmit}>
+                작성
+              </EditButton>
             </EditRight>
           </EditTop>
           <Wrap>
@@ -193,11 +209,10 @@ const Review = ({ CampId, clickedPage }) => {
         }}
       />
       <Button
+        ref={buttonRef}
         type="primary"
         onClick={warning}
         style={{
-          background: '#73d13d',
-          border: '1px solid #73d13d',
           display: 'none',
         }}
       >
