@@ -249,7 +249,7 @@ export async function getSearchCampTemporary() {
 export async function getMainSearch(address, pageNum) {
   try {
     const response = await axiosInstance({
-      url: `/camps?pages=${pageNum}&size=10`,
+      url: `/camps?page=${pageNum}&size=10`,
       params: {
         name: address.name && address.name,
         doNm: address.doNm && address.doNm,
