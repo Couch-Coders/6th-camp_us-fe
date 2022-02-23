@@ -132,6 +132,7 @@ export const CampAddr = styled.div`
 `;
 
 export const PaginationContent = styled(Pagination)`
+  text-align: center;
   .ant-select-selector {
     display: none;
   }
