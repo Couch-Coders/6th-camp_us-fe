@@ -14,7 +14,6 @@ const CampLocation = ({
   setIsViewLSearchList,
 }) => {
   const PropState = isViewLSearchList ? 'true' : 'false';
-  console.log('PropState', PropState);
   const geoLocation = useGetGeolocation();
 
   return (

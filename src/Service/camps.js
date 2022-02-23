@@ -166,9 +166,9 @@ export async function getCampReview(id, page) {
 }
 
 // 검색페이지 캠핑장 검색
+
 export async function getSearchCamp(address, pageNum, sort) {
   console.log(address);
-
   try {
     const response = await axiosInstance({
       url: `/camps?pages=${pageNum}&size=10`,

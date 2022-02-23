@@ -1,12 +1,16 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useContext, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ResultList from '../ResultList/ResultList';
-import { Select } from 'antd';
+import { Pagination, Select } from 'antd';
 import { throttle } from 'lodash';
+import { PageContext } from '../../../context/SearchPaginationContext';
 
-const SearchResult = ({ campResult, getSearchResult }) => {
+const SearchResult = ({ campResult, getSearchResult, changePage }) => {
   const [resultSort, setResultSort] = useState();
   const [listHeight, setListHeight] = useState();
+
+  const { totalElement, currentPage, setCurrentPage } = useContext(PageContext);
+
   const sortList = ['좋아요순', '가까운순'];
   const { Option } = Select;
 
@@ -17,19 +21,21 @@ const SearchResult = ({ campResult, getSearchResult }) => {
     throttle(() => {
       const elementHeight = listRef.current.getBoundingClientRect();
       const brouserHeight = window.innerHeight;
-      setListHeight(brouserHeight - elementHeight.y - 20);
+      setListHeight(brouserHeight - elementHeight.y - 70);
     }, 500),
   );
 
   useEffect(() => {
     const elementHeight = listRef.current.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
-    setListHeight(brouserHeight - elementHeight.y - 20);
+    setListHeight(brouserHeight - elementHeight.y - 70);
   }, []);
 
   const onResultSort = (value) => {
     setResultSort(value);
+    setCurrentPage(0);
     const sort = value === '좋아요순' ? 'rate' : 'distance';
+
     getSearchResult(sort);
   };
 
@@ -54,6 +60,14 @@ const SearchResult = ({ campResult, getSearchResult }) => {
           <ResultList camp={result} key={result.campId} />
         ))}
       </ListWrap>
+      <PaginationContent
+        current={currentPage + 1}
+        total={totalElement}
+        pageSize={10}
+        onChange={(value) => {
+          changePage(resultSort, value);
+        }}
+      />
     </ResultWrap>
   );
 };
@@ -108,5 +122,15 @@ const ListWrap = styled.ul`
     ::-webkit-scrollbar-track {
       display: none;
     }
+  }
+`;
+
+const PaginationContent = styled(Pagination)`
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 10px;
+  .ant-select-selector {
+    display: none;
   }
 `;
