@@ -20,9 +20,8 @@ import {
 
 export default function Alrim({ alrim }) {
   /* 선택한 알림 삭제 */
-  const handleOnDelete = async (id) => {
-    console.log('선택한 id =', id);
-    const response = await api.readAlrim(id);
+  const handleOnDelete = async () => {
+    const response = await api.deleteAlrim(alrim.notificationId);
   };
 
   /* 선택한 알림 읽기 */
@@ -62,7 +61,7 @@ export default function Alrim({ alrim }) {
           </BottomArea>
         </Info>
       </CheckedArea>
-      <DeleteBtn onClick={(e) => handleOnDelete(alrim.id)}>
+      <DeleteBtn onClick={(e) => handleOnDelete(alrim.notificationId)}>
         <CloseOutlined />
       </DeleteBtn>
     </AlrimWrap>
