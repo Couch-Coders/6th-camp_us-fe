@@ -136,7 +136,7 @@ const SearchBar = ({
       }
       delete paramAddress.category;
 
-      const response = await api.getSearchCamp(paramAddress, 0, sort);
+      const response = await api.getSearchCamp(paramAddress, page, sort);
       console.log(response);
       const campData = response.content;
       setCampResult(campData);
@@ -154,13 +154,14 @@ const SearchBar = ({
   };
 
   const changePage = (resultSort, value) => {
+    console.log(value);
+    console.log(resultSort);
     if (resultSort === undefined) {
       setCurrentPage(value - 1);
       getSearchResult(resultSort, value - 1);
       return;
     }
 
-    console.log(resultSort);
     const sort = resultSort === '좋아요순' ? 'rate' : 'distance';
     setCurrentPage(value - 1);
     getSearchResult(sort, value - 1);
