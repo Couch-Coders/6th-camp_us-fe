@@ -139,6 +139,7 @@ const Review = ({ CampId, clickedPage }) => {
   const warning = () => {
     if (!user) {
       message.warning('로그인한 유저만 리뷰를 작성 할 수 있습니다.');
+      return;
     }
 
     if (review.content.length < 5) {
@@ -215,9 +216,7 @@ const Review = ({ CampId, clickedPage }) => {
         style={{
           display: 'none',
         }}
-      >
-        작성
-      </Button>
+      />
     </Container>
   );
 };
