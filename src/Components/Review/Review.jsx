@@ -13,6 +13,7 @@ import * as api from '../../Service/camps';
 import ReviewsList from '../Review/ReviewsList';
 import { style } from './Review.style';
 import { UserContext } from '../auth/AuthProvider';
+import { NotMyReviewNotification } from '../../Components/Notice/Notice';
 
 const Review = ({ CampId, clickedPage }) => {
   const { TextArea } = Input;
@@ -176,26 +177,30 @@ const Review = ({ CampId, clickedPage }) => {
           />
         </EditForm>
       )}
+      {reviewData.length === 0 ? (
+        <NotMyReviewNotification />
+      ) : (
+        <>
+          {reviewData.map((data) => (
+            <ReviewsList
+              reviewData={data}
+              key={data.reviewId}
+              deleteTask={deleteTask}
+              editTask={editTask}
+              clickedPage={clickedPage}
+            />
+          ))}
 
-      {reviewData &&
-        reviewData.map((data) => (
-          <ReviewsList
-            reviewData={data}
-            key={data.reviewId}
-            deleteTask={deleteTask}
-            editTask={editTask}
-            clickedPage={clickedPage}
+          <PaginationContent
+            current={currentPage + 1}
+            total={totalElement}
+            pageSize={5}
+            onChange={(value) => {
+              changePage(value);
+            }}
           />
-        ))}
-
-      <PaginationContent
-        current={currentPage + 1}
-        total={totalElement}
-        pageSize={5}
-        onChange={(value) => {
-          changePage(value);
-        }}
-      />
+        </>
+      )}
     </Container>
   );
 };
