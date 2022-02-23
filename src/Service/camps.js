@@ -161,7 +161,7 @@ export async function getSearchCamp(
   sort,
   myLocation,
 ) {
-  let url = `/camps?pages=${pageNum}&size=10`;
+  let url = `/camps?page=${pageNum}&size=10`;
 
   console.log(myLocation);
 

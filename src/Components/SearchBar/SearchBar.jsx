@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useContext, useEffect, useState } from 'react';
 import { Select } from 'antd';
 import * as district from '../../Common/AddressData';
 import { Tagcategory } from '../../Common/category';
@@ -13,6 +13,7 @@ import {
 import SearchResult from './SearchResult/SearchResult';
 import * as api from '../../Service/camps';
 import useGetGeolocation from '../../Hooks/useGetGeolocation';
+import { PageContext } from '../../context/SearchPaginationContext';
 
 const SearchBar = ({
   searchCategory,
@@ -21,6 +22,25 @@ const SearchBar = ({
   setIsViewLSearchList,
   campList,
 }) => {
+  const [campResult, setCampResult] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [isResultOpen, setIsResultOpen] = useState(false);
+  const [isDetailSearch, setIsDetailSearch] = useState(true);
+  const [address, setAddress] = useState({
+    address1: null,
+    address2: null,
+    rate: null,
+    keyword: null,
+    category: [],
+  });
+  const { setTotalElement, setCurrentPage } = useContext(PageContext);
+
+  const category = Tagcategory;
+
+  const { Option } = Select;
+
+  const geoLocation = useGetGeolocation();
+
   /* 디스플레이 사이즈에 따라 보이는 컴포넌트 구분 */
   const [isMobile, setIsMobile] = useState(false);
   const ResizeDisplay = () => {
@@ -34,24 +54,6 @@ const SearchBar = ({
     ResizeDisplay();
   }, []);
   window.addEventListener('resize', ResizeDisplay);
-
-  const [campResult, setCampResult] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [isResultOpen, setIsResultOpen] = useState(false);
-  const [isDetailSearch, setIsDetailSearch] = useState(true);
-  const [address, setAddress] = useState({
-    address1: null,
-    address2: null,
-    rate: null,
-    keyword: null,
-    category: [],
-  });
-
-  const category = Tagcategory;
-
-  const { Option } = Select;
-
-  const geoLocation = useGetGeolocation();
 
   useEffect(() => {
     searchCategory && setCampResult(campList);
@@ -119,21 +121,22 @@ const SearchBar = ({
     });
   }, []);
 
-  const getSearchResult = async (sort) => {
+  const getSearchResult = async (sort, page) => {
+    console.log(sort);
     try {
       const myLocation = sort === undefined ? null : geoLocation;
       setIsLoading(false);
       const category = address.category.join('_');
       const response = await api.getSearchCamp(
         address,
-        0,
+        page,
         category,
         sort,
         myLocation,
       );
-      const campData = response.content;
-      setCampResult(campData);
-      setSearchedCampData(campData);
+      setTotalElement(response.totalElements);
+      setCampResult(response.content);
+      setSearchedCampData(response.content);
       sort === 'distance' &&
         setAddress((address) => {
           return { ...address, address1: null, address2: null, rate: null };
@@ -144,9 +147,23 @@ const SearchBar = ({
     }
   };
 
+  const changePage = (resultSort, value) => {
+    if (resultSort === undefined) {
+      setCurrentPage(value - 1);
+      getSearchResult(resultSort, value - 1);
+      return;
+    }
+
+    console.log(resultSort);
+    const sort = resultSort === '좋아요순' ? 'rate' : 'distance';
+    setCurrentPage(value - 1);
+    getSearchResult(sort, value - 1);
+  };
+
   const handleSearchEvent = () => {
     setIsDetailSearch(false);
     setIsResultOpen(true);
+    setCurrentPage(0);
     getSearchResult();
   };
 
@@ -228,6 +245,7 @@ const SearchBar = ({
                     isLoading={isLoading}
                     campResult={campResult}
                     getSearchResult={getSearchResult}
+                    changePage={changePage}
                   />
                   <ChangeViewBtn onClick={() => setIsViewLSearchList(false)}>
                     <EnvironmentFilled />
@@ -333,6 +351,7 @@ const SearchBar = ({
               isLoading={isLoading}
               campResult={campResult}
               getSearchResult={getSearchResult}
+              changePage={changePage}
             />
           )}
         </Container>
