@@ -15,25 +15,30 @@ import {
   CampAddr,
   SliderWrap,
 } from './MainCampRecommend.styles';
+import useGetGeolocation from '../../../Hooks/useGetGeolocation';
 
 function MainCampRecommend() {
   const [campData, setCampData] = useState([]);
   const [slideShowCount, setSlideShowCount] = useState();
+
+  const geoLocation = useGetGeolocation();
+
+  geoLocation.lat && geoLocation.long && console.log(geoLocation);
 
   /* 모바일사이즈일 때 컨텐츠 갯수 */
   const [isMobile, setIsMobile] = useState(false);
   const ResizeSliderLength = () => {
     if (window.innerWidth <= 960) {
       setIsMobile(true);
-      console.log('isMobile true');
     } else {
       setIsMobile(false);
-      console.log('isMobile true');
     }
   };
+
   useEffect(() => {
     ResizeSliderLength();
   }, []);
+
   window.addEventListener('resize', ResizeSliderLength);
 
   const settings = {
@@ -46,15 +51,15 @@ function MainCampRecommend() {
     autoplaySpeed: 2000,
   };
 
-  async function getCampData() {
-    const response = await api.getRecommendCamp();
+  async function getCampData(geoLocation) {
+    const response = await api.getRecommendCamp(geoLocation);
+    console.log(response);
     setCampData(response);
   }
 
   useEffect(() => {
-    getCampData();
-    console.log(campData);
-  }, []);
+    geoLocation.lat && geoLocation.long && getCampData(geoLocation);
+  }, [geoLocation]);
 
   return (
     <Section>
@@ -63,40 +68,43 @@ function MainCampRecommend() {
         <NearCampList>
           <SliderWrap sliderLength={3} isMobile>
             <Slider {...settings}>
-              {campData.map((camp) => (
-                <NearCamp key={camp.id}>
-                  <CampLink to={`/detail?id=${camp.id}`}>
-                    <CampThumbnail>
-                      <CampThumb
-                        src={
-                          camp.firstImageUrl === '' ? Image : camp.firstImageUrl
-                        }
-                      ></CampThumb>
-                    </CampThumbnail>
-                    <CampInfo>
-                      <CampName>{camp.facltNm}</CampName>
-                      <CampAddr>
-                        {camp.addr1}
-                        {camp.addr2}
-                      </CampAddr>
-                    </CampInfo>
-                  </CampLink>
-                  <CampLike>
-                    <svg
-                      width="22"
-                      height="20"
-                      viewBox="0 0 22 20"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z"
-                        fill="#FF7875"
-                      />
-                    </svg>
-                    {camp.like_cnt}
-                  </CampLike>
-                </NearCamp>
-              ))}
+              {campData.length > 0 &&
+                campData.map((camp) => (
+                  <NearCamp key={camp.id}>
+                    <CampLink to={`/detail?id=${camp.campId}`}>
+                      <CampThumbnail>
+                        <CampThumb
+                          src={
+                            camp.firstImageUrl === null
+                              ? Image
+                              : camp.firstImageUrl
+                          }
+                        ></CampThumb>
+                      </CampThumbnail>
+                      <CampInfo>
+                        <CampName>{camp.facltNm}</CampName>
+                        <CampAddr>
+                          {camp.addr1}
+                          {camp.addr2}
+                        </CampAddr>
+                      </CampInfo>
+                    </CampLink>
+                    <CampLike>
+                      <svg
+                        width="22"
+                        height="20"
+                        viewBox="0 0 22 20"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z"
+                          fill="#FF7875"
+                        />
+                      </svg>
+                      {camp.like_cnt}
+                    </CampLike>
+                  </NearCamp>
+                ))}
             </Slider>
           </SliderWrap>
           {/* {campData.slice(0, 3).map((camp) => (
