@@ -1,28 +1,19 @@
 import React, { useState, useEffect } from 'react';
 import * as api from '../../../Service/camps';
-import Image from '../../../Assets/Images/default_image.png';
 import Slider from 'react-slick';
 import { Section, InnerWrapper, SectionTitle } from '../../../Styles/theme';
 import {
   TitleWrap,
   Notice,
   NearCampList,
-  NearCamp,
-  CampLink,
-  CampThumbnail,
-  CampThumb,
-  CampInfo,
-  CampLike,
-  CampName,
-  CampAddr,
   SliderWrap,
 } from './MainCampRecommend.styles';
 import useGetGeolocation from '../../../Hooks/useGetGeolocation';
+import NearCamp from './NearCamp/NearCamp';
 
 function MainCampRecommend() {
   const [campData, setCampData] = useState([]);
   const [slideShowCount, setSlideShowCount] = useState();
-
   const geoLocation = useGetGeolocation();
 
   /* 모바일사이즈일 때 컨텐츠 갯수 */
@@ -90,40 +81,7 @@ function MainCampRecommend() {
             <Slider {...settings}>
               {campData.length > 0 &&
                 campData.map((camp) => (
-                  <NearCamp key={camp.id}>
-                    <CampLink to={`/detail?id=${camp.campId}`}>
-                      <CampThumbnail>
-                        <CampThumb
-                          src={
-                            camp.firstImageUrl === null
-                              ? Image
-                              : camp.firstImageUrl
-                          }
-                        ></CampThumb>
-                      </CampThumbnail>
-                      <CampInfo>
-                        <CampName>{camp.facltNm}</CampName>
-                        <CampAddr>
-                          {camp.addr1}
-                          {camp.addr2}
-                        </CampAddr>
-                      </CampInfo>
-                    </CampLink>
-                    <CampLike>
-                      <svg
-                        width="22"
-                        height="20"
-                        viewBox="0 0 22 20"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <path
-                          d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z"
-                          fill="#FF7875"
-                        />
-                      </svg>
-                      {camp.like_cnt}
-                    </CampLike>
-                  </NearCamp>
+                  <NearCamp camp={camp} geoLocation={geoLocation} />
                 ))}
             </Slider>
           </SliderWrap>
