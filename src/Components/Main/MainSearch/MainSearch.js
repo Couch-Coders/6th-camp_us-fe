@@ -13,22 +13,22 @@ function MainSearch(props) {
   const sido = district.sido;
   const sigungu = district.sigungu;
   const [address, setAddress] = useState({
-    address1: null,
-    address2: null,
+    doNm: null,
+    sigunguNm: null,
     rate: null,
-    keyword: null,
+    name: null,
   });
   const changeValue = (value) => {
     setAddress((address) => {
-      return { ...address, address1: value };
+      return { ...address, doNm: value };
     });
     setAddress((address) => {
-      return { ...address, address2: null };
+      return { ...address, sigunguNm: null };
     });
   };
   const changeValue2 = (value) => {
     setAddress((address) => {
-      return { ...address, address2: value };
+      return { ...address, sigunguNm: value };
     });
   };
   /* 별점 검색 */
@@ -42,7 +42,7 @@ function MainSearch(props) {
   const [isSearch, setIsSearch] = useState(false);
   const onSearch = (value) => {
     setAddress((address) => {
-      return { ...address, keyword: value === '' ? null : value };
+      return { ...address, name: value === '' ? null : value };
     });
     setIsSearch(true);
   };
@@ -66,7 +66,7 @@ function MainSearch(props) {
             <Select
               placeholder="시/도"
               onChange={changeValue}
-              value={address.address1}
+              value={address.doNm}
             >
               {sido.map((s) => (
                 <Option key={s} value={s}>
@@ -77,10 +77,10 @@ function MainSearch(props) {
             <Select
               placeholder="시/군/구"
               onChange={changeValue2}
-              value={address.address2}
+              value={address.sigunguNm}
             >
-              {address.address1 ? (
-                sigungu[address.address1].map((s) => (
+              {address.doNm ? (
+                sigungu[address.doNm].map((s) => (
                   <Option key={s} value={s}>
                     {s}
                   </Option>

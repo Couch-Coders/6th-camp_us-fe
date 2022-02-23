@@ -40,10 +40,6 @@ const SearchBar = ({
   const [isResultOpen, setIsResultOpen] = useState(false);
   const [isDetailSearch, setIsDetailSearch] = useState(true);
   const [address, setAddress] = useState({
-    address1: null,
-    address2: null,
-    rate: null,
-    keyword: null,
     category: [],
   });
 
@@ -64,10 +60,10 @@ const SearchBar = ({
       setAddress((address) => {
         return {
           ...address,
-          address1: searchCategory.address1,
-          address2: searchCategory.address2,
-          keyword: searchCategory.keyword,
-          rate: searchCategory.rate,
+          doNm: searchCategory.doNm && searchCategory.doNm,
+          sigunguNm: searchCategory.sigunguNm && searchCategory.sigunguNm,
+          name: searchCategory.name && searchCategory.name,
+          rate: searchCategory.rate && searchCategory.rate,
         };
       });
     }
@@ -77,26 +73,26 @@ const SearchBar = ({
   const sido = district.sido;
   const sigungu = district.sigungu;
 
-  const changeAddress1 = (value) => {
+  const changedoNm = (value) => {
     setAddress((address) => {
-      return { ...address, address1: value };
+      return { ...address, doNm: value };
     });
     setAddress((address) => {
-      return { ...address, address2: null };
-    });
-  };
-
-  const changeAddress2 = (value) => {
-    setAddress((address) => {
-      return { ...address, address2: value };
+      return { ...address, sigunguNm: null };
     });
   };
 
-  const changeKeyword = (value) => {
+  const changesigunguNm = (value) => {
+    setAddress((address) => {
+      return { ...address, sigunguNm: value };
+    });
+  };
+
+  const changename = (value) => {
     const campName = value.target.value;
 
     setAddress((address) => {
-      return { ...address, keyword: campName === '' ? null : campName };
+      return { ...address, name: campName === '' ? null : campName };
     });
   };
 
@@ -121,24 +117,34 @@ const SearchBar = ({
 
   const getSearchResult = async (sort) => {
     try {
-      const myLocation = sort === undefined ? null : geoLocation;
-      setIsLoading(false);
-      const category = address.category.join('_');
-      const response = await api.getSearchCamp(
-        address,
-        0,
-        category,
-        sort,
-        myLocation,
-      );
+      setIsLoading(true);
+      let paramAddress = { ...address };
+      if (sort === 'distance')
+        paramAddress = {
+          ...paramAddress,
+          mapX: geoLocation.long,
+          mapY: geoLocation.lat,
+        };
+      if (address.category.length > 0) {
+        paramAddress = {
+          ...paramAddress,
+          tag: address.category.join('_'),
+        };
+      }
+      delete paramAddress.category;
+
+      const response = await api.getSearchCamp(paramAddress, 0, sort);
+      console.log(response);
       const campData = response.content;
       setCampResult(campData);
       setSearchedCampData(campData);
+
       sort === 'distance' &&
         setAddress((address) => {
-          return { ...address, address1: null, address2: null, rate: null };
+          return { ...address, doNm: null, sigunguNm: null, rate: null };
         });
-      setIsLoading(true);
+
+      setIsLoading(false);
     } catch (e) {
       throw new Error('에러');
     }
@@ -162,24 +168,24 @@ const SearchBar = ({
             <MobileFlexBox bg>
               <MobileSelectAddress
                 placeholder="시/도"
-                onChange={changeAddress1}
-                value={address.address1}
+                onChange={changedoNm}
+                value={address.doNm}
               >
-                {sido.map((address1, index) => (
-                  <Option key={index} value={address1}>
-                    {address1}
+                {sido.map((doNm, index) => (
+                  <Option key={index} value={doNm}>
+                    {doNm}
                   </Option>
                 ))}
               </MobileSelectAddress>
               <MobileSelectAddress
                 placeholder="시/군/구"
-                onChange={changeAddress2}
-                value={address.address2}
+                onChange={changesigunguNm}
+                value={address.sigunguNm}
               >
-                {address.address1 &&
-                  sigungu[address.address1].map((address2, index) => (
-                    <Option key={index} value={address2}>
-                      {address2}
+                {address.doNm &&
+                  sigungu[address.doNm].map((sigunguNm, index) => (
+                    <Option key={index} value={sigunguNm}>
+                      {sigunguNm}
                     </Option>
                   ))}
               </MobileSelectAddress>
@@ -192,8 +198,8 @@ const SearchBar = ({
             <MobileFlexBox bg>
               <MobileInputContent
                 placeholder="캠핑장 이름을 검색하세요."
-                onChange={changeKeyword}
-                value={address.keyword}
+                onChange={changename}
+                value={address.name}
               />
               {searchCategory !== null ? (
                 <MobileRateContent
@@ -254,8 +260,8 @@ const SearchBar = ({
               <InputTitle>캠핑장 이름</InputTitle>
               <InputContent
                 placeholder="캠핑장 이름을 검색하세요."
-                onChange={changeKeyword}
-                value={address.keyword}
+                onChange={changename}
+                value={address.name}
               />
             </FlexBox>
             <FlexBox>
@@ -263,24 +269,24 @@ const SearchBar = ({
               <div>
                 <SelectAddress
                   placeholder="시/도"
-                  onChange={changeAddress1}
-                  value={address.address1}
+                  onChange={changedoNm}
+                  value={address.doNm}
                 >
-                  {sido.map((address1, index) => (
-                    <Option key={index} value={address1}>
-                      {address1}
+                  {sido.map((doNm, index) => (
+                    <Option key={index} value={doNm}>
+                      {doNm}
                     </Option>
                   ))}
                 </SelectAddress>
                 <SelectAddress
                   placeholder="시/군/구"
-                  onChange={changeAddress2}
-                  value={address.address2}
+                  onChange={changesigunguNm}
+                  value={address.sigunguNm}
                 >
-                  {address.address1 &&
-                    sigungu[address.address1].map((address2, index) => (
-                      <Option key={index} value={address2}>
-                        {address2}
+                  {address.doNm &&
+                    sigungu[address.doNm].map((sigunguNm, index) => (
+                      <Option key={index} value={sigunguNm}>
+                        {sigunguNm}
                       </Option>
                     ))}
                 </SelectAddress>
