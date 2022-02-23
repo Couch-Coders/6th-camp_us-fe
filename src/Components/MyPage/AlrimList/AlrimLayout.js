@@ -87,7 +87,7 @@ export default function AlrimLayout({ user }) {
       {data.length === 0 ? (
         <AlrimNotification />
       ) : (
-        <AlrimList alrimList={data} />
+        <AlrimList alrimList={data} request={request} />
       )}
 
       <PaginationContent
