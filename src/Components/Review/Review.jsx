@@ -62,6 +62,9 @@ const Review = ({ CampId, clickedPage }) => {
   async function deleteTask(id) {
     const response = await api.deleteReview(id);
     console.log(response);
+    clickedPage === 'detail'
+      ? detailReviewRequest(currentPage)
+      : MemberReviewRequest(currentPage);
     // const remainingTasks = reviewData.filter((data) => id !== data.id);
     // setReviewData(remainingTasks);
   }
