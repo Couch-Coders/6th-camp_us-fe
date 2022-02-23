@@ -63,7 +63,7 @@ export const List = styled.div`
 `;
 
 export const AlrimWrap = styled.div`
-  display: flex;
+  display: ${({ isDelete }) => (isDelete ? 'none' : 'flex')};
   justify-content: start;
   height: 88px;
   background: ${({ checked, read }) =>

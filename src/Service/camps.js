@@ -122,9 +122,11 @@ export async function readAlrim(id) {
 }
 
 // 선택한 알림 삭제
-export async function deleteAlrim(id) {
+export async function deleteAlrim(notificationId) {
   try {
-    const response = await axiosInstance.delete(`/notifications/${id}`);
+    const response = await axiosInstance.delete(
+      `/notifications/${notificationId}`,
+    );
     console.log(response);
     const data = response.data;
     return data;

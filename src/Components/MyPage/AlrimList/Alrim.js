@@ -20,8 +20,10 @@ import {
 
 export default function Alrim({ alrim }) {
   /* 선택한 알림 삭제 */
-  const handleOnDelete = async () => {
+  const [isDelete, setIsDelete] = useState(false);
+  const handleOnDelete = async (id) => {
     const response = await api.deleteAlrim(alrim.notificationId);
+    setIsDelete(true);
   };
 
   /* 선택한 알림 읽기 */
@@ -32,7 +34,12 @@ export default function Alrim({ alrim }) {
   };
 
   return (
-    <AlrimWrap key={alrim.notificationId} checked={alrim.checked} read={read}>
+    <AlrimWrap
+      key={alrim.notificationId}
+      checked={alrim.checked}
+      read={read}
+      isDelete={isDelete}
+    >
       <CheckedArea
         to={`/detail?id=${alrim.campId}`}
         onClick={() => handleOnUpdate(alrim.notificationId)}
@@ -61,7 +68,7 @@ export default function Alrim({ alrim }) {
           </BottomArea>
         </Info>
       </CheckedArea>
-      <DeleteBtn onClick={(e) => handleOnDelete(alrim.notificationId)}>
+      <DeleteBtn onClick={() => handleOnDelete(alrim.notificationId)}>
         <CloseOutlined />
       </DeleteBtn>
     </AlrimWrap>
