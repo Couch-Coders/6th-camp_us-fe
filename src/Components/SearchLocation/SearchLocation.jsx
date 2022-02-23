@@ -8,21 +8,31 @@ import { UnorderedListOutlined } from '@ant-design/icons';
 const DEFAULT_X = 127.02761;
 const DEFAULT_Y = 37.498095;
 
-<<<<<<< HEAD
 const CampLocation = ({
   campList,
   isViewLSearchList,
   setIsViewLSearchList,
 }) => {
   const PropState = isViewLSearchList ? 'true' : 'false';
-  console.log('PropState', PropState);
+  const geoLocation = useGetGeolocation();
+
   return (
     <Wrap PropState={PropState}>
       <MapStyle // 지도를 표시할 Container
         center={{
           // 지도의 중심좌표
-          lat: campList.length > 0 ? campList[0].mapY : DEFAULT_Y,
-          lng: campList.length > 0 ? campList[0].mapX : DEFAULT_X,
+          lat:
+            campList.length > 0
+              ? campList[0].mapY
+              : geoLocation.lat
+              ? geoLocation.lat
+              : DEFAULT_Y,
+          lng:
+            campList.length > 0
+              ? campList[0].mapX
+              : geoLocation.long
+              ? geoLocation.long
+              : DEFAULT_X,
         }}
         level={3} // 지도의 확대 레벨
       >
@@ -35,40 +45,6 @@ const CampLocation = ({
         <UnorderedListOutlined />
       </ChangeViewBtn>
     </Wrap>
-=======
-const CampLocation = ({ campList }) => {
-  const geoLocation = useGetGeolocation();
-
-  return (
-    <Map // 지도를 표시할 Container
-      center={{
-        // 지도의 중심좌표
-        lat:
-          campList.length > 0
-            ? campList[0].mapY
-            : geoLocation.lat
-            ? geoLocation.lat
-            : DEFAULT_Y,
-        lng:
-          campList.length > 0
-            ? campList[0].mapX
-            : geoLocation.long
-            ? geoLocation.long
-            : DEFAULT_X,
-      }}
-      style={{
-        // 지도의 크기
-        width: '60%',
-        height: '100%',
-      }}
-      level={3} // 지도의 확대 레벨
-    >
-      <ZoomControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
-      <MapTypeControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
-      {campList.length > 0 &&
-        campList.map((camp) => <EventMarker key={camp.id} camp={camp} />)}
-    </Map>
->>>>>>> a389fb280394a3599161c62bd104f4a986722600
   );
 };
 

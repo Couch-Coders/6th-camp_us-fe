@@ -1,6 +1,7 @@
-import React, { useCallback, useEffect, useState, useRef } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import * as api from '../../Service/camps';
 import { useLocation } from 'react-router';
+import { PageContext } from '../../context/SearchPaginationContext';
 import SearchLocation from '../../Components/SearchLocation/SearchLocation';
 import styled from 'styled-components';
 import SearchBar from '../../Components/SearchBar/SearchBar';
@@ -8,12 +9,17 @@ import SearchBar from '../../Components/SearchBar/SearchBar';
 const SearchPage = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [campList, setCampList] = useState([]);
+  const [totalElement, setTotalElement] = useState();
+  const [currentPage, setCurrentPage] = useState(0);
+
   const { state } = useLocation();
 
   async function getCampList() {
     // 백엔드 api 완성되면 Search api 사용 예정
     setIsLoading(true);
-    const response = await api.getMainSearch(state, 0);
+    const response = await api.getMainSearch(state, currentPage);
+    console.log(response);
+    setTotalElement(response.totalElements);
     setCampList(response.content);
     setIsLoading(false);
   }
@@ -29,30 +35,29 @@ const SearchPage = () => {
   const [isViewLSearchList, setIsViewLSearchList] = useState(true);
   return (
     <Container>
-<<<<<<< HEAD
-      <SearchBar
-        searchCategory={state}
-        setSearchedCampData={setSearchedCampData}
-        isViewLSearchList={isViewLSearchList}
-        setIsViewLSearchList={setIsViewLSearchList}
-      />
-=======
-      {state ? (
-        !isLoading && (
+      <PageContext.Provider
+        value={{ totalElement, currentPage, setCurrentPage, setTotalElement }}
+      >
+        {state ? (
+          !isLoading && (
+            <SearchBar
+              searchCategory={state}
+              setSearchedCampData={setSearchedCampData}
+              isViewLSearchList={isViewLSearchList}
+              setIsViewLSearchList={setIsViewLSearchList}
+              campList={campList}
+            />
+          )
+        ) : (
           <SearchBar
             searchCategory={state}
             setSearchedCampData={setSearchedCampData}
-            campList={campList}
+            isViewLSearchList={isViewLSearchList}
+            setIsViewLSearchList={setIsViewLSearchList}
           />
-        )
-      ) : (
-        <SearchBar
-          searchCategory={state}
-          setSearchedCampData={setSearchedCampData}
-        />
-      )}
+        )}
+      </PageContext.Provider>
 
->>>>>>> a389fb280394a3599161c62bd104f4a986722600
       {state ? (
         !isLoading && (
           <SearchLocation

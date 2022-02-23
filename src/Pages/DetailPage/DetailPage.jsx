@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import CampInformation from '../../Components/CampInformation/CampInformation';
 import Tag from '../../Components/Tag/Tag';
 import CampLocation from '../../Components/CampLocation/CampLocation';
+import CampLike from '../../Components/CampLike/CampLike';
 import { CampContext } from '../../context/CampContext';
 import * as api from '../../Service/camps';
 import { style } from './DetailPage.style';
@@ -12,7 +13,6 @@ import Review from '../../Components/Review/Review';
 const DetailPage = () => {
   const [campData, setCampData] = useState();
   const [campInfo, setCampInfo] = useState([]);
-  const [campReview, setCampReview] = useState();
   const [reviewImg, setReviewImg] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [selectedTabs, setSelectedTabs] = useState('information');
@@ -40,7 +40,6 @@ const DetailPage = () => {
   async function getCampReview() {
     const response = await api.getCampReview(CampId);
     console.log(response);
-    setCampReview(response.content);
     for (const item of response.content) {
       if (item.imgUrl === '') continue;
       setReviewImg((prev) => [...prev, item.imgUrl]);
@@ -58,23 +57,11 @@ const DetailPage = () => {
         <Container>
           <Header>
             {campData && <Title>{campData.facltNm}</Title>}
-            <LikeWrap>
-              <Like>
-                <svg
-                  width="22"
-                  height="20"
-                  viewBox="0 0 22 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z"
-                    fill="#FF7875"
-                  />
-                </svg>
-              </Like>
-              {campData && <LikeCount>{campData.like_cnt}</LikeCount>}
-            </LikeWrap>
+            <CampLike
+              likeCount={campData.likeCnt}
+              campId={CampId}
+              liked={campData.liked}
+            />
           </Header>
           <CampInfoWrap>
             {campInfo.map((item, index) => (
@@ -116,20 +103,10 @@ const DetailPage = () => {
                 <Td>{campData.induty}</Td>
               </tr>
               <tr>
-                {campData && <Th>별점 {campData.rate}</Th>}
+                {campData && <Th>별점</Th>}
                 <Td>
-                  <svg
-                    width="14"
-                    height="14"
-                    viewBox="0 0 14 14"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M6.04426 1.10489C6.33393 0.163822 7.66607 0.163825 7.95574 1.1049L8.80337 3.85854C8.93251 4.27807 9.32015 4.56434 9.75911 4.56434H12.6123C13.5679 4.56434 13.9791 5.77633 13.2209 6.35785L10.8212 8.19818C10.4895 8.45255 10.351 8.88639 10.474 9.28589L11.3684 12.1914C11.6549 13.1224 10.577 13.8719 9.8041 13.2792L7.60855 11.5954C7.24956 11.3201 6.75044 11.3201 6.39145 11.5954L4.19591 13.2792C3.42301 13.8719 2.34506 13.1224 2.63161 12.1914L3.52599 9.28588C3.64897 8.88639 3.51049 8.45255 3.1788 8.19818L0.779129 6.35785C0.0208566 5.77633 0.432093 4.56434 1.38768 4.56434H4.24089C4.67985 4.56434 5.06749 4.27807 5.19663 3.85853L6.04426 1.10489Z"
-                      fill="#FAAD14"
-                    />
-                  </svg>
+                  <RateContant disabled allowHalf value={campData.avgRate} />
+                  {`${campData.avgRate.toFixed(1)}`}
                 </Td>
               </tr>
             </tbody>
@@ -183,14 +160,12 @@ const {
   Container,
   Header,
   Title,
-  LikeWrap,
-  Like,
-  LikeCount,
   CampInfoWrap,
   Thumbnail,
   Table,
   Th,
   Td,
+  RateContant,
   Devider,
   TabsContainer,
   TabsWrap,
