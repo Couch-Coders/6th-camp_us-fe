@@ -192,6 +192,17 @@ const Review = ({ CampId, clickedPage }) => {
           changePage(value);
         }}
       />
+      <Button
+        type="primary"
+        onClick={warning}
+        style={{
+          background: '#73d13d',
+          border: '1px solid #73d13d',
+          display: 'none',
+        }}
+      >
+        작성
+      </Button>
     </Container>
   );
 };
