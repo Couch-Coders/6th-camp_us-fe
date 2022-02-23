@@ -91,7 +91,7 @@ const Review = ({ CampId, clickedPage }) => {
       });
     } else {
       setReview((review) => {
-        return { ...review, imgUrl: null, imgName: null };
+        return { ...review, imgUrl: '', imgName: '' };
       });
     }
   }, []);

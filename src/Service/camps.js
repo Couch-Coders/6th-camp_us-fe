@@ -139,20 +139,6 @@ export async function deleteAlrim(notificationId) {
   }
 }
 
-// 선택한 알림 삭제
-export async function deleteAlrim(notificationId) {
-  try {
-    const response = await axiosInstance.delete(
-      `/notifications/${notificationId}`,
-    );
-    console.log(response);
-    const data = response.data;
-    return data;
-  } catch (error) {
-    throw new Error('Failed to load data');
-  }
-}
-
 // 캠핑장 추천
 export async function getRecommendCamp() {
   try {
@@ -202,7 +188,7 @@ export async function campLike(id) {
 export async function getCampReview(id, page) {
   try {
     const response = await axiosInstance(
-      `/camps/${id}/reviews?page=${page}&size=5&sort=createdDate,desc`,
+      `/camps/${id}/reviews?&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -217,7 +203,7 @@ export async function getSearchCamp(address, pageNum, sort) {
   console.log(address);
   try {
     const response = await axiosInstance({
-      url: `/camps?pages=${pageNum}&size=10`,
+      url: `/camps?page=${pageNum}&size=10`,
       params: {
         name: address.name && address.name,
         doNm: address.doNm && address.doNm,
