@@ -62,9 +62,11 @@ export async function getUserInfo() {
 }
 
 // 회원이 좋아요한 캠핑장 조회
-export async function getMyCampsLikes() {
+export async function getMyCampsLikes(page) {
   try {
-    const response = await axiosInstance('/members/me/camps/likes');
+    const response = await axiosInstance(
+      `/members/me/camps?page=${page}&size=5&sort=createdDate,desc`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -73,10 +75,23 @@ export async function getMyCampsLikes() {
 }
 
 // 알림 조회
-export async function getAlrimList() {
+export async function getAlrimList(page) {
   try {
-    const response = await axiosInstance('/members/me/notifications');
-    const data = response.data.content;
+    const response = await axiosInstance(
+      `/members/me/notifications?page=${page}&size=5&sort=createdDate,desc`,
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 모든 알림 삭제
+export async function deleteAllAlrim() {
+  try {
+    const response = await axiosInstance.delete(`/members/me/notifications`);
+    const data = response.data;
     return data;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -99,7 +114,24 @@ export async function readAlrim(id) {
   try {
     const response = await axiosInstance.patch(
       `/members/me/notifications/${id}`,
+      {
+        checked: true,
+      },
     );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 선택한 알림 삭제
+export async function deleteAlrim(notificationId) {
+  try {
+    const response = await axiosInstance.delete(
+      `/notifications/${notificationId}`,
+    );
+    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -169,10 +201,9 @@ export async function getCampReview(id, page) {
 
 export async function getSearchCamp(address, pageNum, sort) {
   console.log(address);
-  console.log(pageNum);
   try {
     const response = await axiosInstance({
-      url: `/camps?page=${pageNum}&size=10`,
+      url: `/camps?pages=${pageNum}&size=10`,
       params: {
         name: address.name && address.name,
         doNm: address.doNm && address.doNm,
