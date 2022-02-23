@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'antd';
 
 export const LikeList = styled.div`
   width: 100%;
@@ -9,7 +10,7 @@ export const LikeList = styled.div`
   }
 `;
 
-export const LikeCamp = styled.div`
+export const LikeCampWrap = styled.div`
   width: 100%;
   height: 156px;
   display: flex;
@@ -128,4 +129,11 @@ export const CampAddr = styled.div`
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+`;
+
+export const PaginationContent = styled(Pagination)`
+  text-align: center;
+  .ant-select-selector {
+    display: none;
+  }
 `;
