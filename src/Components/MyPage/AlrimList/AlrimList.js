@@ -2,7 +2,7 @@ import React from 'react';
 import Alrim from './Alrim';
 import { List } from './AlrimList.styles';
 
-export default function AlrimList({ alrimList }) {
+export default function AlrimList({ alrimList, request }) {
   return (
     <>
       <List>
@@ -11,6 +11,7 @@ export default function AlrimList({ alrimList }) {
             alrim={alrim}
             key={alrim.notificationId}
             checked={alrim.checked}
+            request={request}
           />
         ))}
       </List>
