@@ -34,7 +34,7 @@ export default function Alrim({ alrim }) {
   return (
     <AlrimWrap key={alrim.notificationId} checked={alrim.checked} read={read}>
       <CheckedArea
-        to={`/detail/${alrim.id}`}
+        to={`/detail?id=${alrim.campId}`}
         onClick={() => handleOnUpdate(alrim.notificationId)}
       >
         <Thumbnail>
