@@ -1,11 +1,9 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { UserContext } from '../../auth/AuthProvider';
-import { auth } from '../../../Service/firebaseAuth';
 import * as api from '../../../Service/camps';
-import Pagination from '../../Pagination/Pagination';
 import LikesList from './LikesList';
 import { PaginationContent } from './LikesList.styles';
+import { NotMyLikeListNotification } from '../../../Components/Notice/Notice';
 
 export default function LikeListLayout() {
   const { user } = useContext(UserContext);
@@ -42,15 +40,21 @@ export default function LikeListLayout() {
 
   return (
     <>
-      <LikesList camp={data} request={request} />
-      <PaginationContent
-        current={currentPage + 1}
-        total={totalElement}
-        pageSize={5}
-        onChange={(value) => {
-          changePage(value);
-        }}
-      />
+      {data.length === 0 ? (
+        <NotMyLikeListNotification />
+      ) : (
+        <>
+          <LikesList camp={data} request={request} />
+          <PaginationContent
+            current={currentPage + 1}
+            total={totalElement}
+            pageSize={5}
+            onChange={(value) => {
+              changePage(value);
+            }}
+          />
+        </>
+      )}
     </>
   );
 }

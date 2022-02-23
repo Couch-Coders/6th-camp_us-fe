@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Pagination } from 'antd';
 
 const Container = styled.div`
-  display: flex;
+  //display: flex;
   flex-direction: column;
   align-items: center;
 `;
@@ -84,6 +84,7 @@ const Wrap = styled.div`
 `;
 
 const PaginationContent = styled(Pagination)`
+  text-align: center;
   .ant-select-selector {
     display: none;
   }
