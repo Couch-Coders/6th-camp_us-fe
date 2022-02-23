@@ -1,8 +1,10 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
+import { Pagination } from 'antd';
 
 export const BestReviewList = styled.div`
   position: relative;
+  margin-bottom: 20px;
 `;
 
 export const BestReview = styled(Link)`
@@ -119,5 +121,12 @@ export const ReviewLike = styled.div`
     width: 100%;
     padding: 18px;
     padding-top: 0;
+  }
+`;
+
+export const PaginationContent = styled(Pagination)`
+  text-align: center;
+  .ant-select-selector {
+    display: none;
   }
 `;
