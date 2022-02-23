@@ -73,10 +73,12 @@ export async function getMyCampsLikes() {
 }
 
 // 알림 조회
-export async function getAlrimList() {
+export async function getAlrimList(page) {
   try {
-    const response = await axiosInstance(`/members/me/notifications`);
-    const data = response.data.content;
+    const response = await axiosInstance(
+      `/members/me/notifications?page=${page}&size=5&sort=createdDate,desc`,
+    );
+    const data = response.data;
     return data;
   } catch (error) {
     throw new Error('Failed to load data');

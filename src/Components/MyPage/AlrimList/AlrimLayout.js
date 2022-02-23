@@ -7,7 +7,7 @@ import { auth } from '../../../Service/firebaseAuth';
 import * as api from '../../../Service/camps';
 import Pagination from '../../Pagination/Pagination';
 import AlrimList from './AlrimList';
-import { AlrimButton } from './AlrimList.styles';
+import { AlrimButton, PaginationContent } from './AlrimList.styles';
 import { AlrimNotification } from '../../../Components/Notice/Notice';
 
 /* // AuthProvider.js
@@ -15,15 +15,39 @@ export const UserContext = React.createContext(null);  */
 
 export default function AlrimLayout({ user }) {
   const [data, setData] = useState([]);
+  const [totalElement, setTotalElement] = useState();
+  const [currentPage, setCurrentPage] = useState(0);
 
-  async function request() {
-    const response = await api.getAlrimList();
-    setData(response);
+  async function request(page) {
+    const response = await api.getAlrimList(page);
+    console.log(response);
+    //setData(response);
+    setData(response.content);
+    setTotalElement(response.totalElements);
   }
+
   useEffect(() => {
     request();
   }, [user]);
 
+  // 페이지 변경
+  const changePage = (value) => {
+    console.log('changePage', value);
+    setCurrentPage(value - 1);
+  };
+
+  async function MemberAlrimRequest(page) {
+    const response = await api.getAlrimList(page);
+    console.log(response);
+    setData(response.content);
+    setTotalElement(response.totalElements);
+  }
+
+  useEffect(() => {
+    MemberAlrimRequest(currentPage);
+  }, [currentPage]);
+
+  // 알림 전체 읽기
   const AlrimAllChecked = async (e) => {
     e.preventDefault();
     await api.readAllAlrim();
@@ -33,6 +57,7 @@ export default function AlrimLayout({ user }) {
     setData(ChangeAllReadAlrim);
   };
 
+  // 알림 전체 삭제
   const AlrimAllDelete = async (e) => {
     e.preventDefault();
     if (window.confirm('알림을 전체 삭제 하시겠습니까?')) {
@@ -42,10 +67,10 @@ export default function AlrimLayout({ user }) {
   };
 
   /* pagination */
-  const [currentPage, setCurrentPage] = useState(1);
+  /* const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(10);
   const indexOfLastPost = currentPage * postsPerPage;
-  const indexOfFirstPost = indexOfLastPost - postsPerPage;
+  const indexOfFirstPost = indexOfLastPost - postsPerPage; */
   // const currentPosts = data.slice(indexOfFirstPost, indexOfLastPost);
 
   const paginate = (e, pageNumber) => {
@@ -65,11 +90,13 @@ export default function AlrimLayout({ user }) {
         <AlrimList alrimList={data} />
       )}
 
-      <Pagination
-        postsPerPage={postsPerPage}
-        totalPosts={data.length}
-        currentPage={currentPage}
-        paginate={paginate}
+      <PaginationContent
+        current={currentPage + 1}
+        total={totalElement}
+        pageSize={5}
+        onChange={(value) => {
+          changePage(value);
+        }}
       />
     </>
   );
