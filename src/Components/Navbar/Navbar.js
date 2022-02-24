@@ -70,7 +70,7 @@ const Navbar = () => {
             </NavLinks>
           </NavItem>
           <NavItem>
-            <NavLinks to="/" selected={pathname === '/community'}>
+            <NavLinks to="/community" selected={pathname === '/community'}>
               커뮤니티
             </NavLinks>
           </NavItem>
