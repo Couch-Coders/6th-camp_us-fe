@@ -5,6 +5,7 @@ import MainPage from './Pages/MainPage/MainPage';
 import SearchPage from './Pages/SearchPage/SearchPage';
 import MyPage from './Pages/MyPage/MyPage';
 import Navbar from './Components/Navbar/Navbar';
+import CommunityPage from './Pages/CommunityPage/CommunityPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/detail" element={<DetailPage />} />
           <Route path="/search" element={<SearchPage />} />
           <Route path="/member" element={<MyPage />} />
+          <Route path="/community" element={<CommunityPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
