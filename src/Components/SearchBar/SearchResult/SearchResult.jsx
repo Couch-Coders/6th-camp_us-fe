@@ -20,16 +20,16 @@ const SearchResult = ({ campResult, getSearchResult, changePage }) => {
   window.addEventListener(
     'resize',
     throttle(() => {
-      const elementHeight = listRef.current.getBoundingClientRect();
+      const elementHeight = listRef.current?.getBoundingClientRect();
       const brouserHeight = window.innerHeight;
-      setListHeight(brouserHeight - elementHeight.y - 70);
+      setListHeight(brouserHeight - elementHeight?.y - 70);
     }, 500),
   );
 
   useEffect(() => {
-    const elementHeight = listRef.current.getBoundingClientRect();
+    const elementHeight = listRef.current?.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
-    setListHeight(brouserHeight - elementHeight.y - 70);
+    setListHeight(brouserHeight - elementHeight?.y - 70);
   }, []);
 
   const onResultSort = (value) => {
