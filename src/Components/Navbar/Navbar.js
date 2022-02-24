@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FaTimes, FaBars } from 'react-icons/fa';
+import * as api from '../../Service/camps';
 import Modal from '../Modal/Modal';
 import {
   Nav,
@@ -16,6 +17,7 @@ import {
   LogOutBtn,
   LogInBtn,
   MyProfile,
+  NewAlrimBadge,
   NavItemBtn,
   MyMenu,
   MenuList,
@@ -30,8 +32,20 @@ const Navbar = () => {
   const [IsClicked, setIsClicked] = useState(false);
   const [button, setButton] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [newAlrimCnt, setnewAlrimCnt] = useState(0);
   const { pathname } = useLocation();
   const { user, isRegisterOpen } = useContext(UserContext);
+
+  async function request(page) {
+    const response = await api.getAlrimList(page);
+    console.log('navbar request', response);
+    setnewAlrimCnt(response.content.length);
+    // setData(response.content);
+    // setTotalElement(response.totalElements);
+  }
+  useEffect(() => {
+    request();
+  });
 
   const handleClick = () => setClick(!click);
 
@@ -76,19 +90,37 @@ const Navbar = () => {
           </NavItem>
           {user ? (
             <NavItemBtn>
-              <MyProfile
-                to="/"
-                onClick={function (e) {
-                  e.preventDefault();
-                  setIsClicked(!IsClicked);
-                }}
-              >
-                {user.data.imgUrl !== '' ? (
-                  <img src={user.data.imgUrl}></img>
-                ) : (
-                  <Avatar size="large" icon={<UserOutlined />} />
-                )}
-              </MyProfile>
+              {newAlrimCnt > 0 ? (
+                <NewAlrimBadge count={newAlrimCnt}>
+                  <MyProfile
+                    to="/"
+                    onClick={function (e) {
+                      e.preventDefault();
+                      setIsClicked(!IsClicked);
+                    }}
+                  >
+                    {user.data.imgUrl !== '' ? (
+                      <img src={user.data.imgUrl}></img>
+                    ) : (
+                      <Avatar size="large" icon={<UserOutlined />} />
+                    )}
+                  </MyProfile>
+                </NewAlrimBadge>
+              ) : (
+                <MyProfile
+                  to="/"
+                  onClick={function (e) {
+                    e.preventDefault();
+                    setIsClicked(!IsClicked);
+                  }}
+                >
+                  {user.data.imgUrl !== '' ? (
+                    <img src={user.data.imgUrl}></img>
+                  ) : (
+                    <Avatar size="large" icon={<UserOutlined />} />
+                  )}
+                </MyProfile>
+              )}
               <MyMenu Isclicked={IsClicked}>
                 <MenuList
                   to="/member"
