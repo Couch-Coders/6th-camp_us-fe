@@ -2,11 +2,20 @@ import styled from 'styled-components';
 
 export const TitleWrap = styled.div`
   display: flex;
+
+  @media screen and (max-width: 600px) {
+    flex-direction: column;
+  }
 `;
 
 export const Notice = styled.span`
   padding-left: 10px;
   color: rgba(0, 0, 0, 0.45);
+
+  @media screen and (max-width: 600px) {
+    padding-left: 0;
+    padding-bottom: 10px;
+  }
 `;
 
 export const NearCampList = styled.div`
