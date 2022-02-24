@@ -23,6 +23,7 @@ const useGetGeolocation = (props) => {
           });
         },
         function (error) {
+          setGeolocation(false);
           console.error(error);
         },
         {
@@ -32,7 +33,7 @@ const useGetGeolocation = (props) => {
         },
       );
     } else {
-      alert('위치 설정을 허용해주세요!');
+      setGeolocation(false);
       return;
     }
   }

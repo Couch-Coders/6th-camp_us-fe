@@ -353,7 +353,7 @@ const SearchBar = ({
             </ButtonWrap>
           </Form>
           {isResultOpen && (
-            /* campResult.length > 0 ? */ <SearchResult
+            <SearchResult
               isLoading={isLoading}
               campResult={campResult}
               getSearchResult={getSearchResult}
