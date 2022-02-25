@@ -67,3 +67,8 @@ export const SliderWrap = styled.div`
     }
   }
 `;
+
+export const SkeletonWrap = styled.div`
+  width: 100%;
+  display: flex;
+`;
