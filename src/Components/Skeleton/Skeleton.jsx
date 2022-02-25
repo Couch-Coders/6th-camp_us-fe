@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Shimmer from '../Shimmer';
+import Shimmer from './Shimmer';
 
-const SearchSkeleton = () => (
+const Skeleton = () => (
   <ContainerLayout>
     <ImageLayout>
       <Shimmer />
@@ -25,7 +25,7 @@ const SearchSkeleton = () => (
   </ContainerLayout>
 );
 
-export default SearchSkeleton;
+export default Skeleton;
 
 const ContainerLayout = styled.div`
   display: flex;

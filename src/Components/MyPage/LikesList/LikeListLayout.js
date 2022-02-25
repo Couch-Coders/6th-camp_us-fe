@@ -4,18 +4,22 @@ import * as api from '../../../Service/camps';
 import LikesList from './LikesList';
 import { PaginationContent } from './LikesList.styles';
 import { NotMyLikeListNotification } from '../../../Components/Notice/Notice';
+import Skeleton from '../../Skeleton/Skeleton';
 
 export default function LikeListLayout() {
   const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function request() {
+    setIsLoading(true);
     const response = await api.getMyCampsLikes();
     console.log(response);
     setData(response.content);
     setTotalElement(response.totalElements);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -40,8 +44,14 @@ export default function LikeListLayout() {
 
   return (
     <>
-      {data.length === 0 ? (
+      {!isLoading && data.length === 0 ? (
         <NotMyLikeListNotification />
+      ) : isLoading ? (
+        <>
+          <Skeleton />
+          <Skeleton />
+          <Skeleton />
+        </>
       ) : (
         <>
           <LikesList camp={data} request={request} />
