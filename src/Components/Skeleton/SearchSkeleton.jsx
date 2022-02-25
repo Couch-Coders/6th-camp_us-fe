@@ -39,7 +39,7 @@ const ContainerLayout = styled.div`
 `;
 
 const ImageLayout = styled.div`
-  width: 200px;
+  width: 180px;
   height: 100%;
   overflow: hidden;
   background-color: #eeeeee;
