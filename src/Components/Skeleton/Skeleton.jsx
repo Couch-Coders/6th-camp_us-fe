@@ -2,33 +2,83 @@ import React from 'react';
 import styled from 'styled-components';
 import Shimmer from './Shimmer';
 
-const Skeleton = () => (
-  <ContainerLayout>
-    <ImageLayout>
-      <Shimmer />
-    </ImageLayout>
-    <ContentLayout>
-      <HeaderLayout>
-        <TitleLayout>
-          <Shimmer />
-        </TitleLayout>
-      </HeaderLayout>
-      <DescriptionLayout>
-        <TextLayout>
-          <Shimmer />
-        </TextLayout>
-        <TextLayout>
-          <Shimmer />
-        </TextLayout>
-      </DescriptionLayout>
-    </ContentLayout>
-  </ContainerLayout>
-);
+const Skeleton = ({ component, isMobile }) => {
+  return (
+    <>
+      {component === 'recommend' ? (
+        <RecommendLayout isMobile={isMobile}>
+          <RecommendImageLayout isMobile={isMobile}>
+            <Shimmer />
+          </RecommendImageLayout>
+          <ContentLayout>
+            <HeaderLayout component={component}>
+              <TitleLayout component={component}>
+                <Shimmer />
+              </TitleLayout>
+            </HeaderLayout>
+            <DescriptionLayout>
+              <TextLayout>
+                <Shimmer />
+              </TextLayout>
+              <TextLayout>
+                <Shimmer />
+              </TextLayout>
+            </DescriptionLayout>
+          </ContentLayout>
+        </RecommendLayout>
+      ) : (
+        <ContainerLayout>
+          <ImageLayout>
+            <Shimmer />
+          </ImageLayout>
+          <ContentLayout>
+            <HeaderLayout>
+              <TitleLayout>
+                <Shimmer />
+              </TitleLayout>
+            </HeaderLayout>
+            <DescriptionLayout>
+              <TextLayout>
+                <Shimmer />
+              </TextLayout>
+              <TextLayout>
+                <Shimmer />
+              </TextLayout>
+            </DescriptionLayout>
+          </ContentLayout>
+        </ContainerLayout>
+      )}
+    </>
+  );
+};
 
 export default Skeleton;
 
+const RecommendLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: ${({ isMobile }) => (isMobile ? '50%' : '33%')};
+  margin-right: 7px;
+  height: 288px;
+  border: 1px solid #e9e9e9;
+  background-color: #fff;
+  margin-bottom: 8px;
+
+  @media screen and (max-width: 760px) {
+    height: auto;
+  }
+`;
+
+const RecommendImageLayout = styled.div`
+  width: 100%;
+  height: ${({ isMobile }) => (isMobile ? '105px' : '150px')};
+  overflow: hidden;
+  background-color: #eeeeee;
+`;
+
 const ContainerLayout = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
   height: 170px;
   border: 1px solid #e9e9e9;
@@ -50,7 +100,7 @@ const ContentLayout = styled.div`
 `;
 
 const HeaderLayout = styled.div`
-  display: flex;
+  display: ${({ component }) => (component === 'recommend' ? 'none' : 'flex')};
   justify-content: space-between;
   align-items: center;
   height: 50px;
@@ -61,6 +111,7 @@ const HeaderLayout = styled.div`
 `;
 
 const TitleLayout = styled.div`
+  display: ${({ component }) => component === 'recommend' && 'none'};
   overflow: hidden;
   width: 80%;
   height: 20px;
