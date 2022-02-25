@@ -5,8 +5,14 @@ import { Pagination, Select } from 'antd';
 import { throttle } from 'lodash';
 import { PageContext } from '../../../context/SearchPaginationContext';
 import { CampSearchResultNotification } from '../../../Components/Notice/Notice';
+import SearchSkeleton from '../../Skeleton/SearchSkeleton/SearchSkeleton';
 
-const SearchResult = ({ campResult, getSearchResult, changePage }) => {
+const SearchResult = ({
+  isLoading,
+  campResult,
+  getSearchResult,
+  changePage,
+}) => {
   const [resultSort, setResultSort] = useState();
   const [listHeight, setListHeight] = useState();
 
@@ -58,6 +64,12 @@ const SearchResult = ({ campResult, getSearchResult, changePage }) => {
       </Header>
       {campResult.length === 0 ? (
         <CampSearchResultNotification />
+      ) : isLoading ? (
+        <>
+          <SearchSkeleton />
+          <SearchSkeleton />
+          <SearchSkeleton />
+        </>
       ) : (
         <>
           <ListWrap ref={listRef} listHeight={listHeight}>
