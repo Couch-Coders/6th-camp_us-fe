@@ -118,7 +118,6 @@ const SearchBar = ({
   }, []);
 
   const getSearchResult = async (sort, page) => {
-    console.log(sort);
     try {
       setIsLoading(true);
       let paramAddress = { ...address };

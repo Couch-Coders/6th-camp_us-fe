@@ -28,7 +28,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "deploy": "react-scripts build && aws s3 sync ./build s3://camp-us.ga"
   },
   "eslintConfig": {
     "extends": [
@@ -52,6 +53,6 @@
     "eslint": "^8.7.0",
     "prettier": "2.5.1"
   },
-  "proxy": "http://13.124.56.189:8080",
-  "homepage": "pages/"
+  "proxy": "http://54.180.29.177:8080",
+  "homepage": "."
 }
