@@ -32,21 +32,24 @@ const Navbar = () => {
   const [IsClicked, setIsClicked] = useState(false);
   const [button, setButton] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [newAlrimCnt, setnewAlrimCnt] = useState(0);
+  const [alrimData, setAlrimData] = useState([]);
   const { pathname } = useLocation();
   const { user, isRegisterOpen } = useContext(UserContext);
 
-  async function request(page) {
+  // 알림 정보 가져오기
+  async function AlrimDatarequest(page) {
     const response = await api.getAlrimList(page);
     console.log('navbar request', response);
-    setnewAlrimCnt(response.content.length);
-    // setData(response.content);
-    // setTotalElement(response.totalElements);
+    setAlrimData(response.content);
   }
+
   useEffect(() => {
-    request();
+    AlrimDatarequest();
   });
 
+  let newAlrimLength = alrimData.filter(
+    (item) => item['checked'] === false,
+  ).length;
   const handleClick = () => setClick(!click);
 
   const onToggleModal = useCallback(() => {
@@ -90,8 +93,8 @@ const Navbar = () => {
           </NavItem>
           {user ? (
             <NavItemBtn>
-              {newAlrimCnt > 0 ? (
-                <NewAlrimBadge count={newAlrimCnt}>
+              {newAlrimLength > 0 ? (
+                <NewAlrimBadge count={newAlrimLength}>
                   <MyProfile
                     to="/"
                     onClick={function (e) {
