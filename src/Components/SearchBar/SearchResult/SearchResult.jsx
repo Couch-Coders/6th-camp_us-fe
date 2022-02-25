@@ -62,7 +62,7 @@ const SearchResult = ({
           ))}
         </SelectContent>
       </Header>
-      {campResult.length === 0 ? (
+      {!isLoading && campResult.length === 0 ? (
         <CampSearchResultNotification />
       ) : isLoading ? (
         <>
