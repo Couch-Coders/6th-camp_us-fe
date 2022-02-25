@@ -4,7 +4,7 @@ import * as api from '../../../Service/camps';
 import LikesList from './LikesList';
 import { PaginationContent } from './LikesList.styles';
 import { NotMyLikeListNotification } from '../../../Components/Notice/Notice';
-import Skeleton from '../../Skeleton/Skeleton';
+import LikeSkeleton from '../../Skeleton/LikeSkeleton';
 
 export default function LikeListLayout() {
   const { user } = useContext(UserContext);
@@ -48,9 +48,9 @@ export default function LikeListLayout() {
         <NotMyLikeListNotification />
       ) : isLoading ? (
         <>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
+          <LikeSkeleton />
+          <LikeSkeleton />
+          <LikeSkeleton />
         </>
       ) : (
         <>

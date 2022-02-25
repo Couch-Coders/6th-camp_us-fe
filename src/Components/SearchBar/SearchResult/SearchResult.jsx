@@ -5,7 +5,7 @@ import { Pagination, Select } from 'antd';
 import { throttle } from 'lodash';
 import { PageContext } from '../../../context/SearchPaginationContext';
 import { CampSearchResultNotification } from '../../../Components/Notice/Notice';
-import Skeleton from '../../Skeleton/Skeleton';
+import SearchSkeleton from '../../Skeleton/SearchSkeleton';
 
 const SearchResult = ({
   isLoading,
@@ -66,9 +66,9 @@ const SearchResult = ({
         <CampSearchResultNotification />
       ) : isLoading ? (
         <>
-          <Skeleton />
-          <Skeleton />
-          <Skeleton />
+          <SearchSkeleton />
+          <SearchSkeleton />
+          <SearchSkeleton />
         </>
       ) : (
         <>

@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Shimmer from './Shimmer';
 
-const SkeletonVertical = ({ isMobile }) => {
+const SearchSkeleton = ({ isMobile }) => {
   return (
     <ContainerLayout>
       <ImageLayout>
@@ -27,33 +27,22 @@ const SkeletonVertical = ({ isMobile }) => {
   );
 };
 
-export default SkeletonVertical;
+export default SearchSkeleton;
 
 const ContainerLayout = styled.div`
   display: flex;
-  flex-direction: column;
-  width: 33%;
-  margin-right: 7px;
-  height: 288px;
+  width: 100%;
+  height: 170px;
   border: 1px solid #e9e9e9;
   background-color: #fff;
   margin-bottom: 8px;
-
-  @media screen and (max-width: 760px) {
-    width: 50%;
-    height: auto;
-  }
 `;
 
 const ImageLayout = styled.div`
-  width: 100%;
-  height: 150px;
+  width: 200px;
+  height: 100%;
   overflow: hidden;
   background-color: #eeeeee;
-
-  @media screen and (max-width: 760px) {
-    height: 105px;
-  }
 `;
 
 const ContentLayout = styled.div`

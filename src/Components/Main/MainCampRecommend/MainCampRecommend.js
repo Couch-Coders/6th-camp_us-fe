@@ -11,7 +11,7 @@ import {
 } from './MainCampRecommend.styles';
 import useGetGeolocation from '../../../Hooks/useGetGeolocation';
 import NearCamp from './NearCamp/NearCamp';
-import Skeleton from '../../Skeleton/Skeleton';
+import RecommendSkeleton from '../../Skeleton/RecommendSkeleton';
 
 function MainCampRecommend() {
   const [campData, setCampData] = useState([]);
@@ -90,9 +90,9 @@ function MainCampRecommend() {
               <>
                 <SectionTitle>캠핑장을 불러오는 중입니다... ⛺️</SectionTitle>
                 <SkeletonWrap>
-                  <Skeleton vertical="vertical" isMobile={isMobile} />
-                  <Skeleton vertical="vertical" isMobile={isMobile} />
-                  {!isMobile && <Skeleton vertical="vertical" />}
+                  <RecommendSkeleton />
+                  <RecommendSkeleton />
+                  {!isMobile && <RecommendSkeleton />}
                 </SkeletonWrap>
               </>
             )}
