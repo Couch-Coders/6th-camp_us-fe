@@ -90,9 +90,9 @@ function MainCampRecommend() {
               <>
                 <SectionTitle>캠핑장을 불러오는 중입니다... ⛺️</SectionTitle>
                 <SkeletonWrap>
-                  <Skeleton component="recommend" isMobile={isMobile} />
-                  <Skeleton component="recommend" isMobile={isMobile} />
-                  {!isMobile && <Skeleton component="recommend" />}
+                  <Skeleton vertical="vertical" isMobile={isMobile} />
+                  <Skeleton vertical="vertical" isMobile={isMobile} />
+                  {!isMobile && <Skeleton vertical="vertical" />}
                 </SkeletonWrap>
               </>
             )}
