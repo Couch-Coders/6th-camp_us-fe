@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Shimmer from './Shimmer';
 
-const RecommendSkeleton = ({ isMobile }) => {
+const RecommendSkeleton = () => {
   return (
     <ContainerLayout>
       <ImageLayout>

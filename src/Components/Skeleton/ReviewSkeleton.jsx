@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import Shimmer from './Shimmer';
 
-const ReviewSkeleton = ({ isMobile }) => {
+const ReviewSkeleton = () => {
   return (
     <ContainerLayout>
       <ImageLayout>
@@ -35,7 +35,13 @@ const ContainerLayout = styled.div`
   height: 170px;
   border: 1px solid #e9e9e9;
   background-color: #fff;
-  margin-bottom: 8px;
+  border-radius: 2px;
+  margin-bottom: 20px;
+
+  @media screen and (max-width: 760px) {
+    flex-direction: column;
+    height: auto;
+  }
 `;
 
 const ImageLayout = styled.div`
@@ -43,6 +49,11 @@ const ImageLayout = styled.div`
   height: 100%;
   overflow: hidden;
   background-color: #eeeeee;
+
+  @media screen and (max-width: 760px) {
+    width: 100%;
+    height: 50vw;
+  }
 `;
 
 const ContentLayout = styled.div`
@@ -52,7 +63,7 @@ const ContentLayout = styled.div`
 `;
 
 const HeaderLayout = styled.div`
-  display: ${({ vertical }) => (vertical === 'vertical' ? 'none' : 'flex')};
+  display: flex;
   justify-content: space-between;
   align-items: center;
   height: 50px;
@@ -63,11 +74,14 @@ const HeaderLayout = styled.div`
 `;
 
 const TitleLayout = styled.div`
-  display: ${({ vertical }) => vertical === 'vertical' && 'none'};
   overflow: hidden;
   width: 80%;
   height: 20px;
   background-color: #eeeeee;
+
+  @media screen and (max-width: 760px) {
+    display: none;
+  }
 `;
 
 const DescriptionLayout = styled.div`

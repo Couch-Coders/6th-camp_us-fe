@@ -43,6 +43,10 @@ const ImageLayout = styled.div`
   height: 100%;
   overflow: hidden;
   background-color: #eeeeee;
+
+  @media screen and (max-width: 760px) {
+    display: none;
+  }
 `;
 
 const ContentLayout = styled.div`
@@ -52,7 +56,7 @@ const ContentLayout = styled.div`
 `;
 
 const HeaderLayout = styled.div`
-  display: ${({ vertical }) => (vertical === 'vertical' ? 'none' : 'flex')};
+  display: flex;
   justify-content: space-between;
   align-items: center;
   height: 50px;
@@ -63,7 +67,6 @@ const HeaderLayout = styled.div`
 `;
 
 const TitleLayout = styled.div`
-  display: ${({ vertical }) => vertical === 'vertical' && 'none'};
   overflow: hidden;
   width: 80%;
   height: 20px;
