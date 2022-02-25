@@ -5,15 +5,16 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import styled from 'styled-components';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import { Rate, Input, message, Button } from 'antd';
+import { Rate, Input, message } from 'antd';
 import * as api from '../../Service/camps';
 import ReviewsList from '../Review/ReviewsList';
 import { style } from './Review.style';
 import { UserContext } from '../auth/AuthProvider';
 import { NotMyReviewNotification } from '../../Components/Notice/Notice';
+import Skeleton from '../Skeleton/RecommendSkeleton';
+import ReviewSkeleton from '../Skeleton/ReviewSkeleton';
 
 const Review = ({ CampId, clickedPage }) => {
   const { TextArea } = Input;
@@ -26,22 +27,27 @@ const Review = ({ CampId, clickedPage }) => {
   const [reviewData, setReviewData] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const buttonRef = useRef();
 
   const { user } = useContext(UserContext);
 
   async function detailReviewRequest(page) {
+    setIsLoading(true);
     const response = await api.getCampReview(CampId, page);
     console.log(response);
     setReviewData(response.content);
     setTotalElement(response.totalElements);
+    setIsLoading(false);
   }
 
   async function MemberReviewRequest(page) {
+    setIsLoading(true);
     const response = await api.getUserReview(page);
     console.log(response);
     setReviewData(response.content);
     setTotalElement(response.totalElements);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -180,8 +186,13 @@ const Review = ({ CampId, clickedPage }) => {
           />
         </EditForm>
       )}
-      {reviewData.length === 0 ? (
+      {!isLoading && reviewData.length === 0 ? (
         <NotMyReviewNotification />
+      ) : isLoading ? (
+        <>
+          <ReviewSkeleton />
+          <ReviewSkeleton />
+        </>
       ) : (
         <>
           {reviewData.map((data) => (
