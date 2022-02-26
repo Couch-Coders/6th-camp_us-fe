@@ -43,6 +43,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const [review, setReview] = useState({
     reviewId: reviewData.reviewId,
     likeCnt: reviewData.likeCnt,
+    facltNm: reviewData.facltNm,
     nickname: reviewData.nickname,
     rate: reviewData.rate,
     content: reviewData.content,
