@@ -28,8 +28,8 @@ import { UserContext } from '../auth/AuthProvider';
 import DeleteModal from '../Modal/Modal';
 
 const Navbar = () => {
-  const [click, setClick] = useState(false);
-  const [IsClicked, setIsClicked] = useState(false);
+  const [menuclick, setMenuClick] = useState(false); // 모바일 메뉴 모달 노출
+  const [IsIconClicked, setIsIconClicked] = useState(false); // 아바타 눌렀을 떄 마이페이지 서브메뉴 노출
   const [button, setButton] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [alrimData, setAlrimData] = useState([]);
@@ -49,10 +49,11 @@ const Navbar = () => {
   let newAlrimLength = alrimData.filter(
     (item) => item['checked'] === false,
   ).length;
-  const handleClick = () => setClick(!click);
+  const handleClick = () => setMenuClick(!menuclick);
 
   const onToggleModal = useCallback(() => {
     setIsModalOpen((prev) => !prev);
+    setMenuClick(false);
   }, []);
 
   const showButton = () => {
@@ -77,28 +78,41 @@ const Navbar = () => {
           {button && 'CampUs'}
         </NavLogo>
         <MobileIcon onClick={handleClick}>
-          {click ? <FaTimes /> : <FaBars />}
+          {menuclick ? <FaTimes /> : <FaBars />}
         </MobileIcon>
-        <NavMenu click={click}>
+
+        <NavMenu menuclick={menuclick}>
           <NavItem>
-            <NavLinks to="/search" selected={pathname === '/search'}>
+            <NavLinks
+              to="/search"
+              selected={pathname === '/search'}
+              onClick={function () {
+                setMenuClick(false);
+              }}
+            >
               지도
             </NavLinks>
           </NavItem>
           <NavItem>
-            <NavLinks to="/community" selected={pathname === '/community'}>
+            <NavLinks
+              to="/community"
+              selected={pathname === '/community'}
+              onClick={function () {
+                setMenuClick(false);
+              }}
+            >
               커뮤니티
             </NavLinks>
           </NavItem>
           {user ? (
             <NavItemBtn>
-              {newAlrimLength > 0 ? (
-                <NewAlrimBadge count={newAlrimLength}>
+              {!menuclick && newAlrimLength > 0 ? (
+                <NewAlrimBadge count={newAlrimLength} className="mobileBadge">
                   <MyProfile
                     to="/"
                     onClick={function (e) {
                       e.preventDefault();
-                      setIsClicked(!IsClicked);
+                      setIsIconClicked(!IsIconClicked);
                     }}
                   >
                     {user.data.imgUrl !== '' ? (
@@ -113,7 +127,7 @@ const Navbar = () => {
                   to="/"
                   onClick={function (e) {
                     e.preventDefault();
-                    setIsClicked(!IsClicked);
+                    setIsIconClicked(!IsIconClicked);
                   }}
                 >
                   {user.data.imgUrl !== '' ? (
@@ -123,19 +137,35 @@ const Navbar = () => {
                   )}
                 </MyProfile>
               )}
-              <MyMenu Isclicked={IsClicked}>
+              <MyMenu Isclicked={IsIconClicked}>
                 <MenuList
                   to="/member"
                   onClick={function () {
-                    setIsClicked(false);
+                    setIsIconClicked(false);
+                    setMenuClick(false);
                   }}
                 >
-                  <MyPage>마이페이지</MyPage>
+                  {menuclick && newAlrimLength > 0 ? (
+                    <NewAlrimBadge
+                      count={newAlrimLength}
+                      style={{
+                        position: 'absolute',
+                        top: '20px',
+                        right: '20px',
+                      }}
+                    >
+                      <MyPage>마이페이지</MyPage>
+                    </NewAlrimBadge>
+                  ) : (
+                    <MyPage>마이페이지</MyPage>
+                  )}
                 </MenuList>
+
                 <MenuList
                   to="/"
                   onClick={function () {
-                    setIsClicked(false);
+                    setIsIconClicked(false);
+                    setMenuClick(false);
                   }}
                 >
                   <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
