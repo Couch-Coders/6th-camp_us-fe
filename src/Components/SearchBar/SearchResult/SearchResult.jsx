@@ -36,7 +36,7 @@ const SearchResult = ({
     const elementHeight = listRef.current?.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
     setListHeight(brouserHeight - elementHeight?.y - 70);
-  }, []);
+  }, [isLoading]);
 
   const onResultSort = (value) => {
     setResultSort(value);
@@ -45,6 +45,8 @@ const SearchResult = ({
 
     getSearchResult(sort);
   };
+
+  console.log(listHeight);
 
   return (
     <ResultWrap>
