@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useContext, useRef } from 'react';
-import { Rate, Input, message, Button } from 'antd';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
+import { Rate, Input, message } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
@@ -30,30 +30,47 @@ import {
   Content,
   Nickname,
   ReviewLike,
+  ContentWrap,
+  ReadMore,
 } from './ReviewsList.styles';
-import useGetDate from '../../Hooks/useGetDate';
 import { UserContext } from '../auth/AuthProvider';
 
 const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
+  const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
+  const [isVisibleTextClose, setIsVisibleTextClose] = useState(false);
+  const [isVisibleText, setIsVisibleText] = useState(false);
+  const [isEditing, setEditing] = useState(false);
   const { user } = useContext(UserContext);
-  const chargeTime = useGetDate(reviewData.lastModifiedDate);
-  const buttonRef = useRef();
 
   const { TextArea } = Input;
   const [review, setReview] = useState({
     reviewId: reviewData.reviewId,
     likeCnt: reviewData.likeCnt,
-    facltNm: reviewData.facltNm,
-    nickname: reviewData.nickname,
     rate: reviewData.rate,
     content: reviewData.content,
     imgUrl: reviewData.imgUrl,
     imgName: '',
     lastModifiedDate: reviewData.lastModifiedDate,
     liked: reviewData.liked,
+    nickname: reviewData.nickname,
+    facltNm: reviewData.facltNm,
   });
-  console.log(review);
-  const [isEditing, setEditing] = useState(false);
+
+  useEffect(() => {
+    reviewData.content.length > 50 && setisVisibleReadMore(true);
+  }, [reviewData.content.length]);
+
+  const closeMoreText = () => {
+    setIsVisibleText(false);
+    setisVisibleReadMore(true);
+    setIsVisibleTextClose(false);
+  };
+
+  const openMoreText = () => {
+    setIsVisibleText(true);
+    setisVisibleReadMore(false);
+    setIsVisibleTextClose(true);
+  };
 
   const handleRateChange = (value) => {
     setReview((review) => {
@@ -200,11 +217,22 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
             />
           )}
         </TopArea>
-        <Date>{chargeTime}</Date>
+        <Date>{review.lastModifiedDate}</Date>
         <BottomArea>
-          <Content to={`/detail?id=${reviewData.campId}`}>
-            {review.content}
-          </Content>
+          <ContentWrap>
+            <Content
+              to={`/detail?id=${reviewData.campId}`}
+              isVisibleText={isVisibleText}
+            >
+              {review.content}
+            </Content>
+            {isVisibleReadMore && (
+              <ReadMore onClick={openMoreText}>더보기</ReadMore>
+            )}
+            {isVisibleTextClose && (
+              <ReadMore onClick={closeMoreText}>접기</ReadMore>
+            )}
+          </ContentWrap>
           <ReviewLike
             liked={review.liked}
             onClick={likeChange}
