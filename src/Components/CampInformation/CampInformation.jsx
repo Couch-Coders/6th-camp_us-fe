@@ -10,6 +10,7 @@ import {
 import { Image } from 'antd';
 
 const CampInformation = ({ reviewImg, campInfo }) => {
+  console.log(reviewImg);
   const data = useContext(CampContext);
 
   const settings = {
@@ -32,8 +33,8 @@ const CampInformation = ({ reviewImg, campInfo }) => {
         <SliderWrap sliderLength={3} length={reviewImg.length}>
           <Slider {...settings}>
             {reviewImg.map((img) => (
-              <ImageWrap>
-                <Image src={img} />
+              <ImageWrap key={img.reviewId}>
+                <Image src={img.imgUrl} />
               </ImageWrap>
             ))}
           </Slider>

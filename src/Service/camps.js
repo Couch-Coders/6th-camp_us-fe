@@ -197,7 +197,20 @@ export async function campLike(id) {
 export async function getCampReview(id, page) {
   try {
     const response = await axiosInstance(
-      `/camps/${id}/reviews?&sort=createdDate,desc`,
+      `/camps/${id}/reviews?size=5&page=${page}&sort=createdDate,desc`,
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 캠핑장의 리뷰 이미지 조회
+export async function getReviewImage(id) {
+  try {
+    const response = await axiosInstance(
+      `/camps/${id}/reviews/images?size=1000`,
     );
     const data = response.data;
     return data;

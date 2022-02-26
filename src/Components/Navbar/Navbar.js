@@ -44,7 +44,7 @@ const Navbar = () => {
 
   useEffect(() => {
     AlrimDatarequest();
-  }, [alrimData]);
+  }, []);
 
   let newAlrimLength = alrimData.filter(
     (item) => item['checked'] === false,
