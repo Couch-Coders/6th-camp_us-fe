@@ -57,6 +57,7 @@ const SearchPage = () => {
           />
         )}
       </PageContext.Provider>
+
       {state ? (
         !isLoading && (
           <SearchLocation
