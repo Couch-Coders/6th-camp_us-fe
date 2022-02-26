@@ -306,6 +306,7 @@ export const BottomArea = styled.div`
   justify-content: space-between;
   padding: 18px;
   padding-top: 10px;
+  align-items: start;
 
   @media screen and (max-width: 600px) {
     display: block;
@@ -317,6 +318,8 @@ export const Content = styled(Link)`
   overflow: hidden;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
+  word-break: break-all;
+  white-space: normal;
   text-overflow: ellipsis;
   font-family: Roboto;
   font-style: normal;
@@ -324,6 +327,7 @@ export const Content = styled(Link)`
   font-size: 14px;
   line-height: 22px;
   color: #000000;
+  width: 80%;
 
   &:hover {
     color: #000000;
@@ -331,8 +335,6 @@ export const Content = styled(Link)`
 
   @media screen and (max-width: 600px) {
     width: 100%;
-    display: block;
-    padding-bottom: 10px;
   }
 `;
 
