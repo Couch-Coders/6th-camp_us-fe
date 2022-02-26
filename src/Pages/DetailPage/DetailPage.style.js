@@ -200,6 +200,14 @@ const Footer = styled.footer`
   height: 40px;
 `;
 
+const PageLink = styled.a`
+  color: #006be5;
+
+  &:hover {
+    color: #039be5;
+  }
+`;
+
 export const style = {
   SectionTitle,
   Main,
@@ -219,4 +227,5 @@ export const style = {
   LocationTabs,
   ReviewTabs,
   Footer,
+  PageLink,
 };

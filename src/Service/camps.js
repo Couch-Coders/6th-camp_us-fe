@@ -1,4 +1,3 @@
-import axios from 'axios';
 import axiosInstance from '../Common/axiosInstance';
 
 // 로그인

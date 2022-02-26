@@ -88,7 +88,9 @@ const DetailPage = () => {
               <tr>
                 <Th>홈페이지</Th>
                 <Td>
-                  <a href={campData.resveUrl}>{campData.resveUrl}</a>
+                  <PageLink href={campData.resveUrl}>
+                    {campData.resveUrl}
+                  </PageLink>
                 </Td>
               </tr>
               <tr>
@@ -170,4 +172,5 @@ const {
   LocationTabs,
   ReviewTabs,
   Footer,
+  PageLink,
 } = style;

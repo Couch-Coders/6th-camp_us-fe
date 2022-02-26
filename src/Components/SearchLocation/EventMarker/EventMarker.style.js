@@ -36,6 +36,11 @@ const Address2 = styled.div`
 
 const ToDetail = styled(Link)`
   font-size: 12px;
+  color: #006be5;
+
+  &:hover {
+    color: #039be5;
+  }
 `;
 
 export const style = {
