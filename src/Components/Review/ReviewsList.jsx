@@ -118,7 +118,11 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   // 리뷰 수정
   const editingTemplate = (
     <EditForm>
-      <CampNameLoad>{review.camp_name}</CampNameLoad>
+      {clickedPage === 'detail' ? (
+        <CampNameLoad>{review.nickname}</CampNameLoad>
+      ) : (
+        <CampNameLoad>{review.facltNm}</CampNameLoad>
+      )}
       <EditTop>
         <EditLeft>
           <RateSelect>
