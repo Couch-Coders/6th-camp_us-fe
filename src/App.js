@@ -6,6 +6,7 @@ import SearchPage from './Pages/SearchPage/SearchPage';
 import MyPage from './Pages/MyPage/MyPage';
 import Navbar from './Components/Navbar/Navbar';
 import CommunityPage from './Pages/CommunityPage/CommunityPage';
+import './Styles/antdCustom.css';
 
 function App() {
   return (
