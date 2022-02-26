@@ -31,10 +31,12 @@ import {
   Nickname,
   ReviewLike,
 } from './ReviewsList.styles';
+import useGetDate from '../../Hooks/useGetDate';
 import { UserContext } from '../auth/AuthProvider';
 
 const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const { user } = useContext(UserContext);
+  const chargeTime = useGetDate(reviewData.lastModifiedDate);
   const buttonRef = useRef();
 
   const { TextArea } = Input;
@@ -121,7 +123,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
         <EditLeft>
           <RateSelect>
             별점 선택
-            <Rate allowHalf onChange={handleRateChange} value={review.rate} />
+            <Rate onChange={handleRateChange} value={review.rate} />
           </RateSelect>
         </EditLeft>
         <EditRight>
@@ -167,15 +169,13 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
           <Nickname>
             {clickedPage === 'detail' ? (
               <div>
-                {/* {review.camp_name} */}
-                nickname
-                <Rate allowHalf disabled defaultValue={review.rate} />
+                {review.nickname}
+                <Rate disabled defaultValue={review.rate} />
               </div>
             ) : (
               <CampName to={`/detail?id=${reviewData.campId}`}>
-                {/* {review.camp_name} */}
-                좋은 캠핑장
-                <Rate allowHalf disabled defaultValue={review.rate} />
+                {review.facltNm}
+                <Rate disabled defaultValue={review.rate} />
               </CampName>
             )}
           </Nickname>
@@ -194,7 +194,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
             />
           )}
         </TopArea>
-        <Date>{review.lastModifiedDate}</Date>
+        <Date>{chargeTime}</Date>
         <BottomArea>
           <Content to={`/detail?id=${reviewData.campId}`}>
             {review.content}
