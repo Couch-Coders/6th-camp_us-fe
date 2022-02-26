@@ -39,13 +39,12 @@ const Navbar = () => {
   // 알림 정보 가져오기
   async function AlrimDatarequest(page) {
     const response = await api.getAlrimList(page);
-    console.log('navbar request', response);
     setAlrimData(response.content);
   }
 
   useEffect(() => {
     AlrimDatarequest();
-  });
+  }, [alrimData]);
 
   let newAlrimLength = alrimData.filter(
     (item) => item['checked'] === false,
