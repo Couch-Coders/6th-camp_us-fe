@@ -105,7 +105,7 @@ const DetailPage = () => {
               <tr>
                 {campData && <Th>별점</Th>}
                 <Td>
-                  <RateContant disabled allowHalf value={campData.avgRate} />
+                  <RateContant disabled value={campData.avgRate} />
                   {`${campData.avgRate.toFixed(1)}`}
                 </Td>
               </tr>
