@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Badge } from 'antd';
 import { Link } from 'react-router-dom';
 import LogoSrc from '../../Assets/Images/Logo.svg';
 import { Container } from '../../globalStyles';
@@ -161,6 +162,10 @@ export const MyProfile = styled(Link)`
   overflow: hidden;
   position: relative;
 
+  &.avartar {
+    margin-top: 10px;
+  }
+
   & > * {
     width: 100%;
     position: absolute;
@@ -292,4 +297,8 @@ export const LogInBtn = styled.button`
     padding: 16px 20px;
     font-size: 16px;
   }
+`;
+
+export const NewAlrimBadge = styled(Badge)`
+  margin-top: 10px;
 `;
