@@ -156,11 +156,7 @@ const Review = ({ CampId, clickedPage }) => {
             <EditLeft>
               <RateSelect>
                 별점 선택
-                <Rate
-                  allowHalf
-                  onChange={handleRateChange}
-                  value={review.rate}
-                />
+                <Rate onChange={handleRateChange} value={review.rate} />
               </RateSelect>
             </EditLeft>
             <EditRight>
