@@ -8,6 +8,7 @@ export const Section = styled.section`
   position: relative;
   padding: 35px 0;
   background-color: ${({ grayBg }) => (grayBg ? '#FAFAFA' : '#fff')};
+  overflow: hidden;
 `;
 
 export const InnerWrapper = styled.div`

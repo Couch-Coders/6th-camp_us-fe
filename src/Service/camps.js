@@ -162,7 +162,7 @@ export async function getRecommendCamp(geoLocation) {
 // 베스트 리뷰 조회
 export async function getBestReview() {
   try {
-    const response = await axiosInstance('/reviews/best');
+    const response = await axiosInstance(`/reviews/best`);
     const data = response.data;
     return data;
   } catch (error) {
