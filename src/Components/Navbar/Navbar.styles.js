@@ -18,6 +18,10 @@ export const Nav = styled.nav`
 
   @media screen and (max-width: 960px) {
     height: 50px;
+
+    & .ant-badge {
+      margin-top: 0 !important;
+    }
   }
 `;
 
@@ -90,13 +94,13 @@ export const NavMenu = styled.ul`
   margin: 0;
 
   @media screen and (max-width: 960px) {
-    display: flex;
+    display: ${({ menuclick }) => (menuclick ? 'block' : 'flex')};
     flex-direction: column;
     width: 100%;
     height: 90vh;
     position: absolute;
     top: 50px;
-    left: ${({ click }) => (click ? 0 : '-100%')};
+    left: ${({ menuclick }) => (menuclick ? 0 : '-100%')};
     opacity: 1;
     transition: all 0.5s ease;
     background: #101522;
@@ -180,14 +184,12 @@ export const MyProfile = styled(Link)`
 
 export const NavItemBtn = styled.li`
   position: relative;
-  /* @media screen and (max-width: 960px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    width: 100%;
-  } */
   @media screen and (max-width: 960px) {
     width: 100%;
+
+    & .mobileBadge {
+      display: none;
+    }
   }
 `;
 
@@ -230,11 +232,13 @@ export const MenuList = styled(Link)`
     box-sizing: border-box;
     display: inline-block;
     text-align: center;
-    color: #333;
     width: max-content;
 
     &:last-child {
       border-bottom: 0;
+    }
+    & * {
+      color: #333;
     }
 
     & > * {
@@ -246,15 +250,15 @@ export const MenuList = styled(Link)`
     text-align: center;
     width: 100%;
     display: block;
-    color: #fff;
+    position: relative;
+    & * {
+      font-size: 14px;
+      color: #fff;
+    }
   }
   &:hover {
     color: #73d13d;
     transition: all 0.3s ease;
-  }
-
-  & * {
-    font-size: 14px;
   }
 `;
 

@@ -81,7 +81,7 @@ const Navbar = () => {
           {menuclick ? <FaTimes /> : <FaBars />}
         </MobileIcon>
 
-        <NavMenu click={menuclick}>
+        <NavMenu menuclick={menuclick}>
           <NavItem>
             <NavLinks
               to="/search"
@@ -106,8 +106,8 @@ const Navbar = () => {
           </NavItem>
           {user ? (
             <NavItemBtn>
-              {newAlrimLength > 0 ? (
-                <NewAlrimBadge count={newAlrimLength}>
+              {!menuclick && newAlrimLength > 0 ? (
+                <NewAlrimBadge count={newAlrimLength} className="mobileBadge">
                   <MyProfile
                     to="/"
                     onClick={function (e) {
@@ -145,8 +145,22 @@ const Navbar = () => {
                     setMenuClick(false);
                   }}
                 >
-                  <MyPage>마이페이지</MyPage>
+                  {menuclick && newAlrimLength > 0 ? (
+                    <NewAlrimBadge
+                      count={newAlrimLength}
+                      style={{
+                        position: 'absolute',
+                        top: '20px',
+                        right: '20px',
+                      }}
+                    >
+                      <MyPage>마이페이지</MyPage>
+                    </NewAlrimBadge>
+                  ) : (
+                    <MyPage>마이페이지</MyPage>
+                  )}
                 </MenuList>
+
                 <MenuList
                   to="/"
                   onClick={function () {
