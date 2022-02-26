@@ -31,28 +31,25 @@ import {
   Nickname,
   ReviewLike,
 } from './ReviewsList.styles';
-import useGetDate from '../../Hooks/useGetDate';
 import { UserContext } from '../auth/AuthProvider';
 
 const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const { user } = useContext(UserContext);
-  const chargeTime = useGetDate(reviewData.lastModifiedDate);
-  const buttonRef = useRef();
 
   const { TextArea } = Input;
   const [review, setReview] = useState({
     reviewId: reviewData.reviewId,
     likeCnt: reviewData.likeCnt,
-    facltNm: reviewData.facltNm,
-    nickname: reviewData.nickname,
     rate: reviewData.rate,
     content: reviewData.content,
     imgUrl: reviewData.imgUrl,
     imgName: '',
     lastModifiedDate: reviewData.lastModifiedDate,
     liked: reviewData.liked,
+    nickname: reviewData.nickname,
+    facltNm: reviewData.facltNm,
   });
-  console.log(review);
+
   const [isEditing, setEditing] = useState(false);
 
   const handleRateChange = (value) => {
@@ -200,7 +197,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
             />
           )}
         </TopArea>
-        <Date>{chargeTime}</Date>
+        <Date>{review.lastModifiedDate}</Date>
         <BottomArea>
           <Content to={`/detail?id=${reviewData.campId}`}>
             {review.content}
