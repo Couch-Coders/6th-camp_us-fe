@@ -1,5 +1,5 @@
-import React, { useState, useCallback, useContext, useRef } from 'react';
-import { Rate, Input, message, Button } from 'antd';
+import React, { useState, useCallback, useContext, useEffect } from 'react';
+import { Rate, Input, message } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
@@ -30,10 +30,16 @@ import {
   Content,
   Nickname,
   ReviewLike,
+  ContentWrap,
+  ReadMore,
 } from './ReviewsList.styles';
 import { UserContext } from '../auth/AuthProvider';
 
 const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
+  const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
+  const [isVisibleTextClose, setIsVisibleTextClose] = useState(false);
+  const [isVisibleText, setIsVisibleText] = useState(false);
+  const [isEditing, setEditing] = useState(false);
   const { user } = useContext(UserContext);
 
   const { TextArea } = Input;
@@ -50,7 +56,21 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
     facltNm: reviewData.facltNm,
   });
 
-  const [isEditing, setEditing] = useState(false);
+  useEffect(() => {
+    reviewData.content.length > 50 && setisVisibleReadMore(true);
+  }, [reviewData.content.length]);
+
+  const closeMoreText = () => {
+    setIsVisibleText(false);
+    setisVisibleReadMore(true);
+    setIsVisibleTextClose(false);
+  };
+
+  const openMoreText = () => {
+    setIsVisibleText(true);
+    setisVisibleReadMore(false);
+    setIsVisibleTextClose(true);
+  };
 
   const handleRateChange = (value) => {
     setReview((review) => {
@@ -199,9 +219,20 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
         </TopArea>
         <Date>{review.lastModifiedDate}</Date>
         <BottomArea>
-          <Content to={`/detail?id=${reviewData.campId}`}>
-            {review.content}
-          </Content>
+          <ContentWrap>
+            <Content
+              to={`/detail?id=${reviewData.campId}`}
+              isVisibleText={isVisibleText}
+            >
+              {review.content}
+            </Content>
+            {isVisibleReadMore && (
+              <ReadMore onClick={openMoreText}>더보기</ReadMore>
+            )}
+            {isVisibleTextClose && (
+              <ReadMore onClick={closeMoreText}>접기</ReadMore>
+            )}
+          </ContentWrap>
           <ReviewLike
             liked={review.liked}
             onClick={likeChange}

@@ -13,7 +13,6 @@ import ReviewsList from '../Review/ReviewsList';
 import { style } from './Review.style';
 import { UserContext } from '../auth/AuthProvider';
 import { NotMyReviewNotification } from '../../Components/Notice/Notice';
-import Skeleton from '../Skeleton/RecommendSkeleton';
 import ReviewSkeleton from '../Skeleton/ReviewSkeleton';
 
 const Review = ({ CampId, clickedPage }) => {

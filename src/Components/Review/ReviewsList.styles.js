@@ -314,20 +314,32 @@ export const BottomArea = styled.div`
 `;
 
 export const Content = styled(Link)`
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  word-break: break-all;
-  white-space: normal;
-  text-overflow: ellipsis;
-  font-family: Roboto;
+  ${({ isVisibleText }) =>
+    isVisibleText
+      ? css`
+      display: block
+        font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 14px;
   line-height: 22px;
   color: #000000;
-  width: 80%;
+  `
+      : css`
+          display: -webkit-box;
+          overflow: hidden;
+          -webkit-line-clamp: 3;
+          -webkit-box-orient: vertical;
+          word-break: break-all;
+          white-space: normal;
+          text-overflow: ellipsis;
+          font-family: Roboto;
+          font-style: normal;
+          font-weight: normal;
+          font-size: 14px;
+          line-height: 22px;
+          color: #000000;
+        `}
 
   &:hover {
     color: #000000;
@@ -336,6 +348,18 @@ export const Content = styled(Link)`
   @media screen and (max-width: 600px) {
     width: 100%;
   }
+`;
+
+export const ContentWrap = styled.div`
+  width: 80%;
+  display: flex;
+  flex-direction: column;
+`;
+
+export const ReadMore = styled.span`
+  cursor: pointer;
+  color: #9d9d9d;
+  font-size: 12px;
 `;
 
 export const ReviewLike = styled.div`
