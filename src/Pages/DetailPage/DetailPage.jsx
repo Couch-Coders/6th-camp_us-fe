@@ -38,12 +38,9 @@ const DetailPage = () => {
   }
 
   async function getCampReview() {
-    const response = await api.getCampReview(CampId);
+    const response = await api.getReviewImage(CampId);
     console.log(response);
-    for (const item of response.content) {
-      if (item.imgUrl === '') continue;
-      setReviewImg((prev) => [...prev, item.imgUrl]);
-    }
+    setReviewImg(response);
   }
 
   useEffect(() => {
