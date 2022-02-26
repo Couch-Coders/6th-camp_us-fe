@@ -43,6 +43,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const [review, setReview] = useState({
     reviewId: reviewData.reviewId,
     likeCnt: reviewData.likeCnt,
+    nickname: reviewData.nickname,
     rate: reviewData.rate,
     content: reviewData.content,
     imgUrl: reviewData.imgUrl,
@@ -50,7 +51,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
     lastModifiedDate: reviewData.lastModifiedDate,
     liked: reviewData.liked,
   });
-
+  console.log(review);
   const [isEditing, setEditing] = useState(false);
 
   const handleRateChange = (value) => {
