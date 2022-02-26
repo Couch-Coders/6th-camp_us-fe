@@ -118,7 +118,6 @@ const SearchBar = ({
   }, []);
 
   const getSearchResult = async (sort, page) => {
-    console.log(sort);
     try {
       setIsLoading(true);
       let paramAddress = { ...address };
@@ -137,11 +136,10 @@ const SearchBar = ({
       delete paramAddress.category;
 
       const response = await api.getSearchCamp(paramAddress, page, sort);
-      console.log(response);
+      setTotalElement(response.totalElements);
       const campData = response.content;
       setCampResult(campData);
       setSearchedCampData(campData);
-
       sort === 'distance' &&
         setAddress((address) => {
           return { ...address, doNm: null, sigunguNm: null, rate: null };
@@ -354,7 +352,7 @@ const SearchBar = ({
             </ButtonWrap>
           </Form>
           {isResultOpen && (
-            /* campResult.length > 0 ? */ <SearchResult
+            <SearchResult
               isLoading={isLoading}
               campResult={campResult}
               getSearchResult={getSearchResult}

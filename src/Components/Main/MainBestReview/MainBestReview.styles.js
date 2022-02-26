@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 
 export const BestReviewList = styled.div`
   position: relative;
+  margin-bottom: 20px;
 `;
 
 export const BestReview = styled(Link)`
