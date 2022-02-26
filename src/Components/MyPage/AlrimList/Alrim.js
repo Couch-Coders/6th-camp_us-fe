@@ -17,8 +17,10 @@ import {
   AlrimFrom,
   Date,
 } from './AlrimList.styles';
+import useGetDate from '../../../Hooks/useGetDate';
 
 export default function Alrim({ alrim, request }) {
+  const chargeTime = useGetDate(alrim.createdDate);
   /* 선택한 알림 삭제 */
   const handleOnDelete = async (id) => {
     const response = await api.deleteAlrim(alrim.notificationId);
@@ -35,8 +37,7 @@ export default function Alrim({ alrim, request }) {
   return (
     <AlrimWrap key={alrim.notificationId} checked={alrim.checked} read={read}>
       <CheckedArea
-        to={`/member`}
-        //to={`/detail?id=${alrim.campId}`}
+        to={`/detail?id=${alrim.campId}`}
         onClick={() => handleOnUpdate(alrim.notificationId)}
       >
         <Thumbnail>
@@ -59,7 +60,7 @@ export default function Alrim({ alrim, request }) {
           </TopArea>
           <BottomArea>
             <AlrimFrom>{alrim.facltNm}</AlrimFrom>
-            <Date>{alrim.createdDate}</Date>
+            <Date>{chargeTime}</Date>
           </BottomArea>
         </Info>
       </CheckedArea>
