@@ -86,6 +86,17 @@ export async function getAlrimList(page) {
   }
 }
 
+// 회원의 안읽은 알림 갯수 조회
+export async function getAlrimCount() {
+  try {
+    const response = await axiosInstance(`/members/me/notifications/count`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
 // 모든 알림 삭제
 export async function deleteAllAlrim() {
   try {
