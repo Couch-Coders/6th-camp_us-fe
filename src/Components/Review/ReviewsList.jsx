@@ -121,7 +121,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
         <EditLeft>
           <RateSelect>
             별점 선택
-            <Rate allowHalf onChange={handleRateChange} value={review.rate} />
+            <Rate onChange={handleRateChange} value={review.rate} />
           </RateSelect>
         </EditLeft>
         <EditRight>
@@ -169,13 +169,13 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
               <div>
                 {/* {review.camp_name} */}
                 nickname
-                <Rate allowHalf disabled defaultValue={review.rate} />
+                <Rate disabled defaultValue={review.rate} />
               </div>
             ) : (
               <CampName to={`/detail?id=${reviewData.campId}`}>
                 {/* {review.camp_name} */}
                 좋은 캠핑장
-                <Rate allowHalf disabled defaultValue={review.rate} />
+                <Rate disabled defaultValue={review.rate} />
               </CampName>
             )}
           </Nickname>
