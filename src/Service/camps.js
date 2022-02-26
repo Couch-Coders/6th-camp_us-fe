@@ -140,11 +140,20 @@ export async function deleteAlrim(notificationId) {
 }
 
 // 캠핑장 추천
-export async function getRecommendCamp() {
+export async function getRecommendCamp(geoLocation) {
+  console.log(geoLocation);
   try {
-    const response = await axios('http://localhost:3001/camp');
-    const data = response.data;
-    return data;
+    const response = await axiosInstance({
+      url: `/camps?page=0&size=10`,
+      params: {
+        mapX: geoLocation.long && geoLocation.long,
+        mapY: geoLocation.lat && geoLocation.lat,
+        sort: 'distance',
+      },
+    });
+    console.log(response);
+    const content = response.data.content;
+    return content;
   } catch (error) {
     throw new Error('Failed to load data');
   }
@@ -153,7 +162,7 @@ export async function getRecommendCamp() {
 // 베스트 리뷰 조회
 export async function getBestReview() {
   try {
-    const response = await axiosInstance('/reviews/best');
+    const response = await axiosInstance(`/reviews/best`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -216,28 +225,6 @@ export async function getSearchCamp(address, pageNum, sort) {
       },
     });
     console.log(response);
-    const data = response.data;
-    return data;
-  } catch (error) {
-    throw new Error('Failed to load data');
-  }
-}
-
-// 검색페이지 검색 임시(json-server)
-export async function getSearchTemporary() {
-  try {
-    const response = await axiosInstance('http://localhost:3001/camp');
-    console.log(response);
-    const data = response.data;
-    return data;
-  } catch (error) {
-    throw new Error('Failed to load data');
-  }
-}
-// 검색페이지 검색 임시(json-server)
-export async function getSearchCampTemporary() {
-  try {
-    const response = await axios('http://localhost:3001/campSearch');
     const data = response.data;
     return data;
   } catch (error) {

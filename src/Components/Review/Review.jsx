@@ -5,14 +5,16 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import styled from 'styled-components';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../ImageUpload/ImageUpload';
-import { Rate, Input, message, Button } from 'antd';
+import { Rate, Input, message } from 'antd';
 import * as api from '../../Service/camps';
 import ReviewsList from '../Review/ReviewsList';
 import { style } from './Review.style';
 import { UserContext } from '../auth/AuthProvider';
+import { NotMyReviewNotification } from '../../Components/Notice/Notice';
+import Skeleton from '../Skeleton/RecommendSkeleton';
+import ReviewSkeleton from '../Skeleton/ReviewSkeleton';
 
 const Review = ({ CampId, clickedPage }) => {
   const { TextArea } = Input;
@@ -25,22 +27,27 @@ const Review = ({ CampId, clickedPage }) => {
   const [reviewData, setReviewData] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
   const buttonRef = useRef();
 
   const { user } = useContext(UserContext);
 
   async function detailReviewRequest(page) {
+    setIsLoading(true);
     const response = await api.getCampReview(CampId, page);
     console.log(response);
     setReviewData(response.content);
     setTotalElement(response.totalElements);
+    setIsLoading(false);
   }
 
   async function MemberReviewRequest(page) {
+    setIsLoading(true);
     const response = await api.getUserReview(page);
     console.log(response);
     setReviewData(response.content);
     setTotalElement(response.totalElements);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -61,6 +68,9 @@ const Review = ({ CampId, clickedPage }) => {
   async function deleteTask(id) {
     const response = await api.deleteReview(id);
     console.log(response);
+    clickedPage === 'detail'
+      ? detailReviewRequest(currentPage)
+      : MemberReviewRequest(currentPage);
     // const remainingTasks = reviewData.filter((data) => id !== data.id);
     // setReviewData(remainingTasks);
   }
@@ -146,11 +156,7 @@ const Review = ({ CampId, clickedPage }) => {
             <EditLeft>
               <RateSelect>
                 별점 선택
-                <Rate
-                  allowHalf
-                  onChange={handleRateChange}
-                  value={review.rate}
-                />
+                <Rate onChange={handleRateChange} value={review.rate} />
               </RateSelect>
             </EditLeft>
             <EditRight>
@@ -176,26 +182,35 @@ const Review = ({ CampId, clickedPage }) => {
           />
         </EditForm>
       )}
+      {!isLoading && reviewData.length === 0 ? (
+        <NotMyReviewNotification />
+      ) : isLoading ? (
+        <>
+          <ReviewSkeleton />
+          <ReviewSkeleton />
+        </>
+      ) : (
+        <>
+          {reviewData.map((data) => (
+            <ReviewsList
+              reviewData={data}
+              key={data.reviewId}
+              deleteTask={deleteTask}
+              editTask={editTask}
+              clickedPage={clickedPage}
+            />
+          ))}
 
-      {reviewData &&
-        reviewData.map((data) => (
-          <ReviewsList
-            reviewData={data}
-            key={data.reviewId}
-            deleteTask={deleteTask}
-            editTask={editTask}
-            clickedPage={clickedPage}
+          <PaginationContent
+            current={currentPage + 1}
+            total={totalElement}
+            pageSize={5}
+            onChange={(value) => {
+              changePage(value);
+            }}
           />
-        ))}
-
-      <PaginationContent
-        current={currentPage + 1}
-        total={totalElement}
-        pageSize={5}
-        onChange={(value) => {
-          changePage(value);
-        }}
-      />
+        </>
+      )}
     </Container>
   );
 };

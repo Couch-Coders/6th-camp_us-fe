@@ -3,6 +3,7 @@ import { useLocation } from 'react-router-dom';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FaTimes, FaBars } from 'react-icons/fa';
+import * as api from '../../Service/camps';
 import Modal from '../Modal/Modal';
 import {
   Nav,
@@ -16,6 +17,7 @@ import {
   LogOutBtn,
   LogInBtn,
   MyProfile,
+  NewAlrimBadge,
   NavItemBtn,
   MyMenu,
   MenuList,
@@ -26,17 +28,32 @@ import { UserContext } from '../auth/AuthProvider';
 import DeleteModal from '../Modal/Modal';
 
 const Navbar = () => {
-  const [click, setClick] = useState(false);
-  const [IsClicked, setIsClicked] = useState(false);
+  const [menuclick, setMenuClick] = useState(false); // 모바일 메뉴 모달 노출
+  const [IsIconClicked, setIsIconClicked] = useState(false); // 아바타 눌렀을 떄 마이페이지 서브메뉴 노출
   const [button, setButton] = useState(true);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [alrimData, setAlrimData] = useState([]);
   const { pathname } = useLocation();
   const { user, isRegisterOpen } = useContext(UserContext);
 
-  const handleClick = () => setClick(!click);
+  // 알림 정보 가져오기
+  async function AlrimDatarequest(page) {
+    const response = await api.getAlrimList(page);
+    setAlrimData(response.content);
+  }
+
+  useEffect(() => {
+    AlrimDatarequest();
+  }, [alrimData]);
+
+  let newAlrimLength = alrimData.filter(
+    (item) => item['checked'] === false,
+  ).length;
+  const handleClick = () => setMenuClick(!menuclick);
 
   const onToggleModal = useCallback(() => {
     setIsModalOpen((prev) => !prev);
+    setMenuClick(false);
   }, []);
 
   const showButton = () => {
@@ -61,47 +78,94 @@ const Navbar = () => {
           {button && 'CampUs'}
         </NavLogo>
         <MobileIcon onClick={handleClick}>
-          {click ? <FaTimes /> : <FaBars />}
+          {menuclick ? <FaTimes /> : <FaBars />}
         </MobileIcon>
-        <NavMenu click={click}>
+
+        <NavMenu menuclick={menuclick}>
           <NavItem>
-            <NavLinks to="/search" selected={pathname === '/search'}>
+            <NavLinks
+              to="/search"
+              selected={pathname === '/search'}
+              onClick={function () {
+                setMenuClick(false);
+              }}
+            >
               지도
             </NavLinks>
           </NavItem>
           <NavItem>
-            <NavLinks to="/" selected={pathname === '/community'}>
+            <NavLinks
+              to="/community"
+              selected={pathname === '/community'}
+              onClick={function () {
+                setMenuClick(false);
+              }}
+            >
               커뮤니티
             </NavLinks>
           </NavItem>
           {user ? (
             <NavItemBtn>
-              <MyProfile
-                to="/"
-                onClick={function (e) {
-                  e.preventDefault();
-                  setIsClicked(!IsClicked);
-                }}
-              >
-                {user.data.imgUrl !== '' ? (
-                  <img src={user.data.imgUrl}></img>
-                ) : (
-                  <Avatar size="large" icon={<UserOutlined />} />
-                )}
-              </MyProfile>
-              <MyMenu Isclicked={IsClicked}>
+              {!menuclick && newAlrimLength > 0 ? (
+                <NewAlrimBadge count={newAlrimLength} className="mobileBadge">
+                  <MyProfile
+                    to="/"
+                    onClick={function (e) {
+                      e.preventDefault();
+                      setIsIconClicked(!IsIconClicked);
+                    }}
+                  >
+                    {user.data.imgUrl !== '' ? (
+                      <img src={user.data.imgUrl}></img>
+                    ) : (
+                      <Avatar size="large" icon={<UserOutlined />} />
+                    )}
+                  </MyProfile>
+                </NewAlrimBadge>
+              ) : (
+                <MyProfile
+                  to="/"
+                  onClick={function (e) {
+                    e.preventDefault();
+                    setIsIconClicked(!IsIconClicked);
+                  }}
+                >
+                  {user.data.imgUrl !== '' ? (
+                    <img src={user.data.imgUrl}></img>
+                  ) : (
+                    <Avatar size="large" icon={<UserOutlined />} />
+                  )}
+                </MyProfile>
+              )}
+              <MyMenu Isclicked={IsIconClicked}>
                 <MenuList
                   to="/member"
                   onClick={function () {
-                    setIsClicked(false);
+                    setIsIconClicked(false);
+                    setMenuClick(false);
                   }}
                 >
-                  <MyPage>마이페이지</MyPage>
+                  {menuclick && newAlrimLength > 0 ? (
+                    <NewAlrimBadge
+                      count={newAlrimLength}
+                      style={{
+                        position: 'absolute',
+                        top: '20px',
+                        right: '20px',
+                      }}
+                    >
+                      <MyPage>마이페이지</MyPage>
+                    </NewAlrimBadge>
+                  ) : (
+                    <MyPage>마이페이지</MyPage>
+                  )}
                 </MenuList>
+
                 <MenuList
                   to="/"
                   onClick={function () {
-                    setIsClicked(false);
+                    setIsIconClicked(false);
+                    setMenuClick(false);
                   }}
                 >
                   <LogOutBtn onClick={signOut}>Logout</LogOutBtn>

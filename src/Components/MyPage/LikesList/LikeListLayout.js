@@ -1,23 +1,25 @@
 import React, { useState, useEffect, useContext } from 'react';
-import axios from 'axios';
 import { UserContext } from '../../auth/AuthProvider';
-import { auth } from '../../../Service/firebaseAuth';
 import * as api from '../../../Service/camps';
-import Pagination from '../../Pagination/Pagination';
 import LikesList from './LikesList';
 import { PaginationContent } from './LikesList.styles';
+import { NotMyLikeListNotification } from '../../../Components/Notice/Notice';
+import LikeSkeleton from '../../Skeleton/LikeSkeleton';
 
 export default function LikeListLayout() {
   const { user } = useContext(UserContext);
   const [data, setData] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
+  const [isLoading, setIsLoading] = useState(false);
 
   async function request() {
+    setIsLoading(true);
     const response = await api.getMyCampsLikes();
     console.log(response);
     setData(response.content);
     setTotalElement(response.totalElements);
+    setIsLoading(false);
   }
 
   useEffect(() => {
@@ -42,15 +44,27 @@ export default function LikeListLayout() {
 
   return (
     <>
-      <LikesList camp={data} request={request} />
-      <PaginationContent
-        current={currentPage + 1}
-        total={totalElement}
-        pageSize={5}
-        onChange={(value) => {
-          changePage(value);
-        }}
-      />
+      {!isLoading && data.length === 0 ? (
+        <NotMyLikeListNotification />
+      ) : isLoading ? (
+        <>
+          <LikeSkeleton />
+          <LikeSkeleton />
+          <LikeSkeleton />
+        </>
+      ) : (
+        <>
+          <LikesList camp={data} request={request} />
+          <PaginationContent
+            current={currentPage + 1}
+            total={totalElement}
+            pageSize={5}
+            onChange={(value) => {
+              changePage(value);
+            }}
+          />
+        </>
+      )}
     </>
   );
 }

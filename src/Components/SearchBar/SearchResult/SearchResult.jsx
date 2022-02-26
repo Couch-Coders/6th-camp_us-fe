@@ -4,8 +4,15 @@ import ResultList from '../ResultList/ResultList';
 import { Pagination, Select } from 'antd';
 import { throttle } from 'lodash';
 import { PageContext } from '../../../context/SearchPaginationContext';
+import { CampSearchResultNotification } from '../../../Components/Notice/Notice';
+import SearchSkeleton from '../../Skeleton/SearchSkeleton';
 
-const SearchResult = ({ campResult, getSearchResult, changePage }) => {
+const SearchResult = ({
+  isLoading,
+  campResult,
+  getSearchResult,
+  changePage,
+}) => {
   const [resultSort, setResultSort] = useState();
   const [listHeight, setListHeight] = useState();
 
@@ -19,16 +26,16 @@ const SearchResult = ({ campResult, getSearchResult, changePage }) => {
   window.addEventListener(
     'resize',
     throttle(() => {
-      const elementHeight = listRef.current.getBoundingClientRect();
+      const elementHeight = listRef.current?.getBoundingClientRect();
       const brouserHeight = window.innerHeight;
-      setListHeight(brouserHeight - elementHeight.y - 70);
+      setListHeight(brouserHeight - elementHeight?.y - 70);
     }, 500),
   );
 
   useEffect(() => {
-    const elementHeight = listRef.current.getBoundingClientRect();
+    const elementHeight = listRef.current?.getBoundingClientRect();
     const brouserHeight = window.innerHeight;
-    setListHeight(brouserHeight - elementHeight.y - 70);
+    setListHeight(brouserHeight - elementHeight?.y - 70);
   }, []);
 
   const onResultSort = (value) => {
@@ -55,19 +62,31 @@ const SearchResult = ({ campResult, getSearchResult, changePage }) => {
           ))}
         </SelectContent>
       </Header>
-      <ListWrap ref={listRef} listHeight={listHeight}>
-        {campResult.map((result) => (
-          <ResultList camp={result} key={result.campId} />
-        ))}
-      </ListWrap>
-      <PaginationContent
-        current={currentPage + 1}
-        total={totalElement}
-        pageSize={10}
-        onChange={(value) => {
-          changePage(resultSort, value);
-        }}
-      />
+      {!isLoading && campResult.length === 0 ? (
+        <CampSearchResultNotification />
+      ) : isLoading ? (
+        <>
+          <SearchSkeleton />
+          <SearchSkeleton />
+          <SearchSkeleton />
+        </>
+      ) : (
+        <>
+          <ListWrap ref={listRef} listHeight={listHeight}>
+            {campResult.map((result) => (
+              <ResultList camp={result} key={result.campId} />
+            ))}
+          </ListWrap>
+          <PaginationContent
+            current={currentPage + 1}
+            total={totalElement}
+            pageSize={10}
+            onChange={(value) => {
+              changePage(resultSort, value);
+            }}
+          />
+        </>
+      )}
     </ResultWrap>
   );
 };

@@ -382,8 +382,8 @@ export const ReviewLike = styled.div`
         `}
 
   @media screen and (max-width: 600px) {
-    width: 100%;
-    padding: 0;
+    padding: 4px 14px;
     margin-top: 10px;
+    display: inline-block;
   }
 `;

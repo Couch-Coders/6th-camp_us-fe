@@ -90,7 +90,7 @@ function MainSearch(props) {
               )}
             </Select>
             <SelectName>별점</SelectName>
-            <Rate allowHalf onChange={handleRateChange} value={address.rate} />
+            <Rate onChange={handleRateChange} value={address.rate} />
           </Space>
           <SearchContent>
             <Search

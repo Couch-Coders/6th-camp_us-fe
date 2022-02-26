@@ -193,6 +193,7 @@ export const Date = styled.div`
 `;
 
 export const PaginationContent = styled(Pagination)`
+  text-align: center;
   .ant-select-selector {
     display: none;
   }

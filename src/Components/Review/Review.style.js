@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { Pagination } from 'antd';
 
 const Container = styled.div`
-  display: flex;
+  //display: flex;
   flex-direction: column;
   align-items: center;
 `;
@@ -26,10 +26,6 @@ const EditTop = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-
-  @media screen and (max-width: 760px) {
-    display: block;
-  }
 `;
 
 const EditLeft = styled.div`
@@ -84,6 +80,7 @@ const Wrap = styled.div`
 `;
 
 const PaginationContent = styled(Pagination)`
+  text-align: center;
   .ant-select-selector {
     display: none;
   }

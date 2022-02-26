@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from 'react';
+import React from 'react';
 import LikeCamp from './LikeCamp';
 import { LikeList } from './LikesList.styles';
 
