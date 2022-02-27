@@ -7,7 +7,7 @@ import Review from '../../components/review/Review';
 import AlrimLayout from './alrimList/AlrimLayout';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper } from '../../styles/theme';
-import { style } from './myPage.styles';
+import { style } from './MyPage.styles';
 
 function MyPage() {
   const { user } = useContext(UserContext);

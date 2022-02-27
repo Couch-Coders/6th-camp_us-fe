@@ -17,8 +17,6 @@ const AuthProvider = ({ children }) => {
           localStorage.setItem('token', 'Bearer ' + token);
           const res = await api.login();
 
-          console.log(res);
-
           if (res.status === 200) {
             const user = res;
             setUser(user);

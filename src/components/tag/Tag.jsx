@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { style } from './tag.style';
+import { style } from './Tag.style';
 
 const Tag = ({ tag, role, addCategory, removeCategory, category }) => {
   const [checked, setChecked] = useState();
@@ -31,11 +31,11 @@ const Tag = ({ tag, role, addCategory, removeCategory, category }) => {
 
   return (
     <InfoTag onClick={handleTagEvent} checked={checked} role={role}>
-      <TagText>{tag}</TagText>
+      {tag}
     </InfoTag>
   );
 };
 
 export default React.memo(Tag);
 
-const { InfoTag, TagText } = style;
+const { InfoTag } = style;

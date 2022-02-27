@@ -12,7 +12,7 @@ import Image from '../../../assets/images/default.png';
 import * as API from '../../../service/api';
 import { UserContext } from '../../auth/AuthProvider';
 import { style } from './reviewsList.styles';
-import ImagePreview from '../../imageUpload/imagePreview/ImagePreview';
+import ImagePreview from '../../imageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../../imageUpload/ImageUpload';
 import useGetDate from '../../../hooks/useGetDate';
 

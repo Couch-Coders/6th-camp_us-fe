@@ -7,7 +7,6 @@ import MyPage from './pages/myPage/MyPage';
 import Navbar from './components/navbar/Navbar';
 import CommunityPage from './pages/communityPage/CommunityPage';
 import './styles/antdCustom.css';
-/*  */
 
 function App() {
   return (

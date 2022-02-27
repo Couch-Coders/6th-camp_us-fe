@@ -5,12 +5,12 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import ImagePreview from '../imageUpload/imagePreview/ImagePreview';
+import ImagePreview from '../imageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../imageUpload/ImageUpload';
 import ReviewsList from './reveiwList/ReviewsList';
 import { UserContext } from '../auth/AuthProvider';
 import { NotMyReviewNotification } from '../notice/Notice';
-import { style } from './review.style';
+import { style } from './Review.style';
 import { Rate, Input, message } from 'antd';
 import * as api from '../../service/api';
 import ReviewSkeleton from '../skeleton/reviewSkeleton/ReviewSkeleton';

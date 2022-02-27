@@ -15,11 +15,10 @@ const CampLike = ({ likeCount, campId, liked }) => {
       message.warning('로그인한 회원만 좋아요를 할 수 있습니다.');
       return;
     }
-    const response = await api.campLike(id);
+    await api.campLike(id);
     setIsLike((isLike) => !isLike);
     const likeCount = isLike ? campLikeCount - 1 : campLikeCount + 1;
     setCampLikeCount(likeCount);
-    console.log(response);
   };
 
   return (

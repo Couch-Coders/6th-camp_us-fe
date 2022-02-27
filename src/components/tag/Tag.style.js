@@ -1,12 +1,13 @@
 import styled, { css } from 'styled-components';
 
 const InfoTag = styled.div`
+  font-family: Roboto;
+  font-size: 12px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 1px 20px;
+  padding: 3px 20px;
   margin: 0 7px 7px 0;
-  height: 22px;
   background: #fafafa;
   border: 1px solid #d9d9d9;
   box-sizing: border-box;
@@ -22,20 +23,21 @@ const InfoTag = styled.div`
   ${(props) =>
     props.checked === true &&
     css`
-      color: white;
-      background: #616161;
+      color: #73d13d;
+      background: #ffffff;
+      border: 1px solid #73d13d;
+      box-sizing: border-box;
+      & {
+        font-weight: 600;
+      }
     `}
-`;
 
-const TagText = styled.span`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 12px;
-  line-height: 20px;
+    @media screen and (max-width: 960px) {
+    margin: 0;
+    margin-right: 7px;
+  }
 `;
 
 export const style = {
   InfoTag,
-  TagText,
 };

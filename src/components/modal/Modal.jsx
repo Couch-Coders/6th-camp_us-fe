@@ -4,7 +4,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { UserContext } from '../auth/AuthProvider';
 import { signInGoogle } from '../../service/firebaseAuth';
 import RegisterForm from '../auth/RegisterForm';
-import { style } from './modal.style';
+import { style } from './Modal.style';
 
 export default function DeleteModal({ onClose, reviewId, deleteTask, role }) {
   const { setIsRegisterOpen } = useContext(UserContext);

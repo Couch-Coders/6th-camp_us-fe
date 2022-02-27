@@ -38,7 +38,7 @@ const ResultList = ({ camp }) => {
               fill="#FF7875"
             />
           </svg>
-          <LikeCount>15</LikeCount>
+          <LikeCount>{camp.like}</LikeCount>
         </LikeWrap>
       </Content>
     </Result>

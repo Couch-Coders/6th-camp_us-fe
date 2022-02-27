@@ -9,14 +9,8 @@ const RegisterForm = ({ setRegisterFormOpen }) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      console.log(`nickname :${event.target.nickname.value}`);
-      // const res = await axiosInstance.post('/members', {
-      //   nickname: event.target.nickname.value,
-      // });
-
       const res = await api.register(event);
 
-      console.log(res);
       const user = res;
       setUser(user);
       setIsRegisterOpen(false);

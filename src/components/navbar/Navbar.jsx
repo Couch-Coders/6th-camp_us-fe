@@ -5,7 +5,7 @@ import { UserOutlined } from '@ant-design/icons';
 import { FaTimes, FaBars } from 'react-icons/fa';
 import * as api from '../../service/api';
 import Modal from '../modal/Modal';
-import { style } from './navbar.styles';
+import { style } from './Navbar.styles';
 import { signOut } from '../../service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
 

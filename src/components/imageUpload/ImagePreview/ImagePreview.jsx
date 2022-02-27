@@ -1,5 +1,5 @@
 import React from 'react';
-import { style } from './imagePreview.style';
+import { style } from './ImagePreview.style';
 
 const ImagePreview = ({ setImageUpload, previewImg, previewName }) => {
   return (

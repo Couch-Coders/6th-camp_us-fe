@@ -122,7 +122,8 @@ const MobileGrayBox = styled.div`
   &::-webkit-scrollbar,
   ::-webkit-scrollbar-thumb,
   ::-webkit-scrollbar-track {
-    display: none;
+    background-color: transparent;
+    height: 1px;
   }
 `;
 

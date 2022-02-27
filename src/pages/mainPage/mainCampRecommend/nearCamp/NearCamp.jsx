@@ -36,12 +36,9 @@ const NearCamp = ({ camp, geoLocation }) => {
   }
 
   useEffect(() => {
-    console.log(geoLocation);
     geoLocation &&
       getDistance(camp.mapY, camp.mapX, geoLocation.lat, geoLocation.long);
   }, []);
-
-  console.log(distance);
 
   return (
     <Container>

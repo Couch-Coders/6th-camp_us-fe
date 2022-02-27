@@ -26,7 +26,6 @@ export async function register(event) {
 
 // 닉네임 변경
 export async function changeNickname(nickname) {
-  console.log(nickname);
   try {
     const response = await axiosInstance.patch('/members/me', nickname);
     const data = response.data;
@@ -141,7 +140,6 @@ export async function deleteAlrim(notificationId) {
     const response = await axiosInstance.delete(
       `/notifications/${notificationId}`,
     );
-    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -151,7 +149,6 @@ export async function deleteAlrim(notificationId) {
 
 // 캠핑장 추천
 export async function getRecommendCamp(geoLocation) {
-  console.log(geoLocation);
   try {
     const response = await axiosInstance({
       url: `/camps?page=0&size=10`,
@@ -161,7 +158,6 @@ export async function getRecommendCamp(geoLocation) {
         sort: 'distance',
       },
     });
-    console.log(response);
     const content = response.data.content;
     return content;
   } catch (error) {
@@ -195,7 +191,6 @@ export async function getCamp(id) {
 export async function campLike(id) {
   try {
     const response = await axiosInstance.patch(`/camps/${id}/like`);
-    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -232,7 +227,6 @@ export async function getReviewImage(id) {
 // 검색페이지 캠핑장 검색
 
 export async function getSearchCamp(address, pageNum, sort) {
-  console.log(address);
   try {
     const response = await axiosInstance({
       url: `/camps?page=${pageNum}&size=10`,
@@ -247,7 +241,6 @@ export async function getSearchCamp(address, pageNum, sort) {
         mapY: address.mapY && address.mapY,
       },
     });
-    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -267,7 +260,6 @@ export async function getMainSearch(address, pageNum) {
         rate: address.rate && address.rate,
       },
     });
-    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -280,7 +272,6 @@ export async function deleteReview(reviewId) {
   try {
     const response = await axiosInstance.delete(`/reviews/${reviewId}`);
 
-    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -297,7 +288,6 @@ export async function writeReview(id, review) {
       rate: review.rate,
     });
 
-    console.log(response);
     const data = response.data;
     return data;
   } catch (error) {
@@ -313,8 +303,6 @@ export async function changeReview(review) {
       imgUrl: review.imgUrl,
       content: review.content,
     });
-
-    console.log(response);
   } catch (error) {
     throw new Error('Failed to load data');
   }
@@ -324,8 +312,6 @@ export async function changeReview(review) {
 export async function changeReviewLike(id) {
   try {
     const response = await axiosInstance.patch(`/reviews/${id}/like`);
-
-    console.log(response);
   } catch (error) {
     throw new Error('Failed to load data');
   }

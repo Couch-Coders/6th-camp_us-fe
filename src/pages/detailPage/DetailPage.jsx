@@ -5,7 +5,7 @@ import CampLocation from './campLocation/CampLocation';
 import CampLike from '../../components/campLike/CampLike';
 import { CampContext } from '../../context/CampContext';
 import * as api from '../../service/api';
-import { style } from './detailPage.style';
+import { style } from './DetailPage.style';
 import { useLocation } from 'react-router';
 import defaultImg from '../../assets/images/default_image.png';
 import Review from '../../components/review/Review';
