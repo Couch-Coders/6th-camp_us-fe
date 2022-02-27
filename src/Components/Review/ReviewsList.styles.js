@@ -318,19 +318,18 @@ export const Content = styled(Link)`
     isVisibleText
       ? css`
       display: block
-        font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 22px;
-  color: #000000;
+      font-family: Roboto;
+      font-style: normal;
+      font-weight: normal;
+      font-size: 14px;
+      line-height: 22px;
+      color: #000000;
   `
       : css`
           display: -webkit-box;
           overflow: hidden;
           -webkit-line-clamp: 3;
           -webkit-box-orient: vertical;
-          word-break: break-all;
           white-space: normal;
           text-overflow: ellipsis;
           font-family: Roboto;
@@ -341,12 +340,9 @@ export const Content = styled(Link)`
           color: #000000;
         `}
 
+  word-break: break-all;
   &:hover {
     color: #000000;
-  }
-
-  @media screen and (max-width: 600px) {
-    width: 100%;
   }
 `;
 
@@ -354,6 +350,10 @@ export const ContentWrap = styled.div`
   width: 80%;
   display: flex;
   flex-direction: column;
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 export const ReadMore = styled.span`

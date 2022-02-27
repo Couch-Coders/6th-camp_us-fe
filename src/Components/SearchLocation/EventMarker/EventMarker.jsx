@@ -25,6 +25,9 @@ const EventMarkerContainer = ({ camp }) => {
         position={position} // 마커를 표시할 위치
         // @ts-ignore
         onClick={() => setIsVisible(true)}
+        style={{
+          margin: 0,
+        }}
         image={{
           src: markerImg,
           size: {
@@ -48,6 +51,7 @@ const EventMarkerContainer = ({ camp }) => {
             backgroundColor: 'white',
             borderRadius: '5px',
             boxShadow: '0px 1px 2px #888',
+            whiteSpace: 'break-spaces',
           }}
         >
           <div className="wrap">
