@@ -1,10 +1,9 @@
 import styled from 'styled-components';
 import { Badge } from 'antd';
 import { Link } from 'react-router-dom';
-import LogoSrc from '../../Assets/Images/Logo.svg';
-import { Container } from '../../globalStyles';
+import LogoSrc from '../../assets/images/Logo.svg';
 
-export const Nav = styled.nav`
+const Nav = styled.nav`
   background: #fff;
   width: 100%;
   height: 65px;
@@ -25,22 +24,29 @@ export const Nav = styled.nav`
   }
 `;
 
-export const NavbarContainer = styled(Container)`
+const NavbarContainer = styled.div`
   display: flex;
   justify-content: space-between;
   height: 100%;
   background: #ffffff;
   box-shadow: 0px 2px 8px #f0f1f2;
   box-sizing: border-box;
-  ${Container}
+  z-index: 1;
+  width: 100%;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 50px;
+  padding-left: 50px;
 
   @media screen and (max-width: 960px) {
+    padding-right: 30px;
+    padding-left: 30px;
     position: relative;
     height: 50px;
   }
 `;
 
-export const NavLogo = styled(Link)`
+const NavLogo = styled(Link)`
   color: #222;
   font-weight: 600;
   justify-self: flex-start;
@@ -58,7 +64,7 @@ export const NavLogo = styled(Link)`
   }
 `;
 
-export const NavIcon = styled.div`
+const NavIcon = styled.div`
   width: 50px;
   height: 50px;
   background-color: red;
@@ -71,7 +77,7 @@ export const NavIcon = styled.div`
   }
 `;
 
-export const MobileIcon = styled.div`
+const MobileIcon = styled.div`
   display: none;
 
   @media screen and (max-width: 960px) {
@@ -86,7 +92,7 @@ export const MobileIcon = styled.div`
   }
 `;
 
-export const NavMenu = styled.ul`
+const NavMenu = styled.ul`
   display: flex;
   align-items: center;
   list-style: none;
@@ -107,7 +113,7 @@ export const NavMenu = styled.ul`
   }
 `;
 
-export const NavItem = styled.li`
+const NavItem = styled.li`
   height: 65px;
   align-items: center;
 
@@ -117,7 +123,7 @@ export const NavItem = styled.li`
   }
 `;
 
-export const NavLinks = styled(Link)`
+const NavLinks = styled(Link)`
   color: ${(props) => (props.selected ? '#73D13D' : '#000;')};
   border-bottom: ${(props) =>
     props.selected ? '2px solid #73D13D;' : '2px solid transparent;'};
@@ -153,7 +159,7 @@ export const NavLinks = styled(Link)`
   }
 `;
 
-export const MyProfile = styled(Link)`
+const MyProfile = styled(Link)`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -182,7 +188,7 @@ export const MyProfile = styled(Link)`
   }
 `;
 
-export const NavItemBtn = styled.li`
+const NavItemBtn = styled.li`
   position: relative;
   @media screen and (max-width: 960px) {
     width: 100%;
@@ -193,25 +199,7 @@ export const NavItemBtn = styled.li`
   }
 `;
 
-export const NavBtnLink = styled(Link)`
-  @media screen and (min-width: 961px) {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-decoration: none;
-    padding: 8px 16px;
-    height: 100%;
-    width: 100%;
-    border: none;
-    outline: none;
-  }
-
-  @media screen and (max-width: 960px) {
-    display: block;
-  }
-`;
-
-export const MyMenu = styled.div`
+const MyMenu = styled.div`
   @media screen and (min-width: 961px) {
     position: absolute;
     display: ${(props) => (props.Isclicked ? 'block' : 'none')};
@@ -225,7 +213,7 @@ export const MyMenu = styled.div`
   }
 `;
 
-export const MenuList = styled(Link)`
+const MenuList = styled(Link)`
   @media screen and (min-width: 961px) {
     font-size: 14px;
     border-bottom: 1px solid #e0e0e0;
@@ -262,13 +250,13 @@ export const MenuList = styled(Link)`
   }
 `;
 
-export const MyPage = styled.div`
+const MyPage = styled.div`
   @media screen and (max-width: 960px) {
     padding: 2rem;
   }
 `;
 
-export const LogOutBtn = styled.button`
+const LogOutBtn = styled.button`
   font-size: 14px;
   outline: none;
   background: none;
@@ -285,7 +273,7 @@ export const LogOutBtn = styled.button`
   }
 `;
 
-export const LogInBtn = styled.button`
+const LogInBtn = styled.button`
   font-size: 14px;
   outline: none;
   background: none;
@@ -303,6 +291,25 @@ export const LogInBtn = styled.button`
   }
 `;
 
-export const NewAlrimBadge = styled(Badge)`
+const NewAlrimBadge = styled(Badge)`
   margin-top: 10px;
 `;
+
+export const style = {
+  Nav,
+  NavbarContainer,
+  NavLogo,
+  NavIcon,
+  MobileIcon,
+  NavMenu,
+  NavItem,
+  NavLinks,
+  MyProfile,
+  NavItemBtn,
+  MyMenu,
+  MenuList,
+  MyPage,
+  LogOutBtn,
+  LogInBtn,
+  NewAlrimBadge,
+};

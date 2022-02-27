@@ -1,7 +1,7 @@
 import React from 'react';
-import MainSearch from '../../Components/Main/MainSearch/MainSearch';
-import MainCampRecommend from '../../Components/Main/MainCampRecommend/MainCampRecommend';
-import MainBestReview from '../../Components/Main/MainBestReview/MainBestReview';
+import MainSearch from './mainSearch/MainSearch';
+import MainCampRecommend from './mainCampRecommend/MainCampRecommend';
+import MainBestReview from './mainBestReview/MainBestReview';
 
 const MainPage = () => {
   return (

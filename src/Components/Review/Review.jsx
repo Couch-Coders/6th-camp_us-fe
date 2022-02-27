@@ -5,15 +5,15 @@ import React, {
   useRef,
   useState,
 } from 'react';
-import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
-import ImageUpload from '../ImageUpload/ImageUpload';
-import { Rate, Input, message } from 'antd';
-import * as api from '../../Service/camps';
-import ReviewsList from '../Review/ReviewsList';
-import { style } from './Review.style';
+import ImagePreview from '../imageUpload/imagePreview/ImagePreview';
+import ImageUpload from '../imageUpload/ImageUpload';
+import ReviewsList from './reveiwList/ReviewsList';
 import { UserContext } from '../auth/AuthProvider';
-import { NotMyReviewNotification } from '../../Components/Notice/Notice';
-import ReviewSkeleton from '../Skeleton/ReviewSkeleton';
+import { NotMyReviewNotification } from '../notice/Notice';
+import { style } from './review.style';
+import { Rate, Input, message } from 'antd';
+import * as api from '../../service/api';
+import ReviewSkeleton from '../skeleton/reviewSkeleton/ReviewSkeleton';
 
 const Review = ({ CampId, clickedPage }) => {
   const { TextArea } = Input;
@@ -31,29 +31,29 @@ const Review = ({ CampId, clickedPage }) => {
 
   const { user } = useContext(UserContext);
 
-  async function detailReviewRequest(page) {
-    setIsLoading(true);
-    const response = await api.getCampReview(CampId, page);
-    console.log(response);
-    setReviewData(response.content);
-    setTotalElement(response.totalElements);
-    setIsLoading(false);
-  }
-
-  async function MemberReviewRequest(page) {
-    setIsLoading(true);
-    const response = await api.getUserReview(page);
-    console.log(response);
-    setReviewData(response.content);
-    setTotalElement(response.totalElements);
-    setIsLoading(false);
-  }
-
   useEffect(() => {
     clickedPage === 'detail'
       ? detailReviewRequest(currentPage)
       : MemberReviewRequest(currentPage);
   }, [currentPage]);
+
+  // 상세페이지 리뷰 조회
+  async function detailReviewRequest(page) {
+    setIsLoading(true);
+    const response = await api.getCampReview(CampId, page);
+    setReviewData(response.content);
+    setTotalElement(response.totalElements);
+    setIsLoading(false);
+  }
+
+  // 마이페이지 리뷰 조회
+  async function MemberReviewRequest(page) {
+    setIsLoading(true);
+    const response = await api.getUserReview(page);
+    setReviewData(response.content);
+    setTotalElement(response.totalElements);
+    setIsLoading(false);
+  }
 
   // 페이지 변경
   const changePage = (value) => {
@@ -65,18 +65,14 @@ const Review = ({ CampId, clickedPage }) => {
 
   /* 리뷰 삭제 */
   async function deleteTask(id) {
-    const response = await api.deleteReview(id);
-    console.log(response);
+    await api.deleteReview(id);
     clickedPage === 'detail'
       ? detailReviewRequest(currentPage)
       : MemberReviewRequest(currentPage);
-    // const remainingTasks = reviewData.filter((data) => id !== data.id);
-    // setReviewData(remainingTasks);
   }
 
   // 리뷰 수정
   async function editTask(review) {
-    console.log('review =', review);
     const editedTaskList = reviewData.map((data) => {
       if (review.reviewId === data.reviewId) {
         return {
@@ -87,9 +83,7 @@ const Review = ({ CampId, clickedPage }) => {
       return data;
     });
     setReviewData(editedTaskList);
-
-    const response = await api.changeReview(review);
-    console.log(response);
+    await api.changeReview(review);
   }
 
   // 이미지 업로드
@@ -139,12 +133,11 @@ const Review = ({ CampId, clickedPage }) => {
       return;
     }
 
-    const response = await api.writeReview(CampId, review);
+    await api.writeReview(CampId, review);
     setReview((review) => {
       return { ...review, rate: null, content: '', imgUrl: '', imgName: '' };
     });
     detailReviewRequest();
-    console.log(response);
   }
 
   return (

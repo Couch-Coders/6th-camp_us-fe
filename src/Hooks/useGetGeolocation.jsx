@@ -24,7 +24,7 @@ const useGetGeolocation = (props) => {
         },
         function (error) {
           setGeolocation(false);
-          console.error(error);
+          throw new Error(error);
         },
         {
           enableHighAccuracy: false,

@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
 import { Input, Avatar } from 'antd';
 
-export const SectionTitle = styled.h2`
+const SectionTitle = styled.h2`
   font-family: Work Sans;
   font-style: normal;
   font-weight: bold;
@@ -11,7 +11,7 @@ export const SectionTitle = styled.h2`
   color: #000000;
 `;
 
-export const MyInfo = styled.div`
+const MyInfo = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
@@ -20,7 +20,7 @@ export const MyInfo = styled.div`
   padding: 25px 0;
 `;
 
-export const MyProfile = styled.div`
+const MyProfile = styled.div`
   display: flex;
   justify-content: start;
   align-items: center;
@@ -36,7 +36,7 @@ export const MyProfile = styled.div`
   }
 `;
 
-export const AvatarImg = styled(Avatar)`
+const AvatarImg = styled(Avatar)`
   position: relative;
 
   & span.ant-avatar-string {
@@ -55,17 +55,17 @@ export const AvatarImg = styled(Avatar)`
   }
 `;
 
-export const EditUserName = styled(Input)`
+const EditUserName = styled(Input)`
   width: 200px;
   margin: 0 5px;
 `;
 
-export const UserName = styled.div`
+const UserName = styled.div`
   display: block;
   margin: 0 10px;
 `;
 
-export const MyActivity = styled.ul`
+const MyActivity = styled.ul`
   list-style: none;
   margin: 0;
   margin-left: 70px;
@@ -82,14 +82,14 @@ export const MyActivity = styled.ul`
   }
 `;
 
-export const TabsContainer = styled.div`
+const TabsContainer = styled.div`
   display: flex;
   justify-content: flex-start;
   width: 100%;
   padding-bottom: 25px;
 `;
 
-export const TabsWrap = styled.div`
+const TabsWrap = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -104,7 +104,7 @@ export const TabsWrap = styled.div`
   z-index: 1;
 `;
 
-export const InfoTabs = styled.span`
+const InfoTabs = styled.span`
   height: 100%;
   font-family: Roboto;
   font-style: normal;
@@ -129,7 +129,7 @@ export const InfoTabs = styled.span`
         `}
 `;
 
-export const LocationTabs = styled.span`
+const LocationTabs = styled.span`
   height: 100%;
   font-family: Roboto;
   font-style: normal;
@@ -154,7 +154,7 @@ export const LocationTabs = styled.span`
         `}
 `;
 
-export const ReviewTabs = styled.span`
+const ReviewTabs = styled.span`
   height: 100%;
   font-family: Roboto;
   font-style: normal;
@@ -178,3 +178,18 @@ export const ReviewTabs = styled.span`
           color: #000000;
         `}
 `;
+
+export const style = {
+  SectionTitle,
+  MyInfo,
+  MyProfile,
+  AvatarImg,
+  EditUserName,
+  UserName,
+  MyActivity,
+  TabsContainer,
+  TabsWrap,
+  InfoTabs,
+  LocationTabs,
+  ReviewTabs,
+};
