@@ -15,12 +15,6 @@ const CloseBtn = styled.div`
   cursor: pointer;
 `;
 
-const Wrap = styled.div`
-  * {
-    white-space: none;
-  }
-`;
-
 const Content = styled.div`
   display: flex;
   padding: 5px;
@@ -51,7 +45,6 @@ const ToDetail = styled(Link)`
 
 export const style = {
   Title,
-  Wrap,
   CloseBtn,
   Content,
   Thumbnail,

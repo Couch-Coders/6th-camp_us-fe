@@ -1,12 +1,12 @@
 </br>
-<p align="center"><img src="https://res.cloudinary.com/divncmfka/image/upload/v1645903982/CampUs_pd9lyb.png" width="100%" height="400px"/></p>
+<p align="center"><img src="https://res.cloudinary.com/divncmfka/image/upload/v1645903982/CampUs_pd9lyb.png" width="100%"/></p>
 
 </br>
 </br>
 
-# **전국 캠핑장 추천 플랫폼 - \_**CampUs -**\_ ⛺️ (FE)**
+# **전국 캠핑장 추천 플랫폼 - **CampUs -** ⛺️ (FE)**
 
-## "열심히 일한 당신, 어디론가 떠나고 싶으신가요?"
+### "열심히 일한 당신, 어디론가 떠나고 싶으신가요?"
 
 </br>
 
@@ -34,8 +34,6 @@
 
 </br>
 
----
-
 </br>
 
 ## 👨‍💻 팀원 소개
@@ -47,15 +45,11 @@
 
 <br>
 
----
-
 <br>
 
 ## 📚 [Github WIKI.](https://github.com/Couch-Coders/6th-camp_us-be/wiki)
 
 <br>
-
----
 
 <br>
 
@@ -64,8 +58,6 @@
 - ### 2022.01.18 ~ 2022.03.01 (5주)
 
 <br>
-
----
 
 <br>
 
@@ -105,8 +97,6 @@
 
 <br>
 
----
-
 <br>
 
 ## ⚙️ 시스템 아키텍처
@@ -116,8 +106,6 @@
 ....
 
 <br>
-
----
 
 <br>
 
