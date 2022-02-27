@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import CampInformation from '../../Components/CampInformation/CampInformation';
-import Tag from '../../Components/Tag/Tag';
-import CampLocation from '../../Components/CampLocation/CampLocation';
-import CampLike from '../../Components/CampLike/CampLike';
+import CampInformation from './campInformation/CampInformation';
+import Tag from '../../components/tag/Tag';
+import CampLocation from './campLocation/CampLocation';
+import CampLike from '../../components/campLike/CampLike';
 import { CampContext } from '../../context/CampContext';
-import * as api from '../../Service/camps';
-import { style } from './DetailPage.style';
+import * as api from '../../service/api';
+import { style } from './detailPage.style';
 import { useLocation } from 'react-router';
-import defaultImg from '../../Assets/Images/default_image.png';
-import Review from '../../Components/Review/Review';
+import defaultImg from '../../assets/images/default_image.png';
+import Review from '../../components/review/Review';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -21,32 +21,32 @@ const DetailPage = () => {
   const params = new URLSearchParams(search);
   const CampId = params.get('id');
 
+  useEffect(() => {
+    getCampData();
+    getCampReviewImg();
+  }, []);
+
+  // 클릭한 탭 구별
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
     setSelectedTabs(role);
   }
 
+  // 캠핑장 조회
   async function getCampData() {
     setIsLoading(true);
     const response = await api.getCamp(CampId);
-    console.log(response);
-    console.log(response.sbrsCl);
     const info = response.sbrsCl !== null ? response.sbrsCl.split(',') : [];
     setCampData(response);
     setCampInfo(info);
     setIsLoading(false);
   }
 
-  async function getCampReview() {
+  // 리뷰 이미지 조회
+  async function getCampReviewImg() {
     const response = await api.getReviewImage(CampId);
-    console.log(response);
     setReviewImg(response);
   }
-
-  useEffect(() => {
-    getCampData();
-    getCampReview();
-  }, []);
 
   return (
     <Main>

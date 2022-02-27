@@ -1,8 +1,5 @@
 import styled from 'styled-components';
 
-const theme = {
-  backgroundColor: 'red',
-};
 export const Section = styled.section`
   width: 100%;
   position: relative;

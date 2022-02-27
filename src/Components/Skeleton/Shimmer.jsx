@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Shimmer = (props) => <Wave />;
+const Shimmer = () => <Wave />;
 
 export default Shimmer;
 

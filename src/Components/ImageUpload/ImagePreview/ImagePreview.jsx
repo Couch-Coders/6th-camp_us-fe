@@ -1,8 +1,7 @@
 import React from 'react';
-import { style } from './ImagePreview.style';
+import { style } from './imagePreview.style';
 
 const ImagePreview = ({ setImageUpload, previewImg, previewName }) => {
-  console.log(previewImg);
   return (
     <Wrap>
       <Image src={previewImg} alt="preview" />

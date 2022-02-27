@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { UserContext } from './AuthProvider';
 import styled from 'styled-components';
-import * as api from '../../Service/camps';
+import * as api from '../../service/api';
 
 const RegisterForm = ({ setRegisterFormOpen }) => {
   const { setUser, setIsRegisterOpen } = useContext(UserContext);

@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { style } from './CampLike.style';
-import * as api from '../../Service/camps';
+import * as api from '../../service/api';
 import { UserContext } from '../auth/AuthProvider';
 import { message } from 'antd';
 

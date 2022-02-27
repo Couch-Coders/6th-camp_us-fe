@@ -1,5 +1,5 @@
 import React from 'react';
-import { Notification, NotiTitle, NotiContent } from './Notice.style';
+import { style } from './notice.style';
 import {
   BellFilled,
   MessageOutlined,
@@ -70,3 +70,5 @@ export const CampSearchResultNotification = () => {
     </Notification>
   );
 };
+
+const { Notification, NotiTitle, NotiContent } = style;

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
-import { auth } from '../../Service/firebaseAuth';
-import { signOut } from '../../Service/firebaseAuth';
-import * as api from '../../Service/camps';
+import { auth } from '../../service/firebaseAuth';
+import { signOut } from '../../service/firebaseAuth';
+import * as api from '../../service/api';
 
 export const UserContext = React.createContext(null);
 

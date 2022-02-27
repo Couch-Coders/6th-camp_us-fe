@@ -1,20 +1,21 @@
-import React, { useContext, useRef } from 'react';
+import React, { useContext } from 'react';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { UserContext } from '../auth/AuthProvider';
-import styled from 'styled-components';
-import { signInGoogle } from '../../Service/firebaseAuth';
+import { signInGoogle } from '../../service/firebaseAuth';
 import RegisterForm from '../auth/RegisterForm';
-import { style } from './Modal.style';
+import { style } from './modal.style';
 
 export default function DeleteModal({ onClose, reviewId, deleteTask, role }) {
   const { setIsRegisterOpen } = useContext(UserContext);
 
+  // 모달 닫기
   function hideModal(e) {
     e.preventDefault();
     onClose(false);
   }
 
+  // 모달 컨펌
   async function ConfirmModal(e) {
     e.preventDefault();
     deleteTask(reviewId);
@@ -122,7 +123,6 @@ export default function DeleteModal({ onClose, reviewId, deleteTask, role }) {
                 <p>닉네임을 입력해주세요 !</p>
               </div>
             </ContentText>
-            {/* 회원가입 컴포넌트 */}
             <RegisterForm />
           </ContentWrap>
         </Modal>

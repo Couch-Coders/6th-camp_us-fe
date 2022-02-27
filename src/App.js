@@ -1,12 +1,12 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import AuthProvider from './Components/auth/AuthProvider';
-import DetailPage from './Pages/DetailPage/DetailPage';
-import MainPage from './Pages/MainPage/MainPage';
-import SearchPage from './Pages/SearchPage/SearchPage';
-import MyPage from './Pages/MyPage/MyPage';
-import Navbar from './Components/Navbar/Navbar';
-import CommunityPage from './Pages/CommunityPage/CommunityPage';
-import './Styles/antdCustom.css';
+import AuthProvider from './components/auth/AuthProvider';
+import DetailPage from './pages/detailPage/DetailPage';
+import MainPage from './pages/mainPage/MainPage';
+import SearchPage from './pages/searchPage/SearchPage';
+import MyPage from './pages/myPage/MyPage';
+import Navbar from './components/navbar/Navbar';
+import CommunityPage from './pages/communityPage/CommunityPage';
+import './styles/antdCustom.css';
 
 function App() {
   return (

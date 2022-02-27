@@ -2,24 +2,23 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Spin } from 'antd';
 import { UploadOutlined } from '@ant-design/icons';
-import { imageUploader } from '../../Service/imageUploder';
+import { imageUploader } from '../../service/imageUploder';
 
 const ImageUpload = ({ setImageUpload }) => {
   const [loading, setLoading] = useState(false);
   const inputRef = useRef();
 
+  // 변경 버튼 클릭
   const onbuttonClick = (event) => {
     event.preventDefault();
     inputRef.current.click();
   };
 
+  // 이미지 변경
   const onChange = async (event) => {
-    console.log(event.target.files[0]);
     setLoading(true);
     const uploaded = await imageUploader(event.target.files[0]);
     setLoading(false);
-
-    console.log(uploaded.data);
     setImageUpload(
       {
         name: `${uploaded.data.original_filename}.${uploaded.data.format}`,
