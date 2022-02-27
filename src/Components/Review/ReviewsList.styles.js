@@ -314,33 +314,18 @@ export const BottomArea = styled.div`
 `;
 
 export const Content = styled(Link)`
-  ${({ isVisibleText }) =>
-    isVisibleText
-      ? css`
-      display: block
-      font-family: Roboto;
-      font-style: normal;
-      font-weight: normal;
-      font-size: 14px;
-      line-height: 22px;
-      color: #000000;
-  `
-      : css`
-          display: -webkit-box;
-          overflow: hidden;
-          -webkit-line-clamp: 3;
-          -webkit-box-orient: vertical;
-          white-space: normal;
-          text-overflow: ellipsis;
-          font-family: Roboto;
-          font-style: normal;
-          font-weight: normal;
-          font-size: 14px;
-          line-height: 22px;
-          color: #000000;
-        `}
-
-  word-break: break-all;
+  white-space: pre-line;
+  word-break: break-word;
+  display: -webkit-box;
+  overflow: hidden;
+  white-space: normal;
+  text-overflow: ellipsis;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 22px;
+  color: #000000;
   &:hover {
     color: #000000;
   }

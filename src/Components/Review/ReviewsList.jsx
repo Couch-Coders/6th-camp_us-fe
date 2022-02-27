@@ -1,4 +1,10 @@
-import React, { useState, useCallback, useContext, useEffect } from 'react';
+import React, {
+  useState,
+  useCallback,
+  useContext,
+  useEffect,
+  useRef,
+} from 'react';
 import { Rate, Input, message } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
 import ImagePreview from '../ImageUpload/ImagePreview/ImagePreview';
@@ -37,10 +43,13 @@ import { UserContext } from '../auth/AuthProvider';
 
 const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
-  const [isVisibleTextClose, setIsVisibleTextClose] = useState(false);
-  const [isVisibleText, setIsVisibleText] = useState(false);
+  const [sliceTextFirst, setSliceTextFirst] = useState();
+  const [sliceTextSecond, setSliceTextSecond] = useState();
+  const [visibleSecondText, setVisibleSecondText] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const { user } = useContext(UserContext);
+
+  const contentRef = useRef();
 
   const { TextArea } = Input;
   const [review, setReview] = useState({
@@ -57,19 +66,20 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   });
 
   useEffect(() => {
-    reviewData.content.length > 50 && setisVisibleReadMore(true);
+    if (reviewData.content.length > 10) {
+      const sliceFIrst = reviewData.content.substring(0, 9);
+      const sliceSecond = reviewData.content.substring(9);
+      setSliceTextFirst(sliceFIrst);
+      setSliceTextSecond(sliceSecond);
+      setisVisibleReadMore(true);
+    } else {
+      setSliceTextFirst(reviewData.content);
+    }
   }, [reviewData.content.length]);
 
-  const closeMoreText = () => {
-    setIsVisibleText(false);
-    setisVisibleReadMore(true);
-    setIsVisibleTextClose(false);
-  };
-
   const openMoreText = () => {
-    setIsVisibleText(true);
+    setVisibleSecondText(true);
     setisVisibleReadMore(false);
-    setIsVisibleTextClose(true);
   };
 
   const handleRateChange = (value) => {
@@ -220,18 +230,13 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
         <Date>{review.lastModifiedDate}</Date>
         <BottomArea>
           <ContentWrap>
-            <Content
-              to={`/detail?id=${reviewData.campId}`}
-              isVisibleText={isVisibleText}
-            >
-              {review.content}
+            <Content ref={contentRef} to={`/detail?id=${reviewData.campId}`}>
+              {sliceTextFirst}
+              {visibleSecondText && sliceTextSecond}
+              {isVisibleReadMore && (
+                <ReadMore onClick={openMoreText}> ...더 보기</ReadMore>
+              )}
             </Content>
-            {isVisibleReadMore && (
-              <ReadMore onClick={openMoreText}>더보기</ReadMore>
-            )}
-            {isVisibleTextClose && (
-              <ReadMore onClick={closeMoreText}>접기</ReadMore>
-            )}
           </ContentWrap>
           <ReviewLike
             liked={review.liked}
