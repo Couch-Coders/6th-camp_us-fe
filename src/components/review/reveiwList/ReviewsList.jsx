@@ -172,7 +172,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const [show, setShow] = useState(false);
   const viewTemplate = (
     <ListReview>
-      <ReviewThumbnail>
+      <ReviewThumbnail clickedPage={clickedPage}>
         <ReviewThumb
           image={review.imgUrl !== '' && review.imgUrl !== null ? true : false}
           src={

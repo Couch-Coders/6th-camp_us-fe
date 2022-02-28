@@ -140,7 +140,8 @@ const ListReview = styled.div`
 
 const ReviewThumbnail = styled.div`
   width: 100%;
-  height: 174px;
+  height: ${({ clickedPage }) =>
+    clickedPage === 'mypage' ? '250px' : '174px'};
   overflow: hidden;
   position: relative;
 
