@@ -74,8 +74,9 @@
 <img src="https://img.shields.io/badge/styled-components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
 <img src="https://img.shields.io/badge/Ant Design -0170FE?style=flat-square&logo=Ant Design&logoColor=white"/>
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=Firebase&logoColor=white"/>
+</p>
 
-### [FE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-be/projects/1)
+### [FE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-fe/projects/1)
 
 <br>
 
@@ -85,14 +86,13 @@
 <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring Boot -6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/>
-<img src="https://img.shields.io/badge/Spring Security
- -6DB33F?style=flat-square&logo=Spring Security
+<img src="https://img.shields.io/badge/SpringSecurity
+ -6DB33F?style=flat-square&logo=SpringSecurity
 &logoColor=white"/>
 <img src="https://img.shields.io/badge/Data JPA-6DB33F?style=flat-square&logo=&logoColor=white"/>
 <img src="https://img.shields.io/badge/Query DSL-0769AD?style=flat-square&logo=&logoColor=white"/>
 <img src="https://img.shields.io/badge/MySQL -4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
 <img src="https://img.shields.io/badge/Oauth-4285F4?style=flat-square&logo=Google&logoColor=white"/>
-
 </p>
 
 ### [BE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-be/projects/1)
@@ -101,6 +101,7 @@
 
 ### **Infra**
 
+<p>
 <img src="https://img.shields.io/badge/AWS EC2 -232F3E?style=flat-square&logo=Amazon AWS&logoColor=white"/>
 <img src="https://img.shields.io/badge/AWS S3 -569A31?style=flat-square&logo=Amazon S3&logoColor=white"/>
 <img src="https://img.shields.io/badge/AWS  CodeDeploy -569A31?style=flat-square&logo=Amazon AWS&logoColor=white"/>
