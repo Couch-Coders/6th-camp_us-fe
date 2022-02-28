@@ -118,7 +118,7 @@ const Container = styled.div`
 `;
 
 /* viewTemplate */
-const LikeReview = styled.div`
+const ListReview = styled.div`
   width: 100%;
   height: auto;
   background: #ffffff;
@@ -131,6 +131,10 @@ const LikeReview = styled.div`
     box-shadow: 0px 2px 8px #f0f1f2;
     box-sizing: border-box;
     transition: all 0.5s ease;
+  }
+
+  @media screen and (max-width: 760px) {
+    overflow: hidden;
   }
 `;
 
@@ -298,7 +302,7 @@ const BottomArea = styled.div`
   padding-top: 10px;
   align-items: start;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 760px) {
     display: block;
   }
 `;
@@ -326,7 +330,7 @@ const ContentWrap = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 760px) {
     width: 100%;
   }
 `;
@@ -382,7 +386,7 @@ const ReviewLike = styled.div`
           }
         `}
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 760px) {
     padding: 4px 14px;
     margin-top: 10px;
     display: inline-block;
@@ -400,7 +404,7 @@ export const style = {
   EditButton,
   CancleButton,
   Container,
-  LikeReview,
+  ListReview,
   ReviewThumbnail,
   ReviewThumb,
   ReviewInfo,
