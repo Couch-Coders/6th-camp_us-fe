@@ -74,8 +74,6 @@
 <img src="https://img.shields.io/badge/styled-components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
 <img src="https://img.shields.io/badge/Ant Design -0170FE?style=flat-square&logo=Ant Design&logoColor=white"/>
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=Firebase&logoColor=white"/>
-<img src="https://img.shields.io/badge/Amazon S3 -569A31?style=flat-square&logo=Amazon S3&logoColor=white"/>
-</p>
 
 ### [FE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-be/projects/1)
 
@@ -87,13 +85,30 @@
 <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring Boot -6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/>
-<img src="https://img.shields.io/badge/Amazon EC2 -232F3E?style=flat-square&logo=Amazon AWS&logoColor=white"/>
-.....................작성 예정
+<img src="https://img.shields.io/badge/Spring Security
+ -6DB33F?style=flat-square&logo=Spring Security
+&logoColor=white"/>
+<img src="https://img.shields.io/badge/Data JPA-6DB33F?style=flat-square&logo=&logoColor=white"/>
+<img src="https://img.shields.io/badge/Query DSL-0769AD?style=flat-square&logo=&logoColor=white"/>
+<img src="https://img.shields.io/badge/MySQL -4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
+<img src="https://img.shields.io/badge/Oauth-4285F4?style=flat-square&logo=Google&logoColor=white"/>
+
 </p>
 
 ### [BE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-be/projects/1)
 
 <br>
+
+### **Infra**
+
+<img src="https://img.shields.io/badge/AWS EC2 -232F3E?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS S3 -569A31?style=flat-square&logo=Amazon S3&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS  CodeDeploy -569A31?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS RDS -4285F4?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS IAM -569A31?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub Actions -2088FF?style=flat-square&logo=GitHub Actions&logoColor=white"/>
+
+</p>
 
 <br>
 
@@ -106,6 +121,142 @@
 ....
 
 <br>
+
+## 🗂 폴더 구조
+
+<br>
+
+```
+└── src
+    ├── App.js
+    ├── assets
+    │   └── images
+    │       ├── Logo.svg
+    │       ├── default.png
+    │       ├── default_image.png
+    │       └── marker.webp
+    ├── common
+    │   ├── addressData.js
+    │   ├── axiosInstance.js
+    │   └── category.js
+    ├── components
+    │   ├── auth
+    │   │   ├── AuthProvider.js
+    │   │   └── RegisterForm.js
+    │   ├── campLike
+    │   │   ├── CampLike.jsx
+    │   │   └── CampLike.style.js
+    │   ├── imageUpload
+    │   │   ├── ImageUpload.jsx
+    │   │   └── imagePreview
+    │   │       ├── ImagePreview.jsx
+    │   │       └── imagePreview.style.js
+    │   ├── modal
+    │   │   ├── Modal.jsx
+    │   │   └── modal.style.js
+    │   ├── navbar
+    │   │   ├── Navbar.jsx
+    │   │   └── navbar.styles.js
+    │   ├── notice
+    │   │   ├── Notice.jsx
+    │   │   └── notice.style.js
+    │   ├── review
+    │   │   ├── Review.jsx
+    │   │   ├── reveiwList
+    │   │   │   ├── ReviewsList.jsx
+    │   │   │   └── reviewsList.styles.js
+    │   │   └── review.style.js
+    │   ├── skeleton
+    │   │   ├── Shimmer.jsx
+    │   │   ├── likeSkeleton
+    │   │   │   ├── LikeSkeleton.jsx
+    │   │   │   └── likeSkeleton.style.js
+    │   │   ├── recommendSkeleton
+    │   │   │   ├── RecommendSkeleton.jsx
+    │   │   │   └── recommendSkeleton.style.js
+    │   │   ├── reviewSkeleton
+    │   │   │   ├── ReviewSkeleton.jsx
+    │   │   │   └── reviewSkeleton.style.js
+    │   │   └── searchSkeleton
+    │   │       ├── SearchSkeleton.jsx
+    │   │       └── searchSkeleton.style.js
+    │   └── tag
+    │       ├── Tag.jsx
+    │       └── tag.style.js
+    ├── context
+    │   ├── CampContext.js
+    │   └── SearchPaginationContext.js
+    ├── hooks
+    │   ├── useGetDate.jsx
+    │   └── useGetGeolocation.jsx
+    ├── index.js
+    ├── pages
+    │   ├── communityPage
+    │   │   └── CommunityPage.jsx
+    │   ├── detailPage
+    │   │   ├── DetailPage.jsx
+    │   │   ├── campInformation
+    │   │   │   ├── CampInformation.jsx
+    │   │   │   └── campInformation.style.js
+    │   │   ├── campLocation
+    │   │   │   ├── CampLocation.jsx
+    │   │   │   └── campLocation.style.js
+    │   │   └── detailPage.style.js
+    │   ├── mainPage
+    │   │   ├── MainPage.jsx
+    │   │   ├── mainBestReview
+    │   │   │   ├── MainBestReview.jsx
+    │   │   │   └── mainBestReview.styles.js
+    │   │   ├── mainCampRecommend
+    │   │   │   ├── MainCampRecommend.jsx
+    │   │   │   ├── mainCampRecommend.styles.js
+    │   │   │   └── nearCamp
+    │   │   │       ├── NearCamp.jsx
+    │   │   │       └── nearCamp.style.js
+    │   │   └── mainSearch
+    │   │       ├── MainSearch.js
+    │   │       └── mainSearch.styles.js
+    │   ├── myPage
+    │   │   ├── MyPage.jsx
+    │   │   ├── alrimList
+    │   │   │   ├── AlrimLayout.jsx
+    │   │   │   ├── AlrimList.jsx
+    │   │   │   └── alrim
+    │   │   │       ├── Alrim.jsx
+    │   │   │       └── alrim.style.js
+    │   │   ├── likeList
+    │   │   │   ├── LikeListLayout.jsx
+    │   │   │   ├── likeCamp
+    │   │   │   │   ├── LikeCamp.js
+    │   │   │   │   └── LikeCamp.style.js
+    │   │   │   └── likesList.js
+    │   │   └── myPage.styles.js
+    │   └── searchPage
+    │       ├── SearchPage.jsx
+    │       ├── searchBar
+    │       │   ├── SearchBar.jsx
+    │       │   ├── resultList
+    │       │   │   ├── ResultList.jsx
+    │       │   │   └── ResultList.style.js
+    │       │   ├── searchBar.style.js
+    │       │   └── searchResult
+    │       │       └── searchResult
+    │       │           ├── SearchResult.jsx
+    │       │           └── searchResult.style.js
+    │       └── searchLocation
+    │           ├── SearchLocation.jsx
+    │           └── eventMarker
+    │               ├── EventMarker.jsx
+    │               └── eventMarker.style.js
+    ├── service
+    │   ├── api.js
+    │   ├── firebaseAuth.js
+    │   └── imageUploder.js
+    └── styles
+        ├── antdCustom.css
+        ├── globalStyle.js
+        └── theme.js
+```
 
 <br>
 

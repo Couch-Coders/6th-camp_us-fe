@@ -120,8 +120,7 @@ const Container = styled.div`
 /* viewTemplate */
 const LikeReview = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: start;
+  height: auto;
   background: #ffffff;
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
@@ -133,22 +132,16 @@ const LikeReview = styled.div`
     box-sizing: border-box;
     transition: all 0.5s ease;
   }
-
-  @media screen and (max-width: 760px) {
-    display: block;
-    height: auto;
-    margin-bottom: 20px;
-  }
 `;
 
 const ReviewThumbnail = styled.div`
-  width: 155px;
+  width: 100%;
   height: 174px;
   overflow: hidden;
   position: relative;
 
   & .ant-image {
-    width: 155px;
+    width: 100%;
     min-height: 100%;
     position: relative;
 
@@ -169,7 +162,7 @@ const ReviewThumb = styled(Image)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 174%;
+  width: 100%;
   min-height: 100%;
   border-style: hidden;
   border: 0px;
@@ -181,11 +174,8 @@ const ReviewThumb = styled(Image)`
 `;
 
 const ReviewInfo = styled.div`
-  width: calc(100% - 132px);
-  @media screen and (max-width: 760px) {
-    width: 100%;
-    position: relative;
-  }
+  width: 100%;
+  position: relative;
 `;
 
 const TopArea = styled.div`
