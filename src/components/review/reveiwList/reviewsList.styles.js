@@ -166,7 +166,7 @@ const ReviewThumb = styled(Image)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 100%;
+  width: ${({ image }) => (image ? '100%' : '50%')};
   min-height: 100%;
   border-style: hidden;
   border: 0px;

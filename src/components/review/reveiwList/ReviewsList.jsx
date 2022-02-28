@@ -174,6 +174,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
     <ListReview>
       <ReviewThumbnail>
         <ReviewThumb
+          image={review.imgUrl !== '' && review.imgUrl !== null ? true : false}
           src={
             review.imgUrl === '' || review.imgUrl === null
               ? Image
