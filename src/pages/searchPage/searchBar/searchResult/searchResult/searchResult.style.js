@@ -57,7 +57,12 @@ const PaginationContent = styled(Pagination)`
   display: flex;
   justify-content: center;
   padding-bottom: 10px;
+
   .ant-select-selector {
+    display: none;
+  }
+
+  .ant-pagination-options {
     display: none;
   }
 `;

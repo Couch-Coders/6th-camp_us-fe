@@ -372,7 +372,6 @@ const SearchBar = ({
           )}
         </Container>
       )}
-      )
     </>
   );
 };

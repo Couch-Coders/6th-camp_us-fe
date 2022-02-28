@@ -22,7 +22,7 @@ const Image = styled.img`
 `;
 
 const Content = styled.div`
-  width: 100%;
+  width: calc(100% - 130px);
   display: flex;
   flex-direction: column;
 `;
@@ -38,14 +38,17 @@ const ContentHeader = styled.div`
   box-shadow: inset 0px -1px 0px #f0f0f0;
 `;
 
-const CampTitle = styled.span`
-  font-size: 16px;
+const CampTitle = styled.div`
+  display: inline-block;
+  width: calc(100% - 23px);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 const LikeWrap = styled.div`
   display: flex;
   align-items: center;
-  padding: 0 24px 16px 24px;
 `;
 
 const LikeCount = styled.div`
@@ -58,7 +61,7 @@ const ContentDescription = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 100%;
+  height: 75px;
   font-size: 13px;
   color: #161616;
   padding: 16px 24px;
@@ -68,10 +71,9 @@ const ContentDescription = styled.div`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  & span {
-    display: block;
-  }
-  & span:last-child {
+  line-height: 10px;
+
+  & p:last-child {
     color: #adadad;
   }
 `;
