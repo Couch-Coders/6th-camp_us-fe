@@ -118,10 +118,9 @@ const Container = styled.div`
 `;
 
 /* viewTemplate */
-const LikeReview = styled.div`
+const ListReview = styled.div`
   width: 100%;
-  display: flex;
-  justify-content: start;
+  height: auto;
   background: #ffffff;
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
@@ -135,20 +134,19 @@ const LikeReview = styled.div`
   }
 
   @media screen and (max-width: 760px) {
-    display: block;
-    height: auto;
-    margin-bottom: 20px;
+    overflow: hidden;
   }
 `;
 
 const ReviewThumbnail = styled.div`
-  width: 155px;
-  height: 174px;
+  width: 100%;
+  height: ${({ clickedPage }) =>
+    clickedPage === 'mypage' ? '250px' : '174px'};
   overflow: hidden;
   position: relative;
 
   & .ant-image {
-    width: 155px;
+    width: 100%;
     min-height: 100%;
     position: relative;
 
@@ -169,7 +167,7 @@ const ReviewThumb = styled(Image)`
   left: 50%;
   top: 50%;
   transform: translate(-50%, -50%);
-  width: 174%;
+  width: ${({ image }) => (image ? '100%' : '50%')};
   min-height: 100%;
   border-style: hidden;
   border: 0px;
@@ -181,11 +179,8 @@ const ReviewThumb = styled(Image)`
 `;
 
 const ReviewInfo = styled.div`
-  width: calc(100% - 132px);
-  @media screen and (max-width: 760px) {
-    width: 100%;
-    position: relative;
-  }
+  width: 100%;
+  position: relative;
 `;
 
 const TopArea = styled.div`
@@ -308,7 +303,7 @@ const BottomArea = styled.div`
   padding-top: 10px;
   align-items: start;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 760px) {
     display: block;
   }
 `;
@@ -336,7 +331,7 @@ const ContentWrap = styled.div`
   display: flex;
   flex-direction: column;
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 760px) {
     width: 100%;
   }
 `;
@@ -392,7 +387,7 @@ const ReviewLike = styled.div`
           }
         `}
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 760px) {
     padding: 4px 14px;
     margin-top: 10px;
     display: inline-block;
@@ -410,7 +405,7 @@ export const style = {
   EditButton,
   CancleButton,
   Container,
-  LikeReview,
+  ListReview,
   ReviewThumbnail,
   ReviewThumb,
   ReviewInfo,

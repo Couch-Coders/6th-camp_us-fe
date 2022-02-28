@@ -171,9 +171,10 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   // 리뷰 컴포넌트
   const [show, setShow] = useState(false);
   const viewTemplate = (
-    <LikeReview>
-      <ReviewThumbnail>
+    <ListReview>
+      <ReviewThumbnail clickedPage={clickedPage}>
         <ReviewThumb
+          image={review.imgUrl !== '' && review.imgUrl !== null ? true : false}
           src={
             review.imgUrl === '' || review.imgUrl === null
               ? Image
@@ -234,7 +235,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
           </ReviewLike>
         </BottomArea>
       </ReviewInfo>
-    </LikeReview>
+    </ListReview>
   );
 
   return <List>{isEditing ? editingTemplate : viewTemplate}</List>;
@@ -253,7 +254,7 @@ const {
   EditButton,
   CancleButton,
   Container,
-  LikeReview,
+  ListReview,
   ReviewThumbnail,
   ReviewThumb,
   ReviewInfo,

@@ -18,7 +18,7 @@ const SearchResult = ({
 
   const { totalElement, currentPage, setCurrentPage } = useContext(PageContext);
 
-  const sortList = ['좋아요순', '가까운순'];
+  const sortList = ['별점순', '가까운순'];
   const { Option } = Select;
 
   const listRef = useRef();
@@ -43,7 +43,7 @@ const SearchResult = ({
   const onResultSort = (value) => {
     setResultSort(value);
     setCurrentPage(0);
-    const sort = value === '좋아요순' ? 'rate' : 'distance';
+    const sort = value === '별점순' ? 'rate' : 'distance';
 
     getSearchResult(sort);
   };

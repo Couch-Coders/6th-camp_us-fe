@@ -136,7 +136,7 @@ function MyPage() {
           </TabsWrap>
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
-        {selectedTabs === 'myReviews' && <Review />}
+        {selectedTabs === 'myReviews' && <Review clickedPage="mypage" />}
         {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
       </InnerWrapper>
     </Section>

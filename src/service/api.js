@@ -227,6 +227,7 @@ export async function getReviewImage(id) {
 // 검색페이지 캠핑장 검색
 
 export async function getSearchCamp(address, pageNum, sort) {
+  console.log(sort);
   try {
     const response = await axiosInstance({
       url: `/camps?page=${pageNum}&size=10`,
