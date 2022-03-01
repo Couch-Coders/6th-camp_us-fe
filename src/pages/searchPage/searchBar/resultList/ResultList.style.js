@@ -61,7 +61,7 @@ const ContentDescription = styled.div`
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
-  height: 75px;
+  height: 90px;
   font-size: 13px;
   color: #161616;
   padding: 16px 24px;
@@ -71,7 +71,7 @@ const ContentDescription = styled.div`
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
-  line-height: 10px;
+  line-height: 15px;
 
   & p:last-child {
     color: #adadad;
