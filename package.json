@@ -55,6 +55,5 @@
     "eslint": "^8.7.0",
     "prettier": "2.5.1"
   },
-  "proxy": "https://www.camp-us.link",
   "homepage": "."
 }
