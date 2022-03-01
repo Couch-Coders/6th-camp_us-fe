@@ -70,6 +70,7 @@ const ReviewContent = styled.div`
     width: 100%;
     margin: 0;
     padding: 18px;
+    height: auto;
   }
 `;
 
@@ -118,8 +119,7 @@ const ReviewLike = styled.div`
 
   @media screen and (max-width: 600px) {
     width: 100%;
-    padding: 18px;
-    padding-top: 0;
+    padding: 0 18px;
   }
 `;
 
