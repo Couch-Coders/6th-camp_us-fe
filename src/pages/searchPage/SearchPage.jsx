@@ -11,7 +11,7 @@ const SearchPage = () => {
   const [campList, setCampList] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
-  const [isViewLSearchList, setIsViewLSearchList] = useState(true);
+  const [isViewLSearchList, setIsViewLSearchList] = useState(false);
 
   const { state } = useLocation();
 
