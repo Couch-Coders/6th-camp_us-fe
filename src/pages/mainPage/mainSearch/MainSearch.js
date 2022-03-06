@@ -25,9 +25,12 @@ function MainSearch() {
     setAddress((address) => {
       return { ...address, doNm: value };
     });
-    setAddress((address) => {
-      return { ...address, sigunguNm: null };
-    });
+
+    if (value !== '전체') {
+      setAddress((address) => {
+        return { ...address, sigunguNm: null };
+      });
+    }
   };
 
   // 지역 시군구 변경

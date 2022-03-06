@@ -3,9 +3,7 @@ import axiosInstance from '../common/axiosInstance';
 // 로그인
 export async function login() {
   try {
-    const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/members/me`,
-    );
+    const response = await axiosInstance(`/members/me`);
 
     return response;
   } catch (error) {
@@ -16,12 +14,9 @@ export async function login() {
 // 회원가입
 export async function register(event) {
   try {
-    const response = await axiosInstance.post(
-      `${process.env.REACT_APP_SERVER_URL}/members`,
-      {
-        nickname: event.target.nickname.value,
-      },
-    );
+    const response = await axiosInstance.post(`/members`, {
+      nickname: event.target.nickname.value,
+    });
 
     return response;
   } catch (error) {
@@ -32,10 +27,7 @@ export async function register(event) {
 // 닉네임 변경
 export async function changeNickname(nickname) {
   try {
-    const response = await axiosInstance.patch(
-      `${process.env.REACT_APP_SERVER_URL}/members/me`,
-      nickname,
-    );
+    const response = await axiosInstance.patch(`/members/me`, nickname);
     const data = response.data;
     return data;
   } catch (error) {
@@ -47,7 +39,7 @@ export async function changeNickname(nickname) {
 export async function getUserReview(page) {
   try {
     const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/reviews/?page=${page}&size=5&sort=createdDate,desc`,
+      `/members/me/reviews/?page=${page}&size=5&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -59,9 +51,7 @@ export async function getUserReview(page) {
 // 유저 정보 조회
 export async function getUserInfo() {
   try {
-    const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/info`,
-    );
+    const response = await axiosInstance(`/members/me/info`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -73,7 +63,7 @@ export async function getUserInfo() {
 export async function getMyCampsLikes(page) {
   try {
     const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/camps?page=${page}&size=5&sort=createdDate,desc`,
+      `/members/me/camps?page=${page}&size=5&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -86,7 +76,7 @@ export async function getMyCampsLikes(page) {
 export async function getAlrimList(page) {
   try {
     const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/notifications?page=${page}&size=5&sort=createdDate,desc`,
+      `/members/me/notifications?page=${page}&size=5&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -98,9 +88,7 @@ export async function getAlrimList(page) {
 // 회원의 안읽은 알림 갯수 조회
 export async function getAlrimCount() {
   try {
-    const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/notifications/count`,
-    );
+    const response = await axiosInstance(`/members/me/notifications/count`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -111,9 +99,7 @@ export async function getAlrimCount() {
 // 모든 알림 삭제
 export async function deleteAllAlrim() {
   try {
-    const response = await axiosInstance.delete(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/notifications`,
-    );
+    const response = await axiosInstance.delete(`/members/me/notifications`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -124,9 +110,7 @@ export async function deleteAllAlrim() {
 // 모든 알림 읽기
 export async function readAllAlrim() {
   try {
-    const response = await axiosInstance.patch(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/notifications`,
-    );
+    const response = await axiosInstance.patch(`/members/me/notifications`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -138,7 +122,7 @@ export async function readAllAlrim() {
 export async function readAlrim(id) {
   try {
     const response = await axiosInstance.patch(
-      `${process.env.REACT_APP_SERVER_URL}/members/me/notifications/${id}`,
+      `/members/me/notifications/${id}`,
       {
         checked: true,
       },
@@ -154,7 +138,7 @@ export async function readAlrim(id) {
 export async function deleteAlrim(notificationId) {
   try {
     const response = await axiosInstance.delete(
-      `${process.env.REACT_APP_SERVER_URL}/notifications/${notificationId}`,
+      `/notifications/${notificationId}`,
     );
     const data = response.data;
     return data;
@@ -167,7 +151,7 @@ export async function deleteAlrim(notificationId) {
 export async function getRecommendCamp(geoLocation) {
   try {
     const response = await axiosInstance({
-      url: `${process.env.REACT_APP_SERVER_URL}/camps?page=0&size=10`,
+      url: `/camps?page=0&size=10`,
       params: {
         mapX: geoLocation.long && geoLocation.long,
         mapY: geoLocation.lat && geoLocation.lat,
@@ -184,9 +168,7 @@ export async function getRecommendCamp(geoLocation) {
 // 베스트 리뷰 조회
 export async function getBestReview() {
   try {
-    const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/reviews/best`,
-    );
+    const response = await axiosInstance(`/reviews/best`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -197,9 +179,7 @@ export async function getBestReview() {
 // 캠핑장 상세 조회
 export async function getCamp(id) {
   try {
-    const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/camps/${id}`,
-    );
+    const response = await axiosInstance(`/camps/${id}`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -210,9 +190,7 @@ export async function getCamp(id) {
 // 캠핑장 좋아요
 export async function campLike(id) {
   try {
-    const response = await axiosInstance.patch(
-      `${process.env.REACT_APP_SERVER_URL}/camps/${id}/like`,
-    );
+    const response = await axiosInstance.patch(`/camps/${id}/like`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -224,7 +202,7 @@ export async function campLike(id) {
 export async function getCampReview(id, page) {
   try {
     const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/camps/${id}/reviews?size=5&page=${page}&sort=createdDate,desc`,
+      `/camps/${id}/reviews?size=5&page=${page}&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -237,7 +215,7 @@ export async function getCampReview(id, page) {
 export async function getReviewImage(id) {
   try {
     const response = await axiosInstance(
-      `${process.env.REACT_APP_SERVER_URL}/camps/${id}/reviews/images?size=1000`,
+      `/camps/${id}/reviews/images?size=1000`,
     );
     const data = response.data;
     return data;
@@ -249,13 +227,12 @@ export async function getReviewImage(id) {
 // 검색페이지 캠핑장 검색
 
 export async function getSearchCamp(address, pageNum, sort) {
-  console.log(sort);
   try {
     const response = await axiosInstance({
-      url: `${process.env.REACT_APP_SERVER_URL}/camps?page=${pageNum}&size=10`,
+      url: `/camps?page=${pageNum}&size=10`,
       params: {
         name: address.name && address.name,
-        doNm: address.doNm && address.doNm,
+        doNm: address.doNm === '전체' ? null : address.doNm,
         sigunguNm: address.sigunguNm && address.sigunguNm,
         rate: address.rate && address.rate,
         tag: address.tag && address.tag,
@@ -275,10 +252,10 @@ export async function getSearchCamp(address, pageNum, sort) {
 export async function getMainSearch(address, pageNum) {
   try {
     const response = await axiosInstance({
-      url: `${process.env.REACT_APP_SERVER_URL}/camps?page=${pageNum}&size=10`,
+      url: `/camps?page=${pageNum}&size=10`,
       params: {
         name: address.name && address.name,
-        doNm: address.doNm && address.doNm,
+        doNm: address.doNm === '전체' ? null : address.doNm,
         sigunguNm: address.sigunguNm && address.sigunguNm,
         rate: address.rate && address.rate,
       },
@@ -293,9 +270,7 @@ export async function getMainSearch(address, pageNum) {
 // 리뷰 삭제
 export async function deleteReview(reviewId) {
   try {
-    const response = await axiosInstance.delete(
-      `${process.env.REACT_APP_SERVER_URL}/reviews/${reviewId}`,
-    );
+    const response = await axiosInstance.delete(`/reviews/${reviewId}`);
 
     const data = response.data;
     return data;
@@ -307,14 +282,11 @@ export async function deleteReview(reviewId) {
 // 리뷰 작성
 export async function writeReview(id, review) {
   try {
-    const response = await axiosInstance.post(
-      `${process.env.REACT_APP_SERVER_URL}/camps/${id}/reviews`,
-      {
-        content: review.content,
-        imgUrl: review.imgUrl,
-        rate: review.rate,
-      },
-    );
+    const response = await axiosInstance.post(`/camps/${id}/reviews`, {
+      content: review.content,
+      imgUrl: review.imgUrl,
+      rate: review.rate,
+    });
 
     const data = response.data;
     return data;
@@ -326,14 +298,11 @@ export async function writeReview(id, review) {
 // 리뷰 수정
 export async function changeReview(review) {
   try {
-    const response = await axiosInstance.put(
-      `${process.env.REACT_APP_SERVER_URL}/reviews/${review.reviewId}`,
-      {
-        rate: review.rate,
-        imgUrl: review.imgUrl,
-        content: review.content,
-      },
-    );
+    const response = await axiosInstance.put(`/reviews/${review.reviewId}`, {
+      rate: review.rate,
+      imgUrl: review.imgUrl,
+      content: review.content,
+    });
   } catch (error) {
     throw new Error('Failed to load data');
   }
@@ -342,9 +311,7 @@ export async function changeReview(review) {
 // 리뷰 좋아요
 export async function changeReviewLike(id) {
   try {
-    const response = await axiosInstance.patch(
-      `${process.env.REACT_APP_SERVER_URL}/reviews/${id}/like`,
-    );
+    const response = await axiosInstance.patch(`/reviews/${id}/like`);
   } catch (error) {
     throw new Error('Failed to load data');
   }
