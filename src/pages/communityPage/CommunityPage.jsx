@@ -57,10 +57,10 @@ const CommunityPage = (props) => {
         {selectedTabs === 'talk' && <CommunityTalk />}
         {selectedTabs === 'picture' && <CommunityPicture />}
         {selectedTabs === 'QnA' && <CommunityQnA />}
-        <CreatePostBtn to="/community/write">
-          <EditFilled />
-        </CreatePostBtn>
       </PostGroup>
+      <CreatePostBtn to="/community/write">
+        <EditFilled />
+      </CreatePostBtn>
     </Container>
   );
 };

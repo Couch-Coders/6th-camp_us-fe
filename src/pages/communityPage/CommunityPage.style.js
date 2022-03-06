@@ -2,12 +2,15 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
+  position: relative;
   display: flex;
   justify-content: space-between;
   width: 960px;
   padding-top: 50px;
   margin: auto;
   height: auto;
+  overflow: hidden;
+  max-height: calc(100vh - 65px);
 
   @media screen and (max-width: 600px) {
     width: 100%;
@@ -52,7 +55,11 @@ const PostGroup = styled.div`
   width: calc(100% - 220px);
   min-height: calc(100vh - 145px);
   overflow-y: auto;
-  background-color: salmon;
+  &::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-track {
+    display: none;
+  }
 `;
 
 const CreatePostBtn = styled(Link)`
