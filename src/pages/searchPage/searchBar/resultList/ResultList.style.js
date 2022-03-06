@@ -14,11 +14,28 @@ const Result = styled.li`
   &:last-child {
     margin-bottom: 0;
   }
+
+  &:hover img {
+    width: 105%;
+    height: 105%;
+    transition: all 0.5s ease;
+  }
+`;
+
+const ImageWrap = styled.div`
+  width: 130px;
+  height: 100%;
+  overflow: hidden;
+  position: relative;
 `;
 
 const Image = styled.img`
-  width: 130px;
+  width: 100%;
   height: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
 
 const Content = styled.div`
@@ -80,6 +97,7 @@ const ContentDescription = styled.div`
 
 export const style = {
   Result,
+  ImageWrap,
   Image,
   Content,
   ContentHeader,
