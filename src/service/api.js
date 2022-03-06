@@ -231,14 +231,14 @@ export async function getSearchCamp(address, pageNum, sort) {
     const response = await axiosInstance({
       url: `/camps?page=${pageNum}&size=10`,
       params: {
-        name: address.name && address.name,
+        name: address.name,
         doNm: address.doNm === '전체' ? null : address.doNm,
-        sigunguNm: address.sigunguNm && address.sigunguNm,
-        rate: address.rate && address.rate,
-        tag: address.tag && address.tag,
-        sort: sort && sort,
-        mapX: address.mapX && address.mapX,
-        mapY: address.mapY && address.mapY,
+        sigunguNm: address.sigunguNm,
+        rate: address.rate,
+        tag: address.tag,
+        sort: sort,
+        mapX: address.mapX,
+        mapY: address.mapY,
       },
     });
     const data = response.data;
@@ -254,10 +254,10 @@ export async function getMainSearch(address, pageNum) {
     const response = await axiosInstance({
       url: `/camps?page=${pageNum}&size=10`,
       params: {
-        name: address.name && address.name,
+        name: address.name,
         doNm: address.doNm === '전체' ? null : address.doNm,
-        sigunguNm: address.sigunguNm && address.sigunguNm,
-        rate: address.rate && address.rate,
+        sigunguNm: address.sigunguNm,
+        rate: address.rate,
       },
     });
     const data = response.data;
