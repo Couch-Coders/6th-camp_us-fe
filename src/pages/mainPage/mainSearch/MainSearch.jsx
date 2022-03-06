@@ -1,10 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router';
 import * as district from '../../../common/addressData';
 import { Rate, Input, Space, Select } from 'antd';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper, SectionTitle } from '../../../styles/theme';
 import { style } from './mainSearch.styles';
+import ResetRate from '../../../components/resetRate/ResetRate';
 const { Option } = Select;
 
 function MainSearch() {
@@ -56,13 +57,19 @@ function MainSearch() {
     setIsSearch(true);
   };
 
+  const resetRateCount = useCallback(() => {
+    setAddress((address) => {
+      return { ...address, rate: null };
+    });
+  }, []);
+
+  const { Search } = Input;
+
   useEffect(() => {
     if (isSearch === true) {
       navigate('/search', { state: address });
     }
   }, [isSearch]);
-
-  const { Search } = Input;
 
   return (
     <Section grayBg>
@@ -99,6 +106,7 @@ function MainSearch() {
             </Select>
             <SelectName>별점</SelectName>
             <Rate onChange={handleRateChange} value={address.rate} />
+            <ResetRate resetRateCount={resetRateCount} />
           </Space>
           <SearchContent>
             <Search
