@@ -181,11 +181,6 @@ const SearchBar = ({
     getSearchResult();
   };
 
-  // 스크롤 탑 버튼
-  const ScrollTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  };
-
   return (
     <>
       {isMobile && (
@@ -264,10 +259,6 @@ const SearchBar = ({
                   <ChangeViewBtn onClick={() => setIsViewLSearchList(false)}>
                     <EnvironmentFilled />
                   </ChangeViewBtn>
-                  <TopBtn onClick={ScrollTop}>
-                    <ArrowUpOutlined />
-                    Top
-                  </TopBtn>
                 </>
               ) : (
                 // 검색 결과가 없을 떄
@@ -372,7 +363,6 @@ const SearchBar = ({
           )}
         </Container>
       )}
-      )
     </>
   );
 };
