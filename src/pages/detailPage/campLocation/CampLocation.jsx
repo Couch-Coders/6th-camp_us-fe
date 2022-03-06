@@ -9,8 +9,6 @@ const CampLocation = () => {
 
   return (
     <section>
-      <Title>찾아오시는 길</Title>
-
       <Map
         center={{
           lat: data.mapY,
