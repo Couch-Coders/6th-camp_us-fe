@@ -26,11 +26,9 @@ function MainSearch() {
       return { ...address, doNm: value };
     });
 
-    if (value !== '전체') {
-      setAddress((address) => {
-        return { ...address, sigunguNm: null };
-      });
-    }
+    setAddress((address) => {
+      return { ...address, sigunguNm: null };
+    });
   };
 
   // 지역 시군구 변경
