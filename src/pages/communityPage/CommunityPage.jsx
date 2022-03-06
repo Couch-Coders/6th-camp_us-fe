@@ -4,6 +4,7 @@ import CommunityAllPost from './category/CommunityAllPost';
 import CommunityTalk from './category/CommunityTalk';
 import CommunityPicture from './category/CommunityPicture';
 import CommunityQnA from './category/CommunityQnA';
+import { EditFilled } from '@ant-design/icons';
 
 const CommunityPage = (props) => {
   const [selectedTabs, setSelectedTabs] = useState('allPost');
@@ -56,10 +57,14 @@ const CommunityPage = (props) => {
         {selectedTabs === 'talk' && <CommunityTalk />}
         {selectedTabs === 'picture' && <CommunityPicture />}
         {selectedTabs === 'QnA' && <CommunityQnA />}
+        <CreatePostBtn to="/community/write">
+          <EditFilled />
+        </CreatePostBtn>
       </PostGroup>
     </Container>
   );
 };
 
 export default CommunityPage;
-const { Container, TabsContainer, TabsWrap, Tabs, PostGroup } = style;
+const { Container, TabsContainer, TabsWrap, Tabs, PostGroup, CreatePostBtn } =
+  style;

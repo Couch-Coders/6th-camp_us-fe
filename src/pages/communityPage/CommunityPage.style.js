@@ -1,5 +1,5 @@
-import { Rate } from 'antd';
 import styled, { css } from 'styled-components';
+import { Link } from 'react-router-dom';
 
 const Container = styled.div`
   display: flex;
@@ -16,7 +16,7 @@ const Container = styled.div`
 `;
 
 const TabsContainer = styled.div`
-  width: 400px;
+  width: 200px;
   padding-bottom: 25px;
 `;
 
@@ -47,10 +47,34 @@ const Tabs = styled.div`
         `}
 `;
 
-const PostGroup = styled.footer`
-  width: calc(100% - 420px);
-  max-height: calc(100vh - 115px);
+const PostGroup = styled.div`
+  position: relative;
+  width: calc(100% - 220px);
+  min-height: calc(100vh - 145px);
   overflow-y: auto;
+  background-color: salmon;
+`;
+
+const CreatePostBtn = styled(Link)`
+  position: absolute;
+  right: 16px;
+  bottom: 30px;
+  display: flex;
+  -webkit-box-pack: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  align-items: center;
+  width: 50px;
+  height: 50px;
+  background: #389e0d;
+  box-shadow: rgb(0 0 0 / 25%) 0px 4px 4px;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 18px;
+
+  &:hover {
+    color: #fff;
+  }
 `;
 
 export const style = {
@@ -59,4 +83,5 @@ export const style = {
   TabsWrap,
   Tabs,
   PostGroup,
+  CreatePostBtn,
 };
