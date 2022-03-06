@@ -169,7 +169,7 @@ const Navbar = () => {
                     setMenuClick(false);
                   }}
                 >
-                  <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
+                  <LogOutBtn onClick={signOut}>로그아웃</LogOutBtn>
                 </MenuList>
               </MyMenu>
             </NavItemBtn>
