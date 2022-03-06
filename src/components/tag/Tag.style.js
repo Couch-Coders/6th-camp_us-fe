@@ -35,6 +35,7 @@ const InfoTag = styled.div`
     @media screen and (max-width: 960px) {
     margin: 0;
     margin-right: 7px;
+    margin-bottom: 7px;
   }
 `;
 
