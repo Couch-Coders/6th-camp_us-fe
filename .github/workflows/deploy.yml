@@ -24,7 +24,7 @@ jobs:
       - run: echo "🏃‍♂️ start deploying! "
 
       - name: Build
-        run: CI='' npm run deploy
+        run: CI='' npm run build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
