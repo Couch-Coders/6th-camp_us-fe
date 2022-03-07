@@ -66,6 +66,7 @@ const Tabs = styled.div`
     margin-right: 8px;
     padding: 0 4px 4px 4px;
     margin-bottom: 0;
+    font-size: 0.9rem;
 
     ${(props) =>
       props.selectedTabs === props.page
@@ -118,6 +119,9 @@ const CreatePostBtn = styled(Link)`
 
   &:hover {
     color: #fff;
+  }
+  @media screen and (max-width: 960px) {
+    position: fixed;
   }
 `;
 
