@@ -14,6 +14,13 @@ jobs:
       matrix:
         node-versions: [14.x]
 
+  env:
+    REACT_APP_KAKAO_API_KEY: ${{secrets.REACT_APP_KAKAO_API_KEY}}
+    REACT_APP_FIREBASE_API_KEY: ${{secrets.REACT_APP_FIREBASE_API_KEY}}
+    REACT_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.REACT_APP_FIREBASE_AUTH_DOMAIN}}
+    REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.REACT_APP_FIREBASE_PROJECT_ID}}
+    REACT_APP_SERVER_URL: ${{secrets.REACT_APP_SERVER_URL}}
+
     steps:
       - name: Checkout source code.
         uses: actions/checkout@v2
