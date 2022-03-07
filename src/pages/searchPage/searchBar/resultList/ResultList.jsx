@@ -58,6 +58,5 @@ const {
   ContentHeader,
   CampTitle,
   LikeWrap,
-  LikeCount,
   ContentDescription,
 } = style;

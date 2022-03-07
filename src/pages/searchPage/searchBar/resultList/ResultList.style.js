@@ -90,6 +90,15 @@ const ContentDescription = styled.div`
   text-overflow: ellipsis;
   line-height: 15px;
 
+  & p:first-child {
+    line-height: 1.4;
+    display: -webkit-box;
+    overflow: hidden;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    text-overflow: ellipsis;
+  }
+
   & p:last-child {
     color: #adadad;
   }
