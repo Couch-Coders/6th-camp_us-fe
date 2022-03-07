@@ -55,6 +55,6 @@
     "eslint": "^8.7.0",
     "prettier": "2.5.1"
   },
-  "proxy": "http://54.180.29.177:8080",
+  "proxy": "https://www.camp-us.link",
   "homepage": "."
 }

@@ -12,7 +12,7 @@ import './styles/antdCustom.css';
 function App() {
   return (
     <AuthProvider>
-      <BrowserRouter basename="/pages">
+      <BrowserRouter>
         <Navbar />
         <Routes>
           <Route path="/" element={<MainPage />} />

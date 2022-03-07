@@ -1,4 +1,5 @@
 export let sido = [
+  '전체',
   '서울시',
   '부산시',
   '대구시',
@@ -19,6 +20,7 @@ export let sido = [
 ];
 
 export let sigungu = {
+  전체: [],
   서울시: [
     '강남구',
     '강동구',

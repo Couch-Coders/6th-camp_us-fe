@@ -1,4 +1,10 @@
-import React, { useState, useEffect, useContext, useCallback } from 'react';
+import React, {
+  useState,
+  useEffect,
+  useContext,
+  useCallback,
+  useRef,
+} from 'react';
 import { useLocation } from 'react-router-dom';
 import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
@@ -18,6 +24,8 @@ const Navbar = () => {
   const { pathname } = useLocation();
   const { user, isRegisterOpen } = useContext(UserContext);
 
+  const menuRef = useRef();
+
   useEffect(() => {
     AlrimDatarequest();
   });
@@ -25,6 +33,17 @@ const Navbar = () => {
   useEffect(() => {
     deviceSizeCheck();
   }, []);
+
+  useEffect(() => {
+    window.addEventListener('click', handleClickOutside);
+    return () => {
+      window.removeEventListener('click', handleClickOutside);
+    };
+  }, []);
+
+  const handleClickOutside = (e) => {
+    if (!menuRef.current?.contains(e.target)) setIsIconClicked(false);
+  };
 
   // 알림 정보 가져오기
   async function AlrimDatarequest() {
@@ -63,7 +82,7 @@ const Navbar = () => {
           {menuclick ? <FaTimes /> : <FaBars />}
         </MobileIcon>
 
-        <NavMenu menuclick={menuclick}>
+        <NavMenu menuclick={menuclick} ref={menuRef}>
           <NavItem>
             <NavLinks
               to="/search"
@@ -150,7 +169,7 @@ const Navbar = () => {
                     setMenuClick(false);
                   }}
                 >
-                  <LogOutBtn onClick={signOut}>Logout</LogOutBtn>
+                  <LogOutBtn onClick={signOut}>로그아웃</LogOutBtn>
                 </MenuList>
               </MyMenu>
             </NavItemBtn>
