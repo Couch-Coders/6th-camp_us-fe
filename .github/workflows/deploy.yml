@@ -24,4 +24,4 @@ jobs:
       - run: echo "🏃‍♂️ start deploying! "
 
       - name: Build
-        run: npm run deploy
+        run: CI='' npm run deploy
