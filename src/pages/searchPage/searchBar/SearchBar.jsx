@@ -182,6 +182,12 @@ const SearchBar = ({
     getSearchResult();
   };
 
+  const resetRateCount = useCallback(() => {
+    setAddress((address) => {
+      return { ...address, rate: null };
+    });
+  }, []);
+
   return (
     <>
       {isMobile && (
