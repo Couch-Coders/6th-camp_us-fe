@@ -10,6 +10,8 @@ import WritePage from './pages/communityPage/writePage/WritePage';
 import './styles/antdCustom.css';
 
 function App() {
+  console.log('배포가 되긴 되나??');
+
   return (
     <AuthProvider>
       <BrowserRouter>

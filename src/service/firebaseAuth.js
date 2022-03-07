@@ -2,9 +2,9 @@ import firebase from 'firebase';
 import 'firebase/auth';
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: process.env.REACT_APP_PROJECT_ID,
+  apiKey: 'AIzaSyCz9UXgEsUGsyvfQ5S75lGolvOz5TKD74Y',
+  authDomain: 'camp-us-3c9f1.firebaseapp.com',
+  projectId: 'camp-us-3c9f1',
 };
 
 firebase.initializeApp(firebaseConfig);
