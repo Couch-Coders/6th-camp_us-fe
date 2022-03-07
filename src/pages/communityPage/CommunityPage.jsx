@@ -1,41 +1,70 @@
-import React from 'react';
-import { Result, Button } from 'antd';
-import { SmileOutlined } from '@ant-design/icons';
-import styled from 'styled-components';
-import { useNavigate } from 'react-router';
+import React, { useState } from 'react';
+import { style } from './CommunityPage.style';
+import CommunityAllPost from './category/CommunityAllPost';
+import CommunityTalk from './category/CommunityTalk';
+import CommunityPicture from './category/CommunityPicture';
+import CommunityQnA from './category/CommunityQnA';
+import { EditFilled } from '@ant-design/icons';
 
 const CommunityPage = (props) => {
-  const navigate = useNavigate();
-
-  const moveToMainPage = () => {
-    navigate('/');
-  };
+  const [selectedTabs, setSelectedTabs] = useState('allPost');
+  // 클릭한 탭 구별
+  function setClickedTabs(e) {
+    const role = e.target.dataset.role;
+    setSelectedTabs(role);
+  }
 
   return (
     <Container>
-      <Result
-        icon={<SmileOutlined style={{ color: '#73d13d' }} />}
-        title="커뮤니티는 개발중입니다 조금만 기다려 주세요 !"
-        extra={
-          <Button
-            onClick={moveToMainPage}
-            type="primary"
-            style={{ backgroundColor: '#73d13d', border: '#73d13d' }}
+      <TabsContainer>
+        <TabsWrap>
+          <Tabs
+            onClick={setClickedTabs}
+            data-role="allPost"
+            page="allPost"
+            selectedTabs={selectedTabs}
           >
-            메인페이지 이동
-          </Button>
-        }
-      />
+            👀 전체
+          </Tabs>
+          <Tabs
+            onClick={setClickedTabs}
+            data-role="talk"
+            page="talk"
+            selectedTabs={selectedTabs}
+          >
+            👄 캠퍼수다
+          </Tabs>
+          <Tabs
+            onClick={setClickedTabs}
+            data-role="picture"
+            page="picture"
+            selectedTabs={selectedTabs}
+          >
+            🎞️ 캠핑한장
+          </Tabs>
+          <Tabs
+            onClick={setClickedTabs}
+            data-role="QnA"
+            page="QnA"
+            selectedTabs={selectedTabs}
+          >
+            ⛺ 궁금해요
+          </Tabs>
+        </TabsWrap>
+      </TabsContainer>
+      <PostGroup>
+        {selectedTabs === 'allPost' && <CommunityAllPost />}
+        {selectedTabs === 'talk' && <CommunityTalk />}
+        {selectedTabs === 'picture' && <CommunityPicture />}
+        {selectedTabs === 'QnA' && <CommunityQnA />}
+      </PostGroup>
+      <CreatePostBtn to="/community/write">
+        <EditFilled />
+      </CreatePostBtn>
     </Container>
   );
 };
 
 export default CommunityPage;
-
-const Container = styled.div`
-  width: 100%;
-  height: 80vh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-`;
+const { Container, TabsContainer, TabsWrap, Tabs, PostGroup, CreatePostBtn } =
+  style;
