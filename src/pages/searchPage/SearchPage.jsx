@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import * as api from '../../service/api';
 import { PageContext } from '../../context/SearchPaginationContext';
+import { CoordinateContext } from '../../context/CoordinateContext';
 import { useLocation } from 'react-router';
 import SearchBar from './searchBar/SearchBar';
 import SearchLocation from './searchLocation/SearchLocation';
@@ -12,6 +13,10 @@ const SearchPage = () => {
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
   const [isViewLSearchList, setIsViewLSearchList] = useState(false);
+  const [selectedCampCoordinate, setSelectedCampCoordinate] = useState({
+    mapX: null,
+    mapY: null,
+  });
 
   const { state } = useLocation();
 
@@ -31,29 +36,53 @@ const SearchPage = () => {
     setCampList(data);
   }, []);
 
+  const changeCampCoordinate = (camp) => {
+    setSelectedCampCoordinate((selectedCampCoordinate) => {
+      return {
+        ...selectedCampCoordinate,
+        mapX: camp.mapX,
+        mapY: camp.mapY,
+      };
+    });
+  };
+
+  const resetCampCoordinate = () => {
+    setSelectedCampCoordinate((selectedCampCoordinate) => {
+      return {
+        ...selectedCampCoordinate,
+        mapX: null,
+        mapY: null,
+      };
+    });
+  };
+
   return (
     <Container>
       <PageContext.Provider
         value={{ totalElement, currentPage, setCurrentPage, setTotalElement }}
       >
-        {state ? (
-          !isLoading && (
+        <CoordinateContext.Provider
+          value={{ changeCampCoordinate, resetCampCoordinate }}
+        >
+          {state ? (
+            !isLoading && (
+              <SearchBar
+                searchCategory={state}
+                setSearchedCampData={setSearchedCampData}
+                isViewLSearchList={isViewLSearchList}
+                setIsViewLSearchList={setIsViewLSearchList}
+                campList={campList}
+              />
+            )
+          ) : (
             <SearchBar
               searchCategory={state}
               setSearchedCampData={setSearchedCampData}
               isViewLSearchList={isViewLSearchList}
               setIsViewLSearchList={setIsViewLSearchList}
-              campList={campList}
             />
-          )
-        ) : (
-          <SearchBar
-            searchCategory={state}
-            setSearchedCampData={setSearchedCampData}
-            isViewLSearchList={isViewLSearchList}
-            setIsViewLSearchList={setIsViewLSearchList}
-          />
-        )}
+          )}
+        </CoordinateContext.Provider>
       </PageContext.Provider>
 
       {state ? (
@@ -62,6 +91,7 @@ const SearchPage = () => {
             campList={campList}
             isViewLSearchList={isViewLSearchList}
             setIsViewLSearchList={setIsViewLSearchList}
+            selectedCampCoordinate={selectedCampCoordinate}
           />
         )
       ) : (
@@ -69,6 +99,7 @@ const SearchPage = () => {
           campList={campList}
           isViewLSearchList={isViewLSearchList}
           setIsViewLSearchList={setIsViewLSearchList}
+          selectedCampCoordinate={selectedCampCoordinate}
         />
       )}
     </Container>

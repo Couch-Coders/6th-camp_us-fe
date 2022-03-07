@@ -6,6 +6,7 @@ import { PageContext } from '../../../../../context/SearchPaginationContext';
 import { CampSearchResultNotification } from '../../../../../components/notice/Notice';
 import { style } from './searchResult.style';
 import SearchSkeleton from '../../../../../components/skeleton/searchSkeleton/SearchSkeleton';
+import { CoordinateContext } from '../../../../../context/CoordinateContext';
 
 const SearchResult = ({
   isLoading,
@@ -17,8 +18,9 @@ const SearchResult = ({
   const [listHeight, setListHeight] = useState();
 
   const { totalElement, currentPage, setCurrentPage } = useContext(PageContext);
+  const { resetCampCoordinate } = useContext(CoordinateContext);
 
-  const sortList = ['좋아요순', '가까운순'];
+  const sortList = ['별점순', '가까운순'];
   const { Option } = Select;
 
   const listRef = useRef();
@@ -43,7 +45,7 @@ const SearchResult = ({
   const onResultSort = (value) => {
     setResultSort(value);
     setCurrentPage(0);
-    const sort = value === '좋아요순' ? 'rate' : 'distance';
+    const sort = value === '별점순' ? 'rate' : 'distance';
 
     getSearchResult(sort);
   };
@@ -85,6 +87,7 @@ const SearchResult = ({
             pageSize={10}
             onChange={(value) => {
               changePage(resultSort, value);
+              resetCampCoordinate();
             }}
           />
         </>

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Map, MapTypeControl, ZoomControl } from 'react-kakao-maps-sdk';
 import useGetGeolocation from '../../../hooks/useGetGeolocation';
 import EventMarker from './eventMarker/EventMarker';
@@ -12,33 +12,62 @@ const CampLocation = ({
   campList,
   isViewLSearchList,
   setIsViewLSearchList,
+  selectedCampCoordinate,
 }) => {
   const geoLocation = useGetGeolocation();
   const mobileViewChange = isViewLSearchList ? 'true' : 'false';
+  const [campCoordinate, setCampCoordinate] = useState({
+    mapX: null,
+    mapY: null,
+  });
+
+  useEffect(() => {
+    if (selectedCampCoordinate.mapX && selectedCampCoordinate.mapY) {
+      setCampCoordinate((campCoordinate) => {
+        return {
+          ...campCoordinate,
+          mapX: selectedCampCoordinate.mapX,
+          mapY: selectedCampCoordinate.mapY,
+        };
+      });
+    } else if (campList.length > 0) {
+      setCampCoordinate((campCoordinate) => {
+        return {
+          ...campCoordinate,
+          mapX: campList[0].mapX,
+          mapY: campList[0].mapY,
+        };
+      });
+    }
+  }, [campList, selectedCampCoordinate]);
 
   return (
     <Wrap mobileViewChange={mobileViewChange}>
       <MapStyle
         center={{
-          lat:
-            campList.length > 0
-              ? campList[0].mapY
-              : geoLocation.lat
-              ? geoLocation.lat
-              : DEFAULT_Y,
-          lng:
-            campList.length > 0
-              ? campList[0].mapX
-              : geoLocation.long
-              ? geoLocation.long
-              : DEFAULT_X,
+          lat: campCoordinate.mapY
+            ? campCoordinate.mapY
+            : geoLocation.lat
+            ? geoLocation.lat
+            : DEFAULT_Y,
+          lng: campCoordinate.mapX
+            ? campCoordinate.mapX
+            : geoLocation.long
+            ? geoLocation.long
+            : DEFAULT_X,
         }}
         level={3}
       >
         <ZoomControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
         <MapTypeControl position={window.kakao.maps.ControlPosition.TOPRIGHT} />
         {campList.length > 0 &&
-          campList.map((camp) => <EventMarker key={camp.id} camp={camp} />)}
+          campList.map((camp) => (
+            <EventMarker
+              key={camp.id}
+              camp={camp}
+              selectedCampCoordinate={selectedCampCoordinate}
+            />
+          ))}
       </MapStyle>
       <ChangeViewBtn onClick={() => setIsViewLSearchList(true)}>
         <UnorderedListOutlined />

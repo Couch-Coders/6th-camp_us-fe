@@ -10,6 +10,9 @@ const GlobalStyle = createGlobalStyle`
     font-family: 'Roboto', sans-serif; 
   }
 
+  p {
+    margin-bottom: 5px;
+  }
 
 `;
 

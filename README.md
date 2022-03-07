@@ -6,6 +6,13 @@
 
 # **전국 캠핑장 추천 플랫폼 - **CampUs -** ⛺️ (FE)**
 
+<br>
+
+### **🏠 _배포 주소_** [https://www.camp-us.ga](https://www.camp-us.ga/search)
+
+<br>
+<br>
+
 ### "열심히 일한 당신, 어디론가 떠나고 싶으신가요?"
 
 </br>
@@ -30,7 +37,7 @@
 ## 👬 커뮤니티에서 얻는 다양한 정보와 꿀팁 (개발 예정)
 
 > - 커뮤니티에서 캠핑에 대한 다양한 정보들을 만나보세요
-> - 내가 쓴 글이 좋아요 수에 높다면 Best 게시글에 올라갈 수 있습니다!
+> - 내가 쓴 글이 좋아요 수가 높다면 Best 게시글에 올라갈 수 있습니다!
 
 </br>
 
@@ -38,10 +45,10 @@
 
 ## 👨‍💻 팀원 소개
 
-|                                    [송창엽](https://github.com/Songchangyeop)                                    |                                                                         [김선희](https://github.com/hagaaDev)                                                                          |                                       [김상운](https://github.com/issiscv)                                       |                                     [장대영](https://github.com/Longstick0)                                      |
-| :--------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: | :--------------------------------------------------------------------------------------------------------------: |
-| <img src="https://res.cloudinary.com/divncmfka/image/upload/v1645906082/me_bvddac.jpg" width="150" height="150"> | <img src="https://res.cloudinary.com/divncmfka/image/upload/v1645950212/%E1%84%89%E1%85%A5%E1%86%AB%E1%84%92%E1%85%B4%E1%84%82%E1%85%B5%E1%86%B7_yr5abm.jpg" width="150" height="150"> | <img src="https://res.cloudinary.com/divncmfka/image/upload/v1645906082/me_bvddac.jpg" width="150" height="150"> | <img src="https://res.cloudinary.com/divncmfka/image/upload/v1645906082/me_bvddac.jpg" width="150" height="150"> |
-|                                                     FrontEnd                                                     |                                                                                        FrontEnd                                                                                        |                                                     BackEnd                                                      |                                                     BackEnd                                                      |
+|                                    [송창엽](https://github.com/Songchangyeop)                                    |                                                                         [김선희](https://github.com/hagaaDev)                                                                          |                                                    [김상운](https://github.com/issiscv)                                                    |                                                  [장대영](https://github.com/Longstick0)                                                   |
+| :--------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------------------: |
+| <img src="https://res.cloudinary.com/divncmfka/image/upload/v1645906082/me_bvddac.jpg" width="150" height="150"> | <img src="https://res.cloudinary.com/divncmfka/image/upload/v1645950212/%E1%84%89%E1%85%A5%E1%86%AB%E1%84%92%E1%85%B4%E1%84%82%E1%85%B5%E1%86%B7_yr5abm.jpg" width="150" height="150"> | <img src="https://user-images.githubusercontent.com/69510442/156530657-0bf8a79c-232b-4fd4-b10b-1f2c080d2aa3.png" width="150" height="150"> | <img src="https://user-images.githubusercontent.com/69510442/156530666-6ba71623-01c9-4c05-b907-886b6aa51b70.png" width="150" height="150"> |
+|                                                     FrontEnd                                                     |                                                                                        FrontEnd                                                                                        |                                                                  BackEnd                                                                   |                                                                  BackEnd                                                                   |
 
 <br>
 
@@ -55,7 +62,7 @@
 
 ## ⏰ 개발 기간
 
-- ### 2022.01.18 ~ 2022.03.01 (5주)
+- ### 2022.01.18 ~ 2022.03.01 (6주)
 
 <br>
 
@@ -74,10 +81,9 @@
 <img src="https://img.shields.io/badge/styled-components-DB7093?style=flat-square&logo=styled-components&logoColor=white"/>
 <img src="https://img.shields.io/badge/Ant Design -0170FE?style=flat-square&logo=Ant Design&logoColor=white"/>
 <img src="https://img.shields.io/badge/Firebase-FFCA28?style=flat-square&logo=Firebase&logoColor=white"/>
-<img src="https://img.shields.io/badge/Amazon S3 -569A31?style=flat-square&logo=Amazon S3&logoColor=white"/>
 </p>
 
-### [FE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-be/projects/1)
+### [FE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-fe/projects/1)
 
 <br>
 
@@ -87,31 +93,176 @@
 <img src="https://img.shields.io/badge/java-007396?style=flat-square&logo=java&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring-6DB33F?style=flat-square&logo=Spring&logoColor=white"/>
 <img src="https://img.shields.io/badge/Spring Boot -6DB33F?style=flat-square&logo=Spring Boot&logoColor=white"/>
-<img src="https://img.shields.io/badge/Amazon EC2 -232F3E?style=flat-square&logo=Amazon AWS&logoColor=white"/>
-.....................작성 예정
+<img src="https://img.shields.io/badge/SpringSecurity-6DB33F?style=flat-square&logo=SpringSecurity&logoColor=white"/>
+<img src="https://img.shields.io/badge/Data JPA-6DB33F?style=flat-square&logo=&logoColor=white"/>
+<img src="https://img.shields.io/badge/Query DSL-0769AD?style=flat-square&logo=&logoColor=white"/>
+<img src="https://img.shields.io/badge/MySQL -4479A1?style=flat-square&logo=MySQL&logoColor=white"/>
+<img src="https://img.shields.io/badge/Oauth-4285F4?style=flat-square&logo=Google&logoColor=white"/>
 </p>
 
 ### [BE 프로젝트 칸반보드](https://github.com/Couch-Coders/6th-camp_us-be/projects/1)
 
 <br>
 
-<br>
+### **Infra**
+
+<p>
+<img src="https://img.shields.io/badge/AWS EC2 -232F3E?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS S3 -569A31?style=flat-square&logo=Amazon S3&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS  CodeDeploy -569A31?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS RDS -4285F4?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/AWS IAM -569A31?style=flat-square&logo=Amazon AWS&logoColor=white"/>
+<img src="https://img.shields.io/badge/GitHub Actions -2088FF?style=flat-square&logo=GitHub Actions&logoColor=white"/>
+
+</p>
 
 <br>
 
-## ⚙️ 시스템 아키텍처
+<br>
+
+<!-- ## ⚙️ 시스템 아키텍처 -->
 
 <!-- ![아키텍쳐](https://user-images.githubusercontent.com/55528172/147193318-77fd4086-33a1-4e71-aa46-2f36a474eff1.png) -->
 
-....
+<br>
+
+## 🗂 폴더 구조
 
 <br>
 
+```
+└── src
+    ├── App.js
+    ├── index.js
+    ├── assets
+    │   └── images
+    │       ├── Logo.svg
+    │       ├── default.png
+    │       ├── default_image.png
+    │       └── marker.webp
+    ├── common
+    │   ├── addressData.js
+    │   ├── axiosInstance.js
+    │   └── category.js
+    ├── components
+    │   ├── auth
+    │   │   ├── AuthProvider.js
+    │   │   └── RegisterForm.js
+    │   ├── campLike
+    │   │   ├── CampLike.jsx
+    │   │   └── CampLike.style.js
+    │   ├── imageUpload
+    │   │   ├── ImageUpload.jsx
+    │   │   └── imagePreview
+    │   │       ├── ImagePreview.jsx
+    │   │       └── imagePreview.style.js
+    │   ├── modal
+    │   │   ├── Modal.jsx
+    │   │   └── modal.style.js
+    │   ├── navbar
+    │   │   ├── Navbar.jsx
+    │   │   └── navbar.styles.js
+    │   ├── notice
+    │   │   ├── Notice.jsx
+    │   │   └── notice.style.js
+    │   ├── review
+    │   │   ├── Review.jsx
+    │   │   ├── reveiwList
+    │   │   │   ├── ReviewsList.jsx
+    │   │   │   └── reviewsList.styles.js
+    │   │   └── review.style.js
+    │   ├── skeleton
+    │   │   ├── Shimmer.jsx
+    │   │   ├── likeSkeleton
+    │   │   │   ├── LikeSkeleton.jsx
+    │   │   │   └── likeSkeleton.style.js
+    │   │   ├── recommendSkeleton
+    │   │   │   ├── RecommendSkeleton.jsx
+    │   │   │   └── recommendSkeleton.style.js
+    │   │   ├── reviewSkeleton
+    │   │   │   ├── ReviewSkeleton.jsx
+    │   │   │   └── reviewSkeleton.style.js
+    │   │   └── searchSkeleton
+    │   │       ├── SearchSkeleton.jsx
+    │   │       └── searchSkeleton.style.js
+    │   └── tag
+    │       ├── Tag.jsx
+    │       └── tag.style.js
+    ├── context
+    │   ├── CampContext.js
+    │   └── SearchPaginationContext.js
+    ├── hooks
+    │   ├── useGetDate.jsx
+    │   └── useGetGeolocation.jsx
+    ├── pages
+    │   ├── communityPage
+    │   │   └── CommunityPage.jsx
+    │   ├── detailPage
+    │   │   ├── DetailPage.jsx
+    │   │   ├── campInformation
+    │   │   │   ├── CampInformation.jsx
+    │   │   │   └── campInformation.style.js
+    │   │   ├── campLocation
+    │   │   │   ├── CampLocation.jsx
+    │   │   │   └── campLocation.style.js
+    │   │   └── detailPage.style.js
+    │   ├── mainPage
+    │   │   ├── MainPage.jsx
+    │   │   ├── mainBestReview
+    │   │   │   ├── MainBestReview.jsx
+    │   │   │   └── mainBestReview.styles.js
+    │   │   ├── mainCampRecommend
+    │   │   │   ├── MainCampRecommend.jsx
+    │   │   │   ├── mainCampRecommend.styles.js
+    │   │   │   └── nearCamp
+    │   │   │       ├── NearCamp.jsx
+    │   │   │       └── nearCamp.style.js
+    │   │   └── mainSearch
+    │   │       ├── MainSearch.js
+    │   │       └── mainSearch.styles.js
+    │   ├── myPage
+    │   │   ├── MyPage.jsx
+    │   │   ├── alrimList
+    │   │   │   ├── AlrimLayout.jsx
+    │   │   │   ├── AlrimList.jsx
+    │   │   │   └── alrim
+    │   │   │       ├── Alrim.jsx
+    │   │   │       └── alrim.style.js
+    │   │   ├── likeList
+    │   │   │   ├── LikeListLayout.jsx
+    │   │   │   ├── likeCamp
+    │   │   │   │   ├── LikeCamp.js
+    │   │   │   │   └── LikeCamp.style.js
+    │   │   │   └── likesList.js
+    │   │   └── myPage.styles.js
+    │   └── searchPage
+    │       ├── SearchPage.jsx
+    │       ├── searchBar
+    │       │   ├── SearchBar.jsx
+    │       │   ├── resultList
+    │       │   │   ├── ResultList.jsx
+    │       │   │   └── ResultList.style.js
+    │       │   ├── searchBar.style.js
+    │       │   └── searchResult
+    │       │       └── searchResult
+    │       │           ├── SearchResult.jsx
+    │       │           └── searchResult.style.js
+    │       └── searchLocation
+    │           ├── SearchLocation.jsx
+    │           └── eventMarker
+    │               ├── EventMarker.jsx
+    │               └── eventMarker.style.js
+    ├── service
+    │   ├── api.js
+    │   ├── firebaseAuth.js
+    │   └── imageUploder.js
+    └── styles
+        ├── antdCustom.css
+        ├── globalStyle.js
+        └── theme.js
+```
+
 <br>
-
-<!-- ### ERD 설계 -->
-
-<!-- ![ERD](https://user-images.githubusercontent.com/55528172/147193431-1410ff56-67b9-4eee-ba16-1b0a3a60c447.png) -->
 
 ## 🛠 기획 및 설계
 

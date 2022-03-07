@@ -2,22 +2,18 @@ import styled from 'styled-components';
 
 const ContainerLayout = styled.div`
   display: flex;
+  flex-direction: column;
   width: 100%;
-  height: 170px;
+  height: auto;
   border: 1px solid #e9e9e9;
   background-color: #fff;
   border-radius: 2px;
   margin-bottom: 20px;
-
-  @media screen and (max-width: 760px) {
-    flex-direction: column;
-    height: auto;
-  }
 `;
 
 const ImageLayout = styled.div`
-  width: 200px;
-  height: 100%;
+  width: 100%;
+  height: 175px;
   overflow: hidden;
   background-color: #eeeeee;
 

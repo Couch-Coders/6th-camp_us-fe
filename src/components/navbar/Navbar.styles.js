@@ -222,15 +222,15 @@ const MenuList = styled(Link)`
     text-align: center;
     width: max-content;
 
+    &:hover {
+      background-color: #eeeeee;
+    }
+
     &:last-child {
       border-bottom: 0;
     }
     & * {
       color: #333;
-    }
-
-    & > * {
-      padding: 8px;
     }
   }
   @media screen and (max-width: 960px) {
@@ -251,6 +251,7 @@ const MenuList = styled(Link)`
 `;
 
 const MyPage = styled.div`
+  padding: 8px;
   @media screen and (max-width: 960px) {
     padding: 2rem;
   }
@@ -262,6 +263,7 @@ const LogOutBtn = styled.button`
   background: none;
   border: none;
   cursor: pointer;
+  padding: 8px 14px;
 
   @media screen and (max-width: 960px) {
     width: 85%;
