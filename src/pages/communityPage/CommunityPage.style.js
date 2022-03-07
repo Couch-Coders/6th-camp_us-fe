@@ -12,21 +12,34 @@ const Container = styled.div`
   overflow: hidden;
   max-height: calc(100vh - 65px);
 
-  @media screen and (max-width: 600px) {
+  @media screen and (max-width: 960px) {
+    display: block;
     width: 100%;
     padding: 50px 10px 0 10px;
+    overflow: visible;
   }
 `;
 
 const TabsContainer = styled.div`
   width: 200px;
   padding-bottom: 25px;
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    position: fixed;
+    top: 50px;
+    padding-bottom: 0;
+    z-index: 1;
+    background-color: #fff;
+  }
 `;
 
 const TabsWrap = styled.div`
   padding-top: 50px;
   width: 100%;
   background: rgba(255, 255, 255, 1e-5);
+  @media screen and (max-width: 960px) {
+    display: flex;
+  }
 `;
 
 const Tabs = styled.div`
@@ -48,6 +61,24 @@ const Tabs = styled.div`
       : css`
           color: #000000;
         `}
+
+  @media screen and (max-width: 960px) {
+    margin-right: 8px;
+    padding: 0 4px 4px 4px;
+    margin-bottom: 0;
+
+    ${(props) =>
+      props.selectedTabs === props.page
+        ? css`
+            color: #389e0d;
+            border-bottom: 2px solid #389e0d;
+
+            font-weight: 600;
+          `
+        : css`
+            color: #000000;
+          `}
+  }
 `;
 
 const PostGroup = styled.div`
@@ -59,6 +90,12 @@ const PostGroup = styled.div`
   ::-webkit-scrollbar-thumb,
   ::-webkit-scrollbar-track {
     display: none;
+  }
+
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    padding-top: 70px;
+    min-height: auto;
   }
 `;
 
