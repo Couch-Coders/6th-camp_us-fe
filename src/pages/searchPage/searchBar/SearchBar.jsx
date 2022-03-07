@@ -7,13 +7,14 @@ import useGetGeolocation from '../../../hooks/useGetGeolocation';
 import { style } from './searchBar.style';
 import * as api from '../../../service/api';
 import { PageContext } from '../../../context/SearchPaginationContext';
-import { Select } from 'antd';
+import { Rate, Select } from 'antd';
 import {
   SearchOutlined,
   ExclamationCircleOutlined,
   ArrowUpOutlined,
   EnvironmentFilled,
 } from '@ant-design/icons';
+import ResetRate from '../../../components/resetRate/ResetRate';
 
 const SearchBar = ({
   searchCategory,
@@ -181,10 +182,11 @@ const SearchBar = ({
     getSearchResult();
   };
 
-  // 스크롤 탑 버튼
-  const ScrollTop = () => {
-    window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
-  };
+  const resetRateCount = useCallback(() => {
+    setAddress((address) => {
+      return { ...address, rate: null };
+    });
+  }, []);
 
   return (
     <>
@@ -264,10 +266,6 @@ const SearchBar = ({
                   <ChangeViewBtn onClick={() => setIsViewLSearchList(false)}>
                     <EnvironmentFilled />
                   </ChangeViewBtn>
-                  <TopBtn onClick={ScrollTop}>
-                    <ArrowUpOutlined />
-                    Top
-                  </TopBtn>
                 </>
               ) : (
                 // 검색 결과가 없을 떄
@@ -321,10 +319,13 @@ const SearchBar = ({
                 </SelectAddress>
               </div>
             </FlexBox>
-            <FlexBox>
+            <RateContainer>
               <InputTitle>최소 별점</InputTitle>
-              <RateContent onChange={handleRateChange} value={address.rate} />
-            </FlexBox>
+              <RateWrap>
+                <Rate onChange={handleRateChange} value={address.rate} />
+                <ResetRate resetRateCount={resetRateCount} />
+              </RateWrap>
+            </RateContainer>
 
             {isDetailSearch && (
               // 상세검색 버튼 클릭 시
@@ -385,8 +386,9 @@ const {
   InputContent,
   InputTitle,
   SelectAddress,
-  RateContent,
+  RateWrap,
   FlexBox,
+  RateContainer,
   CategoryWrap,
   Button,
   ButtonWrap,

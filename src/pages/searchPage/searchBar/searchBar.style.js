@@ -31,10 +31,18 @@ const InputTitle = styled.div`
   line-height: 22px;
   color: #333333;
 `;
+
 const FlexBox = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 16px;
+`;
+
+const RateContainer = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
   margin-bottom: 16px;
 `;
 
@@ -43,8 +51,6 @@ const SelectAddress = styled(Select)`
   height: 32px;
   margin-left: 8px;
 `;
-
-const RateContent = styled(Rate)``;
 
 const CategoryWrap = styled.div`
   width: 100%;
@@ -78,6 +84,12 @@ const ButtonWrap = styled.div`
   & button {
     width: calc(50% - 4px);
   }
+`;
+
+const RateWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
 `;
 
 /* Mobile design */
@@ -238,9 +250,10 @@ export const style = {
   InputContent,
   InputTitle,
   SelectAddress,
-  RateContent,
   CategoryWrap,
+  RateWrap,
   FlexBox,
+  RateContainer,
   Button,
   ButtonWrap,
   MobileFlexBox,

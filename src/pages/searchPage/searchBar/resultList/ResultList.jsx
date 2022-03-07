@@ -1,24 +1,26 @@
-import React from 'react';
-import { useNavigate } from 'react-router';
+import React, { useContext } from 'react';
 import { style } from './ResultList.style';
 import defaultImage from '../../../../assets/images/default_image.png';
 import { Rate } from 'antd';
+import { CoordinateContext } from '../../../../context/CoordinateContext';
 
 const ResultList = ({ camp }) => {
-  let navigate = useNavigate();
-
-  const goToDetail = () => {
-    navigate(`/detail?id=${camp.campId}`);
-  };
-
-  console.log(camp);
+  const { changeCampCoordinate } = useContext(CoordinateContext);
 
   return (
-    <Result onClick={goToDetail}>
+    <Result
+      onClick={() => {
+        changeCampCoordinate(camp);
+      }}
+    >
       {camp.firstImageUrl ? (
-        <Image src={camp.firstImageUrl} alt="thumbnail" />
+        <ImageWrap>
+          <Image src={camp.firstImageUrl} alt="thumbnail" />
+        </ImageWrap>
       ) : (
-        <Image src={defaultImage} alt="thumbnail" />
+        <ImageWrap>
+          <Image src={defaultImage} alt="thumbnail" />
+        </ImageWrap>
       )}
       <Content>
         <ContentHeader>
@@ -57,6 +59,7 @@ export default React.memo(ResultList);
 
 const {
   Result,
+  ImageWrap,
   Image,
   Content,
   ContentHeader,
