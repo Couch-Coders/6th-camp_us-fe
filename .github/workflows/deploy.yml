@@ -1,0 +1,23 @@
+name: development deployment
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-versions: [14.x]
+
+    steps:
+      - name: Checkout source code.
+        uses: actions/checkout@v2
+
+      - name: Deploy
+      - run: echo "🏃‍♂️ start deploying! "
+        run: npm deploy
