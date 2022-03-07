@@ -9,7 +9,7 @@ on:
 jobs:
   deploy:
     if: github.event.pull_request.merged == true
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-18.04
     strategy:
       matrix:
         node-versions: [14.x]
@@ -18,10 +18,13 @@ jobs:
       - name: Checkout source code.
         uses: actions/checkout@v2
 
+      - name: npm install
+        run: npm install
+
       - run: echo "🏃‍♂️ start deploying! "
 
       - name: Build
-        run: npm build
+        run: CI='' npm run build
 
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
@@ -32,3 +35,9 @@ jobs:
 
       - name: Deploy to S3
         run: aws s3 sync ./build s3://${{ secrets.DEV_AWS_S3_BUCKET }} --delete
+<<<<<<< HEAD
+=======
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{secrets.DEV_AWS_DISTRIBUTION_ID}} --paths "/*"
+>>>>>>> dc88a8f7b0dc91e65e92c65c2d045184486b9992
