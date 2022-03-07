@@ -18,6 +18,7 @@ jobs:
       - name: Checkout source code.
         uses: actions/checkout@v2
 
+      - run: echo "🏃‍♂️ start deploying! "
+
       - name: Deploy
-        run: echo "🏃‍♂️ start deploying! "
         run: npm deploy
