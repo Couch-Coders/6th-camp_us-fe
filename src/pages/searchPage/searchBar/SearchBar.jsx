@@ -182,6 +182,12 @@ const SearchBar = ({
     getSearchResult();
   };
 
+  // 별점 초기화
+  const resetRateCount = useCallback(() => {
+    setAddress((address) => {
+      return { ...address, rate: null };
+    });
+  }, []);
   return (
     <>
       {isMobile && (
