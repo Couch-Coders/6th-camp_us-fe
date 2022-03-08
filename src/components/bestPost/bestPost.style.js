@@ -4,6 +4,7 @@ const Wrap = styled.div`
   margin-bottom: 16px;
   padding: 10px 20px;
   border: 1px solid #e1e1e1;
+  border-radius: 5px;
   background-color: #ffffff;
 `;
 
