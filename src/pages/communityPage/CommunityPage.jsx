@@ -15,8 +15,8 @@ const CommunityPage = (props) => {
   }
 
   return (
-    <Test>
-      <Container>
+    <Container>
+      <Wrap>
         <TabsContainer>
           <TabsWrap>
             <Tabs
@@ -67,18 +67,18 @@ const CommunityPage = (props) => {
             <CommunityQnA selectedTabs={selectedTabs} />
           )}
         </PostGroup>
-      </Container>
+      </Wrap>
       <CreatePostBtn to="/community/write">
         <EditFilled />
       </CreatePostBtn>
-    </Test>
+    </Container>
   );
 };
 
 export default CommunityPage;
 const {
-  Test,
   Container,
+  Wrap,
   TabsContainer,
   TabsWrap,
   Tabs,

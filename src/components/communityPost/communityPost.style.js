@@ -101,7 +101,7 @@ const LikeWrap = styled.div`
 const Like = styled.div`
   width: 22px;
   height: 20px;
-  margin-right: 5px;
+  margin-right: 8px;
 `;
 
 const LikeIcon = styled.svg`
@@ -131,11 +131,21 @@ const LikeCount = styled.span`
 const CommentWrap = styled.div`
   display: flex;
   align-items: center;
-  margin-left: 8px;
+  margin-left: 10px;
   & svg {
     color: #e0e0e0;
     font-size: 22px;
   }
+`;
+
+const CommentCount = styled.span`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 19px;
+  margin-left: 10px;
+  color: #262626;
 `;
 
 export const style = {
@@ -158,4 +168,5 @@ export const style = {
   LikeIcon,
   LikeCount,
   CommentWrap,
+  CommentCount,
 };

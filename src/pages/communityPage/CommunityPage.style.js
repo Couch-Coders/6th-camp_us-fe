@@ -1,13 +1,14 @@
 import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
-const Test = styled.div`
+const Container = styled.div`
   width: 100%;
   max-height: calc(100vh - 65px);
   overflow: auto;
+  background-color: #fafafa;
 `;
 
-const Container = styled.div`
+const Wrap = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -138,7 +139,7 @@ const CreatePostBtn = styled(Link)`
 `;
 
 export const style = {
-  Test,
+  Wrap,
   Container,
   TabsContainer,
   TabsWrap,

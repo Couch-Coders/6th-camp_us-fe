@@ -48,7 +48,7 @@ const CommunityPost = ({ selectedTabs }) => {
         </LikeWrap>
         <CommentWrap>
           <MessageFilled />
-          10
+          <CommentCount>10</CommentCount>
         </CommentWrap>
       </PostReact>
     </Post>
@@ -57,7 +57,6 @@ const CommunityPost = ({ selectedTabs }) => {
 
 export default CommunityPost;
 const {
-  PostList,
   Post,
   PostType,
   PostTop,
@@ -77,4 +76,5 @@ const {
   LikeIcon,
   LikeCount,
   CommentWrap,
+  CommentCount,
 } = style;
