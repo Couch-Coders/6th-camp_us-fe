@@ -40,7 +40,6 @@ const TabsContainer = styled.div`
 const TabsWrap = styled.div`
   position: fixed;
   padding-top: 50px;
-  width: 100%;
   background: rgba(255, 255, 255, 1e-5);
   @media screen and (max-width: 960px) {
     display: flex;
