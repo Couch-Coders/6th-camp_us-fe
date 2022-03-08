@@ -3,12 +3,12 @@ import BestPost from '../../../components/bestPost/BestPost';
 import CommunityPost from '../../../components/communityPost/CommunityPost';
 import { style } from './CommunityCategory.style';
 
-export default function CommunityTalk() {
+export default function CommunityTalk({ selectedTabs }) {
   return (
     <PostWrap>
       <Title>👄 캠퍼수다</Title>
-      <BestPost />
-      <CommunityPost />
+      <BestPost selectedTabs={selectedTabs} />
+      <CommunityPost selectedTabs={selectedTabs} />
     </PostWrap>
   );
 }

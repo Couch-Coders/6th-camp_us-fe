@@ -54,10 +54,18 @@ const CommunityPage = (props) => {
           </TabsWrap>
         </TabsContainer>
         <PostGroup>
-          {selectedTabs === 'allPost' && <CommunityAllPost />}
-          {selectedTabs === 'talk' && <CommunityTalk />}
-          {selectedTabs === 'picture' && <CommunityPicture />}
-          {selectedTabs === 'QnA' && <CommunityQnA />}
+          {selectedTabs === 'allPost' && (
+            <CommunityAllPost selectedTabs={selectedTabs} />
+          )}
+          {selectedTabs === 'talk' && (
+            <CommunityTalk selectedTabs={selectedTabs} />
+          )}
+          {selectedTabs === 'picture' && (
+            <CommunityPicture selectedTabs={selectedTabs} />
+          )}
+          {selectedTabs === 'QnA' && (
+            <CommunityQnA selectedTabs={selectedTabs} />
+          )}
         </PostGroup>
       </Container>
       <CreatePostBtn to="/community/write">

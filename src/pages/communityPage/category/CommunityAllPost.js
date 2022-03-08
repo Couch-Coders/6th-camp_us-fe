@@ -4,12 +4,12 @@ import BestPost from '../../../components/bestPost/BestPost';
 import CommunityPost from '../../../components/communityPost/CommunityPost';
 import { style } from './CommunityCategory.style';
 
-const CommunityAllPost = () => {
+const CommunityAllPost = ({ selectedTabs }) => {
   return (
     <PostWrap>
       <Title>👀 전체</Title>
-      <BestPost />
-      <CommunityPost />
+      <BestPost selectedTabs={selectedTabs} />
+      <CommunityPost selectedTabs={selectedTabs} />
     </PostWrap>
   );
 };

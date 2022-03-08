@@ -1,7 +1,7 @@
 import React from 'react';
 import { style } from './bestPost.style';
 
-const BestPost = () => {
+const BestPost = ({ selectedTabs }) => {
   return (
     <Wrap>
       <BestPostTitle>🏆 Best 게시글</BestPostTitle>

@@ -2,7 +2,7 @@ import React from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 
-const CommunityPost = () => {
+const CommunityPost = ({ selectedTabs }) => {
   return (
     <PostList>
       <Post>
