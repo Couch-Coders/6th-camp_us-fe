@@ -24,7 +24,8 @@ const CampLike = ({ likeCount, campId, liked }) => {
   return (
     <LikeWrap>
       <Like
-        onClick={() => {
+        onClick={(e) => {
+          e.stopPropagation();
           onCampLike(campId);
         }}
       >
