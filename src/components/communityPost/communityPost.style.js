@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 
-const PostList = styled.div``;
-
-const Post = styled.div`
+const Post = styled.li`
   background-color: #fff;
   padding: 16px;
   padding-top: 24px;
@@ -140,7 +138,6 @@ const CommentWrap = styled.div`
 `;
 
 export const style = {
-  PostList,
   Post,
   PostType,
   PostTop,
