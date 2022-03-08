@@ -1,0 +1,47 @@
+name: development deployment
+
+on:
+  pull_request:
+    branches:
+      - main
+    types: [closed]
+
+env:
+  REACT_APP_KAKAO_API_KEY: ${{secrets.REACT_APP_KAKAO_API_KEY}}
+  REACT_APP_FIREBASE_API_KEY: ${{secrets.REACT_APP_FIREBASE_API_KEY}}
+  REACT_APP_FIREBASE_AUTH_DOMAIN: ${{secrets.REACT_APP_FIREBASE_AUTH_DOMAIN}}
+  REACT_APP_FIREBASE_PROJECT_ID: ${{secrets.REACT_APP_FIREBASE_PROJECT_ID}}
+  REACT_APP_SERVER_URL: ${{secrets.REACT_APP_SERVER_URL}}
+
+jobs:
+  deploy:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-18.04
+    strategy:
+      matrix:
+        node-versions: [14.x]
+
+    steps:
+      - name: Checkout source code.
+        uses: actions/checkout@v2
+
+      - name: npm install
+        run: npm install
+
+      - run: echo "🏃‍♂️ start deploying! "
+
+      - name: Build
+        run: CI='' npm run build
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: ${{ secrets.AWS_REGION }}
+
+      - name: Deploy to S3
+        run: aws s3 sync ./build s3://${{ secrets.DEV_AWS_S3_BUCKET }} --delete
+
+      - name: Invalidate CloudFront Cache
+        run: aws cloudfront create-invalidation --distribution-id ${{secrets.DEV_AWS_DISTRIBUTION_ID}} --paths "/*"
