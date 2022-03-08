@@ -51,6 +51,11 @@ const Tabs = styled.div`
   line-height: 24px;
   margin-bottom: 24px;
   cursor: pointer;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: #389e0d;
+  }
 
   ${(props) =>
     props.selectedTabs === props.page
