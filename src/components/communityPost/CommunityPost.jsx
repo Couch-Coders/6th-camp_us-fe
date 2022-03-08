@@ -1,10 +1,17 @@
 import React from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
+import { useNavigate } from 'react-router';
 
 const CommunityPost = ({ selectedTabs }) => {
+  const navigate = useNavigate();
+
+  const moveToCommunityDetailPage = () => {
+    navigate('/community/detail');
+  };
+
   return (
-    <Post>
+    <Post onClick={moveToCommunityDetailPage}>
       <PostType>캠퍼수다</PostType>
       <PostTop>
         <PostTitle>캠핑장 꿀팁</PostTitle>

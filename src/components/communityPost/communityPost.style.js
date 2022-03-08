@@ -8,6 +8,7 @@ const Post = styled.li`
   border: 1px solid #e1e1e1;
   box-sizing: border-box;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 const PostType = styled.span`

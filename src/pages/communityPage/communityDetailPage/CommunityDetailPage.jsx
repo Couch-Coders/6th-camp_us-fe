@@ -1,5 +1,7 @@
 import React from 'react';
 
-const CommunityDetailPage = (props) => <div>detail</div>;
+const CommunityDetailPage = (props) => {
+  return <></>;
+};
 
 export default CommunityDetailPage;
