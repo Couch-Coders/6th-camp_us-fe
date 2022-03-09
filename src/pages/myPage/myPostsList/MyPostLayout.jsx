@@ -5,7 +5,7 @@ import MyPosts from './MyPosts';
 import { Pagination } from 'antd';
 import { NotMyPostsNotification } from '../../../components/notice/Notice';
 import styled from 'styled-components';
-import LikeSkeleton from '../../../components/skeleton/likeSkeleton/LikeSkeleton';
+import CommunityPostSkeleton from '../../../components/skeleton/communityPostSkeleton/CommunityPostSkeleton';
 
 export default function MyPostLayout() {
   const { user } = useContext(UserContext);
@@ -15,7 +15,7 @@ export default function MyPostLayout() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    // MyPostsRequest(currentPage);
+    //MyPostsRequest(currentPage);
   }, [user, currentPage]);
 
   // 나의 게시글 리스트 조회
@@ -38,9 +38,9 @@ export default function MyPostLayout() {
         <NotMyPostsNotification />
       ) : isLoading ? (
         <>
-          <LikeSkeleton />
-          <LikeSkeleton />
-          <LikeSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
+          <CommunityPostSkeleton />
         </>
       ) : (
         <>
