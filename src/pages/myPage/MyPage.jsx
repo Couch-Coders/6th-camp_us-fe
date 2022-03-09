@@ -4,7 +4,7 @@ import { UserContext } from '../../components/auth/AuthProvider';
 import * as api from '../../service/api';
 import LikeListLayout from './likeList/LikeListLayout';
 import MyPostLayout from './myPostsList/MyPostLayout';
-import MyComments from './myComments/MyComments';
+import MyCommentLayout from './myComments/MyCommentLayout';
 import Review from '../../components/review/Review';
 import AlrimLayout from './alrimList/AlrimLayout';
 import 'antd/dist/antd.css';
@@ -158,7 +158,7 @@ function MyPage() {
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
         {selectedTabs === 'myPosts' && <MyPostLayout />}
-        {selectedTabs === 'myComments' && <MyComments />}
+        {selectedTabs === 'myComments' && <MyCommentLayout />}
         {selectedTabs === 'myReviews' && <Review clickedPage="mypage" />}
         {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
       </InnerWrapper>
