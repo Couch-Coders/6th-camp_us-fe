@@ -8,10 +8,8 @@ import PostEditor from '../../../components/postEditor/PostEditor';
 const { Option } = Select;
 
 export default function CommunityWritePage() {
-  const [postContent, setPostContent] = useState({
-    content: '',
-    image: [],
-  });
+  const [postContent, setPostContent] = useState('');
+  const [postImage, setPostImage] = useState([]);
   const [selectesOption, setSelectedOption] = useState('전체');
   const categotyOption = ['전체', '캠퍼수다', '캠핑한장', '궁금해요'];
 
@@ -21,28 +19,25 @@ export default function CommunityWritePage() {
     setSelectedOption(value);
   };
 
+  const onChangePostContents = useCallback((value) => {
+    setPostContent(value);
+  }, []);
+
+  const onSubmitPost = () => {
+    console.log(postContent);
+    console.log(postImage);
+    console.log(selectesOption);
+  };
+
   const setImageUpload = useCallback((image) => {
-    setPostContent((postContent) => {
-      return {
-        ...postContent,
-        image: [...postContent.image, image],
-      };
+    setPostImage((postImage) => {
+      return [...postImage, image];
     });
   }, []);
 
-  console.log(postContent);
-
   const deleteImage = (imgIndex) => {
-    const imgarr = postContent.image.filter(
-      (img) => img !== postContent.image[imgIndex],
-    );
-
-    setPostContent((postContent) => {
-      return {
-        ...postContent,
-        image: imgarr,
-      };
-    });
+    const imgarr = postImage.filter((img) => img !== postImage[imgIndex]);
+    setPostImage(imgarr);
   };
 
   const onFallback = () => {
@@ -64,38 +59,44 @@ export default function CommunityWritePage() {
           ))}
         </SelectContent>
         <Title placeholder="제목을 입력하세요" />
-        <PostEditor />
+        <PostEditor
+          postContent={postContent}
+          onChangePostContents={onChangePostContents}
+        />
         <ImageWrap>
           <ImageUpload setImageUpload={setImageUpload} pageName="community" />
-          {postContent.image.map((img, index) => (
-            <PostImgWrap key={index}>
-              <PostImgClose
-                onClick={() => {
-                  deleteImage(index);
-                }}
-              >
-                <svg
-                  width="10"
-                  height="10"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
+          {postImage.length > 0 &&
+            postImage.map((img, index) => (
+              <PostImgWrap key={index}>
+                <PostImgClose
+                  onClick={() => {
+                    deleteImage(index);
+                  }}
                 >
-                  <path
-                    d="M6.92473 5.99916L11.6122 0.411663C11.6908 0.318806 11.6247 0.177734 11.5033 0.177734H10.0783C9.99437 0.177734 9.91401 0.215234 9.85865 0.27952L5.99258 4.88845L2.12651 0.27952C2.07294 0.215234 1.99258 0.177734 1.90687 0.177734H0.481867C0.360439 0.177734 0.294367 0.318806 0.372939 0.411663L5.06044 5.99916L0.372939 11.5867C0.355338 11.6074 0.344047 11.6327 0.340404 11.6596C0.336762 11.6865 0.340922 11.7139 0.352391 11.7386C0.36386 11.7632 0.382156 11.784 0.405107 11.7985C0.428057 11.8131 0.454698 11.8207 0.481867 11.8206H1.90687C1.9908 11.8206 2.07115 11.7831 2.12651 11.7188L5.99258 7.10988L9.85865 11.7188C9.91222 11.7831 9.99258 11.8206 10.0783 11.8206H11.5033C11.6247 11.8206 11.6908 11.6795 11.6122 11.5867L6.92473 5.99916Z"
-                    fill="white"
-                  />
-                </svg>
-              </PostImgClose>
-              <PostImage src={img} />
-            </PostImgWrap>
-          ))}
+                  <svg
+                    width="10"
+                    height="10"
+                    viewBox="0 0 12 12"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M6.92473 5.99916L11.6122 0.411663C11.6908 0.318806 11.6247 0.177734 11.5033 0.177734H10.0783C9.99437 0.177734 9.91401 0.215234 9.85865 0.27952L5.99258 4.88845L2.12651 0.27952C2.07294 0.215234 1.99258 0.177734 1.90687 0.177734H0.481867C0.360439 0.177734 0.294367 0.318806 0.372939 0.411663L5.06044 5.99916L0.372939 11.5867C0.355338 11.6074 0.344047 11.6327 0.340404 11.6596C0.336762 11.6865 0.340922 11.7139 0.352391 11.7386C0.36386 11.7632 0.382156 11.784 0.405107 11.7985C0.428057 11.8131 0.454698 11.8207 0.481867 11.8206H1.90687C1.9908 11.8206 2.07115 11.7831 2.12651 11.7188L5.99258 7.10988L9.85865 11.7188C9.91222 11.7831 9.99258 11.8206 10.0783 11.8206H11.5033C11.6247 11.8206 11.6908 11.6795 11.6122 11.5867L6.92473 5.99916Z"
+                      fill="white"
+                    />
+                  </svg>
+                </PostImgClose>
+                <PostImage src={img} />
+              </PostImgWrap>
+            ))}
         </ImageWrap>
         <PostActionWrap>
           <FallbackButton type="button" onClick={onFallback}>
             나가기
           </FallbackButton>
-          <SubmitButton type="button">게시글 등록</SubmitButton>
+          <SubmitButton type="button" onClick={onSubmitPost}>
+            게시글 등록
+          </SubmitButton>
         </PostActionWrap>
       </PostWrap>
     </Container>

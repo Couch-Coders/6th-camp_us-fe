@@ -4,9 +4,8 @@ import ReactQuill from 'react-quill';
 import 'react-quill/dist/quill.snow.css';
 import styled from 'styled-components';
 
-const PostEditor = () => {
+const PostEditor = ({ postContent, onChangePostContents }) => {
   const QuillRef = useRef();
-  const [contents, setContents] = useState('');
 
   const modules = useMemo(
     () => ({
@@ -25,10 +24,10 @@ const PostEditor = () => {
             QuillRef.current = element;
           }
         }}
-        value={contents}
+        value={postContent}
         onChange={(value) => {
           window.scrollTo(0, document.body.scrollHeight);
-          setContents(value);
+          onChangePostContents(value);
         }}
         modules={modules}
         theme="snow"
