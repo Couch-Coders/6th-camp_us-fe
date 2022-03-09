@@ -1,5 +1,5 @@
 import React from 'react';
 
-export default function WritePage() {
+export default function CommunityWritePage() {
   return <div>writePage</div>;
 }
