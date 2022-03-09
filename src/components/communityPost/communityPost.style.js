@@ -8,6 +8,14 @@ const Post = styled.li`
   border: 1px solid #e1e1e1;
   box-sizing: border-box;
   border-radius: 5px;
+`;
+
+const PostHandleWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+`;
+
+const PostEventContainer = styled.div`
   cursor: pointer;
 `;
 
@@ -150,6 +158,8 @@ const CommentCount = styled.span`
 
 export const style = {
   Post,
+  PostHandleWrap,
+  PostEventContainer,
   PostType,
   PostTop,
   PostTitle,
