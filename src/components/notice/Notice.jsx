@@ -40,6 +40,16 @@ export const NotMyReviewNotification = () => {
   );
 };
 
+export const NotCommentNotification = () => {
+  return (
+    <Notification>
+      <MessageOutlined />
+      <NotiTitle>아직 댓글이 없어요</NotiTitle>
+      <NotiContent>가장 먼저 댓글을 남겨보세요!</NotiContent>
+    </Notification>
+  );
+};
+
 export const CampReviewNotification = () => {
   return (
     <Notification>

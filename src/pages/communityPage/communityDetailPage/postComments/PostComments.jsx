@@ -7,9 +7,9 @@ import React, {
 } from 'react';
 import CommentList from './commentList/CommentList';
 import { UserContext } from '../../../../components/auth/AuthProvider';
-import { NotMyReviewNotification } from '../../../../components/notice/Notice';
+import { NotCommentNotification } from '../../../../components/notice/Notice';
 import { style } from './PostComments.style';
-import { Rate, Input, message } from 'antd';
+import { Input, message } from 'antd';
 import * as api from '../../../../service/api';
 import ReviewSkeleton from '../../../../components/skeleton/reviewSkeleton/ReviewSkeleton';
 
@@ -78,7 +78,7 @@ export default function PostComments() {
         </EditButton>
       </EditForm>
       {!isLoading && commentData.length === 0 ? (
-        <NotMyReviewNotification />
+        <NotCommentNotification />
       ) : isLoading ? (
         <>
           <ReviewSkeleton />
