@@ -1,15 +1,24 @@
-import styled from 'styled-components';
-import { Pagination } from 'antd';
+import styled, { css } from 'styled-components';
+import { Image } from 'antd';
+import { Link } from 'react-router-dom';
 
-const Container = styled.div`
-  //display: flex;
-  flex-direction: column;
-  align-items: center;
+const Wrap = styled.div`
+  margin-bottom: 24px;
 `;
 
+const List = styled.div`
+  width: 100%;
+
+  @media screen and (max-width: 760px) {
+    display: block;
+  }
+`;
+/* editingTemplate */
 const EditForm = styled.form`
   width: 100%;
-  display: block;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
   background: #ffffff;
   border-radius: 2px;
   padding: 18px;
@@ -17,45 +26,27 @@ const EditForm = styled.form`
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
 
-  @media screen and (max-width: 760px) {
-    position: relative;
+  @media screen and (max-width: 600px) {
+    display: block;
   }
 `;
 
-const EditTop = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+const ButtonArea = styled.div`
+  margin-left: 8px;
 
-const EditLeft = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-`;
-
-const EditRight = styled.div`
-  display: flex;
-  justify-content: start;
-  align-items: center;
-
-  & > * {
-    margin-left: 8px;
-    padding: 4px 15px;
-    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
-    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
-    box-sizing: border-box;
+  * {
     cursor: pointer;
+    text-align: center;
+    width: 80px;
+    height: 30px;
+    line-height: 30px;
+    box-sizing: border-box;
   }
-`;
 
-const RateSelect = styled.div`
-  font-family: Roboto;
-  font-size: 14px;
-  line-height: 16px;
-  color: #000000;
-  & ul {
-    margin-left: 5px;
+  @media screen and (max-width: 600px) {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 8px;
   }
 `;
 
@@ -63,37 +54,197 @@ const EditButton = styled.div`
   color: #fff;
   background: #73d13d;
   border: 1px solid #73d13d;
+  margin-bottom: 8px;
 `;
 
-const Wrap = styled.div`
-  display: flex;
-  align-items: center;
-  margin: 10px 0;
+const CancleButton = styled.button`
+  color: #b9b9b9;
+  background: #fff;
+  border: 1px solid #b9b9b9;
 
-  @media screen and (max-width: 760px) {
-    display: block;
-
-    & > div:last-child {
-      margin: 12px 0;
-    }
+  @media screen and (max-width: 600px) {
+    margin-left: 8px;
   }
 `;
 
-const PaginationContent = styled(Pagination)`
-  text-align: center;
-  .ant-select-selector {
-    display: none;
+/* viewTemplate */
+const Comment = styled.div`
+  background: #ffffff;
+  border-bottom: 1px solid #f0f0f0;
+  align-items: center;
+  padding: 18px;
+  box-sizing: border-box;
+
+  & a {
+    margin: 0;
+  }
+`;
+const TopArea = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #ffffff;
+  height: 56px;
+  align-items: center;
+  padding-bottom: 0;
+  box-sizing: border-box;
+
+  & a {
+    margin: 0;
+  }
+`;
+
+const UserInfo = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const Avatar = styled.div`
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background-color: #0088ff;
+  margin-right: 8px;
+`;
+
+const NickName = styled.div``;
+
+const Author = styled.div`
+  margin-left: 8px;
+  padding: 4px 6px;
+  height: 30px;
+  background-color: #efefef;
+  border-radius: 5px;
+  color: #919191;
+  font-size: 14px;
+`;
+
+const HandleContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+`;
+
+const Handlecomment = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin-left: 8px;
+  cursor: pointer;
+  transition: all 0.5s ease;
+
+  &:hover {
+    color: #a0a0a0;
+  }
+`;
+
+const Date = styled.div`
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 22px;
+  display: flex;
+  align-items: center;
+  color: #bfbfbf;
+
+  &:after {
+    display: inline-block;
+    content: '|';
+    clear: both;
+    margin: 0 8px;
+  }
+`;
+
+const Nickname = styled.div`
+  display: block;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.85);
+  margin: 6px 0 8px 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  & ul {
+    margin-left: 7px;
+  }
+`;
+
+const CampName = styled.div`
+  display: block;
+  line-height: 24px;
+  color: rgba(0, 0, 0, 0.85);
+  margin: 6px 0 8px 0;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 24px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  &:hover {
+    color: #8d8d8d;
+  }
+
+  & ul {
+    margin-left: 7px;
+  }
+`;
+
+const BottomArea = styled.div`
+  display: flex;
+  justify-content: start;
+  padding-top: 10px;
+  align-items: start;
+`;
+
+const Content = styled.div`
+  white-space: normal;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+`;
+
+const CommentLike = styled.div`
+  width: 50px;
+  color: #000;
+  cursor: pointer;
+
+  & svg {
+    display: inline-block;
+    margin-right: 4px;
   }
 `;
 
 export const style = {
-  Container,
-  EditForm,
-  EditTop,
-  EditLeft,
-  EditRight,
-  RateSelect,
-  EditButton,
   Wrap,
-  PaginationContent,
+  List,
+  EditForm,
+  ButtonArea,
+  EditButton,
+  CancleButton,
+  Comment,
+  TopArea,
+  UserInfo,
+  Avatar,
+  NickName,
+  Author,
+  HandleContent,
+  Handlecomment,
+  Date,
+  Nickname,
+  CampName,
+  BottomArea,
+  Content,
+  CommentLike,
 };

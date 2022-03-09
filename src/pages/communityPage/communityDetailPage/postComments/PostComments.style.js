@@ -19,8 +19,15 @@ const EditForm = styled.form`
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
 
-  @media screen and (max-width: 760px) {
-    position: relative;
+  @media screen and (max-width: 600px) {
+    display: block;
+    overflow: hidden;
+
+    &:after {
+      display: block;
+      content: '';
+      clear: both;
+    }
   }
 `;
 
@@ -34,6 +41,14 @@ const EditButton = styled.div`
   text-align: center;
   margin-left: 8px;
   line-height: 30px;
+
+  @media screen and (max-width: 600px) {
+    display: flex;
+    justify-content: center;
+    margin-top: 8px;
+    margin-left: 0;
+    float: right;
+  }
 `;
 
 const PaginationContent = styled(Pagination)`

@@ -77,7 +77,7 @@ export default function PostComments() {
           작성
         </EditButton>
       </EditForm>
-      {!isLoading && commentData.length === 0 ? (
+      {!isLoading && commentData.length !== 0 ? (
         <NotCommentNotification />
       ) : isLoading ? (
         <>
