@@ -12,7 +12,7 @@ export default function MyCommentLayout() {
   const [commentdata, setCommentdata] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     //MyCommentsRequest(currentPage);

@@ -86,6 +86,11 @@ const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
 
   // 나의 댓글 뷰 컴포넌트
   const [show, setShow] = useState(false);
+  const navigate = useNavigate();
+  const moveToCommunityDetailPage = () => {
+    navigate('/community/detail');
+  };
+
   const viewTemplate = (
     <Post>
       <PostDivision>
@@ -95,7 +100,7 @@ const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
           <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
         </HandleContent>
       </PostDivision>
-      <PostDetail>
+      <PostDetail onClick={moveToCommunityDetailPage}>
         <PostTop>
           <PostTitle>캠핑장 꿀팁</PostTitle>
           <PostCreateTime>3시간전</PostCreateTime>
