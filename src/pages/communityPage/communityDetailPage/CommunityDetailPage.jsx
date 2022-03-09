@@ -112,12 +112,12 @@ const AvatarImg = styled.div`
 `;
 
 const UserName = styled.span`
-  font-size: 20px;
+  font-size: 16px;
   margin-right: 15px;
 `;
 
 const Time = styled.span`
-  font-size: 15px;
+  font-size: 16px;
   color: #9e9e9e;
 `;
 
@@ -128,7 +128,7 @@ const PostActionWrap = styled.div`
 `;
 
 const HandlePost = styled.span`
-  font-size: 15px;
+  font-size: 16px;
   color: #9e9e9e;
   margin-left: 15px;
 `;
@@ -138,12 +138,11 @@ const ContentWrap = styled.div`
 `;
 
 const Content = styled.span`
-  font-size: 18px;
+  font-size: 16px;
 `;
 
 const ImageContent = styled.img`
   width: 100%;
-  height: 400px;
   margin-top: 20px;
 `;
 
