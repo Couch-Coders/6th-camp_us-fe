@@ -1,6 +1,7 @@
 import { Select } from 'antd';
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import PostEditor from '../../../components/postEditor/PostEditor';
 
 const { Option } = Select;
 
@@ -25,6 +26,7 @@ export default function CommunityWritePage() {
           </Option>
         ))}
       </SelectContent>
+      <PostEditor />
     </Container>
   );
 }
