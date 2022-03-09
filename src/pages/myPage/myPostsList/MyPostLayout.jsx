@@ -3,7 +3,7 @@ import { UserContext } from '../../../components/auth/AuthProvider';
 import * as api from '../../../service/api';
 import MyPosts from './MyPosts';
 import { Pagination } from 'antd';
-import { NotMyLikeListNotification } from '../../../components/notice/Notice';
+import { NotMyPostsNotification } from '../../../components/notice/Notice';
 import styled from 'styled-components';
 import LikeSkeleton from '../../../components/skeleton/likeSkeleton/LikeSkeleton';
 
@@ -35,7 +35,7 @@ export default function MyPostLayout() {
   return (
     <>
       {!isLoading && data.length === 0 ? (
-        <NotMyLikeListNotification />
+        <NotMyPostsNotification />
       ) : isLoading ? (
         <>
           <LikeSkeleton />
