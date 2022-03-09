@@ -1,4 +1,4 @@
-import { Modal, Select, Upload } from 'antd';
+import { message, Modal, Select, Upload } from 'antd';
 import React, { useCallback, useState } from 'react';
 import { useNavigate } from 'react-router';
 import styled from 'styled-components';
@@ -11,8 +11,8 @@ export default function CommunityWritePage() {
   const [postTitle, setPostTitle] = useState();
   const [postContent, setPostContent] = useState('');
   const [postImage, setPostImage] = useState([]);
-  const [selectesOption, setSelectedOption] = useState('전체');
-  const categotyOption = ['전체', '캠퍼수다', '캠핑한장', '궁금해요'];
+  const [selectesOption, setSelectedOption] = useState('카테고리');
+  const categotyOption = ['캠퍼수다', '캠핑한장', '궁금해요'];
 
   const navigate = useNavigate();
 
@@ -32,6 +32,10 @@ export default function CommunityWritePage() {
   }, []);
 
   const onSubmitPost = () => {
+    if (selectesOption === '카테고리') {
+      message.warning('카테고리를 선택하면 게시글 등록이 가능합니다.');
+      return;
+    }
     console.log(postTitle);
     console.log(postContent);
     console.log(postImage);
