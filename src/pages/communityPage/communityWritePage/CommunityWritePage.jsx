@@ -127,6 +127,11 @@ const PostWrap = styled.div`
   background-color: white;
   min-height: calc(100vh - 65px);
   overflow: auto;
+
+  @media screen and (max-width: 960px) {
+    width: 100%;
+    padding: 50px 10px 0 10px;
+  }
 `;
 
 const SelectContent = styled(Select)`
@@ -169,6 +174,7 @@ const PostImgWrap = styled.div`
   position: relative;
   border: 0.2px dashed #bdbdbd;
   margin-right: 22px;
+  margin-bottom: 15px;
 `;
 
 const PostImage = styled.img`

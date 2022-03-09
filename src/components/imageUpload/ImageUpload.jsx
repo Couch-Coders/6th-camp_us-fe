@@ -7,9 +7,6 @@ import { imageUploader } from '../../service/imageUploder';
 const ImageUpload = ({ setImageUpload, pageName }) => {
   const [loading, setLoading] = useState(false);
   const [fileList, setFileList] = useState([]);
-  const [previewVisible, setPreviewVisible] = useState(false);
-  const [previewImage, setPreviewImage] = useState('');
-  const [previewTitle, setPreviewTitle] = useState('');
   const reviewInputRef = useRef();
   const postInputRef = useRef();
 
@@ -33,21 +30,6 @@ const ImageUpload = ({ setImageUpload, pageName }) => {
       'add',
     );
   };
-
-  // const handleCancel = () => setPreviewVisible(false);
-
-  // const handlePreview = async (file) => {
-  //   console.log(file);
-  //   if (!file.url && !file.preview) {
-  //     file.preview = await getBase64(file.originFileObj);
-  //   }
-
-  //   setPreviewImage(file.url || file.preview);
-  //   setPreviewVisible(true);
-  //   setPreviewTitle(
-  //     file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
-  //   );
-  // };
 
   const handleChange = async (event) => {
     setLoading(true);
@@ -130,6 +112,7 @@ const ReviewInput = styled.input`
 const PostWrap = styled.div`
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 10px;
 `;
 
 const PostUpload = styled.div`
