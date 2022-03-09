@@ -6,7 +6,8 @@ import SearchPage from './pages/searchPage/SearchPage';
 import MyPage from './pages/myPage/MyPage';
 import Navbar from './components/navbar/Navbar';
 import CommunityPage from './pages/communityPage/CommunityPage';
-import WritePage from './pages/communityPage/writePage/WritePage';
+import CommunityWritePage from './pages/communityPage/writePage/CommunityWritePage';
+import CommunityDetailPage from './pages/communityPage/communityDetailPage/CommunityDetailPage';
 import './styles/antdCustom.css';
 
 function App() {
@@ -20,7 +21,8 @@ function App() {
           <Route path="/search" element={<SearchPage />} />
           <Route path="/member" element={<MyPage />} />
           <Route path="/community" element={<CommunityPage />} />
-          <Route path="/community/write" element={<WritePage />} />
+          <Route path="/community/write" element={<CommunityWritePage />} />
+          <Route path="/community/detail" element={<CommunityDetailPage />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>
