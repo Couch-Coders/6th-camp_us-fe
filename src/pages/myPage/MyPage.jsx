@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../components/auth/AuthProvider';
 import * as api from '../../service/api';
 import LikeListLayout from './likeList/LikeListLayout';
-import MyPosts from './myPosts/MyPosts';
+import MyPostLayout from './myPostsList/MyPostLayout';
 import MyComments from './myComments/MyComments';
 import Review from '../../components/review/Review';
 import AlrimLayout from './alrimList/AlrimLayout';
@@ -157,7 +157,7 @@ function MyPage() {
           </TabsWrap>
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
-        {selectedTabs === 'myPosts' && <MyPosts />}
+        {selectedTabs === 'myPosts' && <MyPostLayout />}
         {selectedTabs === 'myComments' && <MyComments />}
         {selectedTabs === 'myReviews' && <Review clickedPage="mypage" />}
         {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
