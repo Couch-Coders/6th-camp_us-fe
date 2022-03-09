@@ -3,7 +3,7 @@ import { UserContext } from '../../../components/auth/AuthProvider';
 import * as api from '../../../service/api';
 import MyComments from './MyComments';
 import { Pagination } from 'antd';
-import { NotMyPostsNotification } from '../../../components/notice/Notice';
+import { NotMyCommentsNotification } from '../../../components/notice/Notice';
 import styled from 'styled-components';
 import CommunityPostSkeleton from '../../../components/skeleton/communityPostSkeleton/CommunityPostSkeleton';
 
@@ -15,11 +15,11 @@ export default function MyCommentLayout() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    //MyPostsRequest(currentPage);
+    //MyCommentsRequest(currentPage);
   }, [user, currentPage]);
 
-  // 나의 게시글 리스트 조회
-  async function MyPostsRequest(page) {
+  // 나의 댓글 리스트 조회
+  async function MyCommentsRequest(page) {
     setIsLoading(true);
     const response = await api.getMyCampsLikes(page);
     setData(response.content);
@@ -35,7 +35,7 @@ export default function MyCommentLayout() {
   return (
     <>
       {!isLoading && data.length === 0 ? (
-        <NotMyPostsNotification />
+        <NotMyCommentsNotification />
       ) : isLoading ? (
         <>
           <CommunityPostSkeleton />

@@ -40,6 +40,16 @@ export const NotMyPostsNotification = () => {
   );
 };
 
+export const NotMyCommentsNotification = () => {
+  return (
+    <Notification>
+      <FrownOutlined />
+      <NotiTitle>작성한 댓글이 없습니다</NotiTitle>
+      <NotiContent>커뮤니티에서 캠퍼들과 정보를 공유해주세요!</NotiContent>
+    </Notification>
+  );
+};
+
 export const NotMyReviewNotification = () => {
   return (
     <Notification>
