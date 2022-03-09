@@ -22,6 +22,12 @@ input {
   border: 0;
   outline: none;
 }
+
+button {
+  border: 0;
+  outline: none;
+  background-color: #ffffff;
+}
 `;
 
 export default GlobalStyle;

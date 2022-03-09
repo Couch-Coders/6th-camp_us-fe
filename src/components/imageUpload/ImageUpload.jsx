@@ -141,7 +141,7 @@ const PostUpload = styled.div`
 
   &:hover {
     border: 1px dashed #73d13d;
-    /* color: #73d13d; */
+    color: #73d13d;
   }
 `;
 

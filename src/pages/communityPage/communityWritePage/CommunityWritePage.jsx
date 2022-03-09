@@ -1,5 +1,6 @@
 import { Modal, Select, Upload } from 'antd';
 import React, { useCallback, useState } from 'react';
+import { useNavigate } from 'react-router';
 import styled from 'styled-components';
 import ImageUpload from '../../../components/imageUpload/ImageUpload';
 import PostEditor from '../../../components/postEditor/PostEditor';
@@ -13,6 +14,8 @@ export default function CommunityWritePage() {
   });
   const [selectesOption, setSelectedOption] = useState('전체');
   const categotyOption = ['전체', '캠퍼수다', '캠핑한장', '궁금해요'];
+
+  const navigate = useNavigate();
 
   const changeCategoryOption = (value) => {
     setSelectedOption(value);
@@ -40,6 +43,10 @@ export default function CommunityWritePage() {
         image: imgarr,
       };
     });
+  };
+
+  const onFallback = () => {
+    navigate('/community');
   };
 
   return (
@@ -84,6 +91,12 @@ export default function CommunityWritePage() {
             </PostImgWrap>
           ))}
         </ImageWrap>
+        <PostActionWrap>
+          <FallbackButton type="button" onClick={onFallback}>
+            나가기
+          </FallbackButton>
+          <SubmitButton type="button">게시글 등록</SubmitButton>
+        </PostActionWrap>
       </PostWrap>
     </Container>
   );
@@ -151,4 +164,40 @@ const PostImgWrap = styled.div`
 const PostImage = styled.img`
   width: 100px;
   height: 100px;
+`;
+
+const PostActionWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 30px;
+`;
+
+const FallbackButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  height: 40px;
+  padding: 5px 20px;
+  background-color: #ffffff;
+  color: #8dd662;
+  border: 1px solid #8dd662;
+  border-radius: 3px;
+  cursor: pointer;
+`;
+
+const SubmitButton = styled.button`
+  display: flex;
+  align-items: center;
+  font-size: 15px;
+  height: 40px;
+  padding: 5px 20px;
+  color: #ffffff;
+  background-color: #73d13d;
+  border-radius: 3px;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #8dd662;
+  }
 `;
