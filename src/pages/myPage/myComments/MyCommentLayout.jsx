@@ -5,14 +5,14 @@ import MyComments from './MyComments';
 import { Pagination } from 'antd';
 import { NotMyCommentsNotification } from '../../../components/notice/Notice';
 import styled from 'styled-components';
-import CommunityPostSkeleton from '../../../components/skeleton/communityPostSkeleton/CommunityPostSkeleton';
+import CommunityCommentSkeleton from '../../../components/skeleton/communityCommentSkeleton/CommunityCommentSkeleton';
 
 export default function MyCommentLayout() {
   const { user } = useContext(UserContext);
   const [commentdata, setCommentdata] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     //MyCommentsRequest(currentPage);
@@ -59,9 +59,9 @@ export default function MyCommentLayout() {
         <NotMyCommentsNotification />
       ) : isLoading ? (
         <>
-          <CommunityPostSkeleton />
-          <CommunityPostSkeleton />
-          <CommunityPostSkeleton />
+          <CommunityCommentSkeleton />
+          <CommunityCommentSkeleton />
+          <CommunityCommentSkeleton />
         </>
       ) : (
         <>
