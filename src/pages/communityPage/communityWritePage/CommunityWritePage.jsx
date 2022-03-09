@@ -8,6 +8,7 @@ import PostEditor from '../../../components/postEditor/PostEditor';
 const { Option } = Select;
 
 export default function CommunityWritePage() {
+  const [postTitle, setPostTitle] = useState();
   const [postContent, setPostContent] = useState('');
   const [postImage, setPostImage] = useState([]);
   const [selectesOption, setSelectedOption] = useState('전체');
@@ -15,7 +16,14 @@ export default function CommunityWritePage() {
 
   const navigate = useNavigate();
 
-  const changeCategoryOption = (value) => {
+  const onChangeTitle = (event) => {
+    const {
+      target: { value },
+    } = event;
+    setPostTitle(value);
+  };
+
+  const onChangeCategoryOption = (value) => {
     setSelectedOption(value);
   };
 
@@ -24,6 +32,7 @@ export default function CommunityWritePage() {
   }, []);
 
   const onSubmitPost = () => {
+    console.log(postTitle);
     console.log(postContent);
     console.log(postImage);
     console.log(selectesOption);
@@ -49,7 +58,7 @@ export default function CommunityWritePage() {
       <PostWrap>
         <SelectContent
           placeholder="카테고리"
-          onChange={changeCategoryOption}
+          onChange={onChangeCategoryOption}
           value={selectesOption}
         >
           {categotyOption.map((option, index) => (
@@ -58,7 +67,7 @@ export default function CommunityWritePage() {
             </Option>
           ))}
         </SelectContent>
-        <Title placeholder="제목을 입력하세요" />
+        <Title placeholder="제목을 입력하세요" onChange={onChangeTitle} />
         <PostEditor
           postContent={postContent}
           onChangePostContents={onChangePostContents}
