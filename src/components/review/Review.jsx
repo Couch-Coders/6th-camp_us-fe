@@ -158,7 +158,7 @@ const Review = ({ CampId, clickedPage }) => {
             </EditRight>
           </EditTop>
           <Wrap>
-            <ImageUpload setImageUpload={setImageUpload} />
+            <ImageUpload setImageUpload={setImageUpload} pageName="review" />
             {review.imgUrl !== null && review.imgUrl !== '' && (
               <ImagePreview
                 setImageUpload={setImageUpload}

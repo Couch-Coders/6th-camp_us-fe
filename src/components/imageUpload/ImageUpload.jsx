@@ -1,17 +1,23 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import { Button, Spin } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { imageUploader } from '../../service/imageUploder';
 
-const ImageUpload = ({ setImageUpload }) => {
+const ImageUpload = ({ setImageUpload, pageName }) => {
   const [loading, setLoading] = useState(false);
-  const inputRef = useRef();
+  const [fileList, setFileList] = useState([]);
+  const [previewVisible, setPreviewVisible] = useState(false);
+  const [previewImage, setPreviewImage] = useState('');
+  const [previewTitle, setPreviewTitle] = useState('');
+  const reviewInputRef = useRef();
+  const postInputRef = useRef();
 
   // 변경 버튼 클릭
-  const onbuttonClick = (event) => {
+  const onbuttonClick = (event, role) => {
     event.preventDefault();
-    inputRef.current.click();
+    role === 'review' && reviewInputRef.current.click();
+    role === 'post' && postInputRef.current.click();
   };
 
   // 이미지 변경
@@ -28,24 +34,84 @@ const ImageUpload = ({ setImageUpload }) => {
     );
   };
 
+  // const handleCancel = () => setPreviewVisible(false);
+
+  // const handlePreview = async (file) => {
+  //   console.log(file);
+  //   if (!file.url && !file.preview) {
+  //     file.preview = await getBase64(file.originFileObj);
+  //   }
+
+  //   setPreviewImage(file.url || file.preview);
+  //   setPreviewVisible(true);
+  //   setPreviewTitle(
+  //     file.name || file.url.substring(file.url.lastIndexOf('/') + 1),
+  //   );
+  // };
+
+  const handleChange = async (event) => {
+    setLoading(true);
+    setFileList(event.target.files);
+    const uploaded = await imageUploader(event.target.files[0]);
+    console.log(uploaded);
+    setLoading(false);
+    setImageUpload(uploaded.data.url);
+  };
+
   return (
     <Wrap>
-      <Input
-        ref={inputRef}
+      <ReviewInput
+        ref={reviewInputRef}
         type="file"
         accept="image/*"
         name="file"
         onChange={onChange}
       />
-
-      {!loading ? (
-        <ButtonContent onClick={onbuttonClick} icon={<UploadOutlined />}>
-          Click to Upload
-        </ButtonContent>
+      {pageName === 'review' ? (
+        !loading ? (
+          <ButtonContent
+            onClick={(e) => {
+              onbuttonClick(e, 'review');
+            }}
+            icon={<UploadOutlined />}
+          >
+            Click to Upload
+          </ButtonContent>
+        ) : (
+          <ButtonContent>
+            <Spin />
+          </ButtonContent>
+        )
+      ) : !loading ? (
+        <PostWrap>
+          <PostInput
+            ref={postInputRef}
+            type="file"
+            accept="image/*"
+            name="file"
+            onChange={handleChange}
+          />
+          <PostUpload
+            onClick={(e) => {
+              onbuttonClick(e, 'post');
+            }}
+          >
+            {fileList.length >= 8 ? null : (
+              <UploadContent>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </UploadContent>
+            )}
+          </PostUpload>
+        </PostWrap>
       ) : (
-        <ButtonContent>
-          <Spin />
-        </ButtonContent>
+        <PostWrap>
+          <PostUpload>
+            <UploadContent>
+              <Spin />
+            </UploadContent>
+          </PostUpload>
+        </PostWrap>
       )}
     </Wrap>
   );
@@ -57,7 +123,38 @@ const Wrap = styled.div`
   margin-right: 20px;
 `;
 
-const Input = styled.input`
+const ReviewInput = styled.input`
+  display: none;
+`;
+
+const PostWrap = styled.div`
+  width: 100%;
+  margin-top: 20px;
+`;
+
+const PostUpload = styled.div`
+  width: 100px;
+  height: 100px;
+  border: 1px dashed #bdbdbd;
+  transition: all 200ms ease;
+  cursor: pointer;
+
+  &:hover {
+    border: 1px dashed #73d13d;
+    /* color: #73d13d; */
+  }
+`;
+
+const UploadContent = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  height: 100%;
+  padding: 20px;
+`;
+
+const PostInput = styled.input`
   display: none;
 `;
 

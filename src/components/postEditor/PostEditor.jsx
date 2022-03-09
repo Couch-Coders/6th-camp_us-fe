@@ -8,10 +8,6 @@ const PostEditor = () => {
   const QuillRef = useRef();
   const [contents, setContents] = useState('');
 
-  console.log(contents);
-
-  console.log(QuillRef);
-
   const modules = useMemo(
     () => ({
       toolbar: {
@@ -46,12 +42,15 @@ const PostEditor = () => {
 export default PostEditor;
 
 const ReactQuillContent = styled(ReactQuill)`
+  border-bottom: 1px solid #bdbdbd;
+  padding-bottom: 30px;
+  min-height: 40vh;
+
   * {
     border: 0 !important;
   }
 
   .ql-editor {
-    height: 100%;
     font-size: 16px;
     padding: 20px 0;
   }
