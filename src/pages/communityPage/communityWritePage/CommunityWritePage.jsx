@@ -187,6 +187,7 @@ const PostActionWrap = styled.div`
   justify-content: space-between;
   width: 100%;
   margin-top: 30px;
+  margin-bottom: 10px;
 `;
 
 const FallbackButton = styled.button`
