@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../components/auth/AuthProvider';
 import * as api from '../../service/api';
 import LikeListLayout from './likeList/LikeListLayout';
+import MyPosts from './myPosts/MyPosts';
+import MyComments from './myComments/MyComments';
 import Review from '../../components/review/Review';
 import AlrimLayout from './alrimList/AlrimLayout';
 import 'antd/dist/antd.css';
@@ -112,30 +114,51 @@ function MyPage() {
         </MyInfo>
         <TabsContainer>
           <TabsWrap>
-            <InfoTabs
+            <Tabs
               onClick={setClickedTabs}
               data-role="likesList"
+              page="likesList"
               selectedTabs={selectedTabs}
             >
               좋아요 리스트
-            </InfoTabs>
-            <LocationTabs
+            </Tabs>
+            <Tabs
               onClick={setClickedTabs}
-              data-role="myReviews"
+              data-role="myPosts"
+              page="myPosts"
               selectedTabs={selectedTabs}
             >
-              작성한 리뷰
-            </LocationTabs>
-            <ReviewTabs
+              나의 게시글
+            </Tabs>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="myComments"
+              page="myComments"
+              selectedTabs={selectedTabs}
+            >
+              나의 댓글
+            </Tabs>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="myReviews"
+              page="myReviews"
+              selectedTabs={selectedTabs}
+            >
+              나의 리뷰
+            </Tabs>
+            <Tabs
               onClick={setClickedTabs}
               data-role="alrimList"
+              page="alrimList"
               selectedTabs={selectedTabs}
             >
               알림
-            </ReviewTabs>
+            </Tabs>
           </TabsWrap>
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
+        {selectedTabs === 'myPosts' && <MyPosts />}
+        {selectedTabs === 'myComments' && <MyComments />}
         {selectedTabs === 'myReviews' && <Review clickedPage="mypage" />}
         {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
       </InnerWrapper>
@@ -154,7 +177,5 @@ const {
   MyActivity,
   TabsContainer,
   TabsWrap,
-  InfoTabs,
-  LocationTabs,
-  ReviewTabs,
+  Tabs,
 } = style;

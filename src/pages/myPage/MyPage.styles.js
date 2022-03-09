@@ -83,20 +83,14 @@ const MyActivity = styled.ul`
 `;
 
 const TabsContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  width: 100%;
   padding-bottom: 25px;
 `;
 
 const TabsWrap = styled.div`
   display: flex;
+  justify-content: flex-start;
   flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0px;
-  width: 267px;
-  height: 57px;
+  height: 50px;
   background: rgba(255, 255, 255, 1e-5);
   flex: none;
   order: 1;
@@ -104,75 +98,24 @@ const TabsWrap = styled.div`
   z-index: 1;
 `;
 
-const InfoTabs = styled.span`
-  height: 100%;
+const Tabs = styled.span`
+  line-height: 50px;
+  display: inline-block;
   font-family: Roboto;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
+  margin-right: 24px;
+  padding: 0 4px;
   cursor: pointer;
 
   ${(props) =>
-    props.selectedTabs === 'likesList'
+    props.selectedTabs === props.page
       ? css`
           color: #389e0d;
           border-bottom: 2px solid #389e0d;
-        `
-      : css`
-          color: #000000;
-        `}
-`;
 
-const LocationTabs = styled.span`
-  height: 100%;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  cursor: pointer;
-
-  ${(props) =>
-    props.selectedTabs === 'myReviews'
-      ? css`
-          color: #389e0d;
-          border-bottom: 2px solid #389e0d;
-        `
-      : css`
-          color: #000000;
-        `}
-`;
-
-const ReviewTabs = styled.span`
-  height: 100%;
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  line-height: 24px;
-  display: flex;
-  align-items: center;
-  flex: none;
-  order: 0;
-  flex-grow: 0;
-  cursor: pointer;
-
-  ${(props) =>
-    props.selectedTabs === 'alrimList'
-      ? css`
-          color: #389e0d;
-          border-bottom: 2px solid #389e0d;
+          font-weight: 600;
         `
       : css`
           color: #000000;
@@ -189,7 +132,5 @@ export const style = {
   MyActivity,
   TabsContainer,
   TabsWrap,
-  InfoTabs,
-  LocationTabs,
-  ReviewTabs,
+  Tabs,
 };
