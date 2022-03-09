@@ -36,7 +36,6 @@ export default function CommunityWritePage() {
 
 const Container = styled.section`
   background-color: #fafafa;
-  height: 100vh;
 `;
 
 const PostWrap = styled.div`
@@ -48,7 +47,8 @@ const PostWrap = styled.div`
   margin: auto;
   height: auto;
   background-color: white;
-  height: 100vh;
+  min-height: calc(100vh - 65px);
+  overflow: auto;
 `;
 
 const SelectContent = styled(Select)`
@@ -57,6 +57,7 @@ const SelectContent = styled(Select)`
 
 const Title = styled.input`
   font-size: 30px;
+  font-weight: 600;
   padding: 30px 0 10px 0;
   border-bottom: 2px solid #bdbdbd;
   outline: none;

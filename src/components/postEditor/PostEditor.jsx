@@ -30,7 +30,10 @@ const PostEditor = () => {
           }
         }}
         value={contents}
-        onChange={setContents}
+        onChange={(value) => {
+          window.scrollTo(0, document.body.scrollHeight);
+          setContents(value);
+        }}
         modules={modules}
         theme="snow"
         placeholder="당신의 이야기를 들려주세요!"
@@ -48,6 +51,7 @@ const ReactQuillContent = styled(ReactQuill)`
   }
 
   .ql-editor {
+    height: 100%;
     font-size: 16px;
     padding: 20px 0;
   }
@@ -66,5 +70,6 @@ const ReactQuillContent = styled(ReactQuill)`
     color: #bdbdbd;
     left: 0;
     right: 0;
+    font-style: normal;
   }
 `;
