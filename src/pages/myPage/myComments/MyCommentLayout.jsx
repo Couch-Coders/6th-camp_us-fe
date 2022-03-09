@@ -9,7 +9,7 @@ import CommunityPostSkeleton from '../../../components/skeleton/communityPostSke
 
 export default function MyCommentLayout() {
   const { user } = useContext(UserContext);
-  const [data, setData] = useState([]);
+  const [commentdata, setCommentdata] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -22,9 +22,30 @@ export default function MyCommentLayout() {
   async function MyCommentsRequest(page) {
     setIsLoading(true);
     const response = await api.getMyCampsLikes(page);
-    setData(response.content);
+    setCommentdata(response.content);
     setTotalElement(response.totalElements);
     setIsLoading(false);
+  }
+
+  /* 댓글 삭제 */
+  async function deleteComment(id) {
+    //await api.deleteReview(id);
+    MyCommentsRequest(currentPage);
+  }
+
+  // 댓글 수정
+  async function editComment(comment) {
+    /* const editedCommentList = commentdata.map((data) => {
+      if (commentdata.reviewId === data.reviewId) {
+        return {
+          ...data,
+          ...review,
+        };
+      }
+      return data;
+    }); 
+    setCommentdata(editedCommentList);
+    await api.changeReview(comment);*/
   }
 
   // 페이지 변경
@@ -34,7 +55,7 @@ export default function MyCommentLayout() {
 
   return (
     <>
-      {!isLoading && data.length === 0 ? (
+      {!isLoading && commentdata.length !== 0 ? (
         <NotMyCommentsNotification />
       ) : isLoading ? (
         <>
@@ -44,7 +65,10 @@ export default function MyCommentLayout() {
         </>
       ) : (
         <>
-          <MyComments /* data={data} MyPostsRequest={MyPostsRequest} */ />
+          <MyComments
+          /* commentdata={commentdata} MyPostsRequest={MyPostsRequest} deleteComment={deleteComment}
+            editComment={editComment} */
+          />
           <PaginationContent
             current={currentPage + 1}
             total={totalElement}

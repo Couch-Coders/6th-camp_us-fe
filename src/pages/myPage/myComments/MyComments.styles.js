@@ -1,5 +1,66 @@
 import styled from 'styled-components';
 
+/* editingTemplete */
+const EditForm = styled.form`
+  width: 100%;
+  display: block;
+  background: #ffffff;
+  border-radius: 2px;
+  padding: 18px;
+  margin-bottom: 20px;
+  border: 1px solid #f0f0f0;
+  box-sizing: border-box;
+
+  @media screen and (max-width: 760px) {
+    position: relative;
+  }
+`;
+
+const EditTop = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+
+  @media screen and (max-width: 760px) {
+    display: block;
+  }
+`;
+
+const EditRight = styled.div`
+  display: flex;
+  justify-content: start;
+  align-items: center;
+
+  & > * {
+    margin-left: 8px;
+    padding: 4px 15px;
+    text-shadow: 0 -1px 0 rgb(0 0 0 / 12%);
+    box-shadow: 0 2px 0 rgb(0 0 0 / 5%);
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  @media screen and (max-width: 760px) {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+  }
+`;
+
+const EditButton = styled.div`
+  color: #fff;
+  background: #73d13d;
+  border: 1px solid #73d13d;
+`;
+
+const CancleButton = styled.button`
+  color: #b9b9b9;
+  background: #fff;
+  border: 1px solid #b9b9b9;
+`;
+
+/* viewTemplete */
 const Post = styled.li`
   background-color: #fff;
   padding: 16px;
@@ -58,29 +119,6 @@ const PostCreateTime = styled.div`
   font-size: 14px;
 `;
 
-const PostUserSet = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const PostUser = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const AvatarImg = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: violet;
-  overflow: hidden;
-  margin-right: 8px;
-`;
-
-const Nickname = styled.div``;
-
 const HandleReview = styled.div`
   margin-left: 8px;
   font-size: 14px;
@@ -96,12 +134,6 @@ const PostContent = styled.div`
   -webkit-box-orient: vertical;
   text-overflow: ellipsis;
 `;
-
-const PostImg = styled.div`
-  height: 200px;
-  background-color: aliceblue;
-`;
-
 const PostReact = styled.div`
   margin-top: 8px;
   display: flex;
@@ -138,47 +170,26 @@ const LikeCount = styled.span`
   color: #262626;
 `;
 
-const CommentWrap = styled.div`
-  display: flex;
-  align-items: center;
-  margin-left: 10px;
-  & svg {
-    color: #e0e0e0;
-    font-size: 22px;
-  }
-`;
-
-const CommentCount = styled.span`
-  font-family: Roboto;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 19px;
-  margin-left: 10px;
-  color: #262626;
-`;
-
 export const style = {
-  Post,
+  EditForm,
+  EditTop,
+  EditRight,
+  EditButton,
+  CancleButton,
+
   PostDivision,
+  Post,
   PostType,
-  HandleContent,
   PostDetail,
   PostTop,
   PostTitle,
   PostCreateTime,
-  PostUserSet,
-  PostUser,
-  AvatarImg,
-  Nickname,
+  HandleContent,
   HandleReview,
   PostContent,
-  PostImg,
   PostReact,
   LikeWrap,
   Like,
   LikeIcon,
   LikeCount,
-  CommentWrap,
-  CommentCount,
 };

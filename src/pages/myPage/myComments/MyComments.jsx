@@ -1,45 +1,108 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { style } from './MyComments.styles';
-import { MessageFilled } from '@ant-design/icons';
+import { Input } from 'antd';
+import Modal from '../../../components/modal/Modal';
+import * as API from '../../../service/api';
+import { UserContext } from '../../../components/auth/AuthProvider';
+import useGetDate from '../../../hooks/useGetDate';
 import { useNavigate } from 'react-router';
 
-const MyComments = () => {
-  const navigate = useNavigate();
+const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
+  const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
+  const [sliceTextFirst, setSliceTextFirst] = useState();
+  const [sliceTextSecond, setSliceTextSecond] = useState();
+  const [visibleSecondText, setVisibleSecondText] = useState(false);
+  const [isEditing, setEditing] = useState(false);
+  // const chargeTime = useGetDate(commentdata.lastModifiedDate);
 
-  const moveToCommunityWritePage = () => {
-    navigate('/community/write');
+  const { TextArea } = Input;
+  /*  const [comment, setComment] = useState({  }); */
+
+  /*   useEffect(() => {
+    if (commentdata.content.length > 10) {
+      const sliceFIrst = commentdata.content.substring(0, 9);
+      const sliceSecond = commentdata.content.substring(9);
+      setSliceTextFirst(sliceFIrst);
+      setSliceTextSecond(sliceSecond);
+      setisVisibleReadMore(true);
+    } else {
+      setSliceTextFirst(commentdata.content);
+    } 
+  }, [commentdata.content.length]); */
+
+  // 텍스트 펼치기
+  const openMoreText = () => {
+    setVisibleSecondText(true);
+    setisVisibleReadMore(false);
   };
 
-  const moveToCommunityDetailPage = () => {
-    navigate('/community/detail');
+  // 리뷰 글 변경
+  const handleContentChange = (e) => {
+    /* setReview((review) => {
+      return { ...review, content: e.target.value };
+    }); */
   };
 
-  return (
+  // 댓글 수정 handle
+  function handleSubmit(e) {
+    e.preventDefault();
+    //editComment(comment);
+    setEditing(false);
+  }
+
+  // 댓글 수정 취소
+  function handleCancle(e) {
+    e.preventDefault();
+    setEditing(false);
+    /* setReview((review) => {
+      return {
+        ...review,
+        reviewId: reviewData.reviewId,
+        likeCnt: reviewData.likeCnt,
+        rate: reviewData.rate,
+        content: reviewData.content,
+        imgUrl: reviewData.imgUrl,
+        imgName: '',
+        lastModifiedDate: reviewData.lastModifiedDate,
+      };
+    }); */
+  }
+
+  // 나의 댓글 수정 컴포넌트
+  const editingTemplate = (
+    <EditForm>
+      <EditTop>
+        <PostTitle>캠핑장 꿀팁</PostTitle>
+        <EditRight>
+          <EditButton type="submit" onClick={handleSubmit}>
+            수정완료
+          </EditButton>
+          <CancleButton onClick={handleCancle}>취소</CancleButton>
+        </EditRight>
+      </EditTop>
+      <TextArea rows={4} onChange={handleContentChange} value="내용" />
+    </EditForm>
+  );
+
+  // 나의 댓글 뷰 컴포넌트
+  const [show, setShow] = useState(false);
+  const viewTemplate = (
     <Post>
       <PostDivision>
         <PostType>캠퍼수다</PostType>
         <HandleContent>
-          <HandleReview onClick={moveToCommunityWritePage}>수정</HandleReview>
-          <HandleReview>삭제</HandleReview>
+          <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
+          <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
         </HandleContent>
       </PostDivision>
-      <PostDetail onClick={moveToCommunityDetailPage}>
+      <PostDetail>
         <PostTop>
           <PostTitle>캠핑장 꿀팁</PostTitle>
           <PostCreateTime>3시간전</PostCreateTime>
         </PostTop>
-        <PostUserSet>
-          <PostUser>
-            <AvatarImg>
-              <img src="" alt="회원이미지" />
-            </AvatarImg>
-            <Nickname>닉네임</Nickname>
-          </PostUser>
-        </PostUserSet>
         <PostContent>
           내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
         </PostContent>
-        <PostImg>이미지 슬라이드 영역</PostImg>
         <PostReact>
           <LikeWrap>
             <Like>
@@ -53,18 +116,22 @@ const MyComments = () => {
             </Like>
             <LikeCount>10</LikeCount>
           </LikeWrap>
-          <CommentWrap>
-            <MessageFilled />
-            <CommentCount>10</CommentCount>
-          </CommentWrap>
         </PostReact>
       </PostDetail>
     </Post>
   );
+
+  return <>{isEditing ? editingTemplate : viewTemplate}</>;
 };
 
 export default MyComments;
+
 const {
+  EditForm,
+  EditTop,
+  EditRight,
+  EditButton,
+  CancleButton,
   PostDivision,
   Post,
   PostType,
@@ -72,19 +139,12 @@ const {
   PostTop,
   PostTitle,
   PostCreateTime,
-  PostUserSet,
-  PostUser,
-  AvatarImg,
-  Nickname,
   HandleContent,
   HandleReview,
   PostContent,
-  PostImg,
   PostReact,
   LikeWrap,
   Like,
   LikeIcon,
   LikeCount,
-  CommentWrap,
-  CommentCount,
 } = style;
