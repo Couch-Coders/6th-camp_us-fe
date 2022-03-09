@@ -17,6 +17,11 @@ const GlobalStyle = createGlobalStyle`
 li {
   list-style: none;
 }
+
+input {
+  border: 0;
+  outline: none;
+}
 `;
 
 export default GlobalStyle;

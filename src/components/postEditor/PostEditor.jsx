@@ -1,88 +1,70 @@
-import React, { useEffect, useRef, useState } from 'react';
-import { Editor } from 'react-draft-wysiwyg';
-import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+import { useRef, useState, useMemo } from 'react';
+//이렇게 라이브러리를 불러와서 사용하면 됩니다
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 import styled from 'styled-components';
-import { EditorState } from 'draft-js';
 
 const PostEditor = () => {
-  // useState로 상태관리하기 초기값은 EditorState.createEmpty()
-  // EditorState의 비어있는 ContentState 기본 구성으로 새 개체를 반환 => 이렇게 안하면 상태 값을 나중에 변경할 수 없음.
-  const [editorState, setEditorState] = useState(EditorState.createEmpty());
+  const QuillRef = useRef();
+  const [contents, setContents] = useState('');
 
-  const onEditorStateChange = (editorState) => {
-    // editorState에 값 설정
-    setEditorState(editorState);
-  };
+  console.log(contents);
 
-  const editor = useRef(null);
+  console.log(QuillRef);
 
-  function focusEditor() {
-    editor.current.focusEditor();
-  }
+  const modules = useMemo(
+    () => ({
+      toolbar: {
+        container: [],
+      },
+    }),
+    [],
+  );
 
-  useEffect(() => {
-    focusEditor();
-  }, []);
-
-  console.log(editorState);
   return (
-    <MyBlock>
-      <Editor
-        ref={editor}
-        // 에디터와 툴바 모두에 적용되는 클래스
-        wrapperClassName="wrapper-class"
-        // 에디터 주변에 적용된 클래스
-        editorClassName="editor"
-        // 툴바 주위에 적용된 클래스
-        toolbarClassName="toolbar-class"
-        // 툴바 설정
-        toolbar={{
-          // inDropdown: 해당 항목과 관련된 항목을 드롭다운으로 나타낼것인지
-          list: { inDropdown: true },
-          textAlign: { inDropdown: true },
-          link: { inDropdown: true },
-          history: { inDropdown: false },
+    <>
+      <ReactQuillContent
+        ref={(element) => {
+          if (element !== null) {
+            QuillRef.current = element;
+          }
         }}
-        placeholder="내용을 작성해주세요."
-        // 한국어 설정
-        localization={{
-          locale: 'ko',
-        }}
-        // 초기값 설정
-        editorState={editorState}
-        // 에디터의 값이 변경될 때마다 onEditorStateChange 호출
-        onEditorStateChange={onEditorStateChange}
+        value={contents}
+        onChange={setContents}
+        modules={modules}
+        theme="snow"
+        placeholder="당신의 이야기를 들려주세요!"
       />
-    </MyBlock>
+    </>
   );
 };
+//이렇게 컴포넌트 사용하듯이 사용하면 됩니다.
 
 export default PostEditor;
 
-const MyBlock = styled.div`
+const ReactQuillContent = styled(ReactQuill)`
   * {
-    color: black;
+    border: 0 !important;
   }
 
-  .wrapper-class {
-    width: 100%;
-    margin: 20px auto;
-    margin-bottom: 4rem;
+  .ql-editor {
+    font-size: 16px;
+    padding: 20px 0;
   }
 
-  .editor {
-    height: 500px !important;
-    border: 1px solid #f1f1f1 !important;
-    padding: 5px !important;
-    border-radius: 2px !important;
-    /* overflow: hidden; */
-  }
-
-  .rdw-link-wrapper {
+  .ql-toolbar {
     display: none;
   }
 
-  .rdw-colorpicker-wrapper {
-    display: none;
+  button {
+    &:hover {
+      background-color: #e0e0e0 !important;
+    }
+  }
+
+  .ql-editor.ql-blank::before {
+    color: #bdbdbd;
+    left: 0;
+    right: 0;
   }
 `;
