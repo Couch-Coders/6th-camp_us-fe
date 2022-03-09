@@ -6,7 +6,7 @@ import SearchPage from './pages/searchPage/SearchPage';
 import MyPage from './pages/myPage/MyPage';
 import Navbar from './components/navbar/Navbar';
 import CommunityPage from './pages/communityPage/CommunityPage';
-import CommunityWritePage from './pages/communityPage/writePage/CommunityWritePage';
+import CommunityWritePage from './pages/communityPage/communityWritePage/CommunityWritePage';
 import CommunityDetailPage from './pages/communityPage/communityDetailPage/CommunityDetailPage';
 import './styles/antdCustom.css';
 
