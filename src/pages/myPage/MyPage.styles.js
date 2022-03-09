@@ -96,6 +96,18 @@ const TabsWrap = styled.div`
   order: 1;
   flex-grow: 0;
   z-index: 1;
+  @media screen and (max-width: 960px) {
+    border-bottom: 1px solid #f0f0f0;
+    white-space: nowrap;
+    transition: transform 0.5s;
+    overflow-x: auto;
+    &::-webkit-scrollbar,
+    ::-webkit-scrollbar-thumb,
+    ::-webkit-scrollbar-track {
+      background-color: transparent;
+      height: 1px;
+    }
+  }
 `;
 
 const Tabs = styled.span`
