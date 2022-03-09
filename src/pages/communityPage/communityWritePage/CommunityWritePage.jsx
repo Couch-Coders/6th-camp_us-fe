@@ -13,7 +13,7 @@ export default function CommunityWritePage() {
   };
 
   return (
-    <div>
+    <Container>
       <SelectContent
         placeholder="카테고리"
         onChange={changeCategoryOption}
@@ -25,9 +25,17 @@ export default function CommunityWritePage() {
           </Option>
         ))}
       </SelectContent>
-    </div>
+    </Container>
   );
 }
+
+const Container = styled.section`
+  position: relative;
+  width: 740px;
+  padding-top: 50px;
+  margin: auto;
+  height: auto;
+`;
 
 const SelectContent = styled(Select)`
   width: 150px;
