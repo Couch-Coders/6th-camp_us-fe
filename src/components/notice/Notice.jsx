@@ -30,12 +30,42 @@ export const NotMyLikeListNotification = () => {
   );
 };
 
+export const NotMyPostsNotification = () => {
+  return (
+    <Notification>
+      <FrownOutlined />
+      <NotiTitle>작성한 게시글이 없습니다</NotiTitle>
+      <NotiContent>커뮤니티에서 캠퍼들과 정보를 공유해주세요!</NotiContent>
+    </Notification>
+  );
+};
+
+export const NotMyCommentsNotification = () => {
+  return (
+    <Notification>
+      <FrownOutlined />
+      <NotiTitle>작성한 댓글이 없습니다</NotiTitle>
+      <NotiContent>커뮤니티에서 캠퍼들과 정보를 공유해주세요!</NotiContent>
+    </Notification>
+  );
+};
+
 export const NotMyReviewNotification = () => {
   return (
     <Notification>
       <FrownOutlined />
       <NotiTitle>등록된 리뷰가 없습니다</NotiTitle>
       <NotiContent>방문한 캠핑장의 후기를 공유해주세요!</NotiContent>
+    </Notification>
+  );
+};
+
+export const NotCommentNotification = () => {
+  return (
+    <Notification>
+      <MessageOutlined />
+      <NotiTitle>아직 댓글이 없어요</NotiTitle>
+      <NotiContent>가장 먼저 댓글을 남겨보세요!</NotiContent>
     </Notification>
   );
 };
