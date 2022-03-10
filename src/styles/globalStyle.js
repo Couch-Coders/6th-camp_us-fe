@@ -14,9 +14,10 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 5px;
   }
 
-li {
-  list-style: none;
-}
+  ul,ol,li {
+    list-style: none;
+  }
+
 `;
 
 export default GlobalStyle;
