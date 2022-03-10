@@ -9,7 +9,6 @@ const Container = styled.div`
 
 const EditForm = styled.form`
   width: 100%;
-  display: flex;
   align-items: center;
   justify-content: space-between;
   background: #ffffff;
@@ -18,6 +17,12 @@ const EditForm = styled.form`
   margin-bottom: 20px;
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
+
+  &:after {
+    display: block;
+    content: '';
+    clear: both;
+  }
 
   @media screen and (max-width: 600px) {
     display: block;
@@ -39,16 +44,20 @@ const EditButton = styled.div`
   width: 80px;
   height: 30px;
   text-align: center;
-  margin-left: 8px;
   line-height: 30px;
+  display: flex;
+  justify-content: center;
+  margin-top: 8px;
+  margin-left: 0;
+  float: right;
 
-  @media screen and (max-width: 600px) {
+  /*  @media screen and (max-width: 600px) {
     display: flex;
     justify-content: center;
     margin-top: 8px;
     margin-left: 0;
     float: right;
-  }
+  } */
 `;
 
 const PaginationContent = styled(Pagination)`

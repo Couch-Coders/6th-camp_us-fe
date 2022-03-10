@@ -16,9 +16,6 @@ const List = styled.div`
 /* editingTemplate */
 const EditForm = styled.form`
   width: 100%;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
   background: #ffffff;
   border-radius: 2px;
   padding: 18px;
@@ -26,14 +23,21 @@ const EditForm = styled.form`
   border: 1px solid #f0f0f0;
   box-sizing: border-box;
 
+  &:after {
+    display: block;
+    content: '';
+    clear: both;
+  }
+
   @media screen and (max-width: 600px) {
     display: block;
   }
 `;
 
 const ButtonArea = styled.div`
-  margin-left: 8px;
-
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 8px;
   * {
     cursor: pointer;
     text-align: center;
@@ -41,12 +45,6 @@ const ButtonArea = styled.div`
     height: 30px;
     line-height: 30px;
     box-sizing: border-box;
-  }
-
-  @media screen and (max-width: 600px) {
-    display: flex;
-    justify-content: flex-end;
-    margin-top: 8px;
   }
 `;
 
@@ -61,10 +59,7 @@ const CancleButton = styled.button`
   color: #b9b9b9;
   background: #fff;
   border: 1px solid #b9b9b9;
-
-  @media screen and (max-width: 600px) {
-    margin-left: 8px;
-  }
+  margin-left: 8px;
 `;
 
 /* viewTemplate */
