@@ -14,9 +14,6 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 5px;
   }
 
-li {
-  list-style: none;
-}
 
 input {
   border: 0;
@@ -28,6 +25,10 @@ button {
   outline: none;
   background-color: #ffffff;
 }
+  ul,ol,li {
+    list-style: none;
+  }
+
 `;
 
 export default GlobalStyle;
