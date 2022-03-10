@@ -14,6 +14,17 @@ const GlobalStyle = createGlobalStyle`
     margin-bottom: 5px;
   }
 
+
+input {
+  border: 0;
+  outline: none;
+}
+
+button {
+  border: 0;
+  outline: none;
+  background-color: #ffffff;
+}
   ul,ol,li {
     list-style: none;
   }

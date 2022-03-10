@@ -151,7 +151,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
         </EditRight>
       </EditTop>
       <Container>
-        <ImageUpload setImageUpload={setImageUpload} />
+        <ImageUpload setImageUpload={setImageUpload} pageName="review" />
         {review.imgUrl !== null && review.imgUrl !== '' && (
           <ImagePreview
             setImageUpload={setImageUpload}
