@@ -1,6 +1,7 @@
-import { MessageFilled } from '@ant-design/icons';
 import React from 'react';
 import styled from 'styled-components';
+import PostComments from './postComments/PostComments';
+import { MessageFilled } from '@ant-design/icons';
 import default_Imgage from '../../../assets/images/default_image.png';
 
 const CommunityDetailPage = () => {
@@ -53,6 +54,7 @@ const CommunityDetailPage = () => {
           <CommentCount>10</CommentCount>
         </CommentWrap>
       </PostReact>
+      <PostComments />
     </Container>
   );
 };
