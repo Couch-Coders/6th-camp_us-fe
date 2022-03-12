@@ -16,6 +16,23 @@ const Header = styled.header`
   font-size: 18px;
   line-height: 21px;
   padding: 22px 0 32px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ResetSearch = styled.span`
+  padding: 8px;
+  border: 1px solid #bdbdbd;
+  color: #bdbdbd;
+  font-size: 0.9rem;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+
+  & svg {
+    margin: 4px;
+  }
 `;
 
 const Form = styled.form`
@@ -246,6 +263,7 @@ const TopBtn = styled.button`
 export const style = {
   Container,
   Header,
+  ResetSearch,
   Form,
   InputContent,
   InputTitle,

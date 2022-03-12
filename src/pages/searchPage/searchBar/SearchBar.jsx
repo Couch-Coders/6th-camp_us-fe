@@ -11,7 +11,7 @@ import { Rate, Select } from 'antd';
 import {
   SearchOutlined,
   ExclamationCircleOutlined,
-  ArrowUpOutlined,
+  RedoOutlined,
   EnvironmentFilled,
 } from '@ant-design/icons';
 import ResetRate from '../../../components/resetRate/ResetRate';
@@ -182,6 +182,17 @@ const SearchBar = ({
     getSearchResult();
   };
 
+  // 검색조건 전체 초기화
+  const resetSearch = useCallback(() => {
+    setAddress({
+      name: null,
+      doNm: null,
+      sigunguNm: null,
+      rate: null,
+      category: [],
+    });
+  }, []);
+
   // 별점 초기화
   const resetRateCount = useCallback(() => {
     setAddress((address) => {
@@ -281,7 +292,13 @@ const SearchBar = ({
       {!isMobile && (
         // 데스크탑
         <Container>
-          <Header>캠핑장 찾아보기</Header>
+          <Header>
+            캠핑장 찾아보기{' '}
+            <ResetSearch onClick={resetSearch}>
+              <RedoOutlined />
+              전체 초기화
+            </ResetSearch>
+          </Header>
           <Form>
             <FlexBox>
               <InputTitle>캠핑장 이름</InputTitle>
@@ -382,6 +399,7 @@ export default SearchBar;
 const {
   Container,
   Header,
+  ResetSearch,
   Form,
   InputContent,
   InputTitle,
