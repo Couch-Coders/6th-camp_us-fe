@@ -247,6 +247,10 @@ const SearchBar = ({
               />
             </MobileFlexBox>
             <MobileGrayBox>
+              <MobileResetSearch onClick={resetSearch}>
+                <RedoOutlined />
+                전체 초기화
+              </MobileResetSearch>
               <MobileCategoryWrap>
                 {category.map((tag, index) => (
                   <Tag
@@ -416,6 +420,7 @@ const {
   MobileInputContent,
   MobileSelectAddress,
   MobileRateContent,
+  MobileResetSearch,
   MobileCategoryWrap,
   MobileButton,
   MobileButtonWrap,

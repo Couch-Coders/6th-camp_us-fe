@@ -154,6 +154,9 @@ const MobileGrayBox = styled.div`
     background-color: transparent;
     height: 1px;
   }
+  display: flex;
+  justify-content: start;
+  align-items: center;
 `;
 
 const MobileInputContent = styled(Input)`
@@ -170,17 +173,34 @@ const MobileRateContent = styled(Rate)`
   min-width: 140px;
 `;
 
+const MobileResetSearch = styled.span`
+  border: 1px solid #ff7875;
+  border-radius: 3px;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #ff7875;
+  padding: 4px 8px;
+  margin-right: 8px;
+
+  & svg {
+    margin-right: 4px;
+  }
+`;
+
 const MobileCategoryWrap = styled.div`
   width: max-content;
   display: flex;
   justify-content: start;
+  align-items: center;
 
   & div.sc-hBUSln {
     display: inline-block;
     width: fit-content;
     padding: 4px 20px;
     height: auto;
-    margin-bottom: 0;
+  }
+  & .sc-bdvvtL {
+    margin-bottom: 0 !important;
   }
 `;
 
@@ -280,6 +300,7 @@ export const style = {
   MobileInputContent,
   MobileSelectAddress,
   MobileRateContent,
+  MobileResetSearch,
   MobileCategoryWrap,
   MobileButton,
   MobileButtonWrap,
