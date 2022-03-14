@@ -427,5 +427,4 @@ const {
   MobileResultArea,
   MobileResultDefault,
   ChangeViewBtn,
-  TopBtn,
 } = style;
