@@ -1,10 +1,16 @@
 // import Avatar from 'antd/lib/avatar/avatar';
-import React from 'react';
+import React, { useEffect } from 'react';
 import BestPost from '../../../components/bestPost/BestPost';
 import CommunityPost from '../../../components/communityPost/CommunityPost';
 import { style } from './CommunityCategory.style';
 
 const CommunityAllPost = ({ selectedTabs }) => {
+  // useEffect(() => {
+
+  // }, [
+
+  // ])
+
   return (
     <PostWrap>
       <Title>👀 전체</Title>

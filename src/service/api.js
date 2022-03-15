@@ -316,3 +316,19 @@ export async function changeReviewLike(id) {
     throw new Error('Failed to load data');
   }
 }
+
+// 게시글 조회
+export async function getCommunityPost(postType) {
+  try {
+    const response = await axiosInstance({
+      url: `/posts`,
+      params: {
+        postType: postType,
+      },
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
