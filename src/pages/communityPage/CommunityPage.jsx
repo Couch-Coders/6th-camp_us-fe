@@ -1,9 +1,6 @@
 import React, { useState } from 'react';
 import { style } from './CommunityPage.style';
-import CommunityAllPost from './category/CommunityAllPost';
-import CommunityTalk from './category/CommunityTalk';
-import CommunityPicture from './category/CommunityPicture';
-import CommunityQnA from './category/CommunityQnA';
+import CommunityCategory from './category/CommunityCategory';
 import { EditFilled } from '@ant-design/icons';
 
 const CommunityPage = (props) => {
@@ -54,18 +51,7 @@ const CommunityPage = (props) => {
           </TabsWrap>
         </TabsContainer>
         <PostGroup>
-          {selectedTabs === 'allPost' && (
-            <CommunityAllPost selectedTabs={selectedTabs} />
-          )}
-          {selectedTabs === 'talk' && (
-            <CommunityTalk selectedTabs={selectedTabs} />
-          )}
-          {selectedTabs === 'picture' && (
-            <CommunityPicture selectedTabs={selectedTabs} />
-          )}
-          {selectedTabs === 'QnA' && (
-            <CommunityQnA selectedTabs={selectedTabs} />
-          )}
+          <CommunityCategory selectedTabs={selectedTabs} />
         </PostGroup>
       </Wrap>
       <CreatePostBtn to="/community/write">
