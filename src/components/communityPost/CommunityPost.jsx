@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 
-const CommunityPost = ({ selectedTabs }) => {
+const CommunityPost = ({ selectedTabs, post }) => {
   const navigate = useNavigate();
+
+  useEffect(() => {
+    console.log(post);
+  }, [post]);
 
   const moveToCommunityDetailPage = () => {
     navigate('/community/detail');
