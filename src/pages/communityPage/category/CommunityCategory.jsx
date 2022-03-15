@@ -7,6 +7,31 @@ import * as api from '../../../service/api';
 
 const CommunityCategory = ({ selectedTabs }) => {
   const [PostData, setPostData] = useState([]);
+  const [categoryType, setCategoryType] = useState('👀 전체');
+
+  useEffect(() => {
+    switch (selectedTabs) {
+      case 'all':
+        setCategoryType('👀 전체');
+        return;
+      case 'free':
+        setCategoryType('👄 캠퍼수다');
+        return;
+      case 'picture':
+        setCategoryType('🎞️ 캠핑한장');
+        return;
+      case 'question':
+        setCategoryType('⛺ 궁금해요');
+        return;
+      default:
+        break;
+    }
+  }, [selectedTabs]);
+
+  useEffect(() => {
+    console.log(selectedTabs);
+    getPost(selectedTabs);
+  }, [selectedTabs]);
 
   async function getPost() {
     try {
@@ -18,14 +43,10 @@ const CommunityCategory = ({ selectedTabs }) => {
     }
   }
 
-  useEffect(() => {
-    console.log(selectedTabs);
-    getPost(selectedTabs);
-  }, [selectedTabs]);
-
   return (
     <PostWrap>
-      <Title>👀 전체</Title>
+      {categoryType && <Title>{categoryType}</Title>}
+
       <BestPost selectedTabs={selectedTabs} />
       {PostData > 0 &&
         PostData.map((post) => (
