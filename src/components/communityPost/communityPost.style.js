@@ -57,7 +57,7 @@ const PostUser = styled.div`
   align-items: center;
 `;
 
-const AvatarImg = styled.div`
+const AvatarImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -91,9 +91,9 @@ const PostContent = styled.div`
   text-overflow: ellipsis;
 `;
 
-const PostImg = styled.div`
+const PostImg = styled.img`
   height: 200px;
-  background-color: aliceblue;
+  margin-right: 8px;
 `;
 
 const PostReact = styled.div`

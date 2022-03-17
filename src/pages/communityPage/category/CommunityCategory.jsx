@@ -6,7 +6,8 @@ import { style } from './CommunityCategory.style';
 import * as api from '../../../service/api';
 
 const CommunityCategory = ({ selectedTabs }) => {
-  const [PostData, setPostData] = useState([]);
+  const [postData, setPostData] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
   const [categoryType, setCategoryType] = useState('👀 전체');
 
   useEffect(() => {
@@ -29,28 +30,29 @@ const CommunityCategory = ({ selectedTabs }) => {
   }, [selectedTabs]);
 
   useEffect(() => {
-    console.log(selectedTabs);
     getPost(selectedTabs);
   }, [selectedTabs]);
 
   async function getPost() {
     try {
+      setIsLoading(true);
       const response = await api.getCommunityPost(selectedTabs);
       setPostData(response.data.content);
-      console.log(response);
+      setIsLoading(false);
     } catch (e) {
       throw new Error('failed getPost');
     }
   }
+  console.log(postData);
 
   return (
     <PostWrap>
       {categoryType && <Title>{categoryType}</Title>}
 
       <BestPost selectedTabs={selectedTabs} />
-      {PostData > 0 &&
-        PostData.map((post) => (
-          <CommunityPost selectedTabs={selectedTabs} post={post} />
+      {!isLoading &&
+        postData.map((post) => (
+          <CommunityPost categoryType={categoryType} post={post} />
         ))}
     </PostWrap>
   );
