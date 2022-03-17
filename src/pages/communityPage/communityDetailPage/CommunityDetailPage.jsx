@@ -6,6 +6,7 @@ import { useLocation } from 'react-router';
 import parse from 'html-react-parser';
 import * as api from '../../../service/api';
 import { UserContext } from '../../../components/auth/AuthProvider';
+import CommunityDetailSkeleton from '../../../components/skeleton/communityDetailSkeleton/CommunityDetailSkeleton';
 
 const CommunityDetailPage = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -54,7 +55,7 @@ const CommunityDetailPage = () => {
 
   return (
     <>
-      {!isLoading && postData && (
+      {!isLoading && postData ? (
         <Container>
           <Wrap>
             <Title>{postData.title}</Title>
@@ -105,6 +106,8 @@ const CommunityDetailPage = () => {
           </PostReact>
           <PostComments />
         </Container>
+      ) : (
+        <CommunityDetailSkeleton />
       )}
     </>
   );

@@ -27,7 +27,7 @@ const CommunityPost = ({ categoryType, post, deletePost }) => {
     <Post>
       <PostHandleWrap>
         <PostType>{categoryType}</PostType>
-        {post && post.memberId === user.data.memberId && (
+        {user && post.memberId === user.data.memberId && (
           <HandleContent>
             <HandleReview>수정</HandleReview>
             <HandleReview onClick={handleDeleteModalOpen}>삭제</HandleReview>

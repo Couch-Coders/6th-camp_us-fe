@@ -1,6 +1,7 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import BestPost from '../../../components/bestPost/BestPost';
 import CommunityPost from '../../../components/communityPost/CommunityPost';
+import CommunityPostSkeleton from '../../../components/skeleton/communityPostSkeleton/CommunityPostSkeleton';
 import { style } from './CommunityCategory.style';
 import * as api from '../../../service/api';
 
@@ -62,14 +63,17 @@ const CommunityCategory = ({ selectedTabs }) => {
       {categoryType && <Title>{categoryType}</Title>}
 
       <BestPost selectedTabs={selectedTabs} />
-      {!isLoading &&
+      {!isLoading ? (
         postData.map((post) => (
           <CommunityPost
             categoryType={categoryType}
             post={post}
             deletePost={deletePost}
           />
-        ))}
+        ))
+      ) : (
+        <CommunityPostSkeleton />
+      )}
     </PostWrap>
   );
 };
