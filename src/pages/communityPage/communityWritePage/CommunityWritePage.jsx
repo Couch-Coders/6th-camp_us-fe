@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router';
 import { style } from './communityWritePage.style';
 import ImageUpload from '../../../components/imageUpload/ImageUpload';
 import PostEditor from '../../../components/postEditor/PostEditor';
+import * as api from '../../../service/api';
 
 const { Option } = Select;
 
@@ -12,6 +13,7 @@ export default function CommunityWritePage() {
   const [postContent, setPostContent] = useState('');
   const [postImage, setPostImage] = useState([]);
   const [selectesOption, setSelectedOption] = useState('카테고리');
+  const [selectedCategoryType, setSelectedCategoryType] = useState();
   const categotyOption = ['캠퍼수다', '캠핑한장', '궁금해요'];
 
   const navigate = useNavigate();
@@ -23,24 +25,57 @@ export default function CommunityWritePage() {
     setPostTitle(value);
   };
 
+  const onChangeSelectedCategoryType = (value) => {
+    switch (value) {
+      case '캠퍼수다':
+        setSelectedCategoryType('free');
+        return;
+      case '캠핑한장':
+        setSelectedCategoryType('picture');
+        return;
+      case '궁금해요':
+        setSelectedCategoryType('question');
+        return;
+      default:
+        setSelectedCategoryType('');
+    }
+  };
+
   const onChangeCategoryOption = (value) => {
     setSelectedOption(value);
+    onChangeSelectedCategoryType(value);
   };
 
   const onChangePostContents = useCallback((value) => {
     setPostContent(value);
   }, []);
 
-  const onSubmitPost = () => {
-    if (selectesOption === '카테고리') {
-      message.warning('카테고리를 선택하면 게시글 등록이 가능합니다.');
-      return;
+  async function onSubmitPost() {
+    // console.log(postTitle);
+    // console.log(postContent);
+    // console.log(postImage);
+    // console.log(selectedCategoryType);
+    try {
+      if (selectesOption === '카테고리') {
+        message.warning('카테고리를 선택하면 게시글 등록이 가능합니다.');
+        return;
+      }
+
+      const response = await api.writePost(
+        postTitle,
+        postContent,
+        postImage,
+        selectedCategoryType,
+      );
+      console.log(response);
+
+      if (response.status === 201) {
+        onFallback();
+      }
+    } catch (e) {
+      throw new Error('Failed to post data');
     }
-    console.log(postTitle);
-    console.log(postContent);
-    console.log(postImage);
-    console.log(selectesOption);
-  };
+  }
 
   const setImageUpload = useCallback((image) => {
     setPostImage((postImage) => {

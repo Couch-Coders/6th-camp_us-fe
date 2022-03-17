@@ -332,3 +332,37 @@ export async function getCommunityPost(postType) {
     throw new Error('Failed to load data');
   }
 }
+
+// 게시글 상세 조회
+export async function getCommunityDetailPost(id) {
+  try {
+    const response = await axiosInstance(`/posts/${id}`);
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 게시글 작성
+export async function writePost(
+  postTitle,
+  postContent,
+  postImage,
+  selectedCategoryType,
+) {
+  try {
+    console.log(typeof postContent);
+    console.log(typeof postImage);
+    console.log(typeof selectedCategoryType);
+    const response = await axiosInstance.post(`/posts`, {
+      content: postContent,
+      postType: selectedCategoryType,
+      imgUrlList: postImage,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}

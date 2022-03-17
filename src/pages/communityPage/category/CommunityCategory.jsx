@@ -24,7 +24,7 @@ const CommunityCategory = ({ selectedTabs }) => {
         setCategoryType('⛺ 궁금해요');
         return;
       default:
-        break;
+        setCategoryType('👀 전체');
     }
   }, [selectedTabs]);
 
