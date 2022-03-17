@@ -3,9 +3,12 @@ import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 import parse from 'html-react-parser';
+import useGetDate from '../../hooks/useGetDate';
 
 const CommunityPost = ({ categoryType, post }) => {
   const navigate = useNavigate();
+
+  const createdDate = useGetDate(post.createdDate);
 
   const moveToCommunityDetailPage = () => {
     navigate('/community/detail');
@@ -23,7 +26,7 @@ const CommunityPost = ({ categoryType, post }) => {
       <PostEventContainer onClick={moveToCommunityDetailPage}>
         <PostTop>
           <PostTitle>Title</PostTitle>
-          <PostCreateTime>3시간전</PostCreateTime>
+          <PostCreateTime>{createdDate}</PostCreateTime>
         </PostTop>
         <PostUserSet>
           <PostUser>
@@ -58,7 +61,7 @@ const CommunityPost = ({ categoryType, post }) => {
   );
 };
 
-export default CommunityPost;
+export default React.memo(CommunityPost);
 const {
   Post,
   PostHandleWrap,
