@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 import parse from 'html-react-parser';
 import useGetDate from '../../hooks/useGetDate';
 import ConfirmModal from '../modal/confirmModal/ConfirmModal';
+import { UserContext } from '../auth/AuthProvider';
 
 const CommunityPost = ({ categoryType, post, deletePost }) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
-
+  const { user } = useContext(UserContext);
   const createdDate = useGetDate(post.createdDate);
 
   const moveToCommunityDetailPage = () => {
@@ -26,10 +27,12 @@ const CommunityPost = ({ categoryType, post, deletePost }) => {
     <Post>
       <PostHandleWrap>
         <PostType>{categoryType}</PostType>
-        <HandleContent>
-          <HandleReview>수정</HandleReview>
-          <HandleReview onClick={handleDeleteModalOpen}>삭제</HandleReview>
-        </HandleContent>
+        {post && post.memberId === user.data.memberId && (
+          <HandleContent>
+            <HandleReview>수정</HandleReview>
+            <HandleReview onClick={handleDeleteModalOpen}>삭제</HandleReview>
+          </HandleContent>
+        )}
       </PostHandleWrap>
       <PostEventContainer onClick={moveToCommunityDetailPage}>
         <PostTop>

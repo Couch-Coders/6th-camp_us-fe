@@ -1,19 +1,21 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { style } from './communityDetailPage.style';
 import PostComments from './postComments/PostComments';
 import { MessageFilled } from '@ant-design/icons';
 import { useLocation } from 'react-router';
 import parse from 'html-react-parser';
 import * as api from '../../../service/api';
+import { UserContext } from '../../../components/auth/AuthProvider';
 
 const CommunityDetailPage = () => {
   const [isLoading, setIsLoading] = useState(false);
-  const [postData, setPostData] = useState();
+  const [postData, setPostData] = useState(null);
   const [postType, setPostType] = useState();
   const { search } = useLocation();
   const params = new URLSearchParams(search);
   const postId = params.get('postId');
 
+  const { user } = useContext(UserContext);
   const { state } = useLocation();
 
   useEffect(() => {
@@ -64,10 +66,12 @@ const CommunityDetailPage = () => {
               <UserName>{postData.nickname}</UserName>
               <Time>{state}</Time>
             </UserWrap>
-            <PostActionWrap>
-              <HandlePost>수정</HandlePost>
-              <HandlePost>삭제</HandlePost>
-            </PostActionWrap>
+            {user && postData.memberId === user.data.memberId && (
+              <PostActionWrap>
+                <HandlePost>수정</HandlePost>
+                <HandlePost>삭제</HandlePost>
+              </PostActionWrap>
+            )}
           </Wrap>
           <ContentWrap>
             <Content>{parse(postData.content)}</Content>
