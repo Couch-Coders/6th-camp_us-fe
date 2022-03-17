@@ -1,14 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
+import parse from 'html-react-parser';
 
 const CommunityPost = ({ categoryType, post }) => {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log(post);
-  }, [post]);
 
   const moveToCommunityDetailPage = () => {
     navigate('/community/detail');
@@ -34,7 +31,7 @@ const CommunityPost = ({ categoryType, post }) => {
             <Nickname>닉네임</Nickname>
           </PostUser>
         </PostUserSet>
-        <PostContent>{post.content}</PostContent>
+        <PostContent>{parse(post.content)}</PostContent>
         {post.imgUrlList.map((img) => (
           <PostImg src={img} alt="postImage" />
         ))}

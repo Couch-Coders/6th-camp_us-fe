@@ -1,4 +1,3 @@
-// import Avatar from 'antd/lib/avatar/avatar';
 import React, { useEffect, useState } from 'react';
 import BestPost from '../../../components/bestPost/BestPost';
 import CommunityPost from '../../../components/communityPost/CommunityPost';
