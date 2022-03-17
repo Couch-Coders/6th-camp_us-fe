@@ -61,7 +61,8 @@ const PostImgClose = styled.div`
 
 const PostImgWrap = styled.div`
   position: relative;
-  border: 0.2px dashed #bdbdbd;
+  /* border: 0.2px dashed #bdbdbd; */
+  margin-top: 22px;
   margin-right: 22px;
   margin-bottom: 15px;
 `;

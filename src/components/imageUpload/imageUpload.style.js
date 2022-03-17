@@ -11,8 +11,8 @@ const ReviewInput = styled.input`
 
 const PostWrap = styled.div`
   width: 100%;
-  margin-top: 20px;
-  margin-bottom: 10px;
+  margin-top: 22px;
+  margin-bottom: 15px;
 `;
 
 const PostUpload = styled.div`

@@ -94,6 +94,7 @@ const PostContent = styled.div`
 const PostImg = styled.img`
   height: 200px;
   margin-right: 8px;
+  margin-bottom: 5px;
 `;
 
 const PostReact = styled.div`

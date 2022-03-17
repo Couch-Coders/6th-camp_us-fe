@@ -114,7 +114,9 @@ export default function CommunityWritePage() {
           onChangePostContents={onChangePostContents}
         />
         <ImageWrap>
-          <ImageUpload setImageUpload={setImageUpload} pageName="community" />
+          {postImage.length < 6 && (
+            <ImageUpload setImageUpload={setImageUpload} pageName="community" />
+          )}
           {postImage.length > 0 &&
             postImage.map((img, index) => (
               <PostImgWrap key={index}>
