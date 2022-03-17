@@ -337,8 +337,8 @@ export async function getCommunityPost(postType) {
 export async function getCommunityDetailPost(id) {
   try {
     const response = await axiosInstance(`/posts/${id}`);
-    console.log(response);
-    return response;
+    const data = response.data;
+    return data;
   } catch (error) {
     throw new Error('Failed to load data');
   }

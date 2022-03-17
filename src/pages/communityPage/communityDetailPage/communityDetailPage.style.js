@@ -43,7 +43,7 @@ const UserWrap = styled.div`
   align-items: center;
 `;
 
-const AvatarImg = styled.div`
+const AvatarImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -82,8 +82,14 @@ const Content = styled.span`
   font-size: 16px;
 `;
 
+const ImageWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const ImageContent = styled.img`
-  width: 100%;
+  width: 50%;
   margin-top: 20px;
 `;
 
@@ -161,6 +167,7 @@ export const style = {
   HandlePost,
   ContentWrap,
   Content,
+  ImageWrap,
   ImageContent,
   PostReact,
   LikeWrap,

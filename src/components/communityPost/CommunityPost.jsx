@@ -13,7 +13,9 @@ const CommunityPost = ({ categoryType, post, deletePost }) => {
   const createdDate = useGetDate(post.createdDate);
 
   const moveToCommunityDetailPage = () => {
-    navigate('/community/detail');
+    navigate(`/community/detail/?postId=${post.postId}`, {
+      state: createdDate,
+    });
   };
 
   const handleDeleteModalOpen = () => {
