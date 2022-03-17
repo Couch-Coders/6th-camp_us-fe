@@ -11,7 +11,7 @@ const { Option } = Select;
 
 export default function CommunityWritePage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [postTitle, setPostTitle] = useState();
+  const [postTitle, setPostTitle] = useState('');
   const [postContent, setPostContent] = useState('');
   const [postImage, setPostImage] = useState([]);
   const [selectesOption, setSelectedOption] = useState('카테고리');
@@ -59,6 +59,10 @@ export default function CommunityWritePage() {
         return;
       }
 
+      if (postTitle === '') {
+        message.warning('제목을 입력하면 게시글 등록이 가능합니다.');
+        return;
+      }
       const response = await api.writePost(
         postTitle,
         postContent,
