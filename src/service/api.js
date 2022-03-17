@@ -366,3 +366,14 @@ export async function writePost(
     throw new Error('Failed to load data');
   }
 }
+
+// 게시글 삭제
+export async function deleteCommunityPost(postId) {
+  try {
+    const response = await axiosInstance.delete(`/posts/${postId}`);
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}

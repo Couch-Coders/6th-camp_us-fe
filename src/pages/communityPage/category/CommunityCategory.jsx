@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import BestPost from '../../../components/bestPost/BestPost';
 import CommunityPost from '../../../components/communityPost/CommunityPost';
 import { style } from './CommunityCategory.style';
@@ -42,6 +42,19 @@ const CommunityCategory = ({ selectedTabs }) => {
       throw new Error('failed getPost');
     }
   }
+
+  const deletePost = useCallback(async (id) => {
+    try {
+      const response = await api.deleteCommunityPost(id);
+      console.log(response);
+      setPostData((postData) => {
+        return postData.filter((post) => post.postId !== id);
+      });
+    } catch (e) {
+      throw new Error(e);
+    }
+  }, []);
+
   console.log(postData);
 
   return (
@@ -51,7 +64,11 @@ const CommunityCategory = ({ selectedTabs }) => {
       <BestPost selectedTabs={selectedTabs} />
       {!isLoading &&
         postData.map((post) => (
-          <CommunityPost categoryType={categoryType} post={post} />
+          <CommunityPost
+            categoryType={categoryType}
+            post={post}
+            deletePost={deletePost}
+          />
         ))}
     </PostWrap>
   );

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 import { auth } from '../../service/firebaseAuth';
-import { signOut } from '../../service/firebaseAuth';
 import * as api from '../../service/api';
 
 export const UserContext = React.createContext(null);
@@ -24,7 +23,6 @@ const AuthProvider = ({ children }) => {
         } catch (e) {
           //에러발생 시
           setIsRegisterOpen(true);
-          // signOut();
           throw new Error('register error');
         }
       } else {

@@ -1,11 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
 import parse from 'html-react-parser';
 import useGetDate from '../../hooks/useGetDate';
+import ConfirmModal from '../modal/confirmModal/ConfirmModal';
 
-const CommunityPost = ({ categoryType, post }) => {
+const CommunityPost = ({ categoryType, post, deletePost }) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
   const createdDate = useGetDate(post.createdDate);
@@ -14,13 +16,17 @@ const CommunityPost = ({ categoryType, post }) => {
     navigate('/community/detail');
   };
 
+  const handleDeleteModalOpen = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <Post>
       <PostHandleWrap>
         <PostType>{categoryType}</PostType>
         <HandleContent>
           <HandleReview>수정</HandleReview>
-          <HandleReview>삭제</HandleReview>
+          <HandleReview onClick={handleDeleteModalOpen}>삭제</HandleReview>
         </HandleContent>
       </PostHandleWrap>
       <PostEventContainer onClick={moveToCommunityDetailPage}>
@@ -57,6 +63,14 @@ const CommunityPost = ({ categoryType, post }) => {
           </CommentWrap>
         </PostReact>
       </PostEventContainer>
+      {isModalOpen && (
+        <ConfirmModal
+          onClose={setIsModalOpen}
+          TaskId={post.postId}
+          deleteTask={deletePost}
+          role="delete"
+        />
+      )}
     </Post>
   );
 };
