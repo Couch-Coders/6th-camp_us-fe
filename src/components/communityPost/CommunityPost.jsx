@@ -59,7 +59,7 @@ const CommunityPost = ({ post, deletePost }) => {
         <PostUserSet>
           <PostUser>
             <AvatarImg src={post.memberImgUrl} alt="회원이미지" />
-            <Nickname>닉네임</Nickname>
+            <Nickname>{post.nickname}</Nickname>
           </PostUser>
         </PostUserSet>
         <PostContent>{parse(post.content)}</PostContent>
