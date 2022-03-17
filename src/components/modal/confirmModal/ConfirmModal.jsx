@@ -2,7 +2,7 @@ import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { Modal } from 'antd';
 import React from 'react';
 
-const ConfirmModal = ({ onClose, TaskId, deleteTask, role }) => {
+const ConfirmModal = ({ onClose, TaskId, deleteTask, onFallback, role }) => {
   // 모달 닫기
   function hideModal(e) {
     e.preventDefault();
@@ -12,7 +12,7 @@ const ConfirmModal = ({ onClose, TaskId, deleteTask, role }) => {
   // 모달 컨펌
   async function ConfirmModal(e) {
     e.preventDefault();
-    deleteTask(TaskId);
+    role === 'delete' ? deleteTask(TaskId) : onFallback();
     onClose(false);
   }
 

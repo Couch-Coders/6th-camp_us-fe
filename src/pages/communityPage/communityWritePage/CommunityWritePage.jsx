@@ -5,10 +5,12 @@ import { style } from './communityWritePage.style';
 import ImageUpload from '../../../components/imageUpload/ImageUpload';
 import PostEditor from '../../../components/postEditor/PostEditor';
 import * as api from '../../../service/api';
+import ConfirmModal from '../../../components/modal/confirmModal/ConfirmModal';
 
 const { Option } = Select;
 
 export default function CommunityWritePage() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [postTitle, setPostTitle] = useState();
   const [postContent, setPostContent] = useState('');
   const [postImage, setPostImage] = useState([]);
@@ -51,10 +53,6 @@ export default function CommunityWritePage() {
   }, []);
 
   async function onSubmitPost() {
-    // console.log(postTitle);
-    // console.log(postContent);
-    // console.log(postImage);
-    // console.log(selectedCategoryType);
     try {
       if (selectesOption === '카테고리') {
         message.warning('카테고리를 선택하면 게시글 등록이 가능합니다.');
@@ -139,7 +137,7 @@ export default function CommunityWritePage() {
             ))}
         </ImageWrap>
         <PostActionWrap>
-          <FallbackButton type="button" onClick={onFallback}>
+          <FallbackButton type="button" onClick={() => setIsModalOpen(true)}>
             나가기
           </FallbackButton>
           <SubmitButton type="button" onClick={onSubmitPost}>
@@ -147,6 +145,13 @@ export default function CommunityWritePage() {
           </SubmitButton>
         </PostActionWrap>
       </PostWrap>
+      {isModalOpen && (
+        <ConfirmModal
+          onClose={setIsModalOpen}
+          onFallback={onFallback}
+          role="fallback"
+        />
+      )}
     </Container>
   );
 }
