@@ -36,7 +36,7 @@ const CommunityPost = ({ categoryType, post, deletePost }) => {
       </PostHandleWrap>
       <PostEventContainer onClick={moveToCommunityDetailPage}>
         <PostTop>
-          <PostTitle>Title</PostTitle>
+          <PostTitle>{post.title}</PostTitle>
           <PostCreateTime>{createdDate}</PostCreateTime>
         </PostTop>
         <PostUserSet>

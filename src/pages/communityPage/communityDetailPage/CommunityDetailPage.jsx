@@ -57,7 +57,7 @@ const CommunityDetailPage = () => {
       {!isLoading && postData && (
         <Container>
           <Wrap>
-            <Title>캠핑장 꿀팁</Title>
+            <Title>{postData.title}</Title>
             <PostType>{postType}</PostType>
           </Wrap>
           <Wrap>

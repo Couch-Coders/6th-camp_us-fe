@@ -356,6 +356,7 @@ export async function writePost(
     console.log(typeof postImage);
     console.log(typeof selectedCategoryType);
     const response = await axiosInstance.post(`/posts`, {
+      title: postTitle,
       content: postContent,
       postType: selectedCategoryType,
       imgUrlList: postImage,
