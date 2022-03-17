@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
@@ -7,11 +7,28 @@ import useGetDate from '../../hooks/useGetDate';
 import ConfirmModal from '../modal/confirmModal/ConfirmModal';
 import { UserContext } from '../auth/AuthProvider';
 
-const CommunityPost = ({ categoryType, post, deletePost }) => {
+const CommunityPost = ({ post, deletePost }) => {
+  const [receivedPostType, setReceivedPostType] = useState();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const createdDate = useGetDate(post.createdDate);
+
+  useEffect(() => {
+    switch (post.postType) {
+      case 'free':
+        setReceivedPostType('캠퍼수다');
+        return;
+      case 'picture':
+        setReceivedPostType('캠핑한장');
+        return;
+      case 'question':
+        setReceivedPostType('궁금해요');
+        return;
+      default:
+        return;
+    }
+  }, [post]);
 
   const moveToCommunityDetailPage = () => {
     navigate(`/community/detail/?postId=${post.postId}`, {
@@ -26,7 +43,7 @@ const CommunityPost = ({ categoryType, post, deletePost }) => {
   return (
     <Post>
       <PostHandleWrap>
-        <PostType>{categoryType}</PostType>
+        <PostType>{receivedPostType}</PostType>
         {user && post.memberId === user.data.memberId && (
           <HandleContent>
             <HandleReview>수정</HandleReview>
