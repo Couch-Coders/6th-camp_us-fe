@@ -316,3 +316,65 @@ export async function changeReviewLike(id) {
     throw new Error('Failed to load data');
   }
 }
+
+// 게시글 조회
+export async function getCommunityPost(postType) {
+  try {
+    const response = await axiosInstance({
+      url: `/posts`,
+      params: {
+        postType: postType,
+      },
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 게시글 상세 조회
+export async function getCommunityDetailPost(id) {
+  try {
+    const response = await axiosInstance(`/posts/${id}`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 게시글 작성
+export async function writePost(
+  postTitle,
+  postContent,
+  postImage,
+  selectedCategoryType,
+) {
+  try {
+    console.log(typeof postContent);
+    console.log(typeof postImage);
+    console.log(typeof selectedCategoryType);
+    const response = await axiosInstance.post(`/posts`, {
+      title: postTitle,
+      content: postContent,
+      postType: selectedCategoryType,
+      imgUrlList: postImage,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 게시글 삭제
+export async function deleteCommunityPost(postId) {
+  try {
+    const response = await axiosInstance.delete(`/posts/${postId}`);
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}

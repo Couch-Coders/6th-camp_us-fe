@@ -15,6 +15,13 @@ const Container = styled.section`
   }
 `;
 
+const TitleWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+`;
+
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -43,7 +50,7 @@ const UserWrap = styled.div`
   align-items: center;
 `;
 
-const AvatarImg = styled.div`
+const AvatarImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
@@ -72,6 +79,7 @@ const HandlePost = styled.span`
   font-size: 16px;
   color: #9e9e9e;
   margin-left: 15px;
+  cursor: pointer;
 `;
 
 const ContentWrap = styled.div`
@@ -82,8 +90,14 @@ const Content = styled.span`
   font-size: 16px;
 `;
 
+const ImageWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+`;
+
 const ImageContent = styled.img`
-  width: 100%;
+  width: 80%;
   margin-top: 20px;
 `;
 
@@ -151,6 +165,7 @@ const CommentCount = styled.span`
 export const style = {
   Container,
   Wrap,
+  TitleWrap,
   Title,
   PostType,
   UserWrap,
@@ -161,6 +176,7 @@ export const style = {
   HandlePost,
   ContentWrap,
   Content,
+  ImageWrap,
   ImageContent,
   PostReact,
   LikeWrap,

@@ -7,11 +7,11 @@ import React, {
 } from 'react';
 import { Rate, Input, message } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
-import Modal from '../../../../../components/modal/Modal';
 import * as API from '../../../../../service/api';
 import { UserContext } from '../../../../../components/auth/AuthProvider';
 import { style } from './CommentList.style';
 import useGetDate from '../../../../../hooks/useGetDate';
+import ConfirmModal from '../../../../../components/modal/confirmModal/ConfirmModal';
 
 const CommentList = () => {
   const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
@@ -115,11 +115,11 @@ const CommentList = () => {
             <Handlecomment onClick={() => setShow(true)}>삭제</Handlecomment>
           </HandleContent>
           {show && (
-            <Modal
+            <ConfirmModal
               onClose={setShow}
               commentId={comment.commentId}
               //deleteTask={deleteComment}
-              role="deletecomment"
+              role="delete"
             />
           )}
         </TopArea>

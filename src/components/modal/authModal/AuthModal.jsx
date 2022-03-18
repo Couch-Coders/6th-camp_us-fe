@@ -1,12 +1,12 @@
 import React, { useContext } from 'react';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
-import { UserContext } from '../auth/AuthProvider';
-import { signInGoogle } from '../../service/firebaseAuth';
-import RegisterForm from '../auth/RegisterForm';
-import { style } from './Modal.style';
+import { UserContext } from '../../auth/AuthProvider';
+import { signInGoogle } from '../../../service/firebaseAuth';
+import RegisterForm from '../../auth/RegisterForm';
+import { style } from './AuthModal.style';
 
-export default function DeleteModal({ onClose, reviewId, deleteTask, role }) {
+export default function AuthModal({ onClose, TaskId, deleteTask, role }) {
   const { setIsRegisterOpen } = useContext(UserContext);
 
   // 모달 닫기
@@ -18,26 +18,12 @@ export default function DeleteModal({ onClose, reviewId, deleteTask, role }) {
   // 모달 컨펌
   async function ConfirmModal(e) {
     e.preventDefault();
-    deleteTask(reviewId);
+    deleteTask(TaskId);
     onClose(false);
   }
 
   return (
     <>
-      {role === 'deleteReview' && (
-        <Modal
-          title="삭제"
-          visible={true}
-          icon={<ExclamationCircleOutlined />}
-          onOk={ConfirmModal}
-          onCancel={hideModal}
-          okText="삭제"
-          cancelText="취소"
-        >
-          <p>정말 삭제하시겠습니까?</p>
-        </Modal>
-      )}
-
       {role === 'login' && (
         <Modal
           title="로그인"

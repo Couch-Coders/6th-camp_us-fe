@@ -1,10 +1,4 @@
-import React, {
-  useCallback,
-  useContext,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import React, { useContext, useState } from 'react';
 import CommentList from './commentList/CommentList';
 import { UserContext } from '../../../../components/auth/AuthProvider';
 import { NotCommentNotification } from '../../../../components/notice/Notice';

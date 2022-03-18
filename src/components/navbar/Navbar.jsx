@@ -10,7 +10,7 @@ import { Avatar } from 'antd';
 import { UserOutlined } from '@ant-design/icons';
 import { FaTimes, FaBars } from 'react-icons/fa';
 import * as api from '../../service/api';
-import Modal from '../modal/Modal';
+import AuthModal from '../modal/authModal/AuthModal';
 import { style } from './Navbar.styles';
 import { signOut } from '../../service/firebaseAuth';
 import { UserContext } from '../auth/AuthProvider';
@@ -188,8 +188,8 @@ const Navbar = () => {
           )}
         </NavMenu>
       </NavbarContainer>
-      {isModalOpen && <Modal role="login" onClose={onToggleModal} />}
-      {isRegisterOpen && <Modal role="register" onClose={onToggleModal} />}
+      {isModalOpen && <AuthModal role="login" onClose={onToggleModal} />}
+      {isRegisterOpen && <AuthModal role="register" onClose={onToggleModal} />}
     </Nav>
   );
 };

@@ -1,41 +1,89 @@
-import React from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { style } from './communityPost.style';
 import { MessageFilled } from '@ant-design/icons';
 import { useNavigate } from 'react-router';
+import parse from 'html-react-parser';
+import useGetDate from '../../hooks/useGetDate';
+import ConfirmModal from '../modal/confirmModal/ConfirmModal';
+import { UserContext } from '../auth/AuthProvider';
+import Slider from '@ant-design/react-slick';
 
-const CommunityPost = ({ selectedTabs }) => {
+const CommunityPost = ({ post, deletePost }) => {
+  const [receivedPostType, setReceivedPostType] = useState();
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
+  const { user } = useContext(UserContext);
+  const createdDate = useGetDate(post.createdDate);
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+  };
+
+  useEffect(() => {
+    switch (post.postType) {
+      case 'free':
+        setReceivedPostType('캠퍼수다');
+        return;
+      case 'picture':
+        setReceivedPostType('캠핑한장');
+        return;
+      case 'question':
+        setReceivedPostType('궁금해요');
+        return;
+      default:
+        return;
+    }
+  }, [post]);
 
   const moveToCommunityDetailPage = () => {
-    navigate('/community/detail');
+    navigate(`/community/detail/?postId=${post.postId}`, {
+      state: createdDate,
+    });
+  };
+
+  const handleDeleteModalOpen = () => {
+    setIsModalOpen(true);
   };
 
   return (
     <Post>
       <PostHandleWrap>
-        <PostType>캠퍼수다</PostType>
-        <HandleContent>
-          <HandleReview>수정</HandleReview>
-          <HandleReview>삭제</HandleReview>
-        </HandleContent>
+        <PostType>{receivedPostType}</PostType>
+        {user && post.memberId === user.data.memberId && (
+          <HandleContent>
+            <HandleReview>수정</HandleReview>
+            <HandleReview onClick={handleDeleteModalOpen}>삭제</HandleReview>
+          </HandleContent>
+        )}
       </PostHandleWrap>
       <PostEventContainer onClick={moveToCommunityDetailPage}>
         <PostTop>
-          <PostTitle>캠핑장 꿀팁</PostTitle>
-          <PostCreateTime>3시간전</PostCreateTime>
+          <PostTitle>{post.title}</PostTitle>
+          <PostCreateTime>{createdDate}</PostCreateTime>
         </PostTop>
         <PostUserSet>
           <PostUser>
-            <AvatarImg>
-              <img src="" alt="회원이미지" />
-            </AvatarImg>
-            <Nickname>닉네임</Nickname>
+            <AvatarImg src={post.memberImgUrl} alt="회원이미지" />
+            <Nickname>{post.nickname}</Nickname>
           </PostUser>
         </PostUserSet>
-        <PostContent>
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-        </PostContent>
-        <PostImg>이미지 슬라이드 영역</PostImg>
+        <PostContent>{parse(post.content)}</PostContent>
+        <SlideWrap>
+          <Slider {...settings}>
+            {post.imgUrlList.map((img) => (
+              <PostImgWrap>
+                <PostImg src={img} alt="postImage" />
+              </PostImgWrap>
+            ))}
+          </Slider>
+        </SlideWrap>
+
         <PostReact>
           <LikeWrap>
             <Like>
@@ -47,21 +95,30 @@ const CommunityPost = ({ selectedTabs }) => {
                 <path d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z" />
               </LikeIcon>
             </Like>
-            <LikeCount>10</LikeCount>
+            <LikeCount>{post.likeCnt}</LikeCount>
           </LikeWrap>
           <CommentWrap>
             <MessageFilled />
-            <CommentCount>10</CommentCount>
+            <CommentCount>{post.commentCnt}</CommentCount>
           </CommentWrap>
         </PostReact>
       </PostEventContainer>
+      {isModalOpen && (
+        <ConfirmModal
+          onClose={setIsModalOpen}
+          TaskId={post.postId}
+          deleteTask={deletePost}
+          role="delete"
+        />
+      )}
     </Post>
   );
 };
 
-export default CommunityPost;
+export default React.memo(CommunityPost);
 const {
   Post,
+  SlideWrap,
   PostHandleWrap,
   PostEventContainer,
   PostType,
@@ -70,6 +127,7 @@ const {
   PostCreateTime,
   PostUserSet,
   PostUser,
+  PostImgWrap,
   AvatarImg,
   Nickname,
   HandleContent,

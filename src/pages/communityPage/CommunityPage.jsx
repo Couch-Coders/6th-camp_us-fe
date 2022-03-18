@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { style } from './CommunityPage.style';
-import CommunityAllPost from './category/CommunityAllPost';
-import CommunityTalk from './category/CommunityTalk';
-import CommunityPicture from './category/CommunityPicture';
-import CommunityQnA from './category/CommunityQnA';
+import CommunityCategory from './category/CommunityCategory';
 import { EditFilled } from '@ant-design/icons';
 
 const CommunityPage = (props) => {
-  const [selectedTabs, setSelectedTabs] = useState('allPost');
+  const [selectedTabs, setSelectedTabs] = useState('all');
   // 클릭한 탭 구별
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
@@ -21,16 +18,16 @@ const CommunityPage = (props) => {
           <TabsWrap>
             <Tabs
               onClick={setClickedTabs}
-              data-role="allPost"
-              page="allPost"
+              data-role="all"
+              page="all"
               selectedTabs={selectedTabs}
             >
               👀 전체
             </Tabs>
             <Tabs
               onClick={setClickedTabs}
-              data-role="talk"
-              page="talk"
+              data-role="free"
+              page="free"
               selectedTabs={selectedTabs}
             >
               👄 캠퍼수다
@@ -45,8 +42,8 @@ const CommunityPage = (props) => {
             </Tabs>
             <Tabs
               onClick={setClickedTabs}
-              data-role="QnA"
-              page="QnA"
+              data-role="question"
+              page="question"
               selectedTabs={selectedTabs}
             >
               ⛺ 궁금해요
@@ -54,18 +51,7 @@ const CommunityPage = (props) => {
           </TabsWrap>
         </TabsContainer>
         <PostGroup>
-          {selectedTabs === 'allPost' && (
-            <CommunityAllPost selectedTabs={selectedTabs} />
-          )}
-          {selectedTabs === 'talk' && (
-            <CommunityTalk selectedTabs={selectedTabs} />
-          )}
-          {selectedTabs === 'picture' && (
-            <CommunityPicture selectedTabs={selectedTabs} />
-          )}
-          {selectedTabs === 'QnA' && (
-            <CommunityQnA selectedTabs={selectedTabs} />
-          )}
+          <CommunityCategory selectedTabs={selectedTabs} />
         </PostGroup>
       </Wrap>
       <CreatePostBtn to="/community/write">

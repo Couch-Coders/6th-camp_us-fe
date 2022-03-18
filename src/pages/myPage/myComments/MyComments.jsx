@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { style } from './MyComments.styles';
 import { Input } from 'antd';
-import Modal from '../../../components/modal/Modal';
 import * as API from '../../../service/api';
 import { UserContext } from '../../../components/auth/AuthProvider';
 import useGetDate from '../../../hooks/useGetDate';
