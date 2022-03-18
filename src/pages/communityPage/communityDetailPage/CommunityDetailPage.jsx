@@ -2,14 +2,16 @@ import React, { useContext, useEffect, useState } from 'react';
 import { style } from './communityDetailPage.style';
 import PostComments from './postComments/PostComments';
 import { MessageFilled } from '@ant-design/icons';
-import { useLocation } from 'react-router';
+import { useLocation, useNavigate } from 'react-router';
 import parse from 'html-react-parser';
 import * as api from '../../../service/api';
 import { UserContext } from '../../../components/auth/AuthProvider';
 import CommunityDetailSkeleton from '../../../components/skeleton/communityDetailSkeleton/CommunityDetailSkeleton';
+import ConfirmModal from '../../../components/modal/confirmModal/ConfirmModal';
 
 const CommunityDetailPage = () => {
   const [isLoading, setIsLoading] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [postData, setPostData] = useState(null);
   const [postType, setPostType] = useState();
   const { search } = useLocation();
@@ -18,6 +20,7 @@ const CommunityDetailPage = () => {
 
   const { user } = useContext(UserContext);
   const { state } = useLocation();
+  const navigate = useNavigate();
 
   useEffect(() => {
     getDetailPost();
@@ -53,6 +56,22 @@ const CommunityDetailPage = () => {
 
   console.log(postData);
 
+  const handlePostDelete = async (postId) => {
+    try {
+      const response = await api.deleteCommunityPost(postId);
+      console.log(response);
+      if (response.status === 204) {
+        navigate('/community');
+      }
+    } catch (e) {
+      throw new Error(e);
+    }
+  };
+
+  const handleOpenDeleteModal = () => {
+    setIsModalOpen(true);
+  };
+
   return (
     <>
       {!isLoading && postData ? (
@@ -70,7 +89,7 @@ const CommunityDetailPage = () => {
             {user && postData.memberId === user.data.memberId && (
               <PostActionWrap>
                 <HandlePost>수정</HandlePost>
-                <HandlePost>삭제</HandlePost>
+                <HandlePost onClick={handleOpenDeleteModal}>삭제</HandlePost>
               </PostActionWrap>
             )}
           </Wrap>
@@ -105,6 +124,14 @@ const CommunityDetailPage = () => {
             </CommentWrap>
           </PostReact>
           <PostComments />
+          {isModalOpen && (
+            <ConfirmModal
+              onClose={setIsModalOpen}
+              TaskId={postData.postId}
+              deleteTask={handlePostDelete}
+              role="delete"
+            />
+          )}
         </Container>
       ) : (
         <CommunityDetailSkeleton />

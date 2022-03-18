@@ -79,6 +79,7 @@ const HandlePost = styled.span`
   font-size: 16px;
   color: #9e9e9e;
   margin-left: 15px;
+  cursor: pointer;
 `;
 
 const ContentWrap = styled.div`
