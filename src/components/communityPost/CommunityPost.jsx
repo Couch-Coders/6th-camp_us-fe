@@ -41,6 +41,12 @@ const CommunityPost = ({ post, deletePost }) => {
     }
   }, [post]);
 
+  const moveToCommunityEditPage = () => {
+    navigate(`/community/edit`, {
+      state: post,
+    });
+  };
+
   const moveToCommunityDetailPage = () => {
     navigate(`/community/detail/?postId=${post.postId}`, {
       state: createdDate,
@@ -57,7 +63,7 @@ const CommunityPost = ({ post, deletePost }) => {
         <PostType>{receivedPostType}</PostType>
         {user && post.memberId === user.data.memberId && (
           <HandleContent>
-            <HandleReview>수정</HandleReview>
+            <HandleReview onClick={moveToCommunityEditPage}>수정</HandleReview>
             <HandleReview onClick={handleDeleteModalOpen}>삭제</HandleReview>
           </HandleContent>
         )}

@@ -9,6 +9,7 @@ import CommunityPage from './pages/communityPage/CommunityPage';
 import CommunityWritePage from './pages/communityPage/communityWritePage/CommunityWritePage';
 import CommunityDetailPage from './pages/communityPage/communityDetailPage/CommunityDetailPage';
 import './styles/antdCustom.css';
+import CommunityEditPage from './pages/communityPage/communityEditPage/CommunityEditPage';
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
           <Route path="/member" element={<MyPage />} />
           <Route path="/community" element={<CommunityPage />} />
           <Route path="/community/write" element={<CommunityWritePage />} />
+          <Route path="/community/edit" element={<CommunityEditPage />} />
           <Route path="/community/detail" element={<CommunityDetailPage />} />
         </Routes>
       </BrowserRouter>

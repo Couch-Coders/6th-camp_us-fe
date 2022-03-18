@@ -54,8 +54,6 @@ const CommunityDetailPage = () => {
     }
   }
 
-  console.log(postData);
-
   const handlePostDelete = async (postId) => {
     try {
       const response = await api.deleteCommunityPost(postId);
@@ -70,6 +68,12 @@ const CommunityDetailPage = () => {
 
   const handleOpenDeleteModal = () => {
     setIsModalOpen(true);
+  };
+
+  const moveToCommunityEditPage = () => {
+    navigate(`/community/edit`, {
+      state: postData,
+    });
   };
 
   return (
@@ -88,7 +92,7 @@ const CommunityDetailPage = () => {
             </UserWrap>
             {user && postData.memberId === user.data.memberId && (
               <PostActionWrap>
-                <HandlePost>수정</HandlePost>
+                <HandlePost onClick={moveToCommunityEditPage}>수정</HandlePost>
                 <HandlePost onClick={handleOpenDeleteModal}>삭제</HandlePost>
               </PostActionWrap>
             )}
