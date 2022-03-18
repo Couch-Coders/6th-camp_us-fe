@@ -378,3 +378,26 @@ export async function deleteCommunityPost(postId) {
     throw new Error(error);
   }
 }
+
+// 커뮤니티 댓글 조회
+export async function getCommunityComment(postId) {
+  try {
+    const response = await axiosInstance(`/posts/${postId}/comment`);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 커뮤니티 댓글 작성
+export async function writeCommunityComment(postId, content) {
+  try {
+    const response = await axiosInstance.post(`/posts/${postId}/comment`, {
+      content: content,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}

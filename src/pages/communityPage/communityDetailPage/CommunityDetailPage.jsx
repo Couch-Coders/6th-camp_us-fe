@@ -54,8 +54,6 @@ const CommunityDetailPage = () => {
     }
   }
 
-  console.log(postData);
-
   const handlePostDelete = async (postId) => {
     try {
       const response = await api.deleteCommunityPost(postId);
@@ -123,7 +121,7 @@ const CommunityDetailPage = () => {
               <CommentCount>{postData.commentCnt}</CommentCount>
             </CommentWrap>
           </PostReact>
-          <PostComments />
+          <PostComments postId={postId} />
           {isModalOpen && (
             <ConfirmModal
               onClose={setIsModalOpen}

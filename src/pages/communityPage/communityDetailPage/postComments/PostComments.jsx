@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import CommentList from './commentList/CommentList';
 import { UserContext } from '../../../../components/auth/AuthProvider';
 import { NotCommentNotification } from '../../../../components/notice/Notice';
@@ -7,7 +7,7 @@ import { Input, message } from 'antd';
 import * as api from '../../../../service/api';
 import ReviewSkeleton from '../../../../components/skeleton/reviewSkeleton/ReviewSkeleton';
 
-export default function PostComments() {
+export default function PostComments({ postId }) {
   const { user } = useContext(UserContext);
   const { TextArea } = Input;
   const [comment, setComment] = useState('');
@@ -16,41 +16,42 @@ export default function PostComments() {
   const [currentPage, setCurrentPage] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
 
-  /* useEffect(() => {
-        commentsRequest(currentPage)
-      }, [currentPage]);
-    
-      // 댓글 조회
-      async function commentsRequest(page) {
-        setIsLoading(true);
-        const response = await api.getCampReview(CampId, page);
-        setCommentData(response.content);
-        setTotalElement(response.totalElements);
-        setIsLoading(false);
-      } */
+  useEffect(() => {
+    commentsRequest(currentPage);
+  }, [currentPage]);
 
-  // 리뷰 작성
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (!user) {
-      message.warning('로그인한 유저만 리뷰를 작성 할 수 있습니다.');
-      return;
-    }
-
-    /* if (review.content.length < 5) {
-      message.warning('5글자 이상의 리뷰만 등록이 가능합니다.');
-      buttonRef.current.click();
-      return;
-    }
-    await api.writeReview(CampId, review);
-    setComment();
-    commentsRequest(); */
-  }
-
-  // 텍스트 수정
+  // 댓글 입력
   const handleContentChange = (e) => {
     setComment(e.target.value);
   };
+
+  // 댓글 작성
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (!user) {
+      message.warning('로그인한 유저만 댓글을 작성 할 수 있습니다.');
+      return;
+    }
+
+    if (comment.length < 1) {
+      message.warning('최소 1글자 이상 입력해야 등록이 가능합니다.');
+      //buttonRef.current.click();
+      return;
+    }
+    await api.writeCommunityComment(postId, comment);
+    setComment();
+    commentsRequest();
+  }
+
+  // 댓글 조회
+  async function commentsRequest() {
+    setIsLoading(true);
+    const response = await api.getCommunityComment(postId);
+    console.log('response', response);
+    setCommentData(response.content);
+    setTotalElement(response.totalElements);
+    setIsLoading(false);
+  }
 
   // 페이지 변경
   const changePage = (value) => {
@@ -65,7 +66,7 @@ export default function PostComments() {
           rows={4}
           onChange={handleContentChange}
           placeholder="댓글을 작성해 주세요."
-          /* value="댓글" */
+          value={comment}
         />
         <EditButton type="submit" onClick={handleSubmit}>
           작성
@@ -80,13 +81,14 @@ export default function PostComments() {
         </>
       ) : (
         <>
-          <CommentList
-          /* commentData={data}
-          key={data.reviewId}
-          deleteTask={deleteTask}
-          editTask={editTask}
-          clickedPage={clickedPage} */
-          />
+          {/* {commentData.map((data) => (
+            <CommentList
+              data={data}
+              key={data.id}
+              deleteTask={deleteTask}
+              editTask={editTask}
+            />
+          ))} */}
           <PaginationContent
             current={currentPage + 1}
             total={totalElement}
