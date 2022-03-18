@@ -15,6 +15,13 @@ const Container = styled.section`
   }
 `;
 
+const TitleWrap = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-top: 10px;
+`;
+
 const Wrap = styled.div`
   display: flex;
   justify-content: space-between;
@@ -89,7 +96,7 @@ const ImageWrap = styled.div`
 `;
 
 const ImageContent = styled.img`
-  width: 50%;
+  width: 80%;
   margin-top: 20px;
 `;
 
@@ -157,6 +164,7 @@ const CommentCount = styled.span`
 export const style = {
   Container,
   Wrap,
+  TitleWrap,
   Title,
   PostType,
   UserWrap,

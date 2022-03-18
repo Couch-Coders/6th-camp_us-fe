@@ -57,10 +57,10 @@ const CommunityDetailPage = () => {
     <>
       {!isLoading && postData ? (
         <Container>
-          <Wrap>
-            <Title>{postData.title}</Title>
+          <TitleWrap>
             <PostType>{postType}</PostType>
-          </Wrap>
+            <Title>{postData.title}</Title>
+          </TitleWrap>
           <Wrap>
             <UserWrap>
               <AvatarImg src={postData.memberImgUrl} alt="userImage" />
@@ -117,6 +117,7 @@ export default CommunityDetailPage;
 
 const {
   Container,
+  TitleWrap,
   Wrap,
   Title,
   PostType,

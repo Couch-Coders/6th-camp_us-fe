@@ -38,11 +38,23 @@ const PostTitle = styled.h3`
   font-size: 18px;
   font-weight: 600;
   margin-bottom: 0;
+  white-space: normal;
+  display: -webkit-box;
+  overflow: hidden;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
 `;
 
 const PostCreateTime = styled.div`
+  width: 70px;
   color: #b5b5b5;
   font-size: 14px;
+  text-align: right;
+
+  @media screen and (max-width: 600px) {
+    width: 110px;
+  }
 `;
 
 const PostUserSet = styled.div`
@@ -61,7 +73,6 @@ const AvatarImg = styled.img`
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  background-color: violet;
   overflow: hidden;
   margin-right: 8px;
 `;
@@ -91,10 +102,25 @@ const PostContent = styled.div`
   text-overflow: ellipsis;
 `;
 
+const PostImgWrap = styled.div`
+  width: 80%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+`;
+
 const PostImg = styled.img`
-  height: 200px;
-  margin-right: 8px;
-  margin-bottom: 5px;
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const SlideWrap = styled.div`
+  .slick-dots {
+    position: static;
+  }
 `;
 
 const PostReact = styled.div`
@@ -166,9 +192,11 @@ export const style = {
   PostTitle,
   PostCreateTime,
   PostUserSet,
+  PostImgWrap,
   PostUser,
   AvatarImg,
   Nickname,
+  SlideWrap,
   HandleContent,
   HandleReview,
   PostContent,

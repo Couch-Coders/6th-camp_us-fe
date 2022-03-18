@@ -63,6 +63,12 @@ export default function CommunityWritePage() {
         message.warning('제목을 입력하면 게시글 등록이 가능합니다.');
         return;
       }
+
+      if (postTitle.length > 25) {
+        message.warning('제목은 25자 이하만 입력 가능합니다.');
+        return;
+      }
+
       const response = await api.writePost(
         postTitle,
         postContent,

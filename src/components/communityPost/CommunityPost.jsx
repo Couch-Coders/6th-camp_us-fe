@@ -6,6 +6,7 @@ import parse from 'html-react-parser';
 import useGetDate from '../../hooks/useGetDate';
 import ConfirmModal from '../modal/confirmModal/ConfirmModal';
 import { UserContext } from '../auth/AuthProvider';
+import Slider from '@ant-design/react-slick';
 
 const CommunityPost = ({ post, deletePost }) => {
   const [receivedPostType, setReceivedPostType] = useState();
@@ -13,6 +14,16 @@ const CommunityPost = ({ post, deletePost }) => {
   const navigate = useNavigate();
   const { user } = useContext(UserContext);
   const createdDate = useGetDate(post.createdDate);
+
+  const settings = {
+    dots: true,
+    infinite: false,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: false,
+    autoplaySpeed: 2000,
+  };
 
   useEffect(() => {
     switch (post.postType) {
@@ -63,9 +74,16 @@ const CommunityPost = ({ post, deletePost }) => {
           </PostUser>
         </PostUserSet>
         <PostContent>{parse(post.content)}</PostContent>
-        {post.imgUrlList.map((img) => (
-          <PostImg src={img} alt="postImage" />
-        ))}
+        <SlideWrap>
+          <Slider {...settings}>
+            {post.imgUrlList.map((img) => (
+              <PostImgWrap>
+                <PostImg src={img} alt="postImage" />
+              </PostImgWrap>
+            ))}
+          </Slider>
+        </SlideWrap>
+
         <PostReact>
           <LikeWrap>
             <Like>
@@ -100,6 +118,7 @@ const CommunityPost = ({ post, deletePost }) => {
 export default React.memo(CommunityPost);
 const {
   Post,
+  SlideWrap,
   PostHandleWrap,
   PostEventContainer,
   PostType,
@@ -108,6 +127,7 @@ const {
   PostCreateTime,
   PostUserSet,
   PostUser,
+  PostImgWrap,
   AvatarImg,
   Nickname,
   HandleContent,
