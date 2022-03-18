@@ -16,6 +16,23 @@ const Header = styled.header`
   font-size: 18px;
   line-height: 21px;
   padding: 22px 0 32px 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const ResetSearch = styled.span`
+  padding: 8px;
+  border: 1px solid #bdbdbd;
+  color: #bdbdbd;
+  font-size: 0.9rem;
+  align-items: center;
+  display: flex;
+  cursor: pointer;
+
+  & svg {
+    margin: 4px;
+  }
 `;
 
 const Form = styled.form`
@@ -127,15 +144,23 @@ const MobileFlexBox = styled.div`
 `;
 const MobileGrayBox = styled.div`
   background-color: #f8f8f8;
-  padding: 6px;
   white-space: nowrap;
-  transition: transform 0.5s;
-  overflow-x: auto;
-  &::-webkit-scrollbar,
-  ::-webkit-scrollbar-thumb,
-  ::-webkit-scrollbar-track {
-    background-color: transparent;
-    height: 1px;
+
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  position: relative;
+
+  &::after {
+    display: inline-block;
+    content: '';
+    clear: both;
+    position: absolute;
+    left: 124px;
+    top: 10px;
+    width: 1px;
+    height: 20px;
+    background-color: #c1c1c1;
   }
 `;
 
@@ -153,17 +178,46 @@ const MobileRateContent = styled(Rate)`
   min-width: 140px;
 `;
 
+const MobileResetSearch = styled.span`
+  border: 1px solid #ff7875;
+  border-radius: 3px;
+  box-sizing: border-box;
+  background-color: #fff;
+  color: #ff7875;
+  padding: 2px 8px;
+  margin: 0 8px;
+
+  & svg {
+    margin-right: 4px;
+  }
+`;
+
 const MobileCategoryWrap = styled.div`
   width: max-content;
   display: flex;
   justify-content: start;
+  align-items: center;
+  /* background-color: #e7e7e7; */
+  transition: transform 0.5s;
+  padding: 6px;
+  padding-left: 0px;
+  margin-left: 6px;
+  overflow-x: auto;
+  &::-webkit-scrollbar,
+  ::-webkit-scrollbar-thumb,
+  ::-webkit-scrollbar-track {
+    background-color: transparent;
+    height: 1px;
+  }
 
   & div.sc-hBUSln {
     display: inline-block;
     width: fit-content;
     padding: 4px 20px;
     height: auto;
-    margin-bottom: 0;
+  }
+  & .sc-bdvvtL {
+    margin-bottom: 0 !important;
   }
 `;
 
@@ -246,6 +300,7 @@ const TopBtn = styled.button`
 export const style = {
   Container,
   Header,
+  ResetSearch,
   Form,
   InputContent,
   InputTitle,
@@ -262,11 +317,11 @@ export const style = {
   MobileInputContent,
   MobileSelectAddress,
   MobileRateContent,
+  MobileResetSearch,
   MobileCategoryWrap,
   MobileButton,
   MobileButtonWrap,
   MobileResultArea,
   MobileResultDefault,
   ChangeViewBtn,
-  TopBtn,
 };
