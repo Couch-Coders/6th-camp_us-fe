@@ -182,6 +182,7 @@ const SearchBar = ({
     getSearchResult();
   };
 
+
   // 검색조건 전체 초기화
   const resetSearch = useCallback(() => {
     setAddress({
@@ -192,6 +193,7 @@ const SearchBar = ({
       category: [],
     });
   }, []);
+
 
   // 별점 초기화
   const resetRateCount = useCallback(() => {
