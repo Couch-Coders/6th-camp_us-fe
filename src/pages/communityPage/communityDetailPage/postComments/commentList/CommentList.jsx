@@ -109,6 +109,7 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
       </ButtonArea>
     </EditForm>
   );
+  console.log(user);
 
   // 댓글 목록 컴포넌트
   const [show, setShow] = useState(false);
@@ -123,10 +124,14 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
               <Author>작성자</Author>
             )}
           </UserInfo>
-          <HandleContent>
-            <Handlecomment onClick={() => setEditing(true)}>수정</Handlecomment>
-            <Handlecomment onClick={() => setShow(true)}>삭제</Handlecomment>
-          </HandleContent>
+          {user && comment.memberId === user.data.memberId && (
+            <HandleContent>
+              <Handlecomment onClick={() => setEditing(true)}>
+                수정
+              </Handlecomment>
+              <Handlecomment onClick={() => setShow(true)}>삭제</Handlecomment>
+            </HandleContent>
+          )}
           {show && (
             <ConfirmModal
               onClose={setShow}
