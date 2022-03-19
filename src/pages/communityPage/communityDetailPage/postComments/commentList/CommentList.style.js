@@ -203,10 +203,6 @@ const BottomArea = styled.div`
 const Content = styled.div`
   white-space: normal;
   display: -webkit-box;
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
 `;
 
 const ReadMore = styled.span`
