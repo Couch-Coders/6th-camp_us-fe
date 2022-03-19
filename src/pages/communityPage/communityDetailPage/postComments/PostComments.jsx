@@ -59,7 +59,7 @@ export default function PostComments({ postId, postData }) {
 
   // 댓글 삭제
   async function deleteTask(id) {
-    await api.deleteReview(id);
+    await api.deleteCommunityComment(id);
     commentsRequest(currentPage);
   }
 

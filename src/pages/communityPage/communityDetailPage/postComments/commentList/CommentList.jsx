@@ -144,7 +144,7 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
           {show && (
             <ConfirmModal
               onClose={setShow}
-              commentId={comment.commentId}
+              TaskId={comment.commentId}
               deleteTask={deleteTask}
               role="delete"
             />
