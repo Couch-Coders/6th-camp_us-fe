@@ -59,6 +59,7 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
     setComment((comment) => {
       return { ...comment, content: e.target.value };
     });
+    console.log(comment.content);
   };
 
   // 댓글 수정
@@ -109,7 +110,6 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
       </ButtonArea>
     </EditForm>
   );
-  console.log(user);
 
   // 댓글 목록 컴포넌트
   const [show, setShow] = useState(false);

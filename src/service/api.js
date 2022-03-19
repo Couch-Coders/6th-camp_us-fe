@@ -384,8 +384,8 @@ export async function getCommunityComment(postId) {
   try {
     const response = await axiosInstance(`/posts/${postId}/comment`);
     return response.data;
-  } catch (e) {
-    throw new Error(e);
+  } catch (error) {
+    throw new Error('Failed to load data');
   }
 }
 
@@ -396,6 +396,18 @@ export async function writeCommunityComment(postId, content) {
       content: content,
     });
     console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 커뮤니티 댓글 수정
+export async function changeCommunityComment(comment) {
+  try {
+    const response = await axiosInstance.put(`/comments/${comment.commentId}`, {
+      content: comment.content,
+    });
     return response;
   } catch (error) {
     throw new Error('Failed to load data');

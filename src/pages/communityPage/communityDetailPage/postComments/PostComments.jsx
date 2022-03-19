@@ -10,7 +10,7 @@ import ReviewSkeleton from '../../../../components/skeleton/reviewSkeleton/Revie
 export default function PostComments({ postId, postData }) {
   const { user } = useContext(UserContext);
   const { TextArea } = Input;
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState({ content: '' });
   const [commentData, setCommentData] = useState([]);
   const [totalElement, setTotalElement] = useState();
   const [currentPage, setCurrentPage] = useState(0);
@@ -22,7 +22,9 @@ export default function PostComments({ postId, postData }) {
 
   // 댓글 입력
   const handleContentChange = (e) => {
-    setComment(e.target.value);
+    setComment((comment) => {
+      return { ...comment, content: e.target.value };
+    });
   };
 
   // 댓글 작성
@@ -38,8 +40,10 @@ export default function PostComments({ postId, postData }) {
       //buttonRef.current.click();
       return;
     }
-    await api.writeCommunityComment(postId, comment);
-    setComment();
+    await api.writeCommunityComment(postId, comment.content);
+    setComment((comment) => {
+      return { ...comment, content: '' };
+    });
     commentsRequest();
   }
 
@@ -70,8 +74,9 @@ export default function PostComments({ postId, postData }) {
       }
       return data;
     });
+    console.log('editedTaskList', editedTaskList);
     setCommentData(editedTaskList);
-    //await api.changeReview(comment);
+    await api.changeCommunityComment(comment);
   }
 
   // 페이지 변경
@@ -87,7 +92,7 @@ export default function PostComments({ postId, postData }) {
           rows={4}
           onChange={handleContentChange}
           placeholder="댓글을 작성해 주세요."
-          value={comment}
+          value={comment.content}
         />
         <EditButton type="submit" onClick={handleSubmit}>
           작성
