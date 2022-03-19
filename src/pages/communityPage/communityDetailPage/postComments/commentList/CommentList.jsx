@@ -73,7 +73,16 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
   function handleCancle(e) {
     e.preventDefault();
     setEditing(false);
-    setComment('');
+    setComment({
+      checked: commentData.checked,
+      commentId: commentData.commentId,
+      content: commentData.content,
+      createdDate: commentData.createdDate,
+      likeCnt: commentData.likeCnt,
+      memberId: commentData.memberId,
+      memberImgUrl: commentData.memberImgUrl,
+      nickname: commentData.nickname,
+    });
   }
 
   // 댓글 좋아요
