@@ -384,8 +384,8 @@ export async function getCommunityComment(postId) {
   try {
     const response = await axiosInstance(`/posts/${postId}/comment`);
     return response.data;
-  } catch (error) {
-    throw new Error('Failed to load data');
+  } catch (e) {
+    throw new Error(e);
   }
 }
 

@@ -53,6 +53,27 @@ export default function PostComments({ postId }) {
     setIsLoading(false);
   }
 
+  // 댓글 삭제
+  async function deleteTask(id) {
+    await api.deleteReview(id);
+    commentsRequest(currentPage);
+  }
+
+  // 댓글 수정
+  async function editTask(comment) {
+    const editedTaskList = commentData.map((data) => {
+      if (comment.commentId === data.commentId) {
+        return {
+          ...data,
+          ...comment,
+        };
+      }
+      return data;
+    });
+    setCommentData(editedTaskList);
+    //await api.changeReview(comment);
+  }
+
   // 페이지 변경
   const changePage = (value) => {
     setCurrentPage(value - 1);
@@ -72,7 +93,7 @@ export default function PostComments({ postId }) {
           작성
         </EditButton>
       </EditForm>
-      {!isLoading && commentData.length !== 0 ? (
+      {!isLoading && commentData.length === 0 ? (
         <NotCommentNotification />
       ) : isLoading ? (
         <>
@@ -81,14 +102,14 @@ export default function PostComments({ postId }) {
         </>
       ) : (
         <>
-          {/* {commentData.map((data) => (
+          {commentData.map((data) => (
             <CommentList
-              data={data}
-              key={data.id}
+              commentData={data}
+              key={data.commentId}
               deleteTask={deleteTask}
               editTask={editTask}
             />
-          ))} */}
+          ))}
           <PaginationContent
             current={currentPage + 1}
             total={totalElement}

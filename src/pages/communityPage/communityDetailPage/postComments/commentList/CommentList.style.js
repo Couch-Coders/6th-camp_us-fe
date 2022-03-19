@@ -95,11 +95,10 @@ const UserInfo = styled.div`
   justify-content: flex-end;
 `;
 
-const Avatar = styled.div`
+const Avatar = styled.img`
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: #0088ff;
   margin-right: 8px;
 `;
 
@@ -210,6 +209,12 @@ const Content = styled.div`
   text-overflow: ellipsis;
 `;
 
+const ReadMore = styled.span`
+  cursor: pointer;
+  color: #9d9d9d;
+  font-size: 12px;
+`;
+
 const CommentLike = styled.div`
   width: 50px;
   color: #000;
@@ -241,5 +246,6 @@ export const style = {
   CampName,
   BottomArea,
   Content,
+  ReadMore,
   CommentLike,
 };

@@ -13,21 +13,30 @@ import { style } from './CommentList.style';
 import useGetDate from '../../../../../hooks/useGetDate';
 import ConfirmModal from '../../../../../components/modal/confirmModal/ConfirmModal';
 
-const CommentList = () => {
+const CommentList = ({ commentData, key, deleteTask, editTask }) => {
   const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
   const [sliceTextFirst, setSliceTextFirst] = useState();
   const [sliceTextSecond, setSliceTextSecond] = useState();
   const [visibleSecondText, setVisibleSecondText] = useState(false);
   const [isEditing, setEditing] = useState(false);
   const { user } = useContext(UserContext);
-  //const chargeTime = useGetDate(commentData.lastModifiedDate);
+  const chargeTime = useGetDate(commentData.createdDate);
 
   const contentRef = useRef();
 
   const { TextArea } = Input;
-  const [comment, setComment] = useState('');
+  const [comment, setComment] = useState({
+    checked: commentData.checked,
+    commentId: commentData.commentId,
+    content: commentData.content,
+    createdDate: commentData.createdDate,
+    likeCnt: commentData.likeCnt,
+    memberId: commentData.memberId,
+    memberImgUrl: commentData.memberImgUrl,
+    nickname: commentData.nickname,
+  });
 
-  /* useEffect(() => {
+  useEffect(() => {
     if (commentData.content.length > 10) {
       const sliceFIrst = commentData.content.substring(0, 9);
       const sliceSecond = commentData.content.substring(9);
@@ -37,7 +46,7 @@ const CommentList = () => {
     } else {
       setSliceTextFirst(commentData.content);
     }
-  }, [commentData.content.length]); */
+  }, [commentData.content.length]);
 
   // 텍스트 펼치기
   const openMoreText = () => {
@@ -47,13 +56,15 @@ const CommentList = () => {
 
   // 댓글 수정 완료
   const handleContentChange = (e) => {
-    setComment(e.target.value);
+    setComment((comment) => {
+      return { ...comment, content: e.target.value };
+    });
   };
 
   // 댓글 수정
   function handleSubmit(e) {
     e.preventDefault();
-    //editComment(comment);
+    editTask(comment);
     setEditing(false);
   }
 
@@ -65,21 +76,21 @@ const CommentList = () => {
   }
 
   // 댓글 좋아요
-  const likeChange = async () => {
+  /* const likeChange = async () => {
     if (!user) {
-      message.warning('로그인한 유저만 리뷰에 좋아요 할 수 있습니다.');
+      message.warning('로그인한 유저만 댓글에 좋아요 할 수 있습니다.');
       return;
     }
 
-    /* if (commentData.memberId === user.data.memberId) return;
+    if (commentData.memberId === user.commentData.memberId) return;
 
     await API.changecommentLike(commentData.commentId);
     const commentCnt = comment.liked ? comment.likeCnt - 1 : comment.likeCnt + 1;
 
     setComment((comment) => {
       return { ...comment, liked: !comment.liked, likeCnt: commentCnt };
-    }); */
-  };
+    });
+  }; */
 
   // 댓글 수정 컴포넌트
   const editingTemplate = (
@@ -88,7 +99,7 @@ const CommentList = () => {
         rows={4}
         onChange={handleContentChange}
         placeholder="댓글을 작성해 주세요."
-        /* value="댓글" */
+        value={comment.content}
       />
       <ButtonArea>
         <EditButton type="submit" onClick={handleSubmit}>
@@ -106,9 +117,11 @@ const CommentList = () => {
       <Comment>
         <TopArea>
           <UserInfo>
-            <Avatar></Avatar>
-            <NickName>닉네임</NickName>
-            <Author>작성자</Author>
+            <Avatar src={comment.memberImgUrl}></Avatar>
+            <NickName>{comment.nickname}</NickName>
+            {user && commentData.memberId === user.data.memberId && (
+              <Author>작성자</Author>
+            )}
           </UserInfo>
           <HandleContent>
             <Handlecomment onClick={() => setEditing(true)}>수정</Handlecomment>
@@ -118,19 +131,19 @@ const CommentList = () => {
             <ConfirmModal
               onClose={setShow}
               commentId={comment.commentId}
-              //deleteTask={deleteComment}
+              deleteTask={deleteTask}
               role="delete"
             />
           )}
         </TopArea>
-        {/* <Content ref={contentRef}>
-            {sliceTextFirst}
-            {visibleSecondText && sliceTextSecond}
-            {isVisibleReadMore && (
-              <ReadMore onClick={openMoreText}> ...더 보기</ReadMore>
-            )}
-          </Content> */}
-        <Content>
+        <Content ref={contentRef}>
+          {sliceTextFirst}
+          {visibleSecondText && sliceTextSecond}
+          {isVisibleReadMore && (
+            <ReadMore onClick={openMoreText}> ...더 보기</ReadMore>
+          )}
+        </Content>
+        {/* <Content>
           꿀팁 공유 감사합니다 ! 너무 도움이 되었어요꿀팁 공유 감사합니다 ! 너무
           도움이 되었어요꿀팁 공유 감사합니다 ! 너무 도움이 되었어요꿀팁 공유
           감사합니다 ! 너무 도움이 되었어요꿀팁 공유 감사합니다 ! 너무 도움이
@@ -138,18 +151,18 @@ const CommentList = () => {
           감사합니다 ! 너무 도움이 되었어요꿀팁 공유 감사합니다 ! 너무 도움이
           되었어요꿀팁 공유 감사합니다 ! 너무 도움이 되었어요꿀팁 공유
           감사합니다 ! 너무 도움이 되었어요
-        </Content>
+        </Content> */}
         <BottomArea>
-          <Date>3일전</Date>
+          <Date>{chargeTime}</Date>
           <CommentLike
-            //liked={comment.liked}
-            onClick={likeChange}
+            liked={comment.checked}
+            //onClick={likeChange}
             /* isMyReview={
-              user && comment.memberId === user.data.memberId ? true : false
+              user && comment.memberId === user.commentData.memberId ? true : false
             } */
           >
             <LikeOutlined />
-            10
+            {comment.likeCnt}
           </CommentLike>
         </BottomArea>
       </Comment>
@@ -179,5 +192,6 @@ const {
   Date,
   BottomArea,
   Content,
+  ReadMore,
   CommentLike,
 } = style;
