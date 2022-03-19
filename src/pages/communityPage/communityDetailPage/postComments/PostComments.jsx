@@ -7,7 +7,7 @@ import { Input, message } from 'antd';
 import * as api from '../../../../service/api';
 import ReviewSkeleton from '../../../../components/skeleton/reviewSkeleton/ReviewSkeleton';
 
-export default function PostComments({ postId }) {
+export default function PostComments({ postId, postData }) {
   const { user } = useContext(UserContext);
   const { TextArea } = Input;
   const [comment, setComment] = useState('');
@@ -105,6 +105,7 @@ export default function PostComments({ postId }) {
           {commentData.map((data) => (
             <CommentList
               commentData={data}
+              postData={postData}
               key={data.commentId}
               deleteTask={deleteTask}
               editTask={editTask}

@@ -13,7 +13,7 @@ import { style } from './CommentList.style';
 import useGetDate from '../../../../../hooks/useGetDate';
 import ConfirmModal from '../../../../../components/modal/confirmModal/ConfirmModal';
 
-const CommentList = ({ commentData, key, deleteTask, editTask }) => {
+const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
   const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
   const [sliceTextFirst, setSliceTextFirst] = useState();
   const [sliceTextSecond, setSliceTextSecond] = useState();
@@ -119,7 +119,7 @@ const CommentList = ({ commentData, key, deleteTask, editTask }) => {
           <UserInfo>
             <Avatar src={comment.memberImgUrl}></Avatar>
             <NickName>{comment.nickname}</NickName>
-            {user && commentData.memberId === user.data.memberId && (
+            {commentData.memberId === postData.memberId && (
               <Author>작성자</Author>
             )}
           </UserInfo>

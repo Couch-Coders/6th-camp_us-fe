@@ -121,7 +121,7 @@ const CommunityDetailPage = () => {
               <CommentCount>{postData.commentCnt}</CommentCount>
             </CommentWrap>
           </PostReact>
-          <PostComments postId={postId} />
+          <PostComments postId={postId} postData={postData} />
           {isModalOpen && (
             <ConfirmModal
               onClose={setIsModalOpen}
