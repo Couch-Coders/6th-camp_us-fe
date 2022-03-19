@@ -19,7 +19,6 @@ export default function CommunityEditPage() {
   const { state } = useLocation();
 
   useEffect(() => {
-    console.log(state);
     setPostOption((postOption) => {
       return {
         ...postOption,

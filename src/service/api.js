@@ -326,7 +326,7 @@ export async function getCommunityPost(postType) {
         postType: postType,
       },
     });
-    console.log(response);
+
     return response;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -346,7 +346,6 @@ export async function getCommunityDetailPost(id) {
 
 // 게시글 작성
 export async function writePost(postOption) {
-  console.log(postOption);
   try {
     const response = await axiosInstance.post(`/posts`, {
       title: postOption.postTitle,
@@ -354,7 +353,7 @@ export async function writePost(postOption) {
       postType: postOption.categoryType,
       imgUrlList: postOption.postImage,
     });
-    console.log(response);
+
     return response;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -365,7 +364,7 @@ export async function writePost(postOption) {
 export async function deleteCommunityPost(postId) {
   try {
     const response = await axiosInstance.delete(`/posts/${postId}`);
-    console.log(response);
+
     return response;
   } catch (error) {
     throw new Error(error);
@@ -381,7 +380,7 @@ export async function changeCommunityPost(postOption, postId) {
       postType: postOption.categoryType,
       imgUrlList: postOption.postImage,
     });
-    console.log(response);
+
     return response;
   } catch (error) {
     throw new Error(error);

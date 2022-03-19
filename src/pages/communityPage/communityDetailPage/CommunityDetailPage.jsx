@@ -57,7 +57,6 @@ const CommunityDetailPage = () => {
   const handlePostDelete = async (postId) => {
     try {
       const response = await api.deleteCommunityPost(postId);
-      console.log(response);
       if (response.status === 204) {
         navigate('/community');
       }
