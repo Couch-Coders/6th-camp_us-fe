@@ -424,3 +424,14 @@ export async function deleteCommunityComment(commentId) {
     throw new Error('Failed to load data');
   }
 }
+
+// 커뮤니티 댓글 좋아요
+export async function commentLike(commentId) {
+  try {
+    const response = await axiosInstance.patch(`/comments/${commentId}`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}

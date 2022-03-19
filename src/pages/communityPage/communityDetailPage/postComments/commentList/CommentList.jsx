@@ -86,21 +86,23 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
   }
 
   // 댓글 좋아요
-  /* const likeChange = async () => {
+  const likeChange = async () => {
     if (!user) {
       message.warning('로그인한 유저만 댓글에 좋아요 할 수 있습니다.');
       return;
     }
 
-    if (commentData.memberId === user.commentData.memberId) return;
+    if (commentData.memberId === user.data.memberId) return;
 
-    await API.changecommentLike(commentData.commentId);
-    const commentCnt = comment.liked ? comment.likeCnt - 1 : comment.likeCnt + 1;
+    await API.commentLike(commentData.commentId);
+    const commentCnt = comment.checked
+      ? comment.likeCnt - 1
+      : comment.likeCnt + 1;
 
     setComment((comment) => {
-      return { ...comment, liked: !comment.liked, likeCnt: commentCnt };
+      return { ...comment, checked: !comment.checked, likeCnt: commentCnt };
     });
-  }; */
+  };
 
   // 댓글 수정 컴포넌트
   const editingTemplate = (
@@ -157,23 +159,14 @@ const CommentList = ({ commentData, postData, deleteTask, editTask }) => {
             <ReadMore onClick={openMoreText}> ...더 보기</ReadMore>
           )}
         </Content>
-        {/* <Content>
-          꿀팁 공유 감사합니다 ! 너무 도움이 되었어요꿀팁 공유 감사합니다 ! 너무
-          도움이 되었어요꿀팁 공유 감사합니다 ! 너무 도움이 되었어요꿀팁 공유
-          감사합니다 ! 너무 도움이 되었어요꿀팁 공유 감사합니다 ! 너무 도움이
-          되었어요꿀팁 공유 감사합니다 ! 너무 도움이 되었어요꿀팁 공유
-          감사합니다 ! 너무 도움이 되었어요꿀팁 공유 감사합니다 ! 너무 도움이
-          되었어요꿀팁 공유 감사합니다 ! 너무 도움이 되었어요꿀팁 공유
-          감사합니다 ! 너무 도움이 되었어요
-        </Content> */}
         <BottomArea>
           <Date>{chargeTime}</Date>
           <CommentLike
             liked={comment.checked}
-            //onClick={likeChange}
-            /* isMyReview={
-              user && comment.memberId === user.commentData.memberId ? true : false
-            } */
+            onClick={likeChange}
+            isMyComment={
+              user && comment.memberId === user.data.memberId ? true : false
+            }
           >
             <LikeOutlined />
             {comment.likeCnt}

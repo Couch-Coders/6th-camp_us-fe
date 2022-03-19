@@ -217,13 +217,29 @@ const ReadMore = styled.span`
 
 const CommentLike = styled.div`
   width: 50px;
-  color: #000;
-  cursor: pointer;
+  color: ${({ liked }) => (liked ? '#f35656' : '#9d9d9d')};
+  transition: all 200ms ease;
 
   & svg {
     display: inline-block;
     margin-right: 4px;
   }
+  ${({ isMyComment }) =>
+    isMyComment
+      ? css`
+          // 내가 쓴 코멘트일 떄 스타일
+          cursor: default;
+        `
+      : css`
+          // 내가 쓴 코멘트 아닐 때 스타일
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+            color: ${({ liked }) =>
+              liked ? 'rgba(243,86,86,0.8)' : 'rgba(157,157,157,0.8)'};
+          }
+        `}
 `;
 
 export const style = {
