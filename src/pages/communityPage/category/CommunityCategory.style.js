@@ -1,3 +1,4 @@
+import { Pagination } from 'antd';
 import styled from 'styled-components';
 
 const PostWrap = styled.div`
@@ -10,7 +11,16 @@ const Title = styled.h2`
   margin-bottom: 24px;
 `;
 
+const PaginationContent = styled(Pagination)`
+  margin-bottom: 20px;
+  text-align: center;
+  .ant-select-selector {
+    display: none;
+  }
+`;
+
 export const style = {
   PostWrap,
   Title,
+  PaginationContent,
 };

@@ -318,12 +318,14 @@ export async function changeReviewLike(id) {
 }
 
 // 게시글 조회
-export async function getCommunityPost(postType) {
+export async function getCommunityPost(postType, page) {
   try {
     const response = await axiosInstance({
       url: `/posts`,
       params: {
         postType: postType,
+        page: page,
+        size: 5,
       },
     });
 
