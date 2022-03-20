@@ -380,9 +380,12 @@ export async function deleteCommunityPost(postId) {
 }
 
 // 커뮤니티 댓글 조회
-export async function getCommunityComment(postId) {
+export async function getCommunityComment(postId, page) {
   try {
-    const response = await axiosInstance(`/posts/${postId}/comment`);
+    const response = await axiosInstance(
+      `/posts/${postId}/comments?page=${page}&size=5`,
+    );
+    console.log(response);
     return response.data;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -392,7 +395,7 @@ export async function getCommunityComment(postId) {
 // 커뮤니티 댓글 작성
 export async function writeCommunityComment(postId, content) {
   try {
-    const response = await axiosInstance.post(`/posts/${postId}/comment`, {
+    const response = await axiosInstance.post(`/posts/${postId}/comments`, {
       content: content,
     });
     console.log(response);

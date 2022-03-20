@@ -48,9 +48,9 @@ export default function PostComments({ postId, postData }) {
   }
 
   // 댓글 조회
-  async function commentsRequest() {
+  async function commentsRequest(page) {
     setIsLoading(true);
-    const response = await api.getCommunityComment(postId);
+    const response = await api.getCommunityComment(postId, page);
     console.log('response', response);
     setCommentData(response.content);
     setTotalElement(response.totalElements);
@@ -82,7 +82,8 @@ export default function PostComments({ postId, postData }) {
   // 페이지 변경
   const changePage = (value) => {
     setCurrentPage(value - 1);
-    //commentsRequest(value - 1);
+    commentsRequest(value - 1);
+    console.log('value', value);
   };
 
   return (
