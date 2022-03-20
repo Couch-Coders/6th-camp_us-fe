@@ -90,14 +90,17 @@ export default function CommunityEditPage() {
     });
   }, []);
 
-  const deleteImage = useCallback((imgIndex) => {
-    const imgarr = postOption.postImage.filter(
-      (img) => img !== postOption.postImage[imgIndex],
-    );
-    setPostOption((postOption) => {
-      return { ...postOption, postImage: imgarr };
-    });
-  }, []);
+  const deleteImage = useCallback(
+    (imgIndex) => {
+      const imgarr = postOption.postImage.filter(
+        (img) => img !== postOption.postImage[imgIndex],
+      );
+      setPostOption((postOption) => {
+        return { ...postOption, postImage: imgarr };
+      });
+    },
+    [postOption],
+  );
 
   const onOpenModal = useCallback(() => {
     setIsModalOpen((isModalOpen) => !isModalOpen);
