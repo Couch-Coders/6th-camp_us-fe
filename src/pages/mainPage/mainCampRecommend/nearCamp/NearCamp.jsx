@@ -9,7 +9,7 @@ import {
   CampName,
   CampAddr,
 } from './nearCamp.style';
-import CampLike from '../../../../components/campLike/CampLike';
+import LikeButton from '../../../../components/likeButton/LikeButton';
 import Image from '../../../../assets/images/default_image.png';
 
 const NearCamp = ({ camp, geoLocation }) => {
@@ -57,10 +57,11 @@ const NearCamp = ({ camp, geoLocation }) => {
         </CampInfo>
       </CampLink>
       <CampLikeWrap>
-        <CampLike
+        <LikeButton
           likeCount={camp.like}
-          campId={camp.campId}
+          Id={camp.campId}
           liked={camp.liked}
+          role="camp"
         />
         {geoLocation && `${distance} km`}
       </CampLikeWrap>

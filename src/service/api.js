@@ -386,3 +386,14 @@ export async function changeCommunityPost(postOption, postId) {
     throw new Error(error);
   }
 }
+
+// 게시글 좋아요
+export async function postLike(id) {
+  try {
+    const response = await axiosInstance.patch(`/posts/${id}`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}

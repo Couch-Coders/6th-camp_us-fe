@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { style } from './ResultList.style';
 import defaultImage from '../../../../assets/images/default_image.png';
-import CampLike from '../../../../components/campLike/CampLike';
-import { Rate } from 'antd';
+import LikeButton from '../../../../components/likeButton/LikeButton';
 import { CoordinateContext } from '../../../../context/CoordinateContext';
+import { Rate } from 'antd';
 
 const ResultList = ({ camp }) => {
   const { changeCampCoordinate } = useContext(CoordinateContext);
@@ -27,10 +27,11 @@ const ResultList = ({ camp }) => {
         <ContentHeader>
           <CampTitle>{camp.facltNm}</CampTitle>
           <LikeWrap>
-            <CampLike
+            <LikeButton
               likeCount={camp.like}
-              campId={camp.campId}
+              Id={camp.campId}
               liked={camp.liked}
+              role="camp"
             />
           </LikeWrap>
         </ContentHeader>
