@@ -1,20 +1,34 @@
-import React, { useCallback, useState } from 'react';
-import { useNavigate } from 'react-router';
-import { style } from './communityWritePage.style';
+import React, { useCallback, useEffect, useState } from 'react';
+import { useLocation, useNavigate } from 'react-router';
+import { style } from './communityEditPage.style';
 import * as api from '../../../service/api';
 import ConfirmModal from '../../../components/modal/confirmModal/ConfirmModal';
 import PostSetter from '../../../components/postSetter/PostSetter';
 
-export default function CommunityWritePage() {
+export default function CommunityEditPage() {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [postOption, setPostOption] = useState({
     postTitle: '',
     postContent: '',
     postImage: [],
-    categoryType: '',
+    categoryType: '카테고리',
   });
 
   const navigate = useNavigate();
+
+  const { state } = useLocation();
+
+  useEffect(() => {
+    setPostOption((postOption) => {
+      return {
+        ...postOption,
+        postTitle: state.title,
+        postContent: state.content,
+        postImage: state.imgUrlList,
+        categoryType: state.postType,
+      };
+    });
+  }, [state]);
 
   const onChangeTitle = (event) => {
     const {
@@ -56,9 +70,9 @@ export default function CommunityWritePage() {
 
   const onSubmitPost = useCallback(async () => {
     try {
-      const response = await api.writePost(postOption);
+      const response = await api.changeCommunityPost(postOption, state.postId);
 
-      if (response.status === 201) {
+      if (response.status === 200) {
         onFallback();
       }
     } catch (e) {
@@ -76,14 +90,17 @@ export default function CommunityWritePage() {
     });
   }, []);
 
-  const deleteImage = useCallback((imgIndex) => {
-    const imgarr = postOption.postImage.filter(
-      (img) => img !== postOption.postImage[imgIndex],
-    );
-    setPostOption((postOption) => {
-      return { ...postOption, postImage: imgarr };
-    });
-  }, []);
+  const deleteImage = useCallback(
+    (imgIndex) => {
+      const imgarr = postOption.postImage.filter(
+        (img) => img !== postOption.postImage[imgIndex],
+      );
+      setPostOption((postOption) => {
+        return { ...postOption, postImage: imgarr };
+      });
+    },
+    [postOption],
+  );
 
   const onOpenModal = useCallback(() => {
     setIsModalOpen((isModalOpen) => !isModalOpen);

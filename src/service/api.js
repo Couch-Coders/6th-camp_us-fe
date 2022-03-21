@@ -326,7 +326,7 @@ export async function getCommunityPost(postType) {
         postType: postType,
       },
     });
-    console.log(response);
+
     return response;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -345,23 +345,15 @@ export async function getCommunityDetailPost(id) {
 }
 
 // 게시글 작성
-export async function writePost(
-  postTitle,
-  postContent,
-  postImage,
-  selectedCategoryType,
-) {
+export async function writePost(postOption) {
   try {
-    console.log(typeof postContent);
-    console.log(typeof postImage);
-    console.log(typeof selectedCategoryType);
     const response = await axiosInstance.post(`/posts`, {
-      title: postTitle,
-      content: postContent,
-      postType: selectedCategoryType,
-      imgUrlList: postImage,
+      title: postOption.postTitle,
+      content: postOption.postContent,
+      postType: postOption.categoryType,
+      imgUrlList: postOption.postImage,
     });
-    console.log(response);
+
     return response;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -372,7 +364,23 @@ export async function writePost(
 export async function deleteCommunityPost(postId) {
   try {
     const response = await axiosInstance.delete(`/posts/${postId}`);
-    console.log(response);
+
+    return response;
+  } catch (error) {
+    throw new Error(error);
+  }
+}
+
+// 게시글 수정
+export async function changeCommunityPost(postOption, postId) {
+  try {
+    const response = await axiosInstance.put(`/posts/${postId}`, {
+      title: postOption.postTitle,
+      content: postOption.postContent,
+      postType: postOption.categoryType,
+      imgUrlList: postOption.postImage,
+    });
+
     return response;
   } catch (error) {
     throw new Error(error);
