@@ -95,11 +95,10 @@ const UserInfo = styled.div`
   justify-content: flex-end;
 `;
 
-const Avatar = styled.div`
+const Avatar = styled.img`
   width: 45px;
   height: 45px;
   border-radius: 50%;
-  background-color: #0088ff;
   margin-right: 8px;
 `;
 
@@ -204,21 +203,39 @@ const BottomArea = styled.div`
 const Content = styled.div`
   white-space: normal;
   display: -webkit-box;
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
+`;
+
+const ReadMore = styled.span`
+  cursor: pointer;
+  color: #9d9d9d;
+  font-size: 12px;
 `;
 
 const CommentLike = styled.div`
   width: 50px;
-  color: #000;
-  cursor: pointer;
+  color: ${({ liked }) => (liked ? '#f35656' : '#9d9d9d')};
+  transition: all 200ms ease;
 
   & svg {
     display: inline-block;
     margin-right: 4px;
   }
+  ${({ isMyComment }) =>
+    isMyComment
+      ? css`
+          // 내가 쓴 코멘트일 떄 스타일
+          cursor: default;
+        `
+      : css`
+          // 내가 쓴 코멘트 아닐 때 스타일
+          cursor: pointer;
+
+          &:hover {
+            opacity: 0.8;
+            color: ${({ liked }) =>
+              liked ? 'rgba(243,86,86,0.8)' : 'rgba(157,157,157,0.8)'};
+          }
+        `}
 `;
 
 export const style = {
@@ -241,5 +258,6 @@ export const style = {
   CampName,
   BottomArea,
   Content,
+  ReadMore,
   CommentLike,
 };
