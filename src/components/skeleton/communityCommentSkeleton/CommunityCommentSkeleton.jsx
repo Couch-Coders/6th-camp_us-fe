@@ -2,13 +2,12 @@ import React from 'react';
 import { style } from './CommunityCommentSkeleton.style';
 import Shimmer from '../Shimmer';
 
-const CommunityCommentSkeleton = () => {
+const BestPostSkeleton = () => {
   return (
     <ContainerLayout>
       <TypeLayout>
         <Shimmer />
       </TypeLayout>
-
       <ContentLayout>
         <TitleLayout>
           <Shimmer />
@@ -29,7 +28,7 @@ const CommunityCommentSkeleton = () => {
   );
 };
 
-export default CommunityCommentSkeleton;
+export default BestPostSkeleton;
 
 const {
   ContainerLayout,

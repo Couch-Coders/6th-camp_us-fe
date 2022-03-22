@@ -83,8 +83,8 @@ const CommunityPost = ({ post, deletePost }) => {
         <PostContent>{parse(post.content)}</PostContent>
         <SlideWrap>
           <Slider {...settings}>
-            {post.imgUrlList.map((img) => (
-              <PostImgWrap>
+            {post.imgUrlList.map((img, index) => (
+              <PostImgWrap key={index}>
                 <PostImg src={img} alt="postImage" />
               </PostImgWrap>
             ))}
@@ -135,10 +135,6 @@ const {
   PostContent,
   PostImg,
   PostReact,
-  LikeWrap,
-  Like,
-  LikeIcon,
-  LikeCount,
   CommentWrap,
   CommentCount,
 } = style;

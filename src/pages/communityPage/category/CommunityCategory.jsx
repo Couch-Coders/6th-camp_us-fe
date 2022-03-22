@@ -54,6 +54,7 @@ const CommunityCategory = ({ selectedTabs }) => {
       setPostData((postData) => {
         return postData.filter((post) => post.postId !== id);
       });
+      getPost(0);
     } catch (e) {
       throw new Error(e);
     }
@@ -71,6 +72,7 @@ const CommunityCategory = ({ selectedTabs }) => {
       {!isLoading ? (
         postData.map((post) => (
           <CommunityPost
+            key={post.postId}
             categoryType={categoryType}
             post={post}
             deletePost={deletePost}

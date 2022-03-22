@@ -399,3 +399,14 @@ export async function postLike(id) {
     throw new Error('Failed to load data');
   }
 }
+
+// Best 게시글 조회
+export async function getBestPost() {
+  try {
+    const response = await axiosInstance(`/posts/best?page=0&size=10`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
