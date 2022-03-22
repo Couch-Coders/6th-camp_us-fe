@@ -107,6 +107,24 @@ const PostReact = styled.div`
   justify-content: flex-end;
 `;
 
+const LikeWrap = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+const PostLike = styled.svg`
+  width: 22px;
+  height: 20px;
+  margin-right: 5px;
+  fill: ${({ isLike }) => (isLike ? '#ff7875' : '#e0e0e0')};
+`;
+
+const LikeCount = styled.span`
+  font-size: 14px;
+  line-height: 19px;
+  color: #262626;
+`;
+
 const CommentWrap = styled.div`
   display: flex;
   align-items: center;
@@ -144,6 +162,9 @@ export const style = {
   ImageWrap,
   ImageContent,
   PostReact,
+  LikeWrap,
+  PostLike,
+  LikeCount,
   CommentWrap,
   CommentCount,
 };

@@ -110,12 +110,27 @@ const CommunityDetailPage = () => {
             </ImageWrap>
           </ContentWrap>
           <PostReact>
-            <LikeButton
-              likeCount={postData.likeCnt}
-              Id={postData.postId}
-              liked={postData.liked}
-              role="post"
-            />
+            {user && postData.memberId === user.data.memberId ? (
+              <LikeWrap>
+                <PostLike
+                  viewBox="0 0 22 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  isLike={postData.liked ? true : false}
+                >
+                  <path d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z" />
+                </PostLike>
+                <LikeCount>{postData.likeCnt}</LikeCount>
+              </LikeWrap>
+            ) : (
+              <LikeButton
+                likeCount={postData.likeCnt}
+                Id={postData.postId}
+                liked={postData.liked}
+                role="post"
+              />
+            )}
+
             <CommentWrap>
               <MessageFilled />
               <CommentCount>{postData.commentCnt}</CommentCount>
@@ -157,6 +172,9 @@ const {
   ImageWrap,
   ImageContent,
   PostReact,
+  LikeWrap,
+  PostLike,
+  LikeCount,
   CommentWrap,
   CommentCount,
 } = style;
