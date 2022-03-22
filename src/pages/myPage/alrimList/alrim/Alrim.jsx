@@ -21,9 +21,8 @@ export default function Alrim({ alrim, MemberAlrimRequest }) {
     setRead(true);
   };
 
-  const [sliceText, setSliceText] = useState('');
-
   // notificationType에 따라 sliceText에 들어갈 컨텐츠 내용 또는 제목 구분
+  const [sliceText, setSliceText] = useState('');
   useEffect(() => {
     let notiContent = '';
     if (alrim.notificationType !== 'postLike' && alrim.content.length > 10) {
@@ -39,60 +38,81 @@ export default function Alrim({ alrim, MemberAlrimRequest }) {
     }
   }, [alrim]);
 
-  // notificationType에 따른 알림타입, 메세지, url, 썸네일이미지 구분
+  // 알림의 게시글 제목이 길 경우 ...처리
+  const [postTitle, setpostTitle] = useState('');
+  useEffect(() => {
+    let postTitle = '';
+
+    if (
+      alrim.notificationType === 'commentLike' ||
+      (alrim.notificationType === 'commentWrite' && alrim.postTitle.length > 10)
+    ) {
+      postTitle = alrim.postTitle.substring(0, 9) + `...`;
+      setpostTitle(postTitle);
+    }
+  }, [alrim.postTitle]);
+
+  // notificationType에 따른 썸네일이미지 구분
+  const [notiImg, setNotiImg] = useState('');
+  useEffect(() => {
+    if (alrim.notificationType === 'reviewLike') {
+      if (
+        alrim.imgUrl === '' ||
+        alrim.imgUrl === null ||
+        alrim.imgUrl === undefined
+      ) {
+        setNotiImg(Image);
+      } else {
+        setNotiImg(alrim.imgUrl);
+      }
+    } else {
+      if (alrim.postImgUrlList.length === 0) {
+        setNotiImg(Image);
+      } else {
+        setNotiImg(alrim.postImgUrlList[0]);
+      }
+    }
+  }, [alrim.notificationType]);
+
+  // notificationType에 따른 알림타입, 메세지 구분
   let notiType = '';
   let notiMsg = '';
-  let notiURL = '';
-  let notiImg = '';
 
   switch (alrim.notificationType) {
     case 'postLike':
       notiType = '게시글 좋아요';
       notiMsg = '님이 회원님이 작성한 게시글을 좋아합니다';
-      notiURL = `/community/detail/?postId=${alrim.postId}`;
-      notiImg =
-        alrim.postImgUrlList.length === 0 ? Image : alrim.postImgUrlList[0];
       break;
 
     case 'commentLike':
       notiType = '댓글 좋아요';
-      notiMsg = `님이 '${alrim.postTitle}' 게시글에 작성한 회원님의 댓글을 좋아합니다.`;
-      notiURL = `/community/detail/?postId=${alrim.postId}`;
-      notiImg =
-        alrim.postImgUrlList.length === 0 ? Image : alrim.postImgUrlList[0];
+      notiMsg = `님이 '${postTitle}' 게시글에 회원님의 댓글을 좋아합니다.`;
       break;
 
     case 'reviewLike':
       notiType = '리뷰 좋아요';
       notiMsg = `님이 회원님이 '${alrim.facltNm}'에 작성한 리뷰를 좋아합니다.`;
-      notiURL = `/detail?id=${alrim.campId}`;
-      notiImg =
-        alrim.imgUrl === '' ||
-        alrim.imgUrl === null ||
-        alrim.imgUrl === undefined
-          ? Image
-          : alrim.imgUrl;
       break;
 
     case 'commentWrite':
       notiType = '새 댓글';
-      notiMsg = `님이 '${alrim.postTitle}' 게시글에 댓글을 작성하였습니다.`;
-      notiURL = `/community/detail/?postId=${alrim.postId}`;
-      notiImg =
-        alrim.postImgUrlList.length === 0 ? Image : alrim.postImgUrlList[0];
+      notiMsg = `님이 '${postTitle}' 게시글에 댓글을 작성하였습니다.`;
       break;
 
     default:
       notiType = '';
       notiMsg = '';
-      notiURL = `/community`;
       break;
   }
 
   return (
     <AlrimWrap key={alrim.notificationId} checked={alrim.checked} read={read}>
       <CheckedArea
-        to={notiURL}
+        to={
+          alrim.notificationType === 'reviewLike'
+            ? `/detail?id=${alrim.campId}`
+            : `/community/detail/?postId=${alrim.postId}`
+        }
         onClick={() => handleOnUpdate(alrim.notificationId)}
       >
         <Thumbnail>
