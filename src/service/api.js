@@ -393,6 +393,64 @@ export async function changeCommunityPost(postOption, postId) {
 export async function postLike(id) {
   try {
     const response = await axiosInstance.patch(`/posts/${id}`);
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 커뮤니티 댓글 조회
+export async function getCommunityComment(postId, page) {
+  try {
+    const response = await axiosInstance(
+      `/posts/${postId}/comments?page=${page}&size=5`,
+    );
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 커뮤니티 댓글 작성
+export async function writeCommunityComment(postId, content) {
+  try {
+    const response = await axiosInstance.post(`/posts/${postId}/comments`, {
+      content: content,
+    });
+    console.log(response);
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 커뮤니티 댓글 수정
+export async function changeCommunityComment(comment) {
+  try {
+    const response = await axiosInstance.put(`/comments/${comment.commentId}`, {
+      content: comment.content,
+    });
+    return response;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 커뮤니티 댓글 삭제
+export async function deleteCommunityComment(commentId) {
+  try {
+    const response = await axiosInstance.delete(`/comments/${commentId}`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 커뮤니티 댓글 좋아요
+export async function commentLike(commentId) {
+  try {
+    const response = await axiosInstance.patch(`/comments/${commentId}`);
     const data = response.data;
     return data;
   } catch (error) {
