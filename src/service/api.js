@@ -318,12 +318,14 @@ export async function changeReviewLike(id) {
 }
 
 // 게시글 조회
-export async function getCommunityPost(postType) {
+export async function getCommunityPost(postType, page) {
   try {
     const response = await axiosInstance({
       url: `/posts`,
       params: {
         postType: postType,
+        page: page,
+        size: 5,
       },
     });
 
@@ -384,6 +386,26 @@ export async function changeCommunityPost(postOption, postId) {
     return response;
   } catch (error) {
     throw new Error(error);
+  }
+}
+
+// 게시글 좋아요
+export async function postLike(id) {
+  try {
+    const response = await axiosInstance.patch(`/posts/${id}`);
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// Best 게시글 조회
+export async function getBestPost() {
+  try {
+    const response = await axiosInstance(`/posts/best?page=0&size=10`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
   }
 }
 

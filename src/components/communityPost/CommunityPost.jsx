@@ -7,6 +7,7 @@ import useGetDate from '../../hooks/useGetDate';
 import ConfirmModal from '../modal/confirmModal/ConfirmModal';
 import { UserContext } from '../auth/AuthProvider';
 import Slider from '@ant-design/react-slick';
+import LikeButton from '../likeButton/LikeButton';
 
 const CommunityPost = ({ post, deletePost }) => {
   const [receivedPostType, setReceivedPostType] = useState();
@@ -56,6 +57,7 @@ const CommunityPost = ({ post, deletePost }) => {
   const handleDeleteModalOpen = () => {
     setIsModalOpen(true);
   };
+  console.log(post);
 
   return (
     <Post>
@@ -82,27 +84,34 @@ const CommunityPost = ({ post, deletePost }) => {
         <PostContent>{parse(post.content)}</PostContent>
         <SlideWrap>
           <Slider {...settings}>
-            {post.imgUrlList.map((img) => (
-              <PostImgWrap>
+            {post.imgUrlList.map((img, index) => (
+              <PostImgWrap key={index}>
                 <PostImg src={img} alt="postImage" />
               </PostImgWrap>
             ))}
           </Slider>
         </SlideWrap>
-
         <PostReact>
-          <LikeWrap>
-            <Like>
-              <LikeIcon
+          {user && post.memberId === user.data.memberId ? (
+            <LikeWrap>
+              <PostLike
                 viewBox="0 0 22 20"
                 fill="none"
                 xmlns="http://www.w3.org/2000/svg"
+                isLike={post.liked ? true : false}
               >
                 <path d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z" />
-              </LikeIcon>
-            </Like>
-            <LikeCount>{post.likeCnt}</LikeCount>
-          </LikeWrap>
+              </PostLike>
+              <LikeCount>{post.likeCnt}</LikeCount>
+            </LikeWrap>
+          ) : (
+            <LikeButton
+              likeCount={post.likeCnt}
+              Id={post.postId}
+              liked={post.liked}
+              role="post"
+            />
+          )}
           <CommentWrap>
             <MessageFilled />
             <CommentCount>{post.commentCnt}</CommentCount>
@@ -142,8 +151,7 @@ const {
   PostImg,
   PostReact,
   LikeWrap,
-  Like,
-  LikeIcon,
+  PostLike,
   LikeCount,
   CommentWrap,
   CommentCount,
