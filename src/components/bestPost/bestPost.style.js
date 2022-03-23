@@ -6,6 +6,51 @@ const Wrap = styled.div`
   border: 1px solid #e1e1e1;
   border-radius: 5px;
   background-color: #ffffff;
+  overflow: hidden;
+
+  @media screen and (max-width: 600px) {
+    padding: 10px 5px;
+  }
+`;
+
+const SliderWrap = styled.div`
+  width: 100%;
+
+  .slick-slider {
+    height: 100%;
+  }
+
+  .slick-prev {
+    left: -15px;
+    z-index: 99;
+  }
+
+  .slick-next {
+    right: -15px;
+  }
+
+  .slick-next:before {
+    content: '→';
+  }
+
+  .slick-cloned {
+    display: ${({ length }) => length < 3 && 'none'};
+  }
+
+  .slick-track {
+    margin: 0;
+  }
+
+  .slick-prev:before,
+  .slick-next:before {
+    color: #c2c2c2;
+    font-size: 20px;
+    opacity: 1;
+  }
+
+  @media screen and (max-width: 600px) {
+    width: 100%;
+  }
 `;
 
 const BestPostTitle = styled.div`
@@ -15,35 +60,19 @@ const BestPostTitle = styled.div`
   margin-bottom: 16px;
 `;
 
-const BestPosts = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+const MobileSlideWrap = styled.div`
+  overflow-x: scroll;
 `;
 
-const BestPostContent = styled.div`
-  width: 80%;
-  min-height: 200px;
-  border: 1px solid #e1e1e1;
-  border-radius: 20px;
-  box-sizing: border-box;
-  border-radius: 5px;
-  background-color: #fff;
-  transition: border 200ms ease;
-  cursor: pointer;
-
-  &:hover {
-    border: 1px solid #73d13d;
-  }
-
-  &:nth-child(2n) {
-    margin: 0 20px;
-  }
+const MobileSlide = styled.div`
+  width: ${({ sizeCount }) => `${150 * sizeCount}px`};
+  display: flex;
 `;
 
 export const style = {
   Wrap,
+  SliderWrap,
   BestPostTitle,
-  BestPosts,
-  BestPostContent,
+  MobileSlideWrap,
+  MobileSlide,
 };
