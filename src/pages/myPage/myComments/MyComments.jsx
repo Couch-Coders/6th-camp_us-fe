@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { style } from './MyComments.styles';
 import { Input } from 'antd';
-import * as API from '../../../service/api';
-import { UserContext } from '../../../components/auth/AuthProvider';
 import useGetDate from '../../../hooks/useGetDate';
 import { useNavigate } from 'react-router';
+import ConfirmModal from '../../../components/modal/confirmModal/ConfirmModal';
 
 const MyComments = ({ commentData, deleteComment, editComment }) => {
   const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
@@ -131,6 +130,14 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
           <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
           <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
         </HandleContent>
+        {show && (
+          <ConfirmModal
+            onClose={setShow}
+            TaskId={comment.commentId}
+            deleteTask={deleteComment}
+            role="delete"
+          />
+        )}
       </PostDivision>
       <PostDetail>
         <PostTop>

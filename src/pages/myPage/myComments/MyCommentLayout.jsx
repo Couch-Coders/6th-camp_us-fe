@@ -30,7 +30,7 @@ export default function MyCommentLayout() {
 
   /* 댓글 삭제 */
   async function deleteComment(id) {
-    //await api.deleteReview(id);
+    await api.deleteCommunityComment(id);
     MyCommentsRequest(currentPage);
   }
 
@@ -47,7 +47,7 @@ export default function MyCommentLayout() {
     });
     setCommentdata(editedCommentList);
     await api.changeCommunityComment(comment);
-    MyCommentsRequest();
+    MyCommentsRequest(currentPage);
   }
 
   // 페이지 변경
