@@ -100,7 +100,7 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
   const [show, setShow] = useState(false);
   const navigate = useNavigate();
   const moveToCommunityDetailPage = () => {
-    navigate('/community/detail');
+    navigate(`/community/detail/?postId=${commentData.postId}`);
   };
 
   // postType
