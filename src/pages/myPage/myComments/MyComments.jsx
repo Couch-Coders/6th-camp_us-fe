@@ -123,7 +123,7 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
   }
 
   const viewTemplate = (
-    <Post key={comment.commentId}>
+    <Post>
       <PostDivision>
         <PostType>{postType}</PostType>
         <HandleContent>

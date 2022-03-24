@@ -22,7 +22,6 @@ export default function MyCommentLayout() {
   async function MyCommentsRequest(page) {
     setIsLoading(true);
     const response = await api.getMyComment(page);
-    console.log('rs', response);
     setCommentdata(response.content);
     setTotalElement(response.totalElements);
     setIsLoading(false);
@@ -69,6 +68,7 @@ export default function MyCommentLayout() {
         <>
           {commentdata.map((commentdata) => (
             <MyComments
+              key={commentdata.commentId}
               commentData={commentdata}
               MyCommentsRequest={MyCommentsRequest}
               deleteComment={deleteComment}
