@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { style } from './MyComments.styles';
 import { Input } from 'antd';
 import * as API from '../../../service/api';
@@ -14,20 +14,22 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
   const [isEditing, setEditing] = useState(false);
   const chargeTime = useGetDate(commentData.createdDate);
 
-  const { TextArea } = Input;
-  //const [comment, setComment] = useState({});
+  const contentRef = useRef();
 
-  /* useEffect(() => {
-    if (comment.content.length > 10) {
-      const sliceFIrst = comment.content.substring(0, 9);
-      const sliceSecond = comment.content.substring(9);
+  const { TextArea } = Input;
+  const [comment, setComment] = useState({});
+
+  useEffect(() => {
+    if (commentData.content.length > 10) {
+      const sliceFIrst = commentData.content.substring(0, 9);
+      const sliceSecond = commentData.content.substring(9);
       setSliceTextFirst(sliceFIrst);
       setSliceTextSecond(sliceSecond);
       setisVisibleReadMore(true);
     } else {
-      setSliceTextFirst(comment.content);
+      setSliceTextFirst(commentData.content);
     }
-  }, [comment.content]); */
+  }, [commentData.content]);
 
   // 텍스트 펼치기
   const openMoreText = () => {
@@ -122,12 +124,20 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
           <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
         </HandleContent>
       </PostDivision>
-      <PostDetail onClick={moveToCommunityDetailPage}>
+      <PostDetail>
         <PostTop>
-          <PostTitle>{commentData.postTitle}</PostTitle>
+          <PostTitle onClick={moveToCommunityDetailPage}>
+            {commentData.postTitle}
+          </PostTitle>
           <PostCreateTime>{chargeTime}</PostCreateTime>
         </PostTop>
-        <PostContent>{commentData.content}</PostContent>
+        <PostContent ref={contentRef}>
+          {sliceTextFirst}
+          {visibleSecondText && sliceTextSecond}
+          {isVisibleReadMore && (
+            <ReadMore onClick={openMoreText}> ...더 보기</ReadMore>
+          )}
+        </PostContent>
         <PostReact>
           <LikeWrap>
             <Like>
@@ -167,6 +177,7 @@ const {
   HandleContent,
   HandleReview,
   PostContent,
+  ReadMore,
   PostReact,
   LikeWrap,
   Like,
