@@ -17,7 +17,15 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
   const contentRef = useRef();
 
   const { TextArea } = Input;
-  const [comment, setComment] = useState({});
+  const [comment, setComment] = useState({
+    commentId: commentData.commentId,
+    content: commentData.content,
+    createdDate: commentData.createdDate,
+    likeCnt: commentData.likeCnt,
+    postId: commentData.postId,
+    postTitle: commentData.postTitle,
+    postType: commentData.postType,
+  });
 
   useEffect(() => {
     if (commentData.content.length > 10) {
@@ -39,15 +47,15 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
 
   // 리뷰 글 변경
   const handleContentChange = (e) => {
-    /* setReview((review) => {
-      return { ...review, content: e.target.value };
-    }); */
+    setComment((comment) => {
+      return { ...comment, content: e.target.value };
+    });
   };
 
   // 댓글 수정 handle
   function handleSubmit(e) {
     e.preventDefault();
-    //editComment(comment);
+    editComment(comment);
     setEditing(false);
   }
 
@@ -55,25 +63,25 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
   function handleCancle(e) {
     e.preventDefault();
     setEditing(false);
-    /* setReview((review) => {
+    setComment((comment) => {
       return {
-        ...review,
-        reviewId: reviewData.reviewId,
-        likeCnt: reviewData.likeCnt,
-        rate: reviewData.rate,
-        content: reviewData.content,
-        imgUrl: reviewData.imgUrl,
-        imgName: '',
-        lastModifiedDate: reviewData.lastModifiedDate,
+        ...comment,
+        commentId: commentData.commentId,
+        content: commentData.content,
+        createdDate: commentData.createdDate,
+        likeCnt: commentData.likeCnt,
+        postId: commentData.postId,
+        postTitle: commentData.postTitle,
+        postType: commentData.postType,
       };
-    }); */
+    });
   }
 
   // 나의 댓글 수정 컴포넌트
   const editingTemplate = (
     <EditForm>
       <EditTop>
-        <PostTitle>{commentData.postTitle}</PostTitle>
+        <PostTitle>{comment.postTitle}</PostTitle>
         <EditRight>
           <EditButton type="submit" onClick={handleSubmit}>
             수정완료
@@ -84,7 +92,7 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
       <TextArea
         rows={4}
         onChange={handleContentChange}
-        value={commentData.content}
+        value={comment.content}
       />
     </EditForm>
   );
@@ -116,7 +124,7 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
   }
 
   const viewTemplate = (
-    <Post key={commentData.commentId}>
+    <Post key={comment.commentId}>
       <PostDivision>
         <PostType>{postType}</PostType>
         <HandleContent>
@@ -127,7 +135,7 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
       <PostDetail>
         <PostTop>
           <PostTitle onClick={moveToCommunityDetailPage}>
-            {commentData.postTitle}
+            {comment.postTitle}
           </PostTitle>
           <PostCreateTime>{chargeTime}</PostCreateTime>
         </PostTop>
@@ -149,7 +157,7 @@ const MyComments = ({ commentData, deleteComment, editComment }) => {
                 <path d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z" />
               </LikeIcon>
             </Like>
-            <LikeCount>{commentData.likeCnt}</LikeCount>
+            <LikeCount>{comment.likeCnt}</LikeCount>
           </LikeWrap>
         </PostReact>
       </PostDetail>

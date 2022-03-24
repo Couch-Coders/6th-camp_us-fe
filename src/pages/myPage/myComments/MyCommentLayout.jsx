@@ -36,17 +36,18 @@ export default function MyCommentLayout() {
 
   // 댓글 수정
   async function editComment(comment) {
-    /* const editedCommentList = commentdata.map((data) => {
-      if (commentdata.reviewId === data.reviewId) {
+    const editedCommentList = commentdata.map((data) => {
+      if (commentdata.commentId === data.commentId) {
         return {
           ...data,
-          ...review,
+          ...comment,
         };
       }
       return data;
-    }); 
+    });
     setCommentdata(editedCommentList);
-    await api.changeReview(comment);*/
+    await api.changeCommunityComment(comment);
+    MyCommentsRequest();
   }
 
   // 페이지 변경
@@ -66,9 +67,9 @@ export default function MyCommentLayout() {
         </>
       ) : (
         <>
-          {commentdata.map((comment) => (
+          {commentdata.map((commentdata) => (
             <MyComments
-              commentData={comment}
+              commentData={commentdata}
               MyCommentsRequest={MyCommentsRequest}
               deleteComment={deleteComment}
               editComment={editComment}
