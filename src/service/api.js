@@ -398,6 +398,17 @@ export async function postLike(id) {
   }
 }
 
+// Best 게시글 조회
+export async function getBestPost() {
+  try {
+    const response = await axiosInstance(`/posts/best?page=0&size=10`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
 // 커뮤니티 댓글 조회
 export async function getCommunityComment(postId, page) {
   try {
@@ -458,10 +469,10 @@ export async function commentLike(commentId) {
   }
 }
 
-// Best 게시글 조회
-export async function getBestPost() {
+// 마이페이지 나의 게시글 조회
+export async function getMyPost() {
   try {
-    const response = await axiosInstance(`/posts/best?page=0&size=10`);
+    const response = await axiosInstance(`/members/me/post`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -469,7 +480,7 @@ export async function getBestPost() {
   }
 }
 
-// Best 게시글 조회
+// 마이페이지 나의 댓글 조회
 export async function getMyComment(page) {
   try {
     const response = await axiosInstance(
