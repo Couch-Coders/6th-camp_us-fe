@@ -468,3 +468,16 @@ export async function getBestPost() {
     throw new Error('Failed to load data');
   }
 }
+
+// Best 게시글 조회
+export async function getMyComment(page) {
+  try {
+    const response = await axiosInstance(
+      `/members/me/comment?page=${page}&size=5`,
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}

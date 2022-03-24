@@ -6,28 +6,28 @@ import { UserContext } from '../../../components/auth/AuthProvider';
 import useGetDate from '../../../hooks/useGetDate';
 import { useNavigate } from 'react-router';
 
-const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
+const MyComments = ({ commentData, deleteComment, editComment }) => {
   const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
   const [sliceTextFirst, setSliceTextFirst] = useState();
   const [sliceTextSecond, setSliceTextSecond] = useState();
   const [visibleSecondText, setVisibleSecondText] = useState(false);
   const [isEditing, setEditing] = useState(false);
-  // const chargeTime = useGetDate(commentdata.lastModifiedDate);
+  const chargeTime = useGetDate(commentData.createdDate);
 
   const { TextArea } = Input;
-  /*  const [comment, setComment] = useState({  }); */
+  //const [comment, setComment] = useState({});
 
-  /*   useEffect(() => {
-    if (commentdata.content.length > 10) {
-      const sliceFIrst = commentdata.content.substring(0, 9);
-      const sliceSecond = commentdata.content.substring(9);
+  /* useEffect(() => {
+    if (comment.content.length > 10) {
+      const sliceFIrst = comment.content.substring(0, 9);
+      const sliceSecond = comment.content.substring(9);
       setSliceTextFirst(sliceFIrst);
       setSliceTextSecond(sliceSecond);
       setisVisibleReadMore(true);
     } else {
-      setSliceTextFirst(commentdata.content);
-    } 
-  }, [commentdata.content.length]); */
+      setSliceTextFirst(comment.content);
+    }
+  }, [comment.content]); */
 
   // 텍스트 펼치기
   const openMoreText = () => {
@@ -71,7 +71,7 @@ const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
   const editingTemplate = (
     <EditForm>
       <EditTop>
-        <PostTitle>캠핑장 꿀팁</PostTitle>
+        <PostTitle>{commentData.postTitle}</PostTitle>
         <EditRight>
           <EditButton type="submit" onClick={handleSubmit}>
             수정완료
@@ -79,7 +79,11 @@ const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
           <CancleButton onClick={handleCancle}>취소</CancleButton>
         </EditRight>
       </EditTop>
-      <TextArea rows={4} onChange={handleContentChange} value="내용" />
+      <TextArea
+        rows={4}
+        onChange={handleContentChange}
+        value={commentData.content}
+      />
     </EditForm>
   );
 
@@ -90,10 +94,29 @@ const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
     navigate('/community/detail');
   };
 
+  // postType
+  let postType = '';
+  switch (commentData.postType) {
+    case 'free':
+      postType = '캠퍼수다';
+      break;
+
+    case 'picture':
+      postType = '캠핑한장';
+      break;
+
+    case 'question':
+      postType = '궁금해요';
+      break;
+
+    default:
+      break;
+  }
+
   const viewTemplate = (
-    <Post>
+    <Post key={commentData.commentId}>
       <PostDivision>
-        <PostType>캠퍼수다</PostType>
+        <PostType>{postType}</PostType>
         <HandleContent>
           <HandleReview onClick={() => setEditing(true)}>수정</HandleReview>
           <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
@@ -101,12 +124,10 @@ const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
       </PostDivision>
       <PostDetail onClick={moveToCommunityDetailPage}>
         <PostTop>
-          <PostTitle>캠핑장 꿀팁</PostTitle>
-          <PostCreateTime>3시간전</PostCreateTime>
+          <PostTitle>{commentData.postTitle}</PostTitle>
+          <PostCreateTime>{chargeTime}</PostCreateTime>
         </PostTop>
-        <PostContent>
-          내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용내용
-        </PostContent>
+        <PostContent>{commentData.content}</PostContent>
         <PostReact>
           <LikeWrap>
             <Like>
@@ -118,7 +139,7 @@ const MyComments = (/* { commentdata, deleteComment, editComment } */) => {
                 <path d="M16.1817 0C13.923 0 11.964 1.32942 11 3.27142C10.036 1.32942 8.07697 0 5.81826 0C2.60477 0 0 2.69143 0 6.01173C0 12.5676 11 20 11 20C11 20 22 12.5676 22 6.01173C22 2.69143 19.3952 0 16.1817 0Z" />
               </LikeIcon>
             </Like>
-            <LikeCount>10</LikeCount>
+            <LikeCount>{commentData.likeCnt}</LikeCount>
           </LikeWrap>
         </PostReact>
       </PostDetail>

@@ -15,13 +15,14 @@ export default function MyCommentLayout() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    //MyCommentsRequest(currentPage);
+    MyCommentsRequest(currentPage);
   }, [user, currentPage]);
 
   // 나의 댓글 리스트 조회
   async function MyCommentsRequest(page) {
     setIsLoading(true);
-    const response = await api.getMyCampsLikes(page);
+    const response = await api.getMyComment(page);
+    console.log('rs', response);
     setCommentdata(response.content);
     setTotalElement(response.totalElements);
     setIsLoading(false);
@@ -55,7 +56,7 @@ export default function MyCommentLayout() {
 
   return (
     <>
-      {!isLoading && commentdata.length !== 0 ? (
+      {!isLoading && commentdata.length === 0 ? (
         <NotMyCommentsNotification />
       ) : isLoading ? (
         <>
@@ -65,10 +66,14 @@ export default function MyCommentLayout() {
         </>
       ) : (
         <>
-          <MyComments
-          /* commentdata={commentdata} MyPostsRequest={MyPostsRequest} deleteComment={deleteComment}
-            editComment={editComment} */
-          />
+          {commentdata.map((comment) => (
+            <MyComments
+              commentData={comment}
+              MyCommentsRequest={MyCommentsRequest}
+              deleteComment={deleteComment}
+              editComment={editComment}
+            />
+          ))}
           <PaginationContent
             current={currentPage + 1}
             total={totalElement}
