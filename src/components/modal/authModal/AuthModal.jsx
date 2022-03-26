@@ -2,7 +2,11 @@ import React, { useContext } from 'react';
 import { Modal } from 'antd';
 import { ExclamationCircleOutlined } from '@ant-design/icons';
 import { UserContext } from '../../auth/AuthProvider';
-import { signInGoogle, signInFacebook } from '../../../service/firebaseAuth';
+import {
+  signInGoogle,
+  signInFacebook,
+  signInGithub,
+} from '../../../service/firebaseAuth';
 import RegisterForm from '../../auth/RegisterForm';
 import { style } from './AuthModal.style';
 
@@ -112,7 +116,7 @@ export default function AuthModal({ onClose, TaskId, deleteTask, role }) {
             <LoginButton>
               <Github
                 onClick={() => {
-                  // signInFacebook();
+                  signInGithub();
                   onClose();
                 }}
               >

@@ -22,6 +22,12 @@ export const signInFacebook = () => {
   return auth.signInWithPopup(provider);
 };
 
+export const signInGithub = () => {
+  const provider = new firebase.auth.GithubAuthProvider();
+  console.log('signIn');
+  return auth.signInWithPopup(provider);
+};
+
 export const signOut = () => {
   console.log('signOut');
   return auth.signOut();

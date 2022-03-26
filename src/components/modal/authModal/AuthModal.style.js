@@ -31,47 +31,67 @@ const ContentTextHeader = styled.p`
 
 const LoginWrap = styled.div`
   width: 100%;
+  padding: 0 30px;
   display: flex;
   justify-content: space-around;
+
+  @media screen and (max-width: 600px) {
+    padding: 0;
+  }
 `;
 
 const Google = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   border-radius: 10px;
   box-shadow: 0 5px 25px rgb(0 0 0 / 15%);
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    width: 90px;
+    height: 90px;
+  }
 `;
 
 const Facebook = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   background-color: #1778f2;
   border-radius: 10px;
   box-shadow: 0 5px 25px rgb(0 0 0 / 15%);
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    width: 90px;
+    height: 90px;
+  }
 `;
 
 const Github = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 120px;
-  height: 120px;
+  width: 100px;
+  height: 100px;
   background-color: #000000;
   border-radius: 10px;
   box-shadow: 0 5px 25px rgb(0 0 0 / 15%);
   cursor: pointer;
+
+  @media screen and (max-width: 600px) {
+    width: 90px;
+    height: 90px;
+  }
 `;
 
 const LoginText = styled.div`
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 800;
   margin-top: 10px;
   color: #616161;
