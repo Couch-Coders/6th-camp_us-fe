@@ -120,7 +120,7 @@ function MyPage() {
               page="likesList"
               selectedTabs={selectedTabs}
             >
-              좋아요 리스트
+              관심 캠핑장
             </Tabs>
             <Tabs
               onClick={setClickedTabs}
