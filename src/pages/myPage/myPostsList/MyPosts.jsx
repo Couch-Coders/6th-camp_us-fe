@@ -5,12 +5,12 @@ import { useNavigate } from 'react-router';
 import parse from 'html-react-parser';
 import Slider from '@ant-design/react-slick';
 import useGetDate from '../../../hooks/useGetDate';
+import ConfirmModal from '../../../components/modal/confirmModal/ConfirmModal';
 
 const MyPosts = ({ postData, deletePost, editPost }) => {
-  const chargeTime = useGetDate(postData.createdDate);
   const navigate = useNavigate();
-
-  console.log(postData);
+  const chargeTime = useGetDate(postData.createdDate);
+  const [show, setShow] = useState(false);
   const [post, setPost] = useState({
     commentCnt: postData.commentCnt,
     content: postData.content,
@@ -22,8 +22,6 @@ const MyPosts = ({ postData, deletePost, editPost }) => {
     postType: postData.postType,
     title: postData.title,
   });
-
-  console.log(postData.title);
 
   const settings = {
     dots: true,
@@ -38,6 +36,7 @@ const MyPosts = ({ postData, deletePost, editPost }) => {
   const moveToCommunityEditPage = () => {
     navigate(`/community/edit`, {
       state: postData,
+      clickedPage: 'myPage',
     });
   };
 
@@ -70,8 +69,16 @@ const MyPosts = ({ postData, deletePost, editPost }) => {
         <PostType>{postType}</PostType>
         <HandleContent>
           <HandleReview onClick={moveToCommunityEditPage}>수정</HandleReview>
-          <HandleReview>삭제</HandleReview>
+          <HandleReview onClick={() => setShow(true)}>삭제</HandleReview>
         </HandleContent>
+        {show && (
+          <ConfirmModal
+            onClose={setShow}
+            TaskId={post.postId}
+            deleteTask={deletePost}
+            role="delete"
+          />
+        )}
       </PostDivision>
       <PostDetail onClick={moveToCommunityDetailPage}>
         <PostTop>
@@ -81,11 +88,11 @@ const MyPosts = ({ postData, deletePost, editPost }) => {
         <PostContent>{parse(post.content)}</PostContent>
         <SlideWrap>
           <Slider {...settings}>
-            {/* {post.imgUrlList.map((img, index) => (
-                  <PostImgWrap key={index}>
-                    <PostImg src={img} alt="postImage" />
-                  </PostImgWrap>
-                ))} */}
+            {post.imgUrlList.map((img, index) => (
+              <PostImgWrap key={index}>
+                <PostImg src={img} alt="postImage" />
+              </PostImgWrap>
+            ))}
           </Slider>
         </SlideWrap>
         <PostReact>
