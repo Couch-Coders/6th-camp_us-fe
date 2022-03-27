@@ -10,10 +10,10 @@ import AlrimLayout from './alrimList/AlrimLayout';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper } from '../../styles/theme';
 import { style } from './MyPage.styles';
+import { message } from 'antd';
 
 function MyPage() {
   const { user } = useContext(UserContext);
-  console.log(user);
   const [myActivity, setMyActivity] = useState([]);
   const [newName, setNewName] = useState();
   const [selectedTabs, setSelectedTabs] = useState('likesList');
@@ -46,6 +46,11 @@ function MyPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (newName.length < 3) {
+      message.warning('닉네임은 3글자 이상이어야 등록가능합니다.');
+      return;
+    }
+
     await api.changeNickname({
       nickname: newName,
     });
