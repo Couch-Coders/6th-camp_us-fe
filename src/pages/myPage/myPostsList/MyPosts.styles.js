@@ -58,29 +58,6 @@ const PostCreateTime = styled.div`
   font-size: 14px;
 `;
 
-const PostUserSet = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const PostUser = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
-
-const AvatarImg = styled.div`
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: violet;
-  overflow: hidden;
-  margin-right: 8px;
-`;
-
-const Nickname = styled.div``;
-
 const HandleReview = styled.div`
   margin-left: 8px;
   font-size: 14px;
@@ -97,9 +74,25 @@ const PostContent = styled.div`
   text-overflow: ellipsis;
 `;
 
-const PostImg = styled.div`
-  height: 200px;
-  background-color: aliceblue;
+const PostImgWrap = styled.div`
+  width: 80%;
+  height: 400px;
+  overflow: hidden;
+  position: relative;
+`;
+
+const PostImg = styled.img`
+  width: 100%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+`;
+
+const SlideWrap = styled.div`
+  .slick-dots {
+    position: static;
+  }
 `;
 
 const PostReact = styled.div`
@@ -159,20 +152,18 @@ const CommentCount = styled.span`
 `;
 
 export const style = {
-  Post,
   PostDivision,
+  Post,
   PostType,
-  HandleContent,
   PostDetail,
   PostTop,
   PostTitle,
   PostCreateTime,
-  PostUserSet,
-  PostUser,
-  AvatarImg,
-  Nickname,
+  HandleContent,
   HandleReview,
   PostContent,
+  SlideWrap,
+  PostImgWrap,
   PostImg,
   PostReact,
   LikeWrap,

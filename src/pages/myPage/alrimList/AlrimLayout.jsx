@@ -22,6 +22,7 @@ export default function AlrimLayout({ user }) {
   // 알림 조회
   async function MemberAlrimRequest(page) {
     const response = await api.getAlrimList(page);
+    console.log('res', response);
     setData(response.content);
     setTotalElement(response.totalElements);
   }

@@ -468,3 +468,27 @@ export async function commentLike(commentId) {
     throw new Error('Failed to load data');
   }
 }
+
+// 마이페이지 나의 게시글 조회
+export async function getMyPost() {
+  try {
+    const response = await axiosInstance(`/members/me/posts`);
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}
+
+// 마이페이지 나의 댓글 조회
+export async function getMyComment(page) {
+  try {
+    const response = await axiosInstance(
+      `/members/me/comment?page=${page}&size=5`,
+    );
+    const data = response.data;
+    return data;
+  } catch (error) {
+    throw new Error('Failed to load data');
+  }
+}

@@ -127,13 +127,14 @@ const HandleReview = styled.div`
 
 const PostContent = styled.div`
   margin: 8px 0;
-  white-space: normal;
-  display: -webkit-box;
-  overflow: hidden;
-  -webkit-line-clamp: 3;
-  -webkit-box-orient: vertical;
-  text-overflow: ellipsis;
 `;
+
+const ReadMore = styled.span`
+  cursor: pointer;
+  color: #9d9d9d;
+  font-size: 12px;
+`;
+
 const PostReact = styled.div`
   margin-top: 8px;
   display: flex;
@@ -176,7 +177,6 @@ export const style = {
   EditRight,
   EditButton,
   CancleButton,
-
   PostDivision,
   Post,
   PostType,
@@ -187,6 +187,7 @@ export const style = {
   HandleContent,
   HandleReview,
   PostContent,
+  ReadMore,
   PostReact,
   LikeWrap,
   Like,

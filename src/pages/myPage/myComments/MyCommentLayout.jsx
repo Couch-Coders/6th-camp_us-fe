@@ -15,13 +15,13 @@ export default function MyCommentLayout() {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    //MyCommentsRequest(currentPage);
+    MyCommentsRequest(currentPage);
   }, [user, currentPage]);
 
   // 나의 댓글 리스트 조회
   async function MyCommentsRequest(page) {
     setIsLoading(true);
-    const response = await api.getMyCampsLikes(page);
+    const response = await api.getMyComment(page);
     setCommentdata(response.content);
     setTotalElement(response.totalElements);
     setIsLoading(false);
@@ -29,23 +29,24 @@ export default function MyCommentLayout() {
 
   /* 댓글 삭제 */
   async function deleteComment(id) {
-    //await api.deleteReview(id);
+    await api.deleteCommunityComment(id);
     MyCommentsRequest(currentPage);
   }
 
   // 댓글 수정
   async function editComment(comment) {
-    /* const editedCommentList = commentdata.map((data) => {
-      if (commentdata.reviewId === data.reviewId) {
+    const editedCommentList = commentdata.map((data) => {
+      if (commentdata.commentId === data.commentId) {
         return {
           ...data,
-          ...review,
+          ...comment,
         };
       }
       return data;
-    }); 
+    });
     setCommentdata(editedCommentList);
-    await api.changeReview(comment);*/
+    await api.changeCommunityComment(comment);
+    MyCommentsRequest(currentPage);
   }
 
   // 페이지 변경
@@ -55,7 +56,7 @@ export default function MyCommentLayout() {
 
   return (
     <>
-      {!isLoading && commentdata.length !== 0 ? (
+      {!isLoading && commentdata.length === 0 ? (
         <NotMyCommentsNotification />
       ) : isLoading ? (
         <>
@@ -65,10 +66,15 @@ export default function MyCommentLayout() {
         </>
       ) : (
         <>
-          <MyComments
-          /* commentdata={commentdata} MyPostsRequest={MyPostsRequest} deleteComment={deleteComment}
-            editComment={editComment} */
-          />
+          {commentdata.map((commentdata) => (
+            <MyComments
+              key={commentdata.commentId}
+              commentData={commentdata}
+              MyCommentsRequest={MyCommentsRequest}
+              deleteComment={deleteComment}
+              editComment={editComment}
+            />
+          ))}
           <PaginationContent
             current={currentPage + 1}
             total={totalElement}

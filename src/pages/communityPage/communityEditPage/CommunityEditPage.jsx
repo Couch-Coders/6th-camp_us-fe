@@ -81,7 +81,7 @@ export default function CommunityEditPage() {
   }, [postOption]);
 
   const onFallback = () => {
-    navigate('/community');
+    navigate(-1);
   };
 
   const setImageUpload = useCallback((image) => {

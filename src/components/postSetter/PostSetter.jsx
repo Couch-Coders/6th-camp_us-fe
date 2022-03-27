@@ -115,7 +115,7 @@ const PostSetter = ({
           나가기
         </FallbackButton>
         <SubmitButton type="button" onClick={confirmBeforeSubmit}>
-          게시글 등록
+          작성완료
         </SubmitButton>
       </PostActionWrap>
     </PostWrap>
