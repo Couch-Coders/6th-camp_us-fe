@@ -134,10 +134,14 @@ const LikeWrap = styled.div`
   align-items: center;
 `;
 
-const LikeIcon = styled.div`
-  display: flex;
-  align-items: center;
+const LikeIcon = styled.svg`
   margin-right: 5px;
+  width: 14px;
+  height: 14px;
+
+  path {
+    fill: ${({ isLiked }) => (isLiked ? '#ff7875' : '#e0e0e0')};
+  }
 `;
 
 const LikeCount = styled.span`
