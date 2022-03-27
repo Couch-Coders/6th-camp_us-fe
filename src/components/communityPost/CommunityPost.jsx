@@ -7,7 +7,7 @@ import useGetDate from '../../hooks/useGetDate';
 import ConfirmModal from '../modal/confirmModal/ConfirmModal';
 import { UserContext } from '../auth/AuthProvider';
 import Slider from '@ant-design/react-slick';
-import LikeButton from '../likeButton/LikeButton';
+import LikeButton from '../../components/likeButton/LikeButton';
 
 const CommunityPost = ({ post, deletePost }) => {
   const [receivedPostType, setReceivedPostType] = useState();
