@@ -3,7 +3,7 @@ import { UserContext } from './AuthProvider';
 import styled from 'styled-components';
 import * as api from '../../service/api';
 
-const RegisterForm = ({ setRegisterFormOpen }) => {
+const RegisterForm = () => {
   const { setUser, setIsRegisterOpen } = useContext(UserContext);
 
   const handleSubmit = async (event) => {

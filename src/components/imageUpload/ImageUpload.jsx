@@ -1,17 +1,20 @@
 import React, { useRef, useState } from 'react';
-import styled from 'styled-components';
-import { Button, Spin } from 'antd';
-import { UploadOutlined } from '@ant-design/icons';
+import { style } from './imageUpload.style';
+import { Spin } from 'antd';
+import { PlusOutlined, UploadOutlined } from '@ant-design/icons';
 import { imageUploader } from '../../service/imageUploder';
 
-const ImageUpload = ({ setImageUpload }) => {
+const ImageUpload = ({ setImageUpload, pageName }) => {
   const [loading, setLoading] = useState(false);
-  const inputRef = useRef();
+  const [fileList, setFileList] = useState([]);
+  const reviewInputRef = useRef();
+  const postInputRef = useRef();
 
   // 변경 버튼 클릭
-  const onbuttonClick = (event) => {
+  const onbuttonClick = (event, role) => {
     event.preventDefault();
-    inputRef.current.click();
+    role === 'review' && reviewInputRef.current.click();
+    role === 'post' && postInputRef.current.click();
   };
 
   // 이미지 변경
@@ -28,24 +31,69 @@ const ImageUpload = ({ setImageUpload }) => {
     );
   };
 
+  const handleChange = async (event) => {
+    setLoading(true);
+    setFileList(event.target.files);
+    const uploaded = await imageUploader(event.target.files[0]);
+    console.log(uploaded);
+    setLoading(false);
+    setImageUpload(uploaded.data.url);
+  };
+
   return (
     <Wrap>
-      <Input
-        ref={inputRef}
+      <ReviewInput
+        ref={reviewInputRef}
         type="file"
         accept="image/*"
         name="file"
         onChange={onChange}
       />
-
-      {!loading ? (
-        <ButtonContent onClick={onbuttonClick} icon={<UploadOutlined />}>
-          Click to Upload
-        </ButtonContent>
+      {pageName === 'review' ? (
+        !loading ? (
+          <ButtonContent
+            onClick={(e) => {
+              onbuttonClick(e, 'review');
+            }}
+            icon={<UploadOutlined />}
+          >
+            Click to Upload
+          </ButtonContent>
+        ) : (
+          <ButtonContent>
+            <Spin />
+          </ButtonContent>
+        )
+      ) : !loading ? (
+        <PostWrap>
+          <PostInput
+            ref={postInputRef}
+            type="file"
+            accept="image/*"
+            name="file"
+            onChange={handleChange}
+          />
+          <PostUpload
+            onClick={(e) => {
+              onbuttonClick(e, 'post');
+            }}
+          >
+            {fileList.length >= 8 ? null : (
+              <UploadContent>
+                <PlusOutlined />
+                <div style={{ marginTop: 8 }}>Upload</div>
+              </UploadContent>
+            )}
+          </PostUpload>
+        </PostWrap>
       ) : (
-        <ButtonContent>
-          <Spin />
-        </ButtonContent>
+        <PostWrap>
+          <PostUpload>
+            <UploadContent>
+              <Spin />
+            </UploadContent>
+          </PostUpload>
+        </PostWrap>
       )}
     </Wrap>
   );
@@ -53,14 +101,12 @@ const ImageUpload = ({ setImageUpload }) => {
 
 export default ImageUpload;
 
-const Wrap = styled.div`
-  margin-right: 20px;
-`;
-
-const Input = styled.input`
-  display: none;
-`;
-
-const ButtonContent = styled(Button)`
-  width: 148px;
-`;
+const {
+  Wrap,
+  ReviewInput,
+  PostWrap,
+  PostUpload,
+  UploadContent,
+  PostInput,
+  ButtonContent,
+} = style;

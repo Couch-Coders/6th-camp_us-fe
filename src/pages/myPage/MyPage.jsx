@@ -3,15 +3,18 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../../components/auth/AuthProvider';
 import * as api from '../../service/api';
 import LikeListLayout from './likeList/LikeListLayout';
+import MyPostLayout from './myPostsList/MyPostLayout';
+import MyCommentLayout from './myComments/MyCommentLayout';
 import Review from '../../components/review/Review';
 import AlrimLayout from './alrimList/AlrimLayout';
 import 'antd/dist/antd.css';
 import { Section, InnerWrapper } from '../../styles/theme';
 import { style } from './MyPage.styles';
+import { message } from 'antd';
 
 function MyPage() {
   const { user } = useContext(UserContext);
-  const [reviewCnt, setReviewCnt] = useState();
+  const [myActivity, setMyActivity] = useState([]);
   const [newName, setNewName] = useState();
   const [selectedTabs, setSelectedTabs] = useState('likesList');
 
@@ -20,14 +23,14 @@ function MyPage() {
     setSelectedTabs(role);
   }
 
-  async function getReviewCount() {
+  async function getMyActivityCount() {
     const response = await api.getUserInfo();
-    setReviewCnt(response.reviewCnt);
+    setMyActivity(response);
   }
 
   const navigate = useNavigate();
   useEffect(() => {
-    getReviewCount();
+    getMyActivityCount();
     user && setNewName(user.data.nickname);
     if (localStorage.length === 0) {
       alert('로그인한 회원만 이용 가능한 페이지입니다!');
@@ -43,6 +46,11 @@ function MyPage() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (newName.length < 3) {
+      message.warning('닉네임은 3글자 이상이어야 등록가능합니다.');
+      return;
+    }
+
     await api.changeNickname({
       nickname: newName,
     });
@@ -105,37 +113,55 @@ function MyPage() {
               {isEditing ? editingTemplate : viewTemplate}
             </MyProfile>
           </form>
-          <MyActivity>
-            <li>작성글 : 1 </li>
-            <li>리뷰 : {reviewCnt} </li>
-          </MyActivity>
+          <MyActivity>{myActivity.email}</MyActivity>
         </MyInfo>
         <TabsContainer>
           <TabsWrap>
-            <InfoTabs
+            <Tabs
               onClick={setClickedTabs}
               data-role="likesList"
+              page="likesList"
               selectedTabs={selectedTabs}
             >
-              좋아요 리스트
-            </InfoTabs>
-            <LocationTabs
+              관심 캠핑장 ({myActivity.campCnt})
+            </Tabs>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="myPosts"
+              page="myPosts"
+              selectedTabs={selectedTabs}
+            >
+              나의 게시글 ({myActivity.postCnt})
+            </Tabs>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="myComments"
+              page="myComments"
+              selectedTabs={selectedTabs}
+            >
+              나의 댓글 ({myActivity.commentCnt})
+            </Tabs>
+            <Tabs
               onClick={setClickedTabs}
               data-role="myReviews"
+              page="myReviews"
               selectedTabs={selectedTabs}
             >
-              작성한 리뷰
-            </LocationTabs>
-            <ReviewTabs
+              나의 리뷰 ({myActivity.reviewCnt})
+            </Tabs>
+            <Tabs
               onClick={setClickedTabs}
               data-role="alrimList"
+              page="alrimList"
               selectedTabs={selectedTabs}
             >
               알림
-            </ReviewTabs>
+            </Tabs>
           </TabsWrap>
         </TabsContainer>
         {selectedTabs === 'likesList' && <LikeListLayout />}
+        {selectedTabs === 'myPosts' && <MyPostLayout />}
+        {selectedTabs === 'myComments' && <MyCommentLayout />}
         {selectedTabs === 'myReviews' && <Review clickedPage="mypage" />}
         {selectedTabs === 'alrimList' && <AlrimLayout user={user} />}
       </InnerWrapper>
@@ -154,7 +180,5 @@ const {
   MyActivity,
   TabsContainer,
   TabsWrap,
-  InfoTabs,
-  LocationTabs,
-  ReviewTabs,
+  Tabs,
 } = style;

@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 const AlrimWrap = styled.div`
   display: flex;
   justify-content: start;
-  height: 88px;
   background: ${({ checked, read }) =>
     checked ? '#f5f5f5' : read ? '#f5f5f5' : '#ffffff'};
   border: 1px solid #f0f0f0;
@@ -25,7 +24,7 @@ const AlrimWrap = styled.div`
   }
 
   @media screen and (max-width: 760px) {
-    height: auto;
+    position: relative;
     margin-bottom: 20px;
   }
 `;
@@ -34,6 +33,11 @@ const CheckedArea = styled(Link)`
   width: calc(100% - 50px);
   display: flex;
   justify-content: start;
+  align-items: center;
+
+  @media screen and (max-width: 760px) {
+    width: 100%;
+  }
 `;
 
 const Thumbnail = styled.div`
@@ -41,6 +45,8 @@ const Thumbnail = styled.div`
   height: 88px;
   overflow: hidden;
   position: relative;
+  margin-left: 18px;
+  border-radius: 8px;
 
   @media screen and (max-width: 760px) {
     display: none;
@@ -78,23 +84,20 @@ const TopArea = styled.div`
 `;
 
 const AlrimInfo = styled.div`
-  display: flex;
-  justify-content: start;
   width: calc(100% - 18px);
 `;
 
-const Type = styled.div`
-  font-weight: bold;
-  margin-right: 16px;
-  min-width: 50px;
+const Type = styled.span`
+  font-size: 14px;
+  color: gray;
+  background-color: #f5f5f5;
+  border-radius: 4px;
+  padding: 4px;
 `;
 
 const AlrimContent = styled.div`
   font-weight: normal;
-  max-width: calc(100% - 92px);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  margin-top: 4px;
 `;
 const DeleteBtn = styled.button`
   padding: 18px;
@@ -104,6 +107,13 @@ const DeleteBtn = styled.button`
   color: #000;
   &:hover {
     cursor: pointer;
+  }
+
+  @media screen and (max-width: 760px) {
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    padding: 0;
   }
 `;
 
@@ -123,6 +133,13 @@ const BottomArea = styled.div`
 
 const AlrimFrom = styled.div`
   color: #000000;
+  &::after {
+    display: inline-block;
+    content: '|';
+    clear: both;
+    margin: 0 4px 0 8px;
+    color: rgba(0, 0, 0, 0.45);
+  }
 `;
 
 const Date = styled.div`

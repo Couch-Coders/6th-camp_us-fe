@@ -1,13 +1,10 @@
 import React, { useState } from 'react';
 import { style } from './CommunityPage.style';
-import CommunityAllPost from './category/CommunityAllPost';
-import CommunityTalk from './category/CommunityTalk';
-import CommunityPicture from './category/CommunityPicture';
-import CommunityQnA from './category/CommunityQnA';
+import CommunityCategory from './category/CommunityCategory';
 import { EditFilled } from '@ant-design/icons';
 
 const CommunityPage = (props) => {
-  const [selectedTabs, setSelectedTabs] = useState('allPost');
+  const [selectedTabs, setSelectedTabs] = useState('all');
   // 클릭한 탭 구별
   function setClickedTabs(e) {
     const role = e.target.dataset.role;
@@ -16,48 +13,47 @@ const CommunityPage = (props) => {
 
   return (
     <Container>
-      <TabsContainer>
-        <TabsWrap>
-          <Tabs
-            onClick={setClickedTabs}
-            data-role="allPost"
-            page="allPost"
-            selectedTabs={selectedTabs}
-          >
-            👀 전체
-          </Tabs>
-          <Tabs
-            onClick={setClickedTabs}
-            data-role="talk"
-            page="talk"
-            selectedTabs={selectedTabs}
-          >
-            👄 캠퍼수다
-          </Tabs>
-          <Tabs
-            onClick={setClickedTabs}
-            data-role="picture"
-            page="picture"
-            selectedTabs={selectedTabs}
-          >
-            🎞️ 캠핑한장
-          </Tabs>
-          <Tabs
-            onClick={setClickedTabs}
-            data-role="QnA"
-            page="QnA"
-            selectedTabs={selectedTabs}
-          >
-            ⛺ 궁금해요
-          </Tabs>
-        </TabsWrap>
-      </TabsContainer>
-      <PostGroup>
-        {selectedTabs === 'allPost' && <CommunityAllPost />}
-        {selectedTabs === 'talk' && <CommunityTalk />}
-        {selectedTabs === 'picture' && <CommunityPicture />}
-        {selectedTabs === 'QnA' && <CommunityQnA />}
-      </PostGroup>
+      <Wrap>
+        <TabsContainer>
+          <TabsWrap>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="all"
+              page="all"
+              selectedTabs={selectedTabs}
+            >
+              👀 전체
+            </Tabs>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="free"
+              page="free"
+              selectedTabs={selectedTabs}
+            >
+              👄 캠퍼수다
+            </Tabs>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="picture"
+              page="picture"
+              selectedTabs={selectedTabs}
+            >
+              🎞️ 캠핑한장
+            </Tabs>
+            <Tabs
+              onClick={setClickedTabs}
+              data-role="question"
+              page="question"
+              selectedTabs={selectedTabs}
+            >
+              ⛺ 궁금해요
+            </Tabs>
+          </TabsWrap>
+        </TabsContainer>
+        <PostGroup>
+          <CommunityCategory selectedTabs={selectedTabs} />
+        </PostGroup>
+      </Wrap>
       <CreatePostBtn to="/community/write">
         <EditFilled />
       </CreatePostBtn>
@@ -66,5 +62,12 @@ const CommunityPage = (props) => {
 };
 
 export default CommunityPage;
-const { Container, TabsContainer, TabsWrap, Tabs, PostGroup, CreatePostBtn } =
-  style;
+const {
+  Container,
+  Wrap,
+  TabsContainer,
+  TabsWrap,
+  Tabs,
+  PostGroup,
+  CreatePostBtn,
+} = style;

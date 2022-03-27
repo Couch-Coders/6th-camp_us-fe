@@ -2,6 +2,13 @@ import styled, { css } from 'styled-components';
 import { Link } from 'react-router-dom';
 
 const Container = styled.div`
+  width: 100%;
+  max-height: calc(100vh - 65px);
+  overflow: auto;
+  background-color: #fafafa;
+`;
+
+const Wrap = styled.div`
   position: relative;
   display: flex;
   justify-content: space-between;
@@ -9,8 +16,6 @@ const Container = styled.div`
   padding-top: 50px;
   margin: auto;
   height: auto;
-  overflow: hidden;
-  max-height: calc(100vh - 65px);
 
   @media screen and (max-width: 960px) {
     display: block;
@@ -26,7 +31,7 @@ const TabsContainer = styled.div`
   @media screen and (max-width: 960px) {
     width: 100%;
     position: fixed;
-    top: 50px;
+    top: 30px;
     padding-bottom: 0;
     z-index: 1;
     background-color: #fff;
@@ -34,11 +39,13 @@ const TabsContainer = styled.div`
 `;
 
 const TabsWrap = styled.div`
+  position: fixed;
   padding-top: 50px;
-  width: 100%;
   background: rgba(255, 255, 255, 1e-5);
+
   @media screen and (max-width: 960px) {
     display: flex;
+    position: initial;
   }
 `;
 
@@ -51,6 +58,11 @@ const Tabs = styled.div`
   line-height: 24px;
   margin-bottom: 24px;
   cursor: pointer;
+  transition: all 200ms ease;
+
+  &:hover {
+    color: #389e0d;
+  }
 
   ${(props) =>
     props.selectedTabs === props.page
@@ -95,14 +107,14 @@ const PostGroup = styled.div`
 
   @media screen and (max-width: 960px) {
     width: 100%;
-    padding-top: 70px;
+    padding-top: 50px;
     min-height: auto;
   }
 `;
 
 const CreatePostBtn = styled(Link)`
   position: absolute;
-  right: 16px;
+  right: 60px;
   bottom: 30px;
   display: flex;
   -webkit-box-pack: center;
@@ -116,16 +128,20 @@ const CreatePostBtn = styled(Link)`
   border-radius: 50%;
   color: #fff;
   font-size: 18px;
+  transition: box-shadow 200ms ease;
 
   &:hover {
     color: #fff;
+    box-shadow: rgb(0 0 0 / 35%) 3px 7px 6px;
   }
   @media screen and (max-width: 960px) {
     position: fixed;
+    right: 30px;
   }
 `;
 
 export const style = {
+  Wrap,
   Container,
   TabsContainer,
   TabsWrap,

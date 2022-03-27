@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import CampInformation from './campInformation/CampInformation';
 import Tag from '../../components/tag/Tag';
 import CampLocation from './campLocation/CampLocation';
-import CampLike from '../../components/campLike/CampLike';
 import { CampContext } from '../../context/CampContext';
 import * as api from '../../service/api';
 import { style } from './DetailPage.style';
 import { useLocation } from 'react-router';
 import defaultImg from '../../assets/images/default_image.png';
 import Review from '../../components/review/Review';
+import LikeButton from '../../components/likeButton/LikeButton';
 
 const DetailPage = () => {
   const [campData, setCampData] = useState();
@@ -54,10 +54,11 @@ const DetailPage = () => {
         <Container>
           <Header>
             {campData && <Title>{campData.facltNm}</Title>}
-            <CampLike
+            <LikeButton
               likeCount={campData.likeCnt}
-              campId={CampId}
+              Id={CampId}
               liked={campData.liked}
+              role="camp"
             />
           </Header>
           <CampInfoWrap>

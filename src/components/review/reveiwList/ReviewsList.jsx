@@ -7,7 +7,6 @@ import React, {
 } from 'react';
 import { Rate, Input, message } from 'antd';
 import { LikeOutlined } from '@ant-design/icons';
-import Modal from '../../modal/Modal';
 import Image from '../../../assets/images/default.png';
 import * as API from '../../../service/api';
 import { UserContext } from '../../auth/AuthProvider';
@@ -15,6 +14,7 @@ import { style } from './reviewsList.styles';
 import ImagePreview from '../../imageUpload/ImagePreview/ImagePreview';
 import ImageUpload from '../../imageUpload/ImageUpload';
 import useGetDate from '../../../hooks/useGetDate';
+import ConfirmModal from '../../modal/confirmModal/ConfirmModal';
 
 const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
   const [isVisibleReadMore, setisVisibleReadMore] = useState(false);
@@ -151,7 +151,7 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
         </EditRight>
       </EditTop>
       <Container>
-        <ImageUpload setImageUpload={setImageUpload} />
+        <ImageUpload setImageUpload={setImageUpload} pageName="review" />
         {review.imgUrl !== null && review.imgUrl !== '' && (
           <ImagePreview
             setImageUpload={setImageUpload}
@@ -204,11 +204,11 @@ const ReviewsList = ({ reviewData, deleteTask, editTask, clickedPage }) => {
             </HandleContent>
           )}
           {show && (
-            <Modal
+            <ConfirmModal
               onClose={setShow}
-              reviewId={review.reviewId}
+              TaskId={review.reviewId}
               deleteTask={deleteTask}
-              role="deleteReview"
+              role="delete"
             />
           )}
         </TopArea>
