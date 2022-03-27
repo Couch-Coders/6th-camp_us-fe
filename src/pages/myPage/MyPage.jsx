@@ -13,7 +13,8 @@ import { style } from './MyPage.styles';
 
 function MyPage() {
   const { user } = useContext(UserContext);
-  const [reviewCnt, setReviewCnt] = useState();
+  console.log(user);
+  const [myActivity, setMyActivity] = useState([]);
   const [newName, setNewName] = useState();
   const [selectedTabs, setSelectedTabs] = useState('likesList');
 
@@ -22,14 +23,14 @@ function MyPage() {
     setSelectedTabs(role);
   }
 
-  async function getReviewCount() {
+  async function getMyActivityCount() {
     const response = await api.getUserInfo();
-    setReviewCnt(response.reviewCnt);
+    setMyActivity(response);
   }
 
   const navigate = useNavigate();
   useEffect(() => {
-    getReviewCount();
+    getMyActivityCount();
     user && setNewName(user.data.nickname);
     if (localStorage.length === 0) {
       alert('로그인한 회원만 이용 가능한 페이지입니다!');
@@ -107,10 +108,7 @@ function MyPage() {
               {isEditing ? editingTemplate : viewTemplate}
             </MyProfile>
           </form>
-          <MyActivity>
-            <li>작성글 : 1 </li>
-            <li>리뷰 : {reviewCnt} </li>
-          </MyActivity>
+          <MyActivity>{myActivity.email}</MyActivity>
         </MyInfo>
         <TabsContainer>
           <TabsWrap>
@@ -120,7 +118,7 @@ function MyPage() {
               page="likesList"
               selectedTabs={selectedTabs}
             >
-              관심 캠핑장
+              관심 캠핑장 ({myActivity.campCnt})
             </Tabs>
             <Tabs
               onClick={setClickedTabs}
@@ -128,7 +126,7 @@ function MyPage() {
               page="myPosts"
               selectedTabs={selectedTabs}
             >
-              나의 게시글
+              나의 게시글 ({myActivity.postCnt})
             </Tabs>
             <Tabs
               onClick={setClickedTabs}
@@ -136,7 +134,7 @@ function MyPage() {
               page="myComments"
               selectedTabs={selectedTabs}
             >
-              나의 댓글
+              나의 댓글 ({myActivity.commentCnt})
             </Tabs>
             <Tabs
               onClick={setClickedTabs}
@@ -144,7 +142,7 @@ function MyPage() {
               page="myReviews"
               selectedTabs={selectedTabs}
             >
-              나의 리뷰
+              나의 리뷰 ({myActivity.reviewCnt})
             </Tabs>
             <Tabs
               onClick={setClickedTabs}

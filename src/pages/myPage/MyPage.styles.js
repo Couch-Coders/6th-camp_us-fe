@@ -65,21 +65,13 @@ const UserName = styled.div`
   margin: 0 10px;
 `;
 
-const MyActivity = styled.ul`
-  list-style: none;
-  margin: 0;
-  margin-left: 70px;
-  display: flex;
-  justify-content: start;
-  align-items: center;
-
-  & li {
-    padding-right: 25px;
-    color: #434343;
-  }
-  & li:last-child {
-    padding-right: 0;
-  }
+const MyActivity = styled.div`
+  border: 1px solid #dddddd;
+  padding: 4px 8px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-left: 50px;
+  color: #3e3e3e;
 `;
 
 const TabsContainer = styled.div`

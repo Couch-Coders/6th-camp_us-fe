@@ -472,7 +472,7 @@ export async function commentLike(commentId) {
 // 마이페이지 나의 게시글 조회
 export async function getMyPost() {
   try {
-    const response = await axiosInstance(`/members/me/post`);
+    const response = await axiosInstance(`/members/me/posts`);
     const data = response.data;
     return data;
   } catch (error) {
