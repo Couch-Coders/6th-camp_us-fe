@@ -1,9 +1,11 @@
 import axiosInstance from '../common/axiosInstance';
 
+const SERVER_URL = 'https://www.camp-us.link';
+
 // 로그인
 export async function login() {
   try {
-    const response = await axiosInstance(`/members/me`);
+    const response = await axiosInstance(`${SERVER_URL}/members/me`);
 
     return response;
   } catch (error) {
@@ -14,7 +16,7 @@ export async function login() {
 // 회원가입
 export async function register(event) {
   try {
-    const response = await axiosInstance.post(`/members`, {
+    const response = await axiosInstance.post(`${SERVER_URL}/members`, {
       nickname: event.target.nickname.value,
     });
 
@@ -27,7 +29,10 @@ export async function register(event) {
 // 닉네임 변경
 export async function changeNickname(nickname) {
   try {
-    const response = await axiosInstance.patch(`/members/me`, nickname);
+    const response = await axiosInstance.patch(
+      `${SERVER_URL}/members/me`,
+      nickname,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -39,7 +44,7 @@ export async function changeNickname(nickname) {
 export async function getUserReview(page) {
   try {
     const response = await axiosInstance(
-      `/members/me/reviews/?page=${page}&size=5&sort=createdDate,desc`,
+      `${SERVER_URL}/members/me/reviews/?page=${page}&size=5&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -51,7 +56,7 @@ export async function getUserReview(page) {
 // 유저 정보 조회
 export async function getUserInfo() {
   try {
-    const response = await axiosInstance(`/members/me/info`);
+    const response = await axiosInstance(`${SERVER_URL}/members/me/info`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -63,7 +68,7 @@ export async function getUserInfo() {
 export async function getMyCampsLikes(page) {
   try {
     const response = await axiosInstance(
-      `/members/me/camps?page=${page}&size=5&sort=createdDate,desc`,
+      `${SERVER_URL}/members/me/camps?page=${page}&size=5&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -76,7 +81,7 @@ export async function getMyCampsLikes(page) {
 export async function getAlrimList(page) {
   try {
     const response = await axiosInstance(
-      `/members/me/notifications?page=${page}&size=5&sort=createdDate,desc`,
+      `${SERVER_URL}/members/me/notifications?page=${page}&size=5&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -88,7 +93,9 @@ export async function getAlrimList(page) {
 // 회원의 안읽은 알림 갯수 조회
 export async function getAlrimCount() {
   try {
-    const response = await axiosInstance(`/members/me/notifications/count`);
+    const response = await axiosInstance(
+      `${SERVER_URL}/members/me/notifications/count`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -99,7 +106,9 @@ export async function getAlrimCount() {
 // 모든 알림 삭제
 export async function deleteAllAlrim() {
   try {
-    const response = await axiosInstance.delete(`/members/me/notifications`);
+    const response = await axiosInstance.delete(
+      `${SERVER_URL}/members/me/notifications`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -110,7 +119,9 @@ export async function deleteAllAlrim() {
 // 모든 알림 읽기
 export async function readAllAlrim() {
   try {
-    const response = await axiosInstance.patch(`/members/me/notifications`);
+    const response = await axiosInstance.patch(
+      `${SERVER_URL}/members/me/notifications`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -122,7 +133,7 @@ export async function readAllAlrim() {
 export async function readAlrim(id) {
   try {
     const response = await axiosInstance.patch(
-      `/members/me/notifications/${id}`,
+      `${SERVER_URL}/members/me/notifications/${id}`,
       {
         checked: true,
       },
@@ -138,7 +149,7 @@ export async function readAlrim(id) {
 export async function deleteAlrim(notificationId) {
   try {
     const response = await axiosInstance.delete(
-      `/notifications/${notificationId}`,
+      `${SERVER_URL}/notifications/${notificationId}`,
     );
     const data = response.data;
     return data;
@@ -151,7 +162,7 @@ export async function deleteAlrim(notificationId) {
 export async function getRecommendCamp(geoLocation) {
   try {
     const response = await axiosInstance({
-      url: `/camps?page=0&size=10`,
+      url: `${SERVER_URL}/camps?page=0&size=10`,
       params: {
         mapX: geoLocation.long && geoLocation.long,
         mapY: geoLocation.lat && geoLocation.lat,
@@ -168,7 +179,7 @@ export async function getRecommendCamp(geoLocation) {
 // 베스트 리뷰 조회
 export async function getBestReview() {
   try {
-    const response = await axiosInstance(`/reviews/best`);
+    const response = await axiosInstance(`${SERVER_URL}/reviews/best`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -179,7 +190,7 @@ export async function getBestReview() {
 // 캠핑장 상세 조회
 export async function getCamp(id) {
   try {
-    const response = await axiosInstance(`/camps/${id}`);
+    const response = await axiosInstance(`${SERVER_URL}/camps/${id}`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -190,7 +201,9 @@ export async function getCamp(id) {
 // 캠핑장 좋아요
 export async function campLike(id) {
   try {
-    const response = await axiosInstance.patch(`/camps/${id}/like`);
+    const response = await axiosInstance.patch(
+      `${SERVER_URL}/camps/${id}/like`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -202,7 +215,7 @@ export async function campLike(id) {
 export async function getCampReview(id, page) {
   try {
     const response = await axiosInstance(
-      `/camps/${id}/reviews?size=5&page=${page}&sort=createdDate,desc`,
+      `${SERVER_URL}/camps/${id}/reviews?size=5&page=${page}&sort=createdDate,desc`,
     );
     const data = response.data;
     return data;
@@ -215,7 +228,7 @@ export async function getCampReview(id, page) {
 export async function getReviewImage(id) {
   try {
     const response = await axiosInstance(
-      `/camps/${id}/reviews/images?size=1000`,
+      `${SERVER_URL}/camps/${id}/reviews/images?size=1000`,
     );
     const data = response.data;
     return data;
@@ -229,7 +242,7 @@ export async function getReviewImage(id) {
 export async function getSearchCamp(address, pageNum, sort) {
   try {
     const response = await axiosInstance({
-      url: `/camps?page=${pageNum}&size=10`,
+      url: `${SERVER_URL}/camps?page=${pageNum}&size=10`,
       params: {
         name: address.name,
         doNm: address.doNm === '전체' ? null : address.doNm,
@@ -252,7 +265,7 @@ export async function getSearchCamp(address, pageNum, sort) {
 export async function getMainSearch(address, pageNum) {
   try {
     const response = await axiosInstance({
-      url: `/camps?page=${pageNum}&size=10`,
+      url: `${SERVER_URL}/camps?page=${pageNum}&size=10`,
       params: {
         name: address.name,
         doNm: address.doNm === '전체' ? null : address.doNm,
@@ -270,7 +283,9 @@ export async function getMainSearch(address, pageNum) {
 // 리뷰 삭제
 export async function deleteReview(reviewId) {
   try {
-    const response = await axiosInstance.delete(`/reviews/${reviewId}`);
+    const response = await axiosInstance.delete(
+      `${SERVER_URL}/reviews/${reviewId}`,
+    );
 
     const data = response.data;
     return data;
@@ -282,11 +297,14 @@ export async function deleteReview(reviewId) {
 // 리뷰 작성
 export async function writeReview(id, review) {
   try {
-    const response = await axiosInstance.post(`/camps/${id}/reviews`, {
-      content: review.content,
-      imgUrl: review.imgUrl,
-      rate: review.rate,
-    });
+    const response = await axiosInstance.post(
+      `${SERVER_URL}/camps/${id}/reviews`,
+      {
+        content: review.content,
+        imgUrl: review.imgUrl,
+        rate: review.rate,
+      },
+    );
 
     const data = response.data;
     return data;
@@ -298,11 +316,14 @@ export async function writeReview(id, review) {
 // 리뷰 수정
 export async function changeReview(review) {
   try {
-    const response = await axiosInstance.put(`/reviews/${review.reviewId}`, {
-      rate: review.rate,
-      imgUrl: review.imgUrl,
-      content: review.content,
-    });
+    const response = await axiosInstance.put(
+      `${SERVER_URL}/reviews/${review.reviewId}`,
+      {
+        rate: review.rate,
+        imgUrl: review.imgUrl,
+        content: review.content,
+      },
+    );
   } catch (error) {
     throw new Error('Failed to load data');
   }
@@ -311,7 +332,9 @@ export async function changeReview(review) {
 // 리뷰 좋아요
 export async function changeReviewLike(id) {
   try {
-    const response = await axiosInstance.patch(`/reviews/${id}/like`);
+    const response = await axiosInstance.patch(
+      `${SERVER_URL}/reviews/${id}/like`,
+    );
   } catch (error) {
     throw new Error('Failed to load data');
   }
@@ -321,7 +344,7 @@ export async function changeReviewLike(id) {
 export async function getCommunityPost(postType, page) {
   try {
     const response = await axiosInstance({
-      url: `/posts`,
+      url: `${SERVER_URL}/posts`,
       params: {
         postType: postType,
         page: page,
@@ -338,7 +361,7 @@ export async function getCommunityPost(postType, page) {
 // 게시글 상세 조회
 export async function getCommunityDetailPost(id) {
   try {
-    const response = await axiosInstance(`/posts/${id}`);
+    const response = await axiosInstance(`${SERVER_URL}/posts/${id}`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -349,7 +372,7 @@ export async function getCommunityDetailPost(id) {
 // 게시글 작성
 export async function writePost(postOption) {
   try {
-    const response = await axiosInstance.post(`/posts`, {
+    const response = await axiosInstance.post(`${SERVER_URL}/posts`, {
       title: postOption.postTitle,
       content: postOption.postContent,
       postType: postOption.categoryType,
@@ -365,7 +388,9 @@ export async function writePost(postOption) {
 // 게시글 삭제
 export async function deleteCommunityPost(postId) {
   try {
-    const response = await axiosInstance.delete(`/posts/${postId}`);
+    const response = await axiosInstance.delete(
+      `${SERVER_URL}/posts/${postId}`,
+    );
 
     return response;
   } catch (error) {
@@ -376,7 +401,7 @@ export async function deleteCommunityPost(postId) {
 // 게시글 수정
 export async function changeCommunityPost(postOption, postId) {
   try {
-    const response = await axiosInstance.put(`/posts/${postId}`, {
+    const response = await axiosInstance.put(`${SERVER_URL}/posts/${postId}`, {
       title: postOption.postTitle,
       content: postOption.postContent,
       postType: postOption.categoryType,
@@ -392,7 +417,7 @@ export async function changeCommunityPost(postOption, postId) {
 // 게시글 좋아요
 export async function postLike(id) {
   try {
-    const response = await axiosInstance.patch(`/posts/${id}`);
+    const response = await axiosInstance.patch(`${SERVER_URL}/posts/${id}`);
   } catch (error) {
     throw new Error('Failed to load data');
   }
@@ -401,7 +426,9 @@ export async function postLike(id) {
 // Best 게시글 조회
 export async function getBestPost() {
   try {
-    const response = await axiosInstance(`/posts/best?page=0&size=10`);
+    const response = await axiosInstance(
+      `${SERVER_URL}/posts/best?page=0&size=10`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -413,7 +440,7 @@ export async function getBestPost() {
 export async function getCommunityComment(postId, page) {
   try {
     const response = await axiosInstance(
-      `/posts/${postId}/comments?page=${page}&size=5`,
+      `${SERVER_URL}/posts/${postId}/comments?page=${page}&size=5`,
     );
     console.log(response);
     return response.data;
@@ -425,9 +452,12 @@ export async function getCommunityComment(postId, page) {
 // 커뮤니티 댓글 작성
 export async function writeCommunityComment(postId, content) {
   try {
-    const response = await axiosInstance.post(`/posts/${postId}/comments`, {
-      content: content,
-    });
+    const response = await axiosInstance.post(
+      `${SERVER_URL}/posts/${postId}/comments`,
+      {
+        content: content,
+      },
+    );
     console.log(response);
     return response;
   } catch (error) {
@@ -438,9 +468,12 @@ export async function writeCommunityComment(postId, content) {
 // 커뮤니티 댓글 수정
 export async function changeCommunityComment(comment) {
   try {
-    const response = await axiosInstance.put(`/comments/${comment.commentId}`, {
-      content: comment.content,
-    });
+    const response = await axiosInstance.put(
+      `${SERVER_URL}/comments/${comment.commentId}`,
+      {
+        content: comment.content,
+      },
+    );
     return response;
   } catch (error) {
     throw new Error('Failed to load data');
@@ -450,7 +483,9 @@ export async function changeCommunityComment(comment) {
 // 커뮤니티 댓글 삭제
 export async function deleteCommunityComment(commentId) {
   try {
-    const response = await axiosInstance.delete(`/comments/${commentId}`);
+    const response = await axiosInstance.delete(
+      `${SERVER_URL}/comments/${commentId}`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -461,7 +496,9 @@ export async function deleteCommunityComment(commentId) {
 // 커뮤니티 댓글 좋아요
 export async function commentLike(commentId) {
   try {
-    const response = await axiosInstance.patch(`/comments/${commentId}`);
+    const response = await axiosInstance.patch(
+      `${SERVER_URL}/comments/${commentId}`,
+    );
     const data = response.data;
     return data;
   } catch (error) {
@@ -472,7 +509,7 @@ export async function commentLike(commentId) {
 // 마이페이지 나의 게시글 조회
 export async function getMyPost() {
   try {
-    const response = await axiosInstance(`/members/me/posts`);
+    const response = await axiosInstance(`${SERVER_URL}/members/me/posts`);
     const data = response.data;
     return data;
   } catch (error) {
@@ -484,7 +521,7 @@ export async function getMyPost() {
 export async function getMyComment(page) {
   try {
     const response = await axiosInstance(
-      `/members/me/comment?page=${page}&size=5`,
+      `${SERVER_URL}/members/me/comment?page=${page}&size=5`,
     );
     const data = response.data;
     return data;
