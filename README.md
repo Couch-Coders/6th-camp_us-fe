@@ -126,6 +126,22 @@
 
 <br>
 
+## 🗂 아키텍처
+
+<br>
+
+<img src="https://res.cloudinary.com/camp-us/image/upload/v1648390496/project/camp-us/camp-us-architecture_itkzvg.png"/>
+
+<br>
+
+## 🗂 ERD
+
+<br>
+
+<img src="https://res.cloudinary.com/camp-us/image/upload/v1648390495/project/camp-us/camp-us-erd_grcxry.png"/>
+
+<br>
+
 ## 🗂 폴더 구조
 
 <br>
