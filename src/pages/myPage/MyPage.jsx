@@ -113,7 +113,6 @@ function MyPage() {
               {isEditing ? editingTemplate : viewTemplate}
             </MyProfile>
           </form>
-          <MyActivity>{myActivity.email}</MyActivity>
         </MyInfo>
         <TabsContainer>
           <TabsWrap>
@@ -177,7 +176,6 @@ const {
   AvatarImg,
   EditUserName,
   UserName,
-  MyActivity,
   TabsContainer,
   TabsWrap,
   Tabs,

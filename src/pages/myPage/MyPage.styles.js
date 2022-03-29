@@ -65,15 +65,6 @@ const UserName = styled.div`
   margin: 0 10px;
 `;
 
-const MyActivity = styled.div`
-  border: 1px solid #dddddd;
-  padding: 4px 8px;
-  box-sizing: border-box;
-  border-radius: 4px;
-  margin-left: 50px;
-  color: #3e3e3e;
-`;
-
 const TabsContainer = styled.div`
   padding-bottom: 25px;
 `;
@@ -133,7 +124,6 @@ export const style = {
   AvatarImg,
   EditUserName,
   UserName,
-  MyActivity,
   TabsContainer,
   TabsWrap,
   Tabs,
